@@ -1,11 +1,10 @@
 {
-  "name": "material-ui-theme-creator",
+  "name": "@blocklet/theme-builder",
   "private": true,
   "description": "A comprehensive tool to customize themes for Material-UI",
-  "version": "5.0.0",
+  "version": "1.0.0",
   "keywords": ["MUI", "MUI v5", "Material-UI", "MUI Theme Creator"],
-  "author": "Brian Reynolds <brireyn@gmail.com>",
-  "contributors": ["Zenoo (https://github.com/Zenoo)"],
+  "contributors": ["ArcBlock (https://github.com/ArcBlock)"],
   "dependencies": {
     "@babel/eslint-parser": "^7.17.0",
     "@emotion/react": "^11.9.0",
@@ -65,21 +64,21 @@
   },
   "license": "0BSD",
   "scripts": {
-    "build": "./extractMuiVersion.sh && gatsby build",
-    "develop": "gatsby develop",
-    "deploy": "bash ./extractMuiVersion.sh && gatsby build --prefix-paths && gh-pages -d public",
-    "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
-    "start": "npm run develop",
-    "serve": "gatsby serve",
-    "clean": "gatsby clean",
-    "test": "jest"
+    "build": "./extractMuiVersion.sh && pnpm exec gatsby build",
+    "develop": "pnpm exec gatsby develop",
+    "deploy": "bash ./extractMuiVersion.sh && pnpm exec gatsby build --prefix-paths && pnpm exec gh-pages -d public",
+    "format": "pnpm exec prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
+    "start": "pnpm run develop",
+    "serve": "pnpm exec gatsby serve",
+    "clean": "pnpm exec gatsby clean",
+    "test": "pnpm exec jest"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/zenoo/mui-theme-creator"
+    "url": "https://github.com/ArcBlock/mui-theme-builder"
   },
   "homepage": "https://zenoo.github.io/mui-theme-creator/",
   "bugs": {
-    "url": "https://github.com/zenoo/mui-theme-creator/issues"
+    "url": "https://github.com/ArcBlock/mui-theme-builder/issues"
   }
 }

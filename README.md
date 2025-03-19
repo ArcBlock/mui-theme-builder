@@ -42,10 +42,10 @@ _Have feature ideas, useful snippets, or bugs? Fantastic! Any help is appreciate
 ## 🚀 Quick start
 
 ```shell
-yarn install
-yarn start # or use gatsby develop
+pnpm install
+pnpm start # or use pnpm develop
 ```
 
 ## Acknowledgements
 
-This project is forked from [MUI Theme Creator v4](https://bareynol.github.io/mui-theme-creator/) by [@bareynol](https://github.com/bareynol).
+This project is forked from [MUI Theme Creator v5](https://github.com/Zenoo/mui-theme-creator).
