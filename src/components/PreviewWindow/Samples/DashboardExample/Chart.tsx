@@ -1,15 +1,8 @@
-import React from "react"
-import { useTheme } from "@mui/material/styles"
-import Tooltip from "@mui/material/Tooltip"
-import Typography from "@mui/material/Typography"
-import {
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  Label,
-  ResponsiveContainer,
-} from "recharts"
+import Tooltip from '@mui/material/Tooltip';
+import Typography from '@mui/material/Typography';
+import { useTheme } from '@mui/material/styles';
+import React from 'react';
+import { Label, Line, LineChart, ResponsiveContainer, XAxis, YAxis } from 'recharts';
 
 // Generate Sales Data
 function createData(time: string, amount?: number) {
@@ -18,31 +11,27 @@ function createData(time: string, amount?: number) {
     amount,
     amount2: typeof amount === 'undefined' ? NaN : amount + Math.round(Math.random() * 1000),
     amount3: typeof amount === 'undefined' ? NaN : amount + Math.round(Math.random() * 2000),
-  }
+  };
 }
 
 const data = [
-  createData("00:00", 0),
-  createData("03:00", 300),
-  createData("06:00", 600),
-  createData("09:00", 800),
-  createData("12:00", 1500),
-  createData("15:00", 2000),
-  createData("18:00", 2400),
-  createData("21:00", 2400),
-  createData("24:00"),
-]
+  createData('00:00', 0),
+  createData('03:00', 300),
+  createData('06:00', 600),
+  createData('09:00', 800),
+  createData('12:00', 1500),
+  createData('15:00', 2000),
+  createData('18:00', 2400),
+  createData('21:00', 2400),
+  createData('24:00'),
+];
 
 export default function Chart() {
-  const theme = useTheme()
+  const theme = useTheme();
 
   return (
     <React.Fragment>
-      <Tooltip
-        title={`<Typography color="primary" variant="h6">`}
-        placement="left"
-        arrow
-      >
+      <Tooltip title={`<Typography color="primary" variant="h6">`} placement="left" arrow>
         <Typography variant="h6" color="primary" gutterBottom>
           Today
         </Typography>
@@ -55,38 +44,18 @@ export default function Chart() {
             right: 16,
             bottom: 0,
             left: 24,
-          }}
-        >
+          }}>
           <XAxis dataKey="time" stroke={theme.palette.text.secondary} />
           <YAxis stroke={theme.palette.text.secondary}>
-            <Label
-              angle={270}
-              position="left"
-              style={{ textAnchor: "middle", fill: theme.palette.text.primary }}
-            >
+            <Label angle={270} position="left" style={{ textAnchor: 'middle', fill: theme.palette.text.primary }}>
               Sales ($)
             </Label>
           </YAxis>
-          <Line
-            type="monotone"
-            dataKey="amount"
-            stroke={theme.palette.primary.main}
-            dot={false}
-          />
-          <Line
-            type="monotone"
-            dataKey="amount2"
-            stroke={theme.palette.primary.light}
-            dot={false}
-          />
-          <Line
-            type="monotone"
-            dataKey="amount3"
-            stroke={theme.palette.primary.dark}
-            dot={false}
-          />
+          <Line type="monotone" dataKey="amount" stroke={theme.palette.primary.main} dot={false} />
+          <Line type="monotone" dataKey="amount2" stroke={theme.palette.primary.light} dot={false} />
+          <Line type="monotone" dataKey="amount3" stroke={theme.palette.primary.dark} dot={false} />
         </LineChart>
       </ResponsiveContainer>
     </React.Fragment>
-  )
+  );
 }

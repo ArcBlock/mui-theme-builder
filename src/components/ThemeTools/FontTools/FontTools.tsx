@@ -1,30 +1,29 @@
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore"
-import { Box, Chip } from "@mui/material"
-import Accordion from "@mui/material/Accordion"
-import AccordionDetails from "@mui/material/AccordionDetails"
-import AccordionSummary from "@mui/material/AccordionSummary"
-import Typography from "@mui/material/Typography"
-import React from "react"
-import { useSelector } from "react-redux"
-import { RootState } from "src/state/types"
-import AddFontInput from "./AddFontInput"
-import PopularFontList from "./PopularFontList"
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { Box, Chip } from '@mui/material';
+import Accordion from '@mui/material/Accordion';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import Typography from '@mui/material/Typography';
+import React from 'react';
+import { useSelector } from 'react-redux';
+import { RootState } from 'src/state/types';
+
+import AddFontInput from './AddFontInput';
+import PopularFontList from './PopularFontList';
 
 const loadedFontContentStyle = {
-  display: "flex",
-  flexWrap: "wrap",
-  "& > *": {
+  display: 'flex',
+  flexWrap: 'wrap',
+  '& > *': {
     m: 0.5,
   },
   maxHeight: 200,
-  overflowY: "auto",
+  overflowY: 'auto',
 };
 
 function FontTools() {
-  const loadedFonts = useSelector((state: RootState) => state.loadedFonts)
-  const currentFonts = useSelector(
-    (state: RootState) => state.savedThemes[state.themeId].fonts
-  )
+  const loadedFonts = useSelector((state: RootState) => state.loadedFonts);
+  const currentFonts = useSelector((state: RootState) => state.savedThemes[state.themeId].fonts);
 
   return (
     <>
@@ -47,13 +46,8 @@ function FontTools() {
         </AccordionSummary>
         <AccordionDetails>
           <Box sx={loadedFontContentStyle}>
-            {currentFonts.map(font => (
-              <Chip
-                label={font}
-                key={font}
-                size="small"
-                style={{ fontFamily: font }}
-              />
+            {currentFonts.map((font) => (
+              <Chip label={font} key={font} size="small" style={{ fontFamily: font }} />
             ))}
           </Box>
         </AccordionDetails>
@@ -64,19 +58,14 @@ function FontTools() {
         </AccordionSummary>
         <AccordionDetails>
           <Box sx={loadedFontContentStyle}>
-            {[...loadedFonts].map(font => (
-              <Chip
-                label={font}
-                key={font}
-                size="small"
-                style={{ fontFamily: font }}
-              />
+            {[...loadedFonts].map((font) => (
+              <Chip label={font} key={font} size="small" style={{ fontFamily: font }} />
             ))}
           </Box>
         </AccordionDetails>
       </Accordion>
     </>
-  )
+  );
 }
 
-export default FontTools
+export default FontTools;

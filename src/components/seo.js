@@ -4,31 +4,28 @@
  *
  * See: https://www.gatsbyjs.org/docs/use-static-query/
  */
-
-import React from "react"
-import PropTypes from "prop-types"
-import { Helmet, HelmetProvider } from "react-helmet-async"
-import { useStaticQuery, graphql } from "gatsby"
-import siteImage from "src/images/mui_theme_creator_logo.png"
+import { graphql, useStaticQuery } from 'gatsby';
+import PropTypes from 'prop-types';
+import React from 'react';
+import { Helmet, HelmetProvider } from 'react-helmet-async';
+import siteImage from 'src/images/mui_theme_creator_logo.png';
 
 function SEO({ description, lang, meta, title }) {
-  const { site } = useStaticQuery(
-    graphql`
-      query {
-        site {
-          siteMetadata {
-            title
-            description
-            author
-            url
-          }
+  const { site } = useStaticQuery(graphql`
+    query {
+      site {
+        siteMetadata {
+          title
+          description
+          author
+          url
         }
       }
-    `
-  )
+    }
+  `);
 
-  const metaDescription = description || site.siteMetadata.description
-  const siteUrl = site.siteMetadata.url
+  const metaDescription = description || site.siteMetadata.description;
+  const siteUrl = site.siteMetadata.url;
   return (
     <HelmetProvider>
       <Helmet
@@ -96,20 +93,20 @@ function SEO({ description, lang, meta, title }) {
         ].concat(meta)}
       />
     </HelmetProvider>
-  )
+  );
 }
 
 SEO.defaultProps = {
   lang: `en`,
   meta: [],
   description: ``,
-}
+};
 
 SEO.propTypes = {
   description: PropTypes.string,
   lang: PropTypes.string,
   meta: PropTypes.arrayOf(PropTypes.object),
   title: PropTypes.string.isRequired,
-}
+};
 
-export default SEO
+export default SEO;

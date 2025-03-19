@@ -3,8 +3,15 @@
   "private": true,
   "description": "A comprehensive tool to customize themes for Material-UI",
   "version": "1.0.0",
-  "keywords": ["MUI", "MUI v5", "Material-UI", "MUI Theme Creator"],
-  "contributors": ["ArcBlock (https://github.com/ArcBlock)"],
+  "keywords": [
+    "MUI",
+    "MUI v5",
+    "Material-UI",
+    "MUI Theme Creator"
+  ],
+  "contributors": [
+    "ArcBlock (https://github.com/ArcBlock)"
+  ],
   "scripts": {
     "dev": "blocklet dev",
     "serve": "vite preview",
@@ -73,11 +80,13 @@
     "webfontloader": "^1.6.28"
   },
   "devDependencies": {
-    "@arcblock/eslint-config": "^0.3.3",
+    "@arcblock/eslint-config-ts": "^0.3.3",
     "@trivago/prettier-plugin-sort-imports": "^4.3.0",
     "@vitejs/plugin-react": "^4.3.4",
     "@types/codemirror": "^0.0.97",
     "@types/dot-prop-immutable": "^1.5.1",
+    "@typescript-eslint/parser": "~7.16.1",
+    "@typescript-eslint/eslint-plugin": "^7.18.0",
     "@types/react-color": "^3.0.4",
     "@types/react-redux": "^7.1.9",
     "@types/webfontloader": "^1.6.32",

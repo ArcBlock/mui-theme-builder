@@ -1,1 +1,1 @@
-export { default } from "./PreviewWindow"
+export { default } from './PreviewWindow';

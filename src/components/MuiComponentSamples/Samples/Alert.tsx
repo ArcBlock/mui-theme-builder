@@ -1,5 +1,5 @@
-import { Alert, AlertTitle, Grid } from "@mui/material"
-import React from "react"
+import { Alert, AlertTitle, Grid } from '@mui/material';
+import React from 'react';
 
 const sectionProps = {
   item: true,
@@ -7,8 +7,8 @@ const sectionProps = {
   lg: 6,
   xl: 4,
   gap: 2,
-  sx: { display: "flex", flexDirection: "column" },
-}
+  sx: { display: 'flex', flexDirection: 'column' },
+};
 
 const AlertExample = () => (
   <Grid container spacing={2}>
@@ -69,6 +69,6 @@ const AlertExample = () => (
       </Alert>
     </Grid>
   </Grid>
-)
+);
 
-export default AlertExample
+export default AlertExample;

@@ -1,41 +1,40 @@
-import VolumeDown from "@mui/icons-material/VolumeDown";
-import VolumeUp from "@mui/icons-material/VolumeUp";
-import { Box } from "@mui/material";
-import Grid from "@mui/material/Grid";
-import Slider from "@mui/material/Slider";
-import Typography from "@mui/material/Typography";
-import React from "react";
+import VolumeDown from '@mui/icons-material/VolumeDown';
+import VolumeUp from '@mui/icons-material/VolumeUp';
+import { Box } from '@mui/material';
+import Grid from '@mui/material/Grid';
+import Slider from '@mui/material/Slider';
+import Typography from '@mui/material/Typography';
+import React from 'react';
 
 const marks = [
   {
     value: 0,
-    label: "0°C",
+    label: '0°C',
   },
   {
     value: 20,
-    label: "20°C",
+    label: '20°C',
   },
   {
     value: 37,
-    label: "37°C",
+    label: '37°C',
   },
   {
     value: 100,
-    label: "100°C",
+    label: '100°C',
   },
-]
+];
 
 function valuetext(value: number) {
-  return `${value}°C`
+  return `${value}°C`;
 }
 
 export default function SliderExample() {
-
-  const [value, setValue] = React.useState<number | number[]>(30)
+  const [value, setValue] = React.useState<number | number[]>(30);
 
   const handleChange = (event: Event, newValue: number | number[]) => {
-    setValue(newValue)
-  }
+    setValue(newValue);
+  };
 
   return (
     <Box sx={{ width: 300 }}>
@@ -47,11 +46,7 @@ export default function SliderExample() {
           <VolumeDown />
         </Grid>
         <Grid item xs>
-          <Slider
-            value={value}
-            onChange={handleChange}
-            aria-labelledby="continuous-slider"
-          />
+          <Slider value={value} onChange={handleChange} aria-labelledby="continuous-slider" />
         </Grid>
         <Grid item>
           <VolumeUp />
@@ -75,5 +70,5 @@ export default function SliderExample() {
         valueLabelDisplay="on"
       />
     </Box>
-  )
+  );
 }

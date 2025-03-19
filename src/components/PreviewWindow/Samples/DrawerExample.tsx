@@ -1,29 +1,29 @@
-import AssignmentIcon from "@mui/icons-material/Assignment"
-import BarChartIcon from "@mui/icons-material/BarChart"
-import DashboardIcon from "@mui/icons-material/Dashboard"
-import LayersIcon from "@mui/icons-material/Layers"
-import PeopleIcon from "@mui/icons-material/People"
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart"
-import { Toolbar } from "@mui/material"
-import Divider from "@mui/material/Divider"
-import Drawer from "@mui/material/Drawer"
-import List from "@mui/material/List"
-import ListItem from "@mui/material/ListItem"
-import ListItemIcon from "@mui/material/ListItemIcon"
-import ListItemText from "@mui/material/ListItemText"
-import ListSubheader from "@mui/material/ListSubheader"
-import React from "react"
+import AssignmentIcon from '@mui/icons-material/Assignment';
+import BarChartIcon from '@mui/icons-material/BarChart';
+import DashboardIcon from '@mui/icons-material/Dashboard';
+import LayersIcon from '@mui/icons-material/Layers';
+import PeopleIcon from '@mui/icons-material/People';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import { Toolbar } from '@mui/material';
+import Divider from '@mui/material/Divider';
+import Drawer from '@mui/material/Drawer';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import ListSubheader from '@mui/material/ListSubheader';
+import React from 'react';
 
-const drawerWidth = 240
+const drawerWidth = 240;
 
 interface Props {
-  open: boolean
-  onClose: () => void
+  open: boolean;
+  onClose: () => void;
 }
 const DrawerExample = ({ open, onClose }: Props) => {
-  const drawerRef = React.useRef<HTMLDivElement | null>(null)
+  const drawerRef = React.useRef<HTMLDivElement | null>(null);
 
-  const getParent = () => drawerRef.current?.parentElement
+  const getParent = () => drawerRef.current?.parentElement;
 
   return (
     <Drawer
@@ -36,29 +36,29 @@ const DrawerExample = ({ open, onClose }: Props) => {
         disablePortal: true,
         BackdropProps: {
           sx: {
-            position: "absolute",
-          }
+            position: 'absolute',
+          },
         },
       }}
       sx={{
-        position: "relative",
-        whiteSpace: "nowrap",
+        position: 'relative',
+        whiteSpace: 'nowrap',
         width: drawerWidth,
-        transition: (theme) => theme.transitions.create("width", {
-          easing: theme.transitions.easing.sharp,
-          duration: theme.transitions.duration.enteringScreen,
-        }),
-      }}
-    >
+        transition: (theme) =>
+          theme.transitions.create('width', {
+            easing: theme.transitions.easing.sharp,
+            duration: theme.transitions.duration.enteringScreen,
+          }),
+      }}>
       <Toolbar />
       <List>{mainListItems}</List>
       <Divider />
       <List>{secondaryListItems}</List>
     </Drawer>
-  )
-}
+  );
+};
 
-export default DrawerExample
+export default DrawerExample;
 
 export const mainListItems = (
   <div>
@@ -93,7 +93,7 @@ export const mainListItems = (
       <ListItemText primary="Integrations" />
     </ListItem>
   </div>
-)
+);
 
 export const secondaryListItems = (
   <div>
@@ -117,4 +117,4 @@ export const secondaryListItems = (
       <ListItemText primary="Year-end sale" />
     </ListItem>
   </div>
-)
+);

@@ -1,33 +1,22 @@
-import React from "react"
-import Typography from "@mui/material/Typography"
-import Grid from "@mui/material/Grid"
-import TextField from "@mui/material/TextField"
-import FormControlLabel from "@mui/material/FormControlLabel"
-import Checkbox from "@mui/material/Checkbox"
-import Tooltip from "@mui/material/Tooltip"
+import Checkbox from '@mui/material/Checkbox';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Grid from '@mui/material/Grid';
+import TextField from '@mui/material/TextField';
+import Tooltip from '@mui/material/Tooltip';
+import Typography from '@mui/material/Typography';
+import React from 'react';
 
 export default function PaymentForm() {
   return (
     <React.Fragment>
-      <Tooltip
-        title={`<Typography color="textPrimary" variant="h6">`}
-        placement="left"
-        arrow
-      >
+      <Tooltip title={`<Typography color="textPrimary" variant="h6">`} placement="left" arrow>
         <Typography variant="h6" gutterBottom>
           Payment method
         </Typography>
       </Tooltip>
       <Grid container spacing={3}>
         <Grid item xs={12} md={6}>
-          <TextField
-            required
-            id="cardName"
-            label="Name on card"
-            fullWidth
-            autoComplete="cc-name"
-            variant="standard"
-          />
+          <TextField required id="cardName" label="Name on card" fullWidth autoComplete="cc-name" variant="standard" />
         </Grid>
         <Grid item xs={12} md={6}>
           <TextField
@@ -40,14 +29,7 @@ export default function PaymentForm() {
           />
         </Grid>
         <Grid item xs={12} md={6}>
-          <TextField
-            required
-            id="expDate"
-            label="Expiry date"
-            fullWidth
-            autoComplete="cc-exp"
-            variant="standard"
-          />
+          <TextField required id="expDate" label="Expiry date" fullWidth autoComplete="cc-exp" variant="standard" />
         </Grid>
         <Grid item xs={12} md={6}>
           <TextField
@@ -72,5 +54,5 @@ export default function PaymentForm() {
         </Grid>
       </Grid>
     </React.Fragment>
-  )
+  );
 }

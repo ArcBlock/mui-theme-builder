@@ -1,23 +1,21 @@
-import React from "react"
+import Typography from '@mui/material/Typography';
+import React from 'react';
+import { savedThemesTabId } from 'src/components/MainWindow';
+import { addThemeButtonId } from 'src/components/SavedThemes/AddThemeButton';
+import { defaultThemesId } from 'src/components/SavedThemes/DefaultThemes';
+import { savedThemeListId } from 'src/components/SavedThemes/SavedThemeList';
 
-import { savedThemesTabId } from "src/components/MainWindow"
-import { addThemeButtonId } from "src/components/SavedThemes/AddThemeButton"
-import { defaultThemesId } from "src/components/SavedThemes/DefaultThemes"
-import { savedThemeListId } from "src/components/SavedThemes/SavedThemeList"
-
-import TutorialTooltip from "../TutorialTooltip"
-import Typography from "@mui/material/Typography"
-
-import { useSwitchToTab } from "./hooks"
+import TutorialTooltip from '../TutorialTooltip';
+import { useSwitchToTab } from './hooks';
 
 const SavedThemesTabTutorialStep = () => {
-  useSwitchToTab("saved")
+  useSwitchToTab('saved');
   return (
     <TutorialTooltip anchorId={savedThemesTabId} placement="bottom">
       <Typography variant="h5">This is the Saved Themes Tab</Typography>
     </TutorialTooltip>
-  )
-}
+  );
+};
 
 const AddNewThemesTutorialStep = () => {
   console.log(defaultThemesId);
@@ -35,7 +33,7 @@ const AddNewThemesTutorialStep = () => {
         Add a new blank theme here
       </TutorialTooltip>
     </>
-  )
-}
+  );
+};
 
-export default [SavedThemesTabTutorialStep, AddNewThemesTutorialStep]
+export default [SavedThemesTabTutorialStep, AddNewThemesTutorialStep];

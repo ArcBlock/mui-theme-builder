@@ -817,4 +817,4 @@ export type Overrides = {
     } & Record<string, CSSProperties["@font-face"] | CSSProperties> // allow arbitrary selectors
   }
 }
-`
+`;

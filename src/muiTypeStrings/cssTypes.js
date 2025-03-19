@@ -37034,4 +37034,4 @@ type TimingFunction = CubicBezierTimingFunction | StepTimingFunction | "linear";
 type TrackBreadth<TLength> = TLength | "auto" | "max-content" | "min-content" | string;
 
 type ViewportLength<TLength> = TLength | "auto" | string;
-`
+`;

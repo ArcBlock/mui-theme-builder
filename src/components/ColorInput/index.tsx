@@ -1,1 +1,1 @@
-export { default } from "./ColorInput"
+export { default } from './ColorInput';

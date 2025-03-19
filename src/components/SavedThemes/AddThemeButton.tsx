@@ -1,54 +1,45 @@
-import React, { useCallback, FormEvent } from "react"
-import Button from "@mui/material/Button/Button"
-import Dialog from "@mui/material/Dialog"
-import DialogTitle from "@mui/material/DialogTitle"
-import DialogContent from "@mui/material/DialogContent"
-import TextField from "@mui/material/TextField"
-import DialogActions from "@mui/material/DialogActions"
-import { useDispatch } from "react-redux"
-import { addNewSavedTheme } from "src/state/actions"
+import Button from '@mui/material/Button/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogTitle from '@mui/material/DialogTitle';
+import TextField from '@mui/material/TextField';
+import React, { FormEvent, useCallback } from 'react';
+import { useDispatch } from 'react-redux';
+import { addNewSavedTheme } from 'src/state/actions';
 
-export const addThemeButtonId = "add-theme-button"
+export const addThemeButtonId = 'add-theme-button';
 
 function AddThemeButton() {
-  const dispatch = useDispatch()
-  const [open, setOpen] = React.useState(false)
+  const dispatch = useDispatch();
+  const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
-    setOpen(true)
-  }
+    setOpen(true);
+  };
 
   const handleClose = () => {
-    setOpen(false)
-  }
+    setOpen(false);
+  };
 
-  const handleFocus = event => event.target.select()
+  const handleFocus = (event) => event.target.select();
 
   const handleSubmit = useCallback(
     (event: FormEvent<HTMLFormElement>) => {
-      event.preventDefault()
-      dispatch(addNewSavedTheme(event.target.themeName.value))
-      handleClose()
+      event.preventDefault();
+      dispatch(addNewSavedTheme(event.target.themeName.value));
+      handleClose();
     },
-    [dispatch]
-  )
+    [dispatch],
+  );
 
   return (
     <>
-      <Button
-        id={addThemeButtonId}
-        variant="outlined"
-        color="secondary"
-        onClick={handleClickOpen}
-      >
+      <Button id={addThemeButtonId} variant="outlined" color="secondary" onClick={handleClickOpen}>
         Add New Theme
       </Button>
 
-      <Dialog
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="add-theme-dialog"
-      >
+      <Dialog open={open} onClose={handleClose} aria-labelledby="add-theme-dialog">
         <form onSubmit={handleSubmit} autoComplete="off">
           <DialogTitle id="add-theme-dialog">Add New Theme</DialogTitle>
           <DialogContent>
@@ -75,7 +66,7 @@ function AddThemeButton() {
         </form>
       </Dialog>
     </>
-  )
+  );
 }
 
-export default AddThemeButton
+export default AddThemeButton;

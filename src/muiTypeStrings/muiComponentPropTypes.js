@@ -2211,4 +2211,4 @@ export interface MuiComponentProps {
       | "inherit"
   }
 }
-`
+`;

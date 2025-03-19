@@ -1,5 +1,7 @@
-import dotProp from "dot-prop-immutable"
-import { RootState } from "./state/types"
+import dotProp from 'dot-prop-immutable';
+
+import { RootState } from './state/types';
+
 /**
  * Get an nested value from an object by a string path
  * e.g. resolvePath({a: {b: {c : 5}}}, 'a.b.c') would return 5
@@ -8,54 +10,40 @@ import { RootState } from "./state/types"
  * @param {string} path   - a key path to access nested values
  * @param {*} defaultValue - optional default value if path not found
  */
-export const getByPath = (
-  object: object | null,
-  path: string,
-  defaultValue?: any
-) =>
-  path.split(".").reduce((o: any, p) => (o ? o[p] : defaultValue), object) ||
-  defaultValue
+export const getByPath = (object: object | null, path: string, defaultValue?: any) =>
+  path.split('.').reduce((o: any, p) => (o ? o[p] : defaultValue), object) || defaultValue;
 
 export const removeByPath: any = (object: any, path: string) => {
-  const prunedObject = dotProp.delete(object, path)
-  const pathArray = path.split(".")
+  const prunedObject = dotProp.delete(object, path);
+  const pathArray = path.split('.');
   if (pathArray.length > 1) {
-    const parentPath = pathArray.slice(0, pathArray.length - 1).join(".")
-    const parentObject = getByPath(prunedObject, parentPath)
-    if (
-      parentObject &&
-      typeof parentObject === "object" &&
-      Object.keys(parentObject).length === 0
-    ) {
-      return removeByPath(prunedObject, parentPath)
+    const parentPath = pathArray.slice(0, pathArray.length - 1).join('.');
+    const parentObject = getByPath(prunedObject, parentPath);
+    if (parentObject && typeof parentObject === 'object' && Object.keys(parentObject).length === 0) {
+      return removeByPath(prunedObject, parentPath);
     }
   }
 
-  return prunedObject
-}
+  return prunedObject;
+};
 
-export const setByPath = (object: any, path: string, value: any) =>
-  dotProp.set(object, path, value)
+export const setByPath = (object: any, path: string, value: any) => dotProp.set(object, path, value);
 
 /**
  * Generate an id for a saved theme, ensuring that it does not collide with
  * one already in the store
  */
-export const generateThemeId = (savedThemes: RootState["savedThemes"]) => {
+export const generateThemeId = (savedThemes: RootState['savedThemes']) => {
   // generate a long string of characters
-  const genString = () =>
-    ["", "", ""].reduce(
-      (str, _) => (str += Math.random().toString(36).substring(2, 15)),
-      ""
-    )
+  const genString = () => ['', '', ''].reduce((str, _) => (str += Math.random().toString(36).substring(2, 15)), '');
 
-  let id
+  let id;
   do {
-    id = genString()
-  } while (savedThemes.hasOwnProperty(id))
+    id = genString();
+  } while (savedThemes.hasOwnProperty(id));
 
-  return id
-}
+  return id;
+};
 
 /**
  * Shallow comparison of sets for equality
@@ -63,10 +51,10 @@ export const generateThemeId = (savedThemes: RootState["savedThemes"]) => {
  * @param b Set to compare
  */
 export function isSetEq(a: Set<any>, b: Set<any>) {
-  if (a.size !== b.size) return false
-  for (var x of a) if (!b.has(x)) return false
+  if (a.size !== b.size) return false;
+  for (var x of a) if (!b.has(x)) return false;
 
-  return true
+  return true;
 }
 
 /**
@@ -74,7 +62,7 @@ export function isSetEq(a: Set<any>, b: Set<any>) {
  * @param args parameters passed to `console.log`
  */
 export function verbose(...args: any[]) {
-  if (process.env.NODE_ENV === "development") {
-    console.log(...args)
+  if (process.env.NODE_ENV === 'development') {
+    console.log(...args);
   }
 }

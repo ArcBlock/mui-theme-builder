@@ -1,18 +1,15 @@
-import { EditorState } from "./types"
-import { defaultThemeOptions } from "src/siteTheme"
-import JSON5 from "json5"
-import { ThemeOptions } from "@mui/material"
-import { RootState } from "../types"
+import { ThemeOptions } from '@mui/material';
+import JSON5 from 'json5';
+import { defaultThemeOptions } from 'src/siteTheme';
+
+import { RootState } from '../types';
+import { EditorState } from './types';
 
 const stringify = (themeOptions: ThemeOptions) => {
   return `import { ThemeOptions } from '@mui/material/styles';
 
-export const themeOptions: ThemeOptions = ${JSON5.stringify(
-    themeOptions,
-    null,
-    2
-  )};`
-}
+export const themeOptions: ThemeOptions = ${JSON5.stringify(themeOptions, null, 2)};`;
+};
 
 export const initialState: EditorState = {
   themeInput: stringify(defaultThemeOptions),
@@ -25,42 +22,38 @@ export const initialState: EditorState = {
   errors: [],
   formatOnSave: true,
   outputTypescript: true,
-}
+};
 
-export default (
-  state = initialState,
-  action: any,
-  savedThemes: RootState["savedThemes"]
-) => {
+export default (state = initialState, action: any, savedThemes: RootState['savedThemes']) => {
   switch (action.type) {
-    case "persist/REHYDRATE":
+    case 'persist/REHYDRATE':
       if (action.payload != null) {
         return {
           ...state,
           themeInput: stringify(action.payload.themeOptions),
-        }
+        };
       }
-    case "UPDATE_EDITOR_STATE":
+    case 'UPDATE_EDITOR_STATE':
       return {
         ...state,
         ...action.editorState,
-      }
-    case "UPDATE_THEME":
+      };
+    case 'UPDATE_THEME':
       return {
         ...state,
         themeInput: stringify(action.themeOptions),
-      }
-    case "ADD_NEW_THEME":
+      };
+    case 'ADD_NEW_THEME':
       return {
         ...state,
         themeInput: stringify(action.savedTheme.themeOptions),
-      }
-    case "LOAD_THEME":
+      };
+    case 'LOAD_THEME':
       return {
         ...state,
         themeInput: stringify(savedThemes[action.themeId].themeOptions),
-      }
+      };
     default:
-      return state
+      return state;
   }
-}
+};

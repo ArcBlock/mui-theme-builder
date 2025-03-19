@@ -1,7 +1,8 @@
-import { useEffect } from "react"
-import * as monaco from "monaco-editor"
-import { EditorRefType } from "../types"
-import { verbose } from "src/utils"
+import * as monaco from 'monaco-editor';
+import { useEffect } from 'react';
+import { verbose } from 'src/utils';
+
+import { EditorRefType } from '../types';
 
 // number of lines from the top and bottom of the
 // code in the editor that should be considered read only
@@ -11,7 +12,7 @@ import { verbose } from "src/utils"
 const readOnlyLines = {
   top: 3,
   bottom: 1,
-}
+};
 
 /**
  * Restricts backspace and delete on read only lines,
@@ -20,7 +21,7 @@ const readOnlyLines = {
  */
 export default function useReadOnlyLines(editorRef: EditorRefType) {
   // apply read only styles
-  useReadOnlyStyles(editorRef)
+  useReadOnlyStyles(editorRef);
 
   useEffect(() => {
     /**
@@ -28,17 +29,12 @@ export default function useReadOnlyLines(editorRef: EditorRefType) {
      * on read only lines
      */
     function preventModifyReadOnlyLines(event: monaco.IKeyboardEvent) {
-      const selection = editorRef.current?.getSelection()
-      const lastEditableLine =
-        (editorRef.current?.getModel()?.getLineCount() || 0) -
-        readOnlyLines.bottom
+      const selection = editorRef.current?.getSelection();
+      const lastEditableLine = (editorRef.current?.getModel()?.getLineCount() || 0) - readOnlyLines.bottom;
 
-      if (!selection || lastEditableLine < 0) return null
+      if (!selection || lastEditableLine < 0) return null;
 
-      if (
-        selection.startLineNumber <= readOnlyLines.top ||
-        selection.endLineNumber > lastEditableLine
-      ) {
+      if (selection.startLineNumber <= readOnlyLines.top || selection.endLineNumber > lastEditableLine) {
         const allowedKeys = [
           monaco.KeyCode.LeftArrow,
           monaco.KeyCode.RightArrow,
@@ -46,19 +42,13 @@ export default function useReadOnlyLines(editorRef: EditorRefType) {
           monaco.KeyCode.DownArrow,
           monaco.KeyCode.PageUp,
           monaco.KeyCode.PageDown,
-        ]
-        const eventIsPaste =
-          event.ctrlKey && event.keyCode === monaco.KeyCode.KEY_V
-        const eventIsCut =
-          event.ctrlKey && event.keyCode === monaco.KeyCode.KEY_X
+        ];
+        const eventIsPaste = event.ctrlKey && event.keyCode === monaco.KeyCode.KEY_V;
+        const eventIsCut = event.ctrlKey && event.keyCode === monaco.KeyCode.KEY_X;
 
-        if (
-          eventIsPaste ||
-          eventIsCut ||
-          (!event.ctrlKey && !allowedKeys.includes(event.keyCode))
-        ) {
-          event.preventDefault()
-          event.stopPropagation()
+        if (eventIsPaste || eventIsCut || (!event.ctrlKey && !allowedKeys.includes(event.keyCode))) {
+          event.preventDefault();
+          event.stopPropagation();
         }
       }
     }
@@ -68,14 +58,14 @@ export default function useReadOnlyLines(editorRef: EditorRefType) {
      */
     function preventBackspaceToReadOnlyLines(event: monaco.IKeyboardEvent) {
       if (event.keyCode === monaco.KeyCode.Backspace) {
-        const selection = editorRef.current?.getSelection()
+        const selection = editorRef.current?.getSelection();
 
-        if (!selection) return null
+        if (!selection) return null;
 
         if (selection.startLineNumber === readOnlyLines.top + 1) {
           if (selection.startColumn === 1 && selection.isEmpty()) {
-            verbose("preventing backspace on read-only line")
-            event.stopPropagation()
+            verbose('preventing backspace on read-only line');
+            event.stopPropagation();
           }
         }
       }
@@ -86,35 +76,30 @@ export default function useReadOnlyLines(editorRef: EditorRefType) {
      */
     function preventDeleteToReadOnlyLines(event: monaco.IKeyboardEvent) {
       if (event.keyCode === monaco.KeyCode.Delete) {
-        const selection = editorRef.current?.getSelection()
-        const lastEditableLine =
-          (editorRef.current?.getModel()?.getLineCount() || 0) -
-          readOnlyLines.bottom
+        const selection = editorRef.current?.getSelection();
+        const lastEditableLine = (editorRef.current?.getModel()?.getLineCount() || 0) - readOnlyLines.bottom;
 
-        if (!selection || lastEditableLine < 0) return null
+        if (!selection || lastEditableLine < 0) return null;
 
         if (selection.endLineNumber === lastEditableLine) {
-          const lineLength =
-            editorRef.current?.getModel()?.getLineLength(lastEditableLine) || 0
+          const lineLength = editorRef.current?.getModel()?.getLineLength(lastEditableLine) || 0;
 
           if (selection.endColumn > lineLength && selection.isEmpty()) {
-            verbose("preventing delete on read-only lines")
-            event.stopPropagation()
+            verbose('preventing delete on read-only lines');
+            event.stopPropagation();
           }
         }
       }
     }
 
-    const keyDownBinding = editorRef.current?.onKeyDown(
-      (event: monaco.IKeyboardEvent) => {
-        preventModifyReadOnlyLines(event)
-        preventBackspaceToReadOnlyLines(event)
-        preventDeleteToReadOnlyLines(event)
-      }
-    )
+    const keyDownBinding = editorRef.current?.onKeyDown((event: monaco.IKeyboardEvent) => {
+      preventModifyReadOnlyLines(event);
+      preventBackspaceToReadOnlyLines(event);
+      preventDeleteToReadOnlyLines(event);
+    });
 
-    return () => keyDownBinding?.dispose()
-  }, [])
+    return () => keyDownBinding?.dispose();
+  }, []);
 }
 
 /**
@@ -124,25 +109,25 @@ export default function useReadOnlyLines(editorRef: EditorRefType) {
  * @param editorRef
  */
 export const useReadOnlyStyles = (editorRef: EditorRefType) => {
-  let decorationIds: string[] = [] // the IDs of decorations created
+  let decorationIds: string[] = []; // the IDs of decorations created
 
   /**
    * Add the className "readOnlyLine" (styles defined in ../editor.css)
    * to the first three lines and the last line in the editor
    */
   const applyStyles = () => {
-    const lastLine = editorRef.current?.getModel()?.getLineCount() || 0
+    const lastLine = editorRef.current?.getModel()?.getLineCount() || 0;
 
     // wipe the existing read only decorations, and add new ones
     const decorationOptions = {
       isWholeLine: true,
-      inlineClassName: "readOnlyLine",
+      inlineClassName: 'readOnlyLine',
       hoverMessage: [
         {
-          value: "This line is read-only",
+          value: 'This line is read-only',
         },
       ],
-    }
+    };
     decorationIds =
       editorRef.current?.deltaDecorations(decorationIds, [
         {
@@ -153,21 +138,19 @@ export const useReadOnlyStyles = (editorRef: EditorRefType) => {
           range: new monaco.Range(lastLine, 1, lastLine, 50),
           options: decorationOptions,
         },
-      ]) || []
-  }
+      ]) || [];
+  };
 
   useEffect(() => {
     // add the initial styles
-    applyStyles()
+    applyStyles();
 
     // when model content changes, ensure that styles are reapplied
-    const modelContentChangeBinding = editorRef.current?.onDidChangeModelContent(
-      applyStyles
-    )
+    const modelContentChangeBinding = editorRef.current?.onDidChangeModelContent(applyStyles);
 
     return () => {
-      editorRef.current?.deltaDecorations(decorationIds, []) // wipe any existing decorations
-      modelContentChangeBinding?.dispose()
-    }
-  }, [])
-}
+      editorRef.current?.deltaDecorations(decorationIds, []); // wipe any existing decorations
+      modelContentChangeBinding?.dispose();
+    };
+  }, []);
+};

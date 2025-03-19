@@ -1,20 +1,19 @@
-import CloudUploadIcon from "@mui/icons-material/CloudUpload";
-import DeleteIcon from "@mui/icons-material/Delete";
-import KeyboardVoiceIcon from "@mui/icons-material/KeyboardVoice";
-import SaveIcon from "@mui/icons-material/Save";
-import { Box, Typography } from "@mui/material";
-import Button from "@mui/material/Button";
-import React from "react";
+import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import DeleteIcon from '@mui/icons-material/Delete';
+import KeyboardVoiceIcon from '@mui/icons-material/KeyboardVoice';
+import SaveIcon from '@mui/icons-material/Save';
+import { Box, Typography } from '@mui/material';
+import Button from '@mui/material/Button';
+import React from 'react';
 
 const groupStyle = {
   mb: 2,
   '& > *': {
-    m: 1
-  }
+    m: 1,
+  },
 };
 
 export default function ButtonsExample() {
-
   return (
     <div>
       <Typography variant="h6" id="contained-buttons">
@@ -72,38 +71,19 @@ export default function ButtonsExample() {
         Buttons with icons and label
       </Typography>
       <Box sx={groupStyle}>
-        <Button
-          variant="contained"
-          color="secondary"
-          startIcon={<DeleteIcon />}
-        >
+        <Button variant="contained" color="secondary" startIcon={<DeleteIcon />}>
           Delete
         </Button>
         <Button variant="contained" startIcon={<CloudUploadIcon />}>
           Upload
         </Button>
-        <Button
-          variant="contained"
-          disabled
-          color="secondary"
-          startIcon={<KeyboardVoiceIcon />}
-        >
+        <Button variant="contained" disabled color="secondary" startIcon={<KeyboardVoiceIcon />}>
           Talk
         </Button>
-        <Button
-          variant="contained"
-          color="primary"
-          size="small"
-          startIcon={<SaveIcon />}
-        >
+        <Button variant="contained" color="primary" size="small" startIcon={<SaveIcon />}>
           Save
         </Button>
-        <Button
-          variant="contained"
-          color="primary"
-          size="large"
-          startIcon={<SaveIcon />}
-        >
+        <Button variant="contained" color="primary" size="large" startIcon={<SaveIcon />}>
           Save
         </Button>
       </Box>

@@ -1,55 +1,46 @@
-import DeleteIcon from "@mui/icons-material/Delete";
-import FolderIcon from "@mui/icons-material/Folder";
-import { Box } from "@mui/material";
-import Avatar from "@mui/material/Avatar";
-import Checkbox from "@mui/material/Checkbox";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import FormGroup from "@mui/material/FormGroup";
-import Grid from "@mui/material/Grid";
-import IconButton from "@mui/material/IconButton";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemAvatar from "@mui/material/ListItemAvatar";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemSecondaryAction from "@mui/material/ListItemSecondaryAction";
-import ListItemText from "@mui/material/ListItemText";
-import Typography from "@mui/material/Typography";
-import React from "react";
+import DeleteIcon from '@mui/icons-material/Delete';
+import FolderIcon from '@mui/icons-material/Folder';
+import { Box } from '@mui/material';
+import Avatar from '@mui/material/Avatar';
+import Checkbox from '@mui/material/Checkbox';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormGroup from '@mui/material/FormGroup';
+import Grid from '@mui/material/Grid';
+import IconButton from '@mui/material/IconButton';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemAvatar from '@mui/material/ListItemAvatar';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemSecondaryAction from '@mui/material/ListItemSecondaryAction';
+import ListItemText from '@mui/material/ListItemText';
+import Typography from '@mui/material/Typography';
+import React from 'react';
 
 function generate(element: React.ReactElement) {
-  return [0, 1, 2].map(value =>
+  return [0, 1, 2].map((value) =>
     React.cloneElement(element, {
       key: value,
-    })
-  )
+    }),
+  );
 }
 
 export default function ListExample() {
-  const [dense, setDense] = React.useState(false)
-  const [secondary, setSecondary] = React.useState(false)
+  const [dense, setDense] = React.useState(false);
+  const [secondary, setSecondary] = React.useState(false);
 
   return (
-    <Box sx={{
-      flexGrow: 1,
-      maxWidth: 752,
-    }}>
+    <Box
+      sx={{
+        flexGrow: 1,
+        maxWidth: 752,
+      }}>
       <FormGroup row>
         <FormControlLabel
-          control={
-            <Checkbox
-              checked={dense}
-              onChange={event => setDense(event.target.checked)}
-            />
-          }
+          control={<Checkbox checked={dense} onChange={(event) => setDense(event.target.checked)} />}
           label="Enable dense"
         />
         <FormControlLabel
-          control={
-            <Checkbox
-              checked={secondary}
-              onChange={event => setSecondary(event.target.checked)}
-            />
-          }
+          control={<Checkbox checked={secondary} onChange={(event) => setSecondary(event.target.checked)} />}
           label="Enable secondary text"
         />
       </FormGroup>
@@ -62,11 +53,8 @@ export default function ListExample() {
             <List dense={dense}>
               {generate(
                 <ListItem>
-                  <ListItemText
-                    primary="Single-line item"
-                    secondary={secondary ? "Secondary text" : null}
-                  />
-                </ListItem>
+                  <ListItemText primary="Single-line item" secondary={secondary ? 'Secondary text' : null} />
+                </ListItem>,
               )}
             </List>
           </Box>
@@ -82,11 +70,8 @@ export default function ListExample() {
                   <ListItemIcon>
                     <FolderIcon />
                   </ListItemIcon>
-                  <ListItemText
-                    primary="Single-line item"
-                    secondary={secondary ? "Secondary text" : null}
-                  />
-                </ListItem>
+                  <ListItemText primary="Single-line item" secondary={secondary ? 'Secondary text' : null} />
+                </ListItem>,
               )}
             </List>
           </Box>
@@ -106,11 +91,8 @@ export default function ListExample() {
                       <FolderIcon />
                     </Avatar>
                   </ListItemAvatar>
-                  <ListItemText
-                    primary="Single-line item"
-                    secondary={secondary ? "Secondary text" : null}
-                  />
-                </ListItem>
+                  <ListItemText primary="Single-line item" secondary={secondary ? 'Secondary text' : null} />
+                </ListItem>,
               )}
             </List>
           </Box>
@@ -128,16 +110,13 @@ export default function ListExample() {
                       <FolderIcon />
                     </Avatar>
                   </ListItemAvatar>
-                  <ListItemText
-                    primary="Single-line item"
-                    secondary={secondary ? "Secondary text" : null}
-                  />
+                  <ListItemText primary="Single-line item" secondary={secondary ? 'Secondary text' : null} />
                   <ListItemSecondaryAction>
                     <IconButton edge="end" aria-label="delete" size="large">
                       <DeleteIcon />
                     </IconButton>
                   </ListItemSecondaryAction>
-                </ListItem>
+                </ListItem>,
               )}
             </List>
           </Box>

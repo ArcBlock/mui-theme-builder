@@ -1,25 +1,23 @@
-import React from "react"
+import Typography from '@mui/material/Typography';
+import React from 'react';
+import { previewTabId } from 'src/components/MainWindow';
+import { previewSizeControlsId } from 'src/components/PreviewWindow/PreviewSizeControls';
+import { previewNavTabsId } from 'src/components/PreviewWindow/PreviewWindow';
 
-import { previewTabId } from "src/components/MainWindow"
-import { previewSizeControlsId } from "src/components/PreviewWindow/PreviewSizeControls"
-import { previewNavTabsId } from "src/components/PreviewWindow/PreviewWindow"
-
-import TutorialTooltip from "../TutorialTooltip"
-import Typography from "@mui/material/Typography"
-
-import { useSwitchToTab } from "./hooks"
+import TutorialTooltip from '../TutorialTooltip';
+import { useSwitchToTab } from './hooks';
 
 const PreviewTabTutorialStep = () => {
-  useSwitchToTab("preview")
+  useSwitchToTab('preview');
   return (
     <TutorialTooltip anchorId={previewTabId} placement="bottom">
       <Typography variant="h5">This is the Preview Tab</Typography>
     </TutorialTooltip>
-  )
-}
+  );
+};
 
 const SiteSamplesTutorialStep = () => {
-  useSwitchToTab("preview")
+  useSwitchToTab('preview');
   return (
     <>
       <TutorialTooltip anchorId={previewNavTabsId} placement="bottom">
@@ -29,7 +27,7 @@ const SiteSamplesTutorialStep = () => {
         View your theme on multiple screen sizes
       </TutorialTooltip>
     </>
-  )
-}
+  );
+};
 
-export default [PreviewTabTutorialStep, SiteSamplesTutorialStep]
+export default [PreviewTabTutorialStep, SiteSamplesTutorialStep];

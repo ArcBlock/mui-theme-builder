@@ -1,10 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
+import { BrowserRouter } from 'react-router-dom';
 import { PersistGate } from 'redux-persist/integration/react';
-import { store, persistor } from './store'; // 假设您的 Redux store 在这里
-import App from './App'; // 您的主应用组件
+
+// 假设您的 Redux store 在这里
+import App from './App';
+import { persistor, store } from './store';
+
+// 您的主应用组件
 
 const root = ReactDOM.createRoot(document.getElementById('root')!);
 
@@ -17,5 +21,5 @@ root.render(
         </BrowserRouter>
       </PersistGate>
     </Provider>
-  </React.StrictMode>
-); 
+  </React.StrictMode>,
+);

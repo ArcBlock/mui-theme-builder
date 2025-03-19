@@ -1,8 +1,8 @@
-import toolPanelSteps from "./toolPanelSteps"
-import codeEditorSteps from "./codeEditorSteps"
-import previewWindowSteps from "./previewWindowSteps"
-import componentSamplesSteps from "./componentSamplesSteps"
-import savedThemesSteps from "./savedThemesSteps"
+import codeEditorSteps from './codeEditorSteps';
+import componentSamplesSteps from './componentSamplesSteps';
+import previewWindowSteps from './previewWindowSteps';
+import savedThemesSteps from './savedThemesSteps';
+import toolPanelSteps from './toolPanelSteps';
 
 export default [
   ...toolPanelSteps,
@@ -10,4 +10,4 @@ export default [
   ...previewWindowSteps,
   ...componentSamplesSteps,
   ...savedThemesSteps,
-]
+];

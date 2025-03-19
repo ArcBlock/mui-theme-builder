@@ -1,1 +1,1 @@
-export { default } from "./MuiComponentSamples"
+export { default } from './MuiComponentSamples';

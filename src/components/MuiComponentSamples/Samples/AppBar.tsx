@@ -1,76 +1,76 @@
-import AccountCircle from "@mui/icons-material/AccountCircle";
-import MailIcon from "@mui/icons-material/Mail";
-import MenuIcon from "@mui/icons-material/Menu";
-import MoreIcon from "@mui/icons-material/MoreVert";
-import NotificationsIcon from "@mui/icons-material/Notifications";
-import SearchIcon from "@mui/icons-material/Search";
-import { Box, Tooltip } from "@mui/material";
-import AppBar from "@mui/material/AppBar";
-import Badge from "@mui/material/Badge";
-import IconButton from "@mui/material/IconButton";
-import InputBase from "@mui/material/InputBase";
-import Menu from "@mui/material/Menu";
-import MenuItem from "@mui/material/MenuItem";
-import { alpha } from "@mui/material/styles";
-import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
-import React from "react";
+import AccountCircle from '@mui/icons-material/AccountCircle';
+import MailIcon from '@mui/icons-material/Mail';
+import MenuIcon from '@mui/icons-material/Menu';
+import MoreIcon from '@mui/icons-material/MoreVert';
+import NotificationsIcon from '@mui/icons-material/Notifications';
+import SearchIcon from '@mui/icons-material/Search';
+import { Box, Tooltip } from '@mui/material';
+import AppBar from '@mui/material/AppBar';
+import Badge from '@mui/material/Badge';
+import IconButton from '@mui/material/IconButton';
+import InputBase from '@mui/material/InputBase';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
+import { alpha } from '@mui/material/styles';
+import React from 'react';
 
 interface Props {
-  onDrawerButtonClick: React.MouseEventHandler<HTMLButtonElement>
+  onDrawerButtonClick: React.MouseEventHandler<HTMLButtonElement>;
 }
 
 export default function AppBarExample({ onDrawerButtonClick }: Props) {
-  const [anchorEl, setAnchorEl] = React.useState<Element | null>(null)
-  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState<Element | null>(null)
+  const [anchorEl, setAnchorEl] = React.useState<Element | null>(null);
+  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState<Element | null>(null);
 
-  const isMenuOpen = Boolean(anchorEl)
-  const isMobileMenuOpen = Boolean(mobileMoreAnchorEl)
+  const isMenuOpen = Boolean(anchorEl);
+  const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
-  const handleProfileMenuOpen = (event: React.MouseEvent<HTMLAnchorElement | HTMLLIElement | HTMLButtonElement, MouseEvent>) => {
-    setAnchorEl(event.currentTarget)
-  }
+  const handleProfileMenuOpen = (
+    event: React.MouseEvent<HTMLAnchorElement | HTMLLIElement | HTMLButtonElement, MouseEvent>,
+  ) => {
+    setAnchorEl(event.currentTarget);
+  };
 
   const handleMobileMenuClose = () => {
-    setMobileMoreAnchorEl(null)
-  }
+    setMobileMoreAnchorEl(null);
+  };
 
   const handleMenuClose = () => {
-    setAnchorEl(null)
-    handleMobileMenuClose()
-  }
+    setAnchorEl(null);
+    handleMobileMenuClose();
+  };
 
   const handleMobileMenuOpen = (event: React.MouseEvent<HTMLAnchorElement | HTMLButtonElement, MouseEvent>) => {
-    setMobileMoreAnchorEl(event.currentTarget)
-  }
+    setMobileMoreAnchorEl(event.currentTarget);
+  };
 
-  const menuId = "primary-search-account-menu"
+  const menuId = 'primary-search-account-menu';
   const renderMenu = (
     <Menu
       anchorEl={anchorEl}
-      anchorOrigin={{ vertical: "top", horizontal: "right" }}
+      anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
       id={menuId}
       keepMounted
-      transformOrigin={{ vertical: "top", horizontal: "right" }}
+      transformOrigin={{ vertical: 'top', horizontal: 'right' }}
       open={isMenuOpen}
-      onClose={handleMenuClose}
-    >
+      onClose={handleMenuClose}>
       <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
       <MenuItem onClick={handleMenuClose}>My account</MenuItem>
     </Menu>
-  )
+  );
 
-  const mobileMenuId = "primary-search-account-menu-mobile"
+  const mobileMenuId = 'primary-search-account-menu-mobile';
   const renderMobileMenu = (
     <Menu
       anchorEl={mobileMoreAnchorEl}
-      anchorOrigin={{ vertical: "top", horizontal: "right" }}
+      anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
       id={mobileMenuId}
       keepMounted
-      transformOrigin={{ vertical: "top", horizontal: "right" }}
+      transformOrigin={{ vertical: 'top', horizontal: 'right' }}
       open={isMobileMenuOpen}
-      onClose={handleMobileMenuClose}
-    >
+      onClose={handleMobileMenuClose}>
       <MenuItem>
         <IconButton aria-label="show 4 new mails" color="inherit" size="large">
           <Badge badgeContent={4} color="secondary">
@@ -99,7 +99,7 @@ export default function AppBarExample({ onDrawerButtonClick }: Props) {
         <p>Profile</p>
       </MenuItem>
     </Menu>
-  )
+  );
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -115,62 +115,67 @@ export default function AppBarExample({ onDrawerButtonClick }: Props) {
               size="large">
               <MenuIcon />
             </IconButton>
-            <Typography sx={{
-              display: { xs: "none", sm: "block" },
-            }} variant="h6">
+            <Typography
+              sx={{
+                display: { xs: 'none', sm: 'block' },
+              }}
+              variant="h6">
               Material-UI
             </Typography>
-            <Box sx={{
-              position: "relative",
-              borderRadius: 1,
-              backgroundColor: (theme) => alpha(theme.palette.common.white, 0.15),
-              "&:hover": {
-                backgroundColor: (theme) => alpha(theme.palette.common.white, 0.25),
-              },
-              mr: 2,
-              ml: {
-                xs: 0,
-                sm: 3,
-              },
-              width: {
-                xs: 1,
-                sm: "auto",
-              },
-            }}>
-              <Box sx={{
-                py: 0,
-                px: 2,
-                height: 1,
-                position: "absolute",
-                pointerEvents: "none",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
+            <Box
+              sx={{
+                position: 'relative',
+                borderRadius: 1,
+                backgroundColor: (theme) => alpha(theme.palette.common.white, 0.15),
+                '&:hover': {
+                  backgroundColor: (theme) => alpha(theme.palette.common.white, 0.25),
+                },
+                mr: 2,
+                ml: {
+                  xs: 0,
+                  sm: 3,
+                },
+                width: {
+                  xs: 1,
+                  sm: 'auto',
+                },
               }}>
+              <Box
+                sx={{
+                  py: 0,
+                  px: 2,
+                  height: 1,
+                  position: 'absolute',
+                  pointerEvents: 'none',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}>
                 <SearchIcon />
               </Box>
               <InputBase
                 placeholder="Search…"
                 sx={{
-                  color: "inherit",
+                  color: 'inherit',
                   '& .MuiInputBase-input': {
                     py: 1,
                     pr: 1,
                     pl: (theme) => `calc(1em + ${theme.spacing(4)})`,
-                    transition: (theme) => theme.transitions.create("width"),
+                    transition: (theme) => theme.transitions.create('width'),
                     width: {
                       xs: 1,
-                      md: '20ch'
+                      md: '20ch',
                     },
-                  }
+                  },
                 }}
-                inputProps={{ "aria-label": "search" }}
+                inputProps={{ 'aria-label': 'search' }}
               />
             </Box>
             <Box sx={{ flexGrow: 1 }} />
-            <Box sx={{
-              display: { xs: "none", md: "flex" },
-            }}>
+            <Box
+              sx={{
+                display: { xs: 'none', md: 'flex' },
+              }}>
               <IconButton aria-label="show 4 new mails" color="inherit" size="large">
                 <Badge badgeContent={4} color="secondary">
                   <MailIcon />
@@ -192,9 +197,10 @@ export default function AppBarExample({ onDrawerButtonClick }: Props) {
                 <AccountCircle />
               </IconButton>
             </Box>
-            <Box sx={{
-              display: { xs: "flex", md: "none" },
-            }}>
+            <Box
+              sx={{
+                display: { xs: 'flex', md: 'none' },
+              }}>
               <IconButton
                 aria-label="show more"
                 aria-controls={mobileMenuId}

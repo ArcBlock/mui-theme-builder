@@ -1,5 +1,5 @@
-import JSON5 from "json5"
-import { verbose } from "src/utils"
+import JSON5 from 'json5';
+import { verbose } from 'src/utils';
 
 /**
  * When the Code Editor is saved, the editor checks for errors and transpiles the code.
@@ -27,12 +27,12 @@ import { verbose } from "src/utils"
  * @param code 
  */
 export function parseEditorOutput(code: string) {
-  const trimmedCode = trimCode(code)
+  const trimmedCode = trimCode(code);
   try {
-    return JSON5.parse(trimmedCode)
+    return JSON5.parse(trimmedCode);
   } catch (err) {
-    verbose("Error while parsing theme string", err.message)
-    throw err
+    verbose('Error while parsing theme string', err.message);
+    throw err;
   }
 }
 
@@ -60,21 +60,21 @@ export function parseEditorOutput(code: string) {
  * @param code
  */
 export function trimCode(code: string) {
-  let codeLines = code.split("\n")
+  let codeLines = code.split('\n');
 
   // remove top two lines
-  codeLines = codeLines.slice(2)
+  codeLines = codeLines.slice(2);
 
   // replace exports.themeOptions with open bracket for object
-  codeLines[0] = "{" // editor disables editing this line
+  codeLines[0] = '{'; // editor disables editing this line
 
-  const closingLineNumber = getClosingLine(codeLines)
+  const closingLineNumber = getClosingLine(codeLines);
 
-  const trimmedCodeLines = codeLines.splice(0, closingLineNumber)
+  const trimmedCodeLines = codeLines.splice(0, closingLineNumber);
 
-  trimmedCodeLines[closingLineNumber - 1] = "}" // enforce that the last line is a closing bracket
+  trimmedCodeLines[closingLineNumber - 1] = '}'; // enforce that the last line is a closing bracket
 
-  return trimmedCodeLines.join("\n") // return trimmed lines rejoined as a string
+  return trimmedCodeLines.join('\n'); // return trimmed lines rejoined as a string
 }
 
 /**
@@ -82,21 +82,21 @@ export function trimCode(code: string) {
  * @param trimmedCode
  */
 export function getClosingLine(codeLines: string[]) {
-  let numUnclosedBrackets = 1 // opening bracket
-  let currentLine = 1 // skip first line
+  let numUnclosedBrackets = 1; // opening bracket
+  let currentLine = 1; // skip first line
 
   // iterate on all lines, stop when numUnclosed brackets reaches 0
   while (numUnclosedBrackets > 0 && currentLine < codeLines.length) {
     // add or subtract to numUnclosedBrackets for each instance of "{" and "}" on this line
     for (let i = 0; i < codeLines[currentLine].length; i++) {
-      const char = codeLines[currentLine][i]
-      if (char === "{") {
-        numUnclosedBrackets++
-      } else if (char === "}") {
-        numUnclosedBrackets--
+      const char = codeLines[currentLine][i];
+      if (char === '{') {
+        numUnclosedBrackets++;
+      } else if (char === '}') {
+        numUnclosedBrackets--;
       }
     }
-    currentLine++
+    currentLine++;
   }
-  return currentLine
+  return currentLine;
 }

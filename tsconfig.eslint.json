@@ -1,0 +1,6 @@
+{
+  "include": ["src", "tests", ".eslintrc.js", "vite.config.ts"],
+  "compilerOptions": {
+    "strict": true
+  }
+}

@@ -1,4 +1,6 @@
-declare module "*.png" {
+declare module 'vite-plugin-blocklet';
+
+declare module '*.png' {
   const value: any;
   export = value;
 }

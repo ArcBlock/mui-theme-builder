@@ -1,69 +1,69 @@
-import AddIcon from "@mui/icons-material/Add"
-import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined"
-import RemoveIcon from "@mui/icons-material/Remove"
-import { Accordion, AccordionSummary, Link, Tooltip, Typography } from "@mui/material"
-import React, { useCallback } from "react"
-import { useDispatch, useSelector } from "react-redux"
-import { removeThemeOptions, setThemeOptions } from "src/state/actions"
-import { RootState } from "src/state/types"
-import { getByPath } from "src/utils"
-import { ThemeValueChangeEvent } from "../events"
-import { SnippetModification } from "./types"
+import AddIcon from '@mui/icons-material/Add';
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
+import RemoveIcon from '@mui/icons-material/Remove';
+import { Accordion, AccordionSummary, Link, Tooltip, Typography } from '@mui/material';
+import React, { useCallback } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { removeThemeOptions, setThemeOptions } from 'src/state/actions';
+import { RootState } from 'src/state/types';
+import { getByPath } from 'src/utils';
+
+import { ThemeValueChangeEvent } from '../events';
+import { SnippetModification } from './types';
 
 /**
  * Simple check of if the SnippetModification.configs are
  * set on the current theme options
  * @param configs
  */
-const useIsSnippetIncluded = (configs: SnippetModification["configs"]) => {
-  const themeOptions = useSelector((state: RootState) => state.themeOptions)
+const useIsSnippetIncluded = (configs: SnippetModification['configs']) => {
+  const themeOptions = useSelector((state: RootState) => state.themeOptions);
   for (const c in configs) {
     if (getByPath(themeOptions, configs[c].path) == null) {
-      return false
+      return false;
     }
   }
-  return true
-}
+  return true;
+};
 
 interface SnippetItemProps {
-  snippet: SnippetModification
+  snippet: SnippetModification;
 }
 
 const SnippetItem = ({ snippet }: SnippetItemProps) => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const handleAddSnippet = useCallback(() => {
-    dispatch(setThemeOptions(snippet.configs))
-    document.dispatchEvent(ThemeValueChangeEvent())
-  }, [dispatch])
+    dispatch(setThemeOptions(snippet.configs));
+    document.dispatchEvent(ThemeValueChangeEvent());
+  }, [dispatch]);
 
   const handleRemoveSnippet = useCallback(() => {
-    dispatch(removeThemeOptions(snippet.configs))
-    document.dispatchEvent(ThemeValueChangeEvent())
-  }, [dispatch])
+    dispatch(removeThemeOptions(snippet.configs));
+    document.dispatchEvent(ThemeValueChangeEvent());
+  }, [dispatch]);
 
-  const isSnippetIncluded = useIsSnippetIncluded(snippet.configs)
+  const isSnippetIncluded = useIsSnippetIncluded(snippet.configs);
 
-  const { info, docs, title } = snippet
+  const { info, docs, title } = snippet;
   const toolTipContent = info ? (
     <div>
       <div>{info}</div>
-      {docs && (
-        <Link href={docs} target="_blank" rel="noreferrer" underline="hover">{`Theme ${title} Docs`}</Link>
-      )}
+      {docs && <Link href={docs} target="_blank" rel="noreferrer" underline="hover">{`Theme ${title} Docs`}</Link>}
     </div>
-  ) : '';
+  ) : (
+    ''
+  );
 
   return (
-    <Accordion
-      disabled={isSnippetIncluded}
-      onClick={isSnippetIncluded ? handleRemoveSnippet : handleAddSnippet}
-    >
+    <Accordion disabled={isSnippetIncluded} onClick={isSnippetIncluded ? handleRemoveSnippet : handleAddSnippet}>
       <AccordionSummary>
         {isSnippetIncluded ? <RemoveIcon /> : <AddIcon />}
-        <Typography variant="body2" sx={{
-          ml: 1,
-          flexGrow: 1,
-        }}>
+        <Typography
+          variant="body2"
+          sx={{
+            ml: 1,
+            flexGrow: 1,
+          }}>
           {title}
         </Typography>
         {info && (
@@ -73,7 +73,7 @@ const SnippetItem = ({ snippet }: SnippetItemProps) => {
         )}
       </AccordionSummary>
     </Accordion>
-  )
-}
+  );
+};
 
-export default SnippetItem
+export default SnippetItem;

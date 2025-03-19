@@ -1,4 +1,4 @@
-import * as parser from "./parser"
+import * as parser from './parser';
 
 const testCases = {
   valid: {
@@ -17,12 +17,12 @@ const testCases = {
 			};`,
     parseEditorOutput: {
       palette: {
-        mode: "light",
+        mode: 'light',
         primary: {
-          main: "#3f51b5",
+          main: '#3f51b5',
         },
         secondary: {
-          main: "#f50057",
+          main: '#f50057',
         },
       },
     },
@@ -49,18 +49,14 @@ const testCases = {
 				},
 			};`,
   },
-}
+};
 
-describe("parseEditorOutput tests", () => {
-  test("valid input returns proper object", () => {
-    expect(parser.parseEditorOutput(testCases.valid.input)).toEqual(
-      testCases.valid.parseEditorOutput
-    )
-  })
+describe('parseEditorOutput tests', () => {
+  test('valid input returns proper object', () => {
+    expect(parser.parseEditorOutput(testCases.valid.input)).toEqual(testCases.valid.parseEditorOutput);
+  });
 
-  test("Invalid math operators throws error", () => {
-    expect(() => parser.parseEditorOutput(testCases.invalidMath.input)).toThrow(
-      SyntaxError
-    )
-  })
-})
+  test('Invalid math operators throws error', () => {
+    expect(() => parser.parseEditorOutput(testCases.invalidMath.input)).toThrow(SyntaxError);
+  });
+});

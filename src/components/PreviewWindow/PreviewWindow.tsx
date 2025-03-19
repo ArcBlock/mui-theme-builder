@@ -1,23 +1,24 @@
-import React from "react"
-import { AppBar, Tabs, Tab, Tooltip } from "@mui/material"
-import AppBarExample from "src/components/MuiComponentSamples/Samples/AppBar"
-import DefaultExample from "./Samples/DefaultExample"
-import SignUpExample from "./Samples/SignUpExample"
-import DashboardExample from "./Samples/DashboardExample"
-import BlogExample from "./Samples/BlogExample"
-import PricingExample from "./Samples/PricingExample"
-import CheckoutExample from "./Samples/CheckoutExample"
-import PreviewWrapper from "./PreviewWrapper"
-import DrawerExample from "./Samples/DrawerExample"
+import { AppBar, Tab, Tabs, Tooltip } from '@mui/material';
+import React from 'react';
+import AppBarExample from 'src/components/MuiComponentSamples/Samples/AppBar';
+
+import PreviewWrapper from './PreviewWrapper';
+import BlogExample from './Samples/BlogExample';
+import CheckoutExample from './Samples/CheckoutExample';
+import DashboardExample from './Samples/DashboardExample';
+import DefaultExample from './Samples/DefaultExample';
+import DrawerExample from './Samples/DrawerExample';
+import PricingExample from './Samples/PricingExample';
+import SignUpExample from './Samples/SignUpExample';
 
 interface TabPanelProps {
-  children?: React.ReactNode
-  index: any
-  value: any
+  children?: React.ReactNode;
+  index: any;
+  value: any;
 }
 
 function TabPanel(props: TabPanelProps) {
-  const { children, value, index, ...other } = props
+  const { children, value, index, ...other } = props;
 
   return (
     <div
@@ -25,29 +26,28 @@ function TabPanel(props: TabPanelProps) {
       hidden={value !== index}
       id={`simple-tabpanel-${index}`}
       aria-labelledby={`simple-tab-${index}`}
-      {...other}
-    >
+      {...other}>
       {value === index && <div>{children}</div>}
     </div>
-  )
+  );
 }
 
-export const previewNavTabsId = "preview-nav-tabs"
+export const previewNavTabsId = 'preview-nav-tabs';
 
 const tabStyle = {
   minWidth: { sm: 160 },
-}
+};
 
 const PreviewWindow = () => {
-  const [tabIndex, setTabIndex] = React.useState(0)
-  const [drawerOpen, setDrawerOpen] = React.useState(false)
+  const [tabIndex, setTabIndex] = React.useState(0);
+  const [drawerOpen, setDrawerOpen] = React.useState(false);
 
   const handleChange = (event: React.ChangeEvent<{}>, newTabIndex: number) => {
-    setTabIndex(newTabIndex)
-  }
+    setTabIndex(newTabIndex);
+  };
 
-  const toggleDrawer = () => setDrawerOpen(prev => !prev)
-  const handleCloseDrawer = () => setDrawerOpen(false)
+  const toggleDrawer = () => setDrawerOpen((prev) => !prev);
+  const handleCloseDrawer = () => setDrawerOpen(false);
 
   return (
     <PreviewWrapper>
@@ -62,8 +62,7 @@ const PreviewWindow = () => {
             indicatorColor="secondary"
             scrollButtons
             aria-label="preview-window-tabs"
-            allowScrollButtonsMobile
-          >
+            allowScrollButtonsMobile>
             <Tab label="Instructions" sx={tabStyle} />
             <Tab label="Sign Up" sx={tabStyle} />
             <Tab label="Dashboard" sx={tabStyle} />
@@ -96,7 +95,7 @@ const PreviewWindow = () => {
         </TabPanel>
       </div>
     </PreviewWrapper>
-  )
-}
+  );
+};
 
-export default PreviewWindow
+export default PreviewWindow;

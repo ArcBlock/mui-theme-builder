@@ -1,40 +1,45 @@
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined"
-import { Box } from "@mui/material"
-import Avatar from "@mui/material/Avatar"
-import Button from "@mui/material/Button"
-import Checkbox from "@mui/material/Checkbox"
-import Container from "@mui/material/Container"
-import FormControlLabel from "@mui/material/FormControlLabel"
-import Grid from "@mui/material/Grid"
-import Link from "@mui/material/Link"
-import TextField from "@mui/material/TextField"
-import Tooltip from "@mui/material/Tooltip"
-import Typography from "@mui/material/Typography"
-import React from "react"
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import { Box } from '@mui/material';
+import Avatar from '@mui/material/Avatar';
+import Button from '@mui/material/Button';
+import Checkbox from '@mui/material/Checkbox';
+import Container from '@mui/material/Container';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Grid from '@mui/material/Grid';
+import Link from '@mui/material/Link';
+import TextField from '@mui/material/TextField';
+import Tooltip from '@mui/material/Tooltip';
+import Typography from '@mui/material/Typography';
+import React from 'react';
 
 export default function SignUpExample() {
   return (
     <Container component="main" maxWidth="xs">
-      <Box sx={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-      }}>
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+        }}>
         <Tooltip title={`<Avatar> color="secondary"`} arrow>
-          <Avatar sx={{
-            m: 1,
-            bgcolor: 'secondary.main',
-          }}>
+          <Avatar
+            sx={{
+              m: 1,
+              bgcolor: 'secondary.main',
+            }}>
             <LockOutlinedIcon />
           </Avatar>
         </Tooltip>
         <Tooltip title={`<Typography color="textPrimary" variant="h5">`} arrow>
           <Typography variant="h5">Sign up</Typography>
         </Tooltip>
-        <Box component="form" sx={{
-          width: 1, // Fix IE 11 issue.
-          mt: 3,
-        }} noValidate>
+        <Box
+          component="form"
+          sx={{
+            width: 1, // Fix IE 11 issue.
+            mt: 3,
+          }}
+          noValidate>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <TextField
@@ -94,13 +99,7 @@ export default function SignUpExample() {
             </Grid>
           </Grid>
           <Tooltip title={`<Button color="primary" variant="contained">`} arrow>
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              color="primary"
-              sx={{ mt: 3, mx: 0, mb: 2 }}
-            >
+            <Button type="submit" fullWidth variant="contained" color="primary" sx={{ mt: 3, mx: 0, mb: 2 }}>
               Sign Up
             </Button>
           </Tooltip>

@@ -1,7 +1,7 @@
-import Loadable from "@loadable/component"
+import Loadable from '@loadable/component';
 
-import MonacoThemeCodeEditor from "./MonacoThemeCodeEditor"
+import MonacoThemeCodeEditor from './MonacoThemeCodeEditor';
 
-export default Loadable(() => import("./MonacoThemeCodeEditor"))
+export default Loadable(() => import('./MonacoThemeCodeEditor'));
 
-export const codeEditorId = "code-editor"
+export const codeEditorId = 'code-editor';

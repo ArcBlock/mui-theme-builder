@@ -1,30 +1,22 @@
-import React, { useState, useEffect } from "react"
-import { useSelector } from "react-redux"
-import { RootState } from "src/state/types"
-import {
-  TextField,
-  InputAdornment,
-  IconButton,
-  Menu,
-  MenuItem,
-  Tooltip,
-  Typography,
-} from "@mui/material"
-import AddIcon from "@mui/icons-material/Add"
+import AddIcon from '@mui/icons-material/Add';
+import { IconButton, InputAdornment, Menu, MenuItem, TextField, Tooltip, Typography } from '@mui/material';
+import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { RootState } from 'src/state/types';
 
 function FontFamilyInput({ value, onChange }) {
-  const loadedFonts = useSelector((state: RootState) => state.loadedFonts)
-  const [input, setInput] = useState(value)
+  const loadedFonts = useSelector((state: RootState) => state.loadedFonts);
+  const [input, setInput] = useState(value);
 
-  useEffect(() => setInput(value), [value])
+  useEffect(() => setInput(value), [value]);
   const handleSubmit = (event: React.ChangeEvent<HTMLFormElement>) => {
-    event.preventDefault()
-    onChange(event, input)
-  }
+    event.preventDefault();
+    onChange(event, input);
+  };
 
-  const handleFontSelected = fontName => {
-    onChange(null, fontName)
-  }
+  const handleFontSelected = (fontName) => {
+    onChange(null, fontName);
+  };
 
   return (
     <form onSubmit={handleSubmit}>
@@ -34,9 +26,7 @@ function FontFamilyInput({ value, onChange }) {
       <TextField
         name="fontfamily"
         value={input}
-        onChange={(event: react.ChangeEvent<HTMLInputElement>) =>
-          setInput(event.target.value)
-        }
+        onChange={(event: react.ChangeEvent<HTMLInputElement>) => setInput(event.target.value)}
         fullWidth
         variant="standard"
         InputLabelProps={{ shrink: true }}
@@ -49,52 +39,37 @@ function FontFamilyInput({ value, onChange }) {
         }}
       />
     </form>
-  )
+  );
 }
 
-export default FontFamilyInput
+export default FontFamilyInput;
 
 function FontSelector({ onSelectFont }) {
-  const loadedFonts = useSelector((state: RootState) => state.loadedFonts)
+  const loadedFonts = useSelector((state: RootState) => state.loadedFonts);
 
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
-  const [tooltipOpen, setTooltipOpen] = useState<boolean>(false)
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const [tooltipOpen, setTooltipOpen] = useState<boolean>(false);
 
   const handleClick = (fontName: string) => {
-    setAnchorEl(null)
-    onSelectFont(fontName)
-  }
+    setAnchorEl(null);
+    onSelectFont(fontName);
+  };
 
   return (
-    <Tooltip
-      title="Replace with Downloaded Font"
-      placement="top"
-      open={tooltipOpen}
-    >
+    <Tooltip title="Replace with Downloaded Font" placement="top" open={tooltipOpen}>
       <div
         onMouseEnter={() => setTooltipOpen(true)}
         onMouseLeave={() => setTooltipOpen(false)}
-        onClick={() => setTooltipOpen(false)}
-      >
+        onClick={() => setTooltipOpen(false)}>
         <IconButton
-          onClick={(event: React.MouseEvent<HTMLButtonElement>) =>
-            setAnchorEl(event.currentTarget)
-          }
+          onClick={(event: React.MouseEvent<HTMLButtonElement>) => setAnchorEl(event.currentTarget)}
           aria-haspopup="true"
           size="large">
           <AddIcon />
         </IconButton>
-        <Menu
-          anchorEl={anchorEl}
-          open={Boolean(anchorEl)}
-          onClose={() => setAnchorEl(null)}
-        >
-          {[...loadedFonts].map(f => (
-            <MenuItem
-              key={f}
-              onClick={() => handleClick(f)}
-              style={{ fontFamily: f }}
-            >
+        <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={() => setAnchorEl(null)}>
+          {[...loadedFonts].map((f) => (
+            <MenuItem key={f} onClick={() => handleClick(f)} style={{ fontFamily: f }}>
               {f}
             </MenuItem>
           ))}

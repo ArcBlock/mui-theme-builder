@@ -1,12 +1,13 @@
-import { useEffect, useCallback } from "react"
-import * as monaco from "monaco-editor"
-import { EditorRefType } from "../types"
+import * as monaco from 'monaco-editor';
+import { useCallback, useEffect } from 'react';
 // custom theme config
-import { useDispatch, useSelector } from "react-redux"
-import { updateEditorState } from "src/state/editor/actions"
-import { saveEditorToTheme } from "src/state/editor/actions"
-import { RootState } from "src/state/types"
-import { verbose } from "src/utils"
+import { useDispatch, useSelector } from 'react-redux';
+import { updateEditorState } from 'src/state/editor/actions';
+import { saveEditorToTheme } from 'src/state/editor/actions';
+import { RootState } from 'src/state/types';
+import { verbose } from 'src/utils';
+
+import { EditorRefType } from '../types';
 
 /**
  * Transpile the editor and return any semantic or syntactic
@@ -16,17 +17,17 @@ import { verbose } from "src/utils"
  */
 async function validateInput(editorRef: EditorRefType) {
   // get the JS output of the typescript inside the code editor
-  const model = editorRef.current?.getModel()
-  if (!model) return [null, null, null]
-  const worker = await monaco.languages.typescript.getTypeScriptWorker()
-  const proxy = await worker(model.uri)
+  const model = editorRef.current?.getModel();
+  if (!model) return [null, null, null];
+  const worker = await monaco.languages.typescript.getTypeScriptWorker();
+  const proxy = await worker(model.uri);
 
   // get the current semantic errors, and the emitted output
   return await Promise.all([
     proxy.getSemanticDiagnostics(model.uri.toString()),
     proxy.getSyntacticDiagnostics(model.uri.toString()),
     proxy.getEmitOutput(model.uri.toString()),
-  ])
+  ]);
 }
 
 /**
@@ -36,15 +37,12 @@ async function validateInput(editorRef: EditorRefType) {
  */
 async function formatInput(editorRef: EditorRefType) {
   try {
-    await editorRef.current?.getAction("editor.action.formatDocument").run()
-    return true
+    await editorRef.current?.getAction('editor.action.formatDocument').run();
+    return true;
   } catch (err) {
-    verbose(
-      "MonacoThemeCodeEditor/hooks/useSave -> formatInput: Error formatting document",
-      err
-    )
+    verbose('MonacoThemeCodeEditor/hooks/useSave -> formatInput: Error formatting document', err);
   }
-  return false
+  return false;
 }
 
 /**
@@ -55,48 +53,40 @@ async function formatInput(editorRef: EditorRefType) {
  * @returns Function that handles saving code editor contents
  */
 export default function useSave(editorRef: EditorRefType) {
-  const formatOnSave = useSelector(
-    (state: RootState) => state.editor.formatOnSave
-  )
-  const dispatch = useDispatch()
+  const formatOnSave = useSelector((state: RootState) => state.editor.formatOnSave);
+  const dispatch = useDispatch();
   const handleSave = useCallback(async () => {
     // clear existing errors first
-    dispatch(updateEditorState({ errors: [] }))
+    dispatch(updateEditorState({ errors: [] }));
 
     // format document if required
-    if (formatOnSave) await formatInput(editorRef)
+    if (formatOnSave) await formatInput(editorRef);
 
-    const [
-      semanticDiagnostics,
-      syntacticDiagnostics,
-      emittedOutput,
-    ] = await validateInput(editorRef)
+    const [semanticDiagnostics, syntacticDiagnostics, emittedOutput] = await validateInput(editorRef);
 
     // if there are semantic errors, prevent saving, else save to redux store
-    const errors = [...syntacticDiagnostics, ...semanticDiagnostics]
+    const errors = [...syntacticDiagnostics, ...semanticDiagnostics];
     if (errors.length > 0) {
       // handle errors
       dispatch(
         updateEditorState({
           errors,
-        })
-      )
+        }),
+      );
     } else {
-      dispatch(saveEditorToTheme(emittedOutput.outputFiles[0].text))
+      dispatch(saveEditorToTheme(emittedOutput.outputFiles[0].text));
       // update the saved version
       dispatch(
         updateEditorState({
-          savedVersion: editorRef.current
-            ?.getModel()
-            ?.getAlternativeVersionId(),
-        })
-      )
+          savedVersion: editorRef.current?.getModel()?.getAlternativeVersionId(),
+        }),
+      );
     }
-  }, [dispatch, formatOnSave])
+  }, [dispatch, formatOnSave]);
 
-  useSaveKey(editorRef, handleSave)
+  useSaveKey(editorRef, handleSave);
 
-  return handleSave
+  return handleSave;
 }
 
 /**
@@ -109,26 +99,26 @@ export const useSaveKey = (editorRef: EditorRefType, onSave: Function) => {
   useEffect(() => {
     // save key action in the monaco editor
     const actionBinding = editorRef.current?.addAction({
-      id: "save-editor-contents",
-      label: "Save Editor Theme Contents",
+      id: 'save-editor-contents',
+      label: 'Save Editor Theme Contents',
       keybindings: [monaco.KeyMod.CtrlCmd | monaco.KeyCode.KEY_S],
-      contextMenuGroupId: "navigation",
+      contextMenuGroupId: 'navigation',
       contextMenuOrder: 1,
       run: () => onSave(),
-    })
+    });
 
     // global save key listener
     const handleGlobalSave = (event: KeyboardEvent) => {
-      if (event.ctrlKey && event.code == "KeyS") {
-        event.preventDefault()
-        onSave()
+      if (event.ctrlKey && event.code == 'KeyS') {
+        event.preventDefault();
+        onSave();
       }
-    }
-    window.addEventListener("keydown", handleGlobalSave)
+    };
+    window.addEventListener('keydown', handleGlobalSave);
 
     return () => {
-      actionBinding?.dispose()
-      window.removeEventListener("keydown", handleGlobalSave)
-    }
-  }, [onSave])
-}
+      actionBinding?.dispose();
+      window.removeEventListener('keydown', handleGlobalSave);
+    };
+  }, [onSave]);
+};

@@ -1,37 +1,37 @@
-import React, { useCallback, FormEvent } from "react"
-import Button from "@mui/material/Button/Button"
-import Dialog from "@mui/material/Dialog"
-import DialogTitle from "@mui/material/DialogTitle"
-import DialogContent from "@mui/material/DialogContent"
-import TextField from "@mui/material/TextField"
-import DialogActions from "@mui/material/DialogActions"
-import { useDispatch } from "react-redux"
-import { renameSavedTheme } from "src/state/actions"
-import EditIcon from "@mui/icons-material/Edit"
+import EditIcon from '@mui/icons-material/Edit';
+import Button from '@mui/material/Button/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogTitle from '@mui/material/DialogTitle';
+import TextField from '@mui/material/TextField';
+import React, { FormEvent, useCallback } from 'react';
+import { useDispatch } from 'react-redux';
+import { renameSavedTheme } from 'src/state/actions';
 
 function RenameThemeButton({ themeId, defaultName }) {
-  const dispatch = useDispatch()
-  const [open, setOpen] = React.useState(false)
+  const dispatch = useDispatch();
+  const [open, setOpen] = React.useState(false);
 
-  const handleClickOpen = event => {
-    event.stopPropagation()
-    setOpen(true)
-  }
+  const handleClickOpen = (event) => {
+    event.stopPropagation();
+    setOpen(true);
+  };
 
-  const handleClose = event => {
-    setOpen(false)
-  }
+  const handleClose = (event) => {
+    setOpen(false);
+  };
 
-  const handleFocus = event => event.target.select()
+  const handleFocus = (event) => event.target.select();
 
   const handleSubmit = useCallback(
     (event: FormEvent<HTMLFormElement>) => {
-      event.preventDefault()
-      dispatch(renameSavedTheme(themeId, event.target.themeName.value))
+      event.preventDefault();
+      dispatch(renameSavedTheme(themeId, event.target.themeName.value));
       // handleClose(event)
     },
-    [dispatch]
-  )
+    [dispatch],
+  );
 
   return (
     <>
@@ -43,8 +43,7 @@ function RenameThemeButton({ themeId, defaultName }) {
         open={open}
         onClose={handleClose}
         aria-labelledby="rename-theme-dialog"
-        onClick={event => event.stopPropagation()}
-      >
+        onClick={(event) => event.stopPropagation()}>
         <form onSubmit={handleSubmit} autoComplete="off">
           <DialogTitle id="rename-theme-dialog">Rename Theme</DialogTitle>
           <DialogContent>
@@ -71,7 +70,7 @@ function RenameThemeButton({ themeId, defaultName }) {
         </form>
       </Dialog>
     </>
-  )
+  );
 }
 
-export default RenameThemeButton
+export default RenameThemeButton;

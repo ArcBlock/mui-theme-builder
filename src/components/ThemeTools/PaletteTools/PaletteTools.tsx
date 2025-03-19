@@ -1,16 +1,10 @@
-import React from "react"
-import ThemeTypeInput from "./ThemeTypeInput"
-import { Typography, AccordionSummary, Accordion } from "@mui/material"
-import PaletteSubType from "./PaletteSubType"
+import { Accordion, AccordionSummary, Typography } from '@mui/material';
+import React from 'react';
 
-const paletteColorTypes = [
-  "primary",
-  "secondary",
-  "error",
-  "warning",
-  "info",
-  "success",
-]
+import PaletteSubType from './PaletteSubType';
+import ThemeTypeInput from './ThemeTypeInput';
+
+const paletteColorTypes = ['primary', 'secondary', 'error', 'warning', 'info', 'success'];
 
 export default function PaletteTools() {
   return (
@@ -25,38 +19,34 @@ export default function PaletteTools() {
         title="Background"
         path="palette.background"
         paletteValues={[
-          ["Default", "default"],
-          ["Paper", "paper"],
+          ['Default', 'default'],
+          ['Paper', 'paper'],
         ]}
       />
       <PaletteSubType
         title="Text"
         path="palette.text"
         paletteValues={[
-          ["Primary", "primary"],
-          ["Secondary", "secondary"],
-          ["Disabled", "disabled"],
-          ["Hint", "hint"],
+          ['Primary', 'primary'],
+          ['Secondary', 'secondary'],
+          ['Disabled', 'disabled'],
+          ['Hint', 'hint'],
         ]}
       />
-      {paletteColorTypes.map(colorType => (
+      {paletteColorTypes.map((colorType) => (
         <PaletteSubType
           key={colorType}
           title={colorType}
           path={`palette.${colorType}`}
           paletteValues={[
-            ["Main", `main`],
-            ["Light", `light`],
-            ["Dark", `dark`],
-            ["Contrast Text", `contrastText`],
+            ['Main', `main`],
+            ['Light', `light`],
+            ['Dark', `dark`],
+            ['Contrast Text', `contrastText`],
           ]}
         />
       ))}
-      <PaletteSubType
-        title="Divider"
-        path="palette"
-        paletteValues={[["Divider", "divider"]]}
-      />
+      <PaletteSubType title="Divider" path="palette" paletteValues={[['Divider', 'divider']]} />
     </>
-  )
+  );
 }

@@ -1,1 +1,1 @@
-export { default } from "./SnippetTools"
+export { default } from './SnippetTools';

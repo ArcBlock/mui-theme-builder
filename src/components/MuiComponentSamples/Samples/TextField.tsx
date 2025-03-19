@@ -1,30 +1,22 @@
-import { Box } from "@mui/material";
-import TextField from "@mui/material/TextField";
-import React from "react";
+import { Box } from '@mui/material';
+import TextField from '@mui/material/TextField';
+import React from 'react';
 
 export default function TextFieldExample() {
   return (
-    <Box component="form" sx={{
-      "& > div > *": {
-        m: 1,
-        width: "25ch",
-      },
-    }} noValidate autoComplete="off">
+    <Box
+      component="form"
+      sx={{
+        '& > div > *': {
+          m: 1,
+          width: '25ch',
+        },
+      }}
+      noValidate
+      autoComplete="off">
       <div>
-        <TextField
-          required
-          id="standard-required"
-          label="Required"
-          defaultValue="Hello World"
-          variant="standard"
-        />
-        <TextField
-          disabled
-          id="standard-disabled"
-          label="Disabled"
-          defaultValue="Hello World"
-          variant="standard"
-        />
+        <TextField required id="standard-required" label="Required" defaultValue="Hello World" variant="standard" />
+        <TextField disabled id="standard-disabled" label="Disabled" defaultValue="Hello World" variant="standard" />
         <TextField
           id="standard-password-input"
           label="Password"
@@ -67,20 +59,8 @@ export default function TextFieldExample() {
         />
       </div>
       <div>
-        <TextField
-          required
-          id="filled-required"
-          label="Required"
-          defaultValue="Hello World"
-          variant="filled"
-        />
-        <TextField
-          disabled
-          id="filled-disabled"
-          label="Disabled"
-          defaultValue="Hello World"
-          variant="filled"
-        />
+        <TextField required id="filled-required" label="Required" defaultValue="Hello World" variant="filled" />
+        <TextField disabled id="filled-disabled" label="Disabled" defaultValue="Hello World" variant="filled" />
         <TextField
           id="filled-password-input"
           label="Password"
@@ -106,12 +86,7 @@ export default function TextFieldExample() {
           }}
           variant="filled"
         />
-        <TextField
-          id="filled-search"
-          label="Search field"
-          type="search"
-          variant="filled"
-        />
+        <TextField id="filled-search" label="Search field" type="search" variant="filled" />
         <TextField
           id="filled-helperText"
           label="Helper text"
@@ -129,24 +104,9 @@ export default function TextFieldExample() {
         />
       </div>
       <div>
-        <TextField
-          required
-          id="outlined-required"
-          label="Required"
-          defaultValue="Hello World"
-        />
-        <TextField
-          disabled
-          id="outlined-disabled"
-          label="Disabled"
-          defaultValue="Hello World"
-        />
-        <TextField
-          id="outlined-password-input"
-          label="Password"
-          type="password"
-          autoComplete="current-password"
-        />
+        <TextField required id="outlined-required" label="Required" defaultValue="Hello World" />
+        <TextField disabled id="outlined-disabled" label="Disabled" defaultValue="Hello World" />
+        <TextField id="outlined-password-input" label="Password" type="password" autoComplete="current-password" />
         <TextField
           id="outlined-read-only-input"
           label="Read Only"
@@ -163,11 +123,7 @@ export default function TextFieldExample() {
             shrink: true,
           }}
         />
-        <TextField
-          id="outlined-search"
-          label="Search field"
-          type="search"
-        />
+        <TextField id="outlined-search" label="Search field" type="search" />
         <TextField
           id="outlined-helperText"
           label="Helper text"
@@ -183,5 +139,5 @@ export default function TextFieldExample() {
         />
       </div>
     </Box>
-  )
+  );
 }

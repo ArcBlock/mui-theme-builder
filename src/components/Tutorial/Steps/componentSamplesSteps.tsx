@@ -1,15 +1,13 @@
-import React from "react"
+import Typography from '@mui/material/Typography';
+import React from 'react';
+import { componentNavDrawerId } from 'src/components/ComponentNavDrawer';
+import { componentsTabId } from 'src/components/MainWindow';
 
-import { componentsTabId } from "src/components/MainWindow"
-import { componentNavDrawerId } from "src/components/ComponentNavDrawer"
-
-import TutorialTooltip from "../TutorialTooltip"
-import Typography from "@mui/material/Typography"
-
-import { useSwitchToTab } from "./hooks"
+import TutorialTooltip from '../TutorialTooltip';
+import { useSwitchToTab } from './hooks';
 
 const ComponentsTabTutorialStep = () => {
-  useSwitchToTab("components")
+  useSwitchToTab('components');
   return (
     <>
       <TutorialTooltip anchorId={componentsTabId} placement="bottom">
@@ -20,7 +18,7 @@ const ComponentsTabTutorialStep = () => {
         Click a component name to navigate to it
       </TutorialTooltip>
     </>
-  )
-}
+  );
+};
 
-export default [ComponentsTabTutorialStep]
+export default [ComponentsTabTutorialStep];

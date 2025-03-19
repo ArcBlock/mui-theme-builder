@@ -1,11 +1,11 @@
-import Paper from "@mui/material/Paper";
-import { StyledEngineProvider, ThemeProvider } from "@mui/material/styles";
-import React from "react";
-import { useSelector } from "react-redux";
-import { RootState } from "src/state/types";
+import Paper from '@mui/material/Paper';
+import { StyledEngineProvider, ThemeProvider } from '@mui/material/styles';
+import React from 'react';
+import { useSelector } from 'react-redux';
+import { RootState } from 'src/state/types';
 
 interface ThemeWrapperProps {
-  children: React.ReactNode | React.ReactNodeArray
+  children: React.ReactNode | React.ReactNodeArray;
 }
 
 /**
@@ -14,7 +14,7 @@ interface ThemeWrapperProps {
  * set by the theme editor sidebar
  */
 const ThemeWrapper = ({ children }: ThemeWrapperProps) => {
-  const themeObject = useSelector((state: RootState) => state.themeObject)
+  const themeObject = useSelector((state: RootState) => state.themeObject);
 
   return (
     <StyledEngineProvider injectFirst>
@@ -23,7 +23,7 @@ const ThemeWrapper = ({ children }: ThemeWrapperProps) => {
       </ThemeProvider>
     </StyledEngineProvider>
   );
-}
+};
 
 /**
  *
@@ -32,14 +32,17 @@ const ThemeWrapper = ({ children }: ThemeWrapperProps) => {
  */
 const ThemeContainer = ({ children }: ThemeWrapperProps) => {
   return (
-    <Paper sx={{
-      bgcolor: 'background.default',
-      width: "100%",
-      height: "100%",
-    }} elevation={0} square>
+    <Paper
+      sx={{
+        bgcolor: 'background.default',
+        width: '100%',
+        height: '100%',
+      }}
+      elevation={0}
+      square>
       {children}
     </Paper>
-  )
-}
+  );
+};
 
-export default ThemeWrapper
+export default ThemeWrapper;

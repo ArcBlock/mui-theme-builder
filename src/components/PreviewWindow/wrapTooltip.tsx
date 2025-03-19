@@ -1,5 +1,5 @@
-import React from "react"
-import { Tooltip } from "@mui/material"
+import { Tooltip } from '@mui/material';
+import React from 'react';
 
 /**
  * HOC to wrap a component in a tooltip that shows the components
@@ -7,18 +7,14 @@ import { Tooltip } from "@mui/material"
  */
 function wrapTooltip(Component: React.ComponentType, componentName: string) {
   return ({ variant, color, placement, ...componentProps }) => {
-    const colorString = color ? ` color="${color}"` : ""
-    const variantString = variant ? ` variant="${variant}"` : ""
+    const colorString = color ? ` color="${color}"` : '';
+    const variantString = variant ? ` variant="${variant}"` : '';
     return (
-      <Tooltip
-        title={`<${componentName}${colorString}${variantString}>`}
-        placement={placement}
-        arrow
-      >
+      <Tooltip title={`<${componentName}${colorString}${variantString}>`} placement={placement} arrow>
         <Component variant={variant} color={color} {...componentProps} />
       </Tooltip>
-    )
-  }
+    );
+  };
 }
 
-export default wrapTooltip
+export default wrapTooltip;

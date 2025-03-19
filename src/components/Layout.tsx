@@ -4,12 +4,12 @@
  *
  * See: https://www.gatsbyjs.org/docs/use-static-query/
  */
+import CssBaseline from '@mui/material/CssBaseline';
+import { StyledEngineProvider, Theme, ThemeProvider } from '@mui/material/styles';
+import React from 'react';
+import theme from 'src/siteTheme';
 
-import CssBaseline from "@mui/material/CssBaseline";
-import { StyledEngineProvider, Theme, ThemeProvider } from "@mui/material/styles";
-import React from "react";
-import theme from "src/siteTheme";
-import "./layout.css";
+import './layout.css';
 
 declare module '@mui/styles/defaultTheme' {
   // eslint-disable-next-line @typescript-eslint/no-empty-interface
@@ -17,7 +17,7 @@ declare module '@mui/styles/defaultTheme' {
 }
 
 interface LayoutProps {
-  children: React.ReactNode
+  children: React.ReactNode;
 }
 
 // 移除 Gatsby 相关代码，简化为纯 React 组件

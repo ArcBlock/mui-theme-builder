@@ -1,7 +1,9 @@
 // @ts-nocheck
+
 /* eslint-disable */
-import muiComponentPropTypes from "./muiComponentPropTypes"
-import muiComponentOverrideTypes from "./muiComponentOverrideTypes"
+import muiComponentOverrideTypes from './muiComponentOverrideTypes';
+import muiComponentPropTypes from './muiComponentPropTypes';
+
 export const content = `
 import * as CSS from "cssTypes"
 ${muiComponentPropTypes}
@@ -376,4 +378,4 @@ export interface Theme {
 }
 
 export function createMuiTheme(options?: ThemeOptions, ...args: object[]): Theme;
-`
+`;

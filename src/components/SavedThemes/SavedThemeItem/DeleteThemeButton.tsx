@@ -1,45 +1,40 @@
-import React, { useCallback, FormEvent } from "react"
-import Button from "@mui/material/Button/Button"
-import Dialog from "@mui/material/Dialog"
-import DialogTitle from "@mui/material/DialogTitle"
-import DialogContent from "@mui/material/DialogContent"
-import TextField from "@mui/material/TextField"
-import DialogActions from "@mui/material/DialogActions"
-import { useDispatch } from "react-redux"
-import { removeSavedTheme } from "src/state/actions"
-import DeleteIcon from "@mui/icons-material/Delete"
-import { DialogContentText, Typography } from "@mui/material"
+import DeleteIcon from '@mui/icons-material/Delete';
+import { DialogContentText, Typography } from '@mui/material';
+import Button from '@mui/material/Button/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogTitle from '@mui/material/DialogTitle';
+import TextField from '@mui/material/TextField';
+import React, { FormEvent, useCallback } from 'react';
+import { useDispatch } from 'react-redux';
+import { removeSavedTheme } from 'src/state/actions';
 
 function DeleteThemeButton({ themeId, themeName, disabled }) {
-  const dispatch = useDispatch()
-  const [open, setOpen] = React.useState(false)
+  const dispatch = useDispatch();
+  const [open, setOpen] = React.useState(false);
 
-  const handleClickOpen = event => {
-    event.stopPropagation()
-    setOpen(true)
-  }
+  const handleClickOpen = (event) => {
+    event.stopPropagation();
+    setOpen(true);
+  };
 
   const handleClose = () => {
-    setOpen(false)
-  }
+    setOpen(false);
+  };
 
   const handleDelete = useCallback(
-    event => {
-      event.preventDefault()
-      dispatch(removeSavedTheme(themeId))
-      handleClose()
+    (event) => {
+      event.preventDefault();
+      dispatch(removeSavedTheme(themeId));
+      handleClose();
     },
-    [dispatch]
-  )
+    [dispatch],
+  );
 
   return (
     <>
-      <Button
-        size="large"
-        startIcon={<DeleteIcon />}
-        disabled={disabled}
-        onClick={handleClickOpen}
-      >
+      <Button size="large" startIcon={<DeleteIcon />} disabled={disabled} onClick={handleClickOpen}>
         Delete
       </Button>
 
@@ -48,8 +43,7 @@ function DeleteThemeButton({ themeId, themeName, disabled }) {
         onClose={handleClose}
         aria-labelledby="delete-theme-dialog"
         aria-describedby="alert-dialog-description"
-        onClick={event => event.stopPropagation()}
-      >
+        onClick={(event) => event.stopPropagation()}>
         <DialogTitle id="delete-theme-dialog">Delete Theme?</DialogTitle>
         <DialogContent>
           <DialogContentText id="delete-theme-description">
@@ -70,7 +64,7 @@ function DeleteThemeButton({ themeId, themeName, disabled }) {
         </DialogActions>
       </Dialog>
     </>
-  )
+  );
 }
 
-export default DeleteThemeButton
+export default DeleteThemeButton;

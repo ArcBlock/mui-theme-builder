@@ -1,40 +1,37 @@
-import { Box, Button, ButtonBase, Grid, Popover, Typography } from "@mui/material";
-import React, { useCallback } from "react";
-import { useDispatch } from "react-redux";
-import { addNewDefaultTheme } from "../../state/actions";
-import { NewSavedTheme } from "../../state/types";
-import defaultThemes, { defaultThemesId } from "./DefaultThemes";
-import ThemeThumbnail from "./ThemeThumbnail";
+import { Box, Button, ButtonBase, Grid, Popover, Typography } from '@mui/material';
+import React, { useCallback } from 'react';
+import { useDispatch } from 'react-redux';
+
+import { addNewDefaultTheme } from '../../state/actions';
+import { NewSavedTheme } from '../../state/types';
+import defaultThemes, { defaultThemesId } from './DefaultThemes';
+import ThemeThumbnail from './ThemeThumbnail';
 
 function DefaultThemesComponent() {
-  const dispatch = useDispatch()
-  const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null)
+  const dispatch = useDispatch();
+  const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
 
   const handleClickButton = (event: React.MouseEvent<HTMLButtonElement>) => {
-    setAnchorEl(event.currentTarget)
-  }
+    setAnchorEl(event.currentTarget);
+  };
 
   const handleClose = () => {
-    setAnchorEl(null)
-  }
+    setAnchorEl(null);
+  };
 
   const handleClickTheme = useCallback(
-    (newTheme: NewSavedTheme | Omit<NewSavedTheme, "lastUpdated">) => {
-      dispatch(addNewDefaultTheme(newTheme))
+    (newTheme: NewSavedTheme | Omit<NewSavedTheme, 'lastUpdated'>) => {
+      dispatch(addNewDefaultTheme(newTheme));
     },
-    [dispatch]
-  )
+    [dispatch],
+  );
 
-  const open = Boolean(anchorEl)
-  const popoverId = open ? "default-themes-popover" : undefined
+  const open = Boolean(anchorEl);
+  const popoverId = open ? 'default-themes-popover' : undefined;
 
   return (
     <>
-      <Button
-        id={defaultThemesId}
-        variant="outlined"
-        onClick={handleClickButton}
-      >
+      <Button id={defaultThemesId} variant="outlined" onClick={handleClickButton}>
         Example Templates
       </Button>
       <Popover
@@ -43,15 +40,14 @@ function DefaultThemesComponent() {
         anchorEl={anchorEl}
         onClose={handleClose}
         anchorOrigin={{
-          vertical: "center",
-          horizontal: "center",
+          vertical: 'center',
+          horizontal: 'center',
         }}
         transformOrigin={{
-          vertical: "top",
-          horizontal: "left",
+          vertical: 'top',
+          horizontal: 'left',
         }}
-        sx={{ p: 2 }}
-      >
+        sx={{ p: 2 }}>
         <Grid
           container
           spacing={2}
@@ -59,34 +55,36 @@ function DefaultThemesComponent() {
           sx={{
             flex: 1,
             flexGrow: 1,
-            overflowX: "auto",
-          }}
-        >
-          {defaultThemes.map(t => (
+            overflowX: 'auto',
+          }}>
+          {defaultThemes.map((t) => (
             <Grid item key={t.name} onClick={() => handleClickTheme(t)}>
-              <ButtonBase sx={{
-                display: "flex",
-                flexDirection: "column",
-              }}>
-                <Box sx={{
-                  position: "relative",
-                  "&:hover > .MuiBox-root:last-child": {
-                    display: "flex",
-                  },
+              <ButtonBase
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'column',
                 }}>
-                  <ThemeThumbnail themeOptions={t.themeOptions} />
-                  <Box sx={{
-                    position: "absolute",
-                    top: 0,
-                    bottom: 0,
-                    right: 0,
-                    left: 0,
-                    backdropFilter: "blur(2px) saturate(30%) brightness(40%)",
-                    flexDirection: "column",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    display: "none",
+                <Box
+                  sx={{
+                    position: 'relative',
+                    '&:hover > .MuiBox-root:last-child': {
+                      display: 'flex',
+                    },
                   }}>
+                  <ThemeThumbnail themeOptions={t.themeOptions} />
+                  <Box
+                    sx={{
+                      position: 'absolute',
+                      top: 0,
+                      bottom: 0,
+                      right: 0,
+                      left: 0,
+                      backdropFilter: 'blur(2px) saturate(30%) brightness(40%)',
+                      flexDirection: 'column',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      display: 'none',
+                    }}>
                     <Typography>Click to add</Typography>
                   </Box>
                 </Box>
@@ -98,7 +96,7 @@ function DefaultThemesComponent() {
         </Grid>
       </Popover>
     </>
-  )
+  );
 }
 
-export default DefaultThemesComponent
+export default DefaultThemesComponent;

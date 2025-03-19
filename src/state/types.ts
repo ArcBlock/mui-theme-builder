@@ -1,6 +1,7 @@
 import { Theme } from '@mui/material';
 import { ThemeOptions } from '@mui/material/styles';
-import { EditorState } from "./editor/types"
+
+import { EditorState } from './editor/types';
 
 export interface RootState {
   editor: EditorState;
@@ -24,8 +25,8 @@ export type SavedTheme = {
   themeOptions: ThemeOptions;
   fonts: string[];
   lastUpdated: string;
-}
+};
 
-export type NewSavedTheme = Omit<SavedTheme, "id">
+export type NewSavedTheme = Omit<SavedTheme, 'id'>;
 
-export type PreviewSize = "xs" | "sm" | "md" | "lg" | "xl" | false
+export type PreviewSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | false;
