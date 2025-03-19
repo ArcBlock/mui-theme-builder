@@ -14,5 +14,21 @@ export default defineConfig(() => {
         // 自定义 Monaco Editor 的配置
         customDistPath: (root) => path.join(root, 'dist', 'monaco-editor'),
       }),],
+    resolve: {
+      alias: {
+        'src': path.resolve(__dirname, './src')
+      },
+    },
+    test: {
+      globals: true,
+      environment: 'jsdom',
+      setupFiles: ['./tests/setup.ts'],
+      css: true,
+      coverage: {
+        reporter: ['text', 'json', 'html'],
+        exclude: ['node_modules/', 'tests/'],
+      },
+      include: ['src/**/*.{test,spec}.{ts,tsx}'],
+    }
   };
 });

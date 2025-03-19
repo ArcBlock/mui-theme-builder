@@ -17,7 +17,10 @@
     "upload": "npm run bundle && blocklet upload .blocklet/release/blocklet.json",
     "prepare": "npx simple-git-hooks",
     "bump-version": "zx --quiet scripts/bump-version.mjs",
-    "test": "pnpm exec jest"
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:ui": "vitest --ui",
+    "coverage": "vitest run --coverage"
   },
   "lint-staged": {
     "*.{mjs,js,jsx,ts,tsx}": [
@@ -85,7 +88,6 @@
     "@vitejs/plugin-react": "^4.3.4",
     "@types/codemirror": "^0.0.97",
     "@types/dot-prop-immutable": "^1.5.1",
-    "@types/jest": "^26.0.9",
     "@types/react-color": "^3.0.4",
     "@types/react-redux": "^7.1.9",
     "@types/webfontloader": "^1.6.32",
@@ -101,10 +103,11 @@
     "vite-plugin-monaco-editor": "^1.1.0",
     "vite-plugin-svgr": "^4.3.0",
     "zx": "^8.3.2",
-    "babel-jest": "^26.3.0",
-    "identity-obj-proxy": "^3.0.0",
-    "jest": "^26.4.0",
-    "react-test-renderer": "^17.0.2"
+    "@testing-library/react": "^14.0.0",
+    "@vitest/coverage-v8": "^0.34.4",
+    "@vitest/ui": "^0.34.4",
+    "jsdom": "^22.1.0",
+    "vitest": "^0.34.4"
   },
   "license": "0BSD",
   "repository": {
