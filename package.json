@@ -5,6 +5,41 @@
   "version": "1.0.0",
   "keywords": ["MUI", "MUI v5", "Material-UI", "MUI Theme Creator"],
   "contributors": ["ArcBlock (https://github.com/ArcBlock)"],
+  "scripts": {
+    "dev": "blocklet dev",
+    "serve": "vite preview",
+    "lint": "eslint src --ext .mjs,.js,.jsx,.ts,.tsx",
+    "lint:fix": "npm run lint -- --fix",
+    "start": "vite --host",
+    "clean": "node scripts/build-clean.mjs",
+    "bundle": "npm run clean && vite build && blocklet bundle --zip --create-release",
+    "deploy": "npm run bundle && blocklet deploy .blocklet/bundle",
+    "upload": "npm run bundle && blocklet upload .blocklet/release/blocklet.json",
+    "prepare": "npx simple-git-hooks",
+    "bump-version": "zx --quiet scripts/bump-version.mjs",
+    "test": "pnpm exec jest"
+  },
+  "lint-staged": {
+    "*.{mjs,js,jsx,ts,tsx}": [
+      "prettier --write",
+      "eslint"
+    ],
+    "*.{css,less,scss,json,graphql}": [
+      "prettier --write"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
   "dependencies": {
     "@babel/eslint-parser": "^7.17.0",
     "@emotion/react": "^11.9.0",
@@ -31,9 +66,10 @@
     "mdi-material-ui": "^7.2.0",
     "moment": "^2.27.0",
     "monaco-editor": "^0.20.0",
-    "react": "^17.0.2",
+    "react": "~18.2.0",
+    "react-dom": "~18.2.0",
+    "react-router-dom": "^6.29.0",
     "react-color": "^2.18.1",
-    "react-dom": "^17.0.2",
     "react-helmet-async": "^1.2.3",
     "react-redux": "^7.2.8",
     "recharts": "^2.1.9",
@@ -44,40 +80,37 @@
     "webfontloader": "^1.6.28"
   },
   "devDependencies": {
-    "@babel/core": "^7.17.9",
+    "@arcblock/eslint-config": "^0.3.3",
+    "@trivago/prettier-plugin-sort-imports": "^4.3.0",
+    "@vitejs/plugin-react": "^4.3.4",
     "@types/codemirror": "^0.0.97",
     "@types/dot-prop-immutable": "^1.5.1",
     "@types/jest": "^26.0.9",
-    "@types/prettier": "^2.0.2",
     "@types/react-color": "^3.0.4",
     "@types/react-redux": "^7.1.9",
     "@types/webfontloader": "^1.6.32",
+    "bumpp": "^9.11.1",
+    "eslint": "^8.57.1",
+    "lint-staged": "^15.4.3",
+    "prettier": "^3.5.1",
+    "rimraf": "^5.0.10",
+    "simple-git-hooks": "^2.11.1",
+    "typescript": "~5.5.4",
+    "vite": "^5.4.14",
+    "vite-plugin-blocklet": "^0.9.25",
+    "vite-plugin-monaco-editor": "^1.1.0",
+    "vite-plugin-svgr": "^4.3.0",
+    "zx": "^8.3.2",
     "babel-jest": "^26.3.0",
-    "eslint": "^8.12.0",
-    "gh-pages": "^3.1.0",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^26.4.0",
-    "monaco-editor-webpack-plugin": "^1.9.0",
-    "prettier": "^2.0.5",
-    "react-test-renderer": "^17.0.2",
-    "typescript": "^4.6.3"
+    "react-test-renderer": "^17.0.2"
   },
   "license": "0BSD",
-  "scripts": {
-    "build": "./extractMuiVersion.sh && pnpm exec gatsby build",
-    "develop": "pnpm exec gatsby develop",
-    "deploy": "bash ./extractMuiVersion.sh && pnpm exec gatsby build --prefix-paths && pnpm exec gh-pages -d public",
-    "format": "pnpm exec prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
-    "start": "pnpm run develop",
-    "serve": "pnpm exec gatsby serve",
-    "clean": "pnpm exec gatsby clean",
-    "test": "pnpm exec jest"
-  },
   "repository": {
     "type": "git",
     "url": "https://github.com/ArcBlock/mui-theme-builder"
   },
-  "homepage": "https://zenoo.github.io/mui-theme-creator/",
   "bugs": {
     "url": "https://github.com/ArcBlock/mui-theme-builder/issues"
   }
