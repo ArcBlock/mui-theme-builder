@@ -16,20 +16,20 @@ declare module '@mui/styles/defaultTheme' {
   interface DefaultTheme extends Theme {}
 }
 
-
 interface LayoutProps {
   children: React.ReactNode
 }
 
-const Layout = ({ children }: LayoutProps) => {
+// 移除 Gatsby 相关代码，简化为纯 React 组件
+const Layout: React.FC<LayoutProps> = ({ children }) => {
   return (
     <StyledEngineProvider injectFirst>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        {children}
+        <main>{children}</main>
       </ThemeProvider>
     </StyledEngineProvider>
   );
-}
+};
 
-export default Layout
+export default Layout;

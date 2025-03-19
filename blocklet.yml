@@ -1,17 +1,12 @@
-title: blocklet-single
+name: mui-theme-builder
+title: MUI Theme Builder
 description: A Blocklet Server blocklet
-keywords:
-  - blocklet
-  - react
 group: static
 did: z2qa7LjiDzNQzd5SUQB9YwegR5C5YPedGsNmD
 main: dist
 author:
-  name: july
-  email: july@test.com
-repository:
-  type: git
-  url: git+https://github.com/blocklet/create-blocklet.git
+  name: wangshijun
+  email: shijun@arcblock.io
 specVersion: 1.2.8
 version: 0.1.0
 logo: logo.png
@@ -41,6 +36,9 @@ requirements:
 scripts:
   dev: npm run start
 environments: []
-capabilities: {}
+capabilities: 
+  clusterMode: false
+  component: true
+  navigation: true
 screenshots: []
 components: []
