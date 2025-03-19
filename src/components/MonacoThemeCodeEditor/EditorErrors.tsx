@@ -10,7 +10,7 @@ interface EditorErrorsProps {
   editorRef: React.RefObject<any>;
 }
 
-const EditorErrors = ({ editorRef }: EditorErrorsProps) => {
+function EditorErrors({ editorRef }: EditorErrorsProps) {
   const errors = useSelector((state: RootState) => state.editor.errors);
   const [open, setOpen] = useState(true);
   const [expanded, setExpanded] = useState(errors.length < 3); // default open if 1 or 2 errors
@@ -103,6 +103,6 @@ const EditorErrors = ({ editorRef }: EditorErrorsProps) => {
       </Snackbar>
     </Box>
   );
-};
+}
 
 export default EditorErrors;

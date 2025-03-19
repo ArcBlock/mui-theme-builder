@@ -4,7 +4,7 @@ import Backdrop from '@mui/material/Backdrop';
 import Button from '@mui/material/Button';
 import Portal from '@mui/material/Portal';
 import Typography from '@mui/material/Typography';
-import React, { useCallback, useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { resetTutorialStep, setActiveTab, toggleTutorial } from 'src/state/actions';
 import { RootState } from 'src/state/types';
@@ -12,19 +12,22 @@ import { RootState } from 'src/state/types';
 import stepList from './Steps';
 import TutorialStepButton from './TutorialStepButton';
 
-export const TutorialContent = () => {
+function TutorialContent() {
   const previewWindowTab = useSelector((state: RootState) => state.activeTab);
   const step = useSelector((state: RootState) => state.tutorialStep);
   const dispatch = useDispatch();
   const handleClose = useCallback(() => dispatch(toggleTutorial()), [dispatch]);
 
-  useEffect(function onStart() {
-    return function onEnd() {
-      // reset to the originally opened tab
-      dispatch(setActiveTab(previewWindowTab));
-      dispatch(resetTutorialStep());
-    };
-  }, []);
+  useEffect(
+    function onStart() {
+      return function onEnd() {
+        // reset to the originally opened tab
+        dispatch(setActiveTab(previewWindowTab));
+        dispatch(resetTutorialStep());
+      };
+    },
+    [dispatch, previewWindowTab],
+  );
 
   const CurrentStep = stepList[step];
   return (
@@ -69,11 +72,12 @@ export const TutorialContent = () => {
       </Box>
     </Portal>
   );
-};
+}
 
-const Tutorial = () => {
+function Tutorial() {
   const open = useSelector((state: RootState) => state.tutorialOpen);
   return open ? <TutorialContent /> : null;
-};
+}
 
 export default Tutorial;
+export { TutorialContent };

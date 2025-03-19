@@ -20,8 +20,8 @@ if (process.env.NODE_ENV === 'production') {
 const persistedReducer = persistReducer(persistConfig, reducers);
 
 export default () => {
-  let store = reduxCreateStore(persistedReducer, applyMiddleware(thunk));
-  let persistor = persistStore(store);
+  const store = reduxCreateStore(persistedReducer, applyMiddleware(thunk));
+  const persistor = persistStore(store);
   // persistor.purge()
   return { store, persistor };
 };

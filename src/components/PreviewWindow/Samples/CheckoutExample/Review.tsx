@@ -23,8 +23,8 @@ const payments = [
 
 export default function Review() {
   return (
-    <React.Fragment>
-      <Tooltip title={`<Typography color="textPrimary" variant="h6">`} placement="left" arrow>
+    <>
+      <Tooltip title='<Typography color="textPrimary" variant="h6">' placement="left" arrow>
         <Typography variant="h6" gutterBottom>
           Order summary
         </Typography>
@@ -32,20 +32,20 @@ export default function Review() {
       <List disablePadding>
         {products.map((product) => (
           <ListItem sx={{ py: 1, px: 0 }} key={product.name}>
-            <Tooltip title={`<ListItemText>`} placement="left" arrow>
+            <Tooltip title="<ListItemText>" placement="left" arrow>
               <ListItemText primary={product.name} secondary={product.desc} />
             </Tooltip>
-            <Tooltip title={`<Typography color="textPrimary" variant="body2">`} placement="left" arrow>
+            <Tooltip title='<Typography color="textPrimary" variant="body2">' placement="left" arrow>
               <Typography variant="body2">{product.price}</Typography>
             </Tooltip>
           </ListItem>
         ))}
         <ListItem sx={{ py: 1, px: 0 }}>
-          <Tooltip title={`<ListItemText>`} placement="left" arrow>
+          <Tooltip title="<ListItemText>" placement="left" arrow>
             <ListItemText primary="Total" />
           </Tooltip>
           <Tooltip
-            title={`<Typography color="textPrimary" variant="subtitle1" style={{fontWeight: 700}}>`}
+            title='<Typography color="textPrimary" variant="subtitle1" style={{fontWeight: 700}}>'
             placement="left"
             arrow>
             <Typography variant="subtitle1" sx={{ fontWeight: 700 }}>
@@ -56,20 +56,20 @@ export default function Review() {
       </List>
       <Grid container spacing={2}>
         <Grid item xs={12} sm={6}>
-          <Tooltip title={`<Typography color="textPrimary" variant="h6">`} placement="left" arrow>
+          <Tooltip title='<Typography color="textPrimary" variant="h6">' placement="left" arrow>
             <Typography variant="h6" gutterBottom sx={{ mt: 2 }}>
               Shipping
             </Typography>
           </Tooltip>
-          <Tooltip title={`<Typography color="textPrimary" variant="body1">`} placement="left" arrow>
+          <Tooltip title='<Typography color="textPrimary" variant="body1">' placement="left" arrow>
             <Typography gutterBottom>John Smith</Typography>
           </Tooltip>
-          <Tooltip title={`<Typography color="textPrimary" variant="body1">`} placement="left" arrow>
+          <Tooltip title='<Typography color="textPrimary" variant="body1">' placement="left" arrow>
             <Typography gutterBottom>{addresses.join(', ')}</Typography>
           </Tooltip>
         </Grid>
         <Grid item container direction="column" xs={12} sm={6}>
-          <Tooltip title={`<Typography color="textPrimary" variant="h6">`} placement="left" arrow>
+          <Tooltip title='<Typography color="textPrimary" variant="h6">' placement="left" arrow>
             <Typography variant="h6" gutterBottom sx={{ mt: 2 }}>
               Payment details
             </Typography>
@@ -78,12 +78,12 @@ export default function Review() {
             {payments.map((payment) => (
               <React.Fragment key={payment.name}>
                 <Grid item xs={6}>
-                  <Tooltip title={`<Typography color="textPrimary" variant="body1">`} placement="left" arrow>
+                  <Tooltip title='<Typography color="textPrimary" variant="body1">' placement="left" arrow>
                     <Typography gutterBottom>{payment.name}</Typography>
                   </Tooltip>
                 </Grid>
                 <Grid item xs={6}>
-                  <Tooltip title={`<Typography color="textPrimary" variant="body1">`} placement="left" arrow>
+                  <Tooltip title='<Typography color="textPrimary" variant="body1">' placement="left" arrow>
                     <Typography gutterBottom>{payment.detail}</Typography>
                   </Tooltip>
                 </Grid>
@@ -92,6 +92,6 @@ export default function Review() {
           </Grid>
         </Grid>
       </Grid>
-    </React.Fragment>
+    </>
   );
 }

@@ -21,11 +21,7 @@ import {
 import React from 'react';
 import { TutorialLink } from 'src/components/Tutorial/TutorialButton';
 
-import wrapTooltip from '../wrapTooltip';
-
-const WrappedTypography = wrapTooltip(Typography, 'Typography');
-
-const DefaultExample = () => {
+export default function DefaultExample() {
   return (
     <Box p={3}>
       <Typography paragraph>
@@ -158,78 +154,83 @@ const DefaultExample = () => {
       </Tooltip> */}
     </Box>
   );
-};
+}
 
-export default DefaultExample;
-
-interface FeatureCardProps {
+export interface FeatureCardProps {
   icon: React.ReactElement;
   title: string;
   children: React.ReactNode;
 }
-const FeatureCard = ({ icon, title, children }: FeatureCardProps) => (
-  <Card>
-    <CardContent>
-      <Grid container spacing={1} alignItems="center">
-        <Grid item>{icon}</Grid>
-        <Grid item>
-          <Tooltip title={`<Typography color="textPrimary" variant="h5">`} placement="left" arrow>
-            <Typography variant="h5">{title}</Typography>
-          </Tooltip>
-        </Grid>
-      </Grid>
-    </CardContent>
-    <Divider />
-    {children}
-  </Card>
-);
 
-interface ThemeToolUsageListItemProps {
+export function FeatureCard({ icon, title, children }: FeatureCardProps) {
+  return (
+    <Card>
+      <CardContent>
+        <Grid container spacing={1} alignItems="center">
+          <Grid item>{icon}</Grid>
+          <Grid item>
+            <Tooltip title='<Typography color="textPrimary" variant="h5">' placement="left" arrow>
+              <Typography variant="h5">{title}</Typography>
+            </Tooltip>
+          </Grid>
+        </Grid>
+      </CardContent>
+      <Divider />
+      {children}
+    </Card>
+  );
+}
+
+export interface ThemeToolUsageListItemProps {
   icon: React.ReactElement;
   label: string;
   children: React.ReactNode;
 }
-const ThemeToolUsageListItem = ({ label, icon, children }: ThemeToolUsageListItemProps) => (
-  <ListItem>
-    <ListItemIcon>
-      <BottomNavigationAction
-        label={label}
-        icon={icon}
-        showLabel
-        sx={{
-          color: 'inherit',
-          p: 0,
-          pr: '4px',
-          minWidth: 70,
-        }}
-      />
-    </ListItemIcon>
-    <ListItemText>
-      <Typography variant="body2">{children}</Typography>
-    </ListItemText>
-  </ListItem>
-);
-
-interface TabUsageListItemProps {
+export function ThemeToolUsageListItem({ label, icon, children }: ThemeToolUsageListItemProps) {
+  return (
+    <ListItem>
+      <ListItemIcon>
+        <BottomNavigationAction
+          label={label}
+          icon={icon}
+          showLabel
+          sx={{
+            color: 'inherit',
+            p: 0,
+            pr: '4px',
+            minWidth: 70,
+          }}
+        />
+      </ListItemIcon>
+      <ListItemText>
+        <Typography variant="body2">{children}</Typography>
+      </ListItemText>
+    </ListItem>
+  );
+}
+export interface TabUsageListItemProps {
   label: string;
   children: React.ReactNode;
 }
-const TabUsageListItem = ({ label, children }: TabUsageListItemProps) => (
-  <ListItem>
-    <ListItemIcon>
-      <Typography
-        variant="overline"
-        color="primary"
-        sx={{
-          pr: '4px',
-          minWidth: 110,
-          textAlign: 'center',
-        }}>
-        {label}
-      </Typography>
-    </ListItemIcon>
-    <ListItemText>
-      <Typography variant="body2">{children}</Typography>
-    </ListItemText>
-  </ListItem>
-);
+
+export function TabUsageListItem({ label, children }: TabUsageListItemProps) {
+  return (
+    <ListItem>
+      <ListItemIcon>
+        <Typography
+          variant="overline"
+          color="primary"
+          sx={{
+            pr: '4px',
+            minWidth: 110,
+            textAlign: 'center',
+          }}>
+          {label}
+        </Typography>
+      </ListItemIcon>
+      <ListItemText>
+        <Typography variant="body2">{children}</Typography>
+      </ListItemText>
+    </ListItem>
+  );
+}

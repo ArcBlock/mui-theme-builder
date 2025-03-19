@@ -9,7 +9,7 @@ import SmallScreenWarning from 'src/components/SmallScreenWarning';
 import ThemeConfigDrawer from 'src/components/ThemeConfigDrawer';
 import Tutorial from 'src/components/Tutorial';
 
-const IndexPage = () => {
+function IndexPage() {
   return (
     <HelmetProvider>
       <Layout>
@@ -65,6 +65,6 @@ const IndexPage = () => {
       </Layout>
     </HelmetProvider>
   );
-};
+}
 
 export default IndexPage;

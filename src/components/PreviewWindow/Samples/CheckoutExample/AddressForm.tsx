@@ -4,12 +4,11 @@ import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
-import React from 'react';
 
 export default function AddressForm() {
   return (
-    <React.Fragment>
-      <Tooltip title={`<Typography color="textPrimary" variant="h6">`} placement="left" arrow>
+    <>
+      <Tooltip title='<Typography color="textPrimary" variant="h6">' placement="left" arrow>
         <Typography variant="h6" gutterBottom>
           Shipping address
         </Typography>
@@ -97,7 +96,7 @@ export default function AddressForm() {
         <Grid item xs={12}>
           <FormControlLabel
             control={
-              <Tooltip title={`<Checkbox color="secondary">`} arrow>
+              <Tooltip title='<Checkbox color="secondary">' arrow>
                 <Checkbox color="secondary" name="saveAddress" value="yes" />
               </Tooltip>
             }
@@ -105,6 +104,6 @@ export default function AddressForm() {
           />
         </Grid>
       </Grid>
-    </React.Fragment>
+    </>
   );
 }

@@ -2,38 +2,27 @@ import JSON5 from 'json5';
 import { verbose } from 'src/utils';
 
 /**
- * When the Code Editor is saved, the editor checks for errors and transpiles the code.
- * `parseThemeString` takes the output text of the emitted files from 
- * `monaco.languages.typescript.EmitOutput`, formats in, and
- * uses JSON5 to parse the string into an object.
- * 
- * 
- * The `code` parameter should look similar to the following
- * ```js
- * `"use strict";
- *  Object.defineProperty(exports, "__esModule", { value: true });
- *  exports.themeOptions = {
- *    palette: {
- *      mode: 'light',
- *      primary: {
- *        main: '#3f51b5',
- *      },
- *      secondary: {
- *        main: '#f50057',
- *      },
- *    },
-  * };`
-```
- * @param code 
+ * Get the line number where the bracket closing the object is
+ * @param trimmedCode
  */
-export function parseEditorOutput(code: string) {
-  const trimmedCode = trimCode(code);
-  try {
-    return JSON5.parse(trimmedCode);
-  } catch (err) {
-    verbose('Error while parsing theme string', err.message);
-    throw err;
+export function getClosingLine(codeLines: string[]) {
+  let numUnclosedBrackets = 1; // opening bracket
+  let currentLine = 1; // skip first line
+
+  // iterate on all lines, stop when numUnclosed brackets reaches 0
+  while (numUnclosedBrackets > 0 && currentLine < codeLines.length) {
+    // add or subtract to numUnclosedBrackets for each instance of "{" and "}" on this line
+    for (let i = 0; i < codeLines[currentLine].length; i++) {
+      const char = codeLines[currentLine][i];
+      if (char === '{') {
+        numUnclosedBrackets++;
+      } else if (char === '}') {
+        numUnclosedBrackets--;
+      }
+    }
+    currentLine++;
   }
+  return currentLine;
 }
 
 /**
@@ -78,25 +67,36 @@ export function trimCode(code: string) {
 }
 
 /**
- * Get the line number where the bracket closing the object is
- * @param trimmedCode
+ * When the Code Editor is saved, the editor checks for errors and transpiles the code.
+ * `parseThemeString` takes the output text of the emitted files from 
+ * `monaco.languages.typescript.EmitOutput`, formats in, and
+ * uses JSON5 to parse the string into an object.
+ * 
+ * 
+ * The `code` parameter should look similar to the following
+ * ```js
+ * `"use strict";
+ *  Object.defineProperty(exports, "__esModule", { value: true });
+ *  exports.themeOptions = {
+ *    palette: {
+ *      mode: 'light',
+ *      primary: {
+ *        main: '#3f51b5',
+ *      },
+ *      secondary: {
+ *        main: '#f50057',
+ *      },
+ *    },
+  * };`
+```
+ * @param code 
  */
-export function getClosingLine(codeLines: string[]) {
-  let numUnclosedBrackets = 1; // opening bracket
-  let currentLine = 1; // skip first line
-
-  // iterate on all lines, stop when numUnclosed brackets reaches 0
-  while (numUnclosedBrackets > 0 && currentLine < codeLines.length) {
-    // add or subtract to numUnclosedBrackets for each instance of "{" and "}" on this line
-    for (let i = 0; i < codeLines[currentLine].length; i++) {
-      const char = codeLines[currentLine][i];
-      if (char === '{') {
-        numUnclosedBrackets++;
-      } else if (char === '}') {
-        numUnclosedBrackets--;
-      }
-    }
-    currentLine++;
+export function parseEditorOutput(code: string) {
+  const trimmedCode = trimCode(code);
+  try {
+    return JSON5.parse(trimmedCode);
+  } catch (err) {
+    verbose('Error while parsing theme string', (err as Error).message);
+    throw err;
   }
-  return currentLine;
 }

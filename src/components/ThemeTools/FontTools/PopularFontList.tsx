@@ -1,7 +1,6 @@
 import AddIcon from '@mui/icons-material/Add';
 import { Chip, Grid } from '@mui/material';
-import Typography from '@mui/material/Typography';
-import React, { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addFonts } from 'src/state/actions';
 import { RootState } from 'src/state/types';

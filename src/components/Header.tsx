@@ -1,11 +1,10 @@
 import GitHubIcon from '@mui/icons-material/GitHub';
 import { AppBar, AppBarProps, IconButton, Link, Toolbar, Typography } from '@mui/material';
-import React from 'react';
 import muiVersion from 'src/muiVersion';
 
 import TutorialButton from './Tutorial/TutorialButton';
 
-const Header = (props: AppBarProps) => {
+function Header(props: AppBarProps) {
   return (
     <AppBar position="static" color="default" {...props}>
       <Toolbar
@@ -33,6 +32,6 @@ const Header = (props: AppBarProps) => {
       </Toolbar>
     </AppBar>
   );
-};
+}
 
 export default Header;

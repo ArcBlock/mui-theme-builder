@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/default-param-last */
 import { ThemeOptions, createTheme } from '@mui/material';
 import { TypographyOptions } from '@mui/material/styles/createTypography';
 import deepmerge from 'deepmerge';
@@ -35,6 +36,87 @@ const initialState: RootState = {
 };
 
 const initialFonts = ['Droid Sans', 'Droid Serif', 'Open Sans', 'Roboto'];
+
+function loadFontsIfRequired(fonts: string[], loadedFonts: Set<string>) {
+  const fontsToLoad = fonts.filter((x) => !loadedFonts.has(x));
+
+  if (!fontsToLoad.length) return loadedFonts;
+
+  loadFonts(fontsToLoad);
+
+  return new Set([...loadedFonts, ...fontsToLoad].sort());
+}
+
+const createPreviewMuiTheme = (themeOptions: ThemeOptions, previewSize: PreviewSize) => {
+  const spoofedBreakpoints: Record<string, { xs: number; sm: number; md: number; lg: number; xl: number }> = {
+    xs: { xs: 0, sm: 10000, md: 10001, lg: 10002, xl: 10003 },
+    sm: { xs: 0, sm: 1, md: 10001, lg: 10002, xl: 10003 },
+    md: { xs: 0, sm: 1, md: 2, lg: 10002, xl: 10003 },
+    lg: { xs: 0, sm: 1, md: 2, lg: 3, xl: 10003 },
+    xl: { xs: 0, sm: 1, md: 2, lg: 3, xl: 4 },
+  };
+
+  if (!previewSize) return createTheme(themeOptions);
+
+  return createTheme(deepmerge({ breakpoints: { values: spoofedBreakpoints[previewSize] } }, themeOptions));
+};
+
+/**
+ * Parse a `ThemeOptions` object to get a list of google fonts included
+ * Note that the Material-UI default Theme uses Roboto as the base Font
+ * @param themeOptions - the `ThemeOptions` object to parse
+ * @param previousFonts - previous state of `savedThemes[id].fonts`
+ * @param loadedFonts - `RootState.loadedFonts`
+ *
+ * @returns string[] - the google fonts included in `themeOptions`
+ */
+const getFontsFromThemeOptions = (
+  themeOptions: ThemeOptions,
+  previousFonts: string[] | undefined,
+  loadedFonts: Set<string>,
+) => {
+  const { typography } = themeOptions as { typography: TypographyOptions | undefined };
+
+  // get all defined fonts from the themeOptions
+  const fontList: string[] = [
+    typography?.fontFamily || 'Roboto',
+    typography?.h1?.fontFamily,
+    typography?.h2?.fontFamily,
+    typography?.h3?.fontFamily,
+    typography?.h4?.fontFamily,
+    typography?.h5?.fontFamily,
+    typography?.h6?.fontFamily,
+    typography?.subtitle1?.fontFamily,
+    typography?.subtitle2?.fontFamily,
+    typography?.body1?.fontFamily,
+    typography?.body2?.fontFamily,
+    typography?.button?.fontFamily,
+    typography?.caption?.fontFamily,
+    typography?.overline?.fontFamily,
+  ]
+    .flatMap((x) => (x == null ? [] : x?.replace(/"/g, '').split(',')))
+    // .filter((x): x is string => !!x) // remove nulls and undefined items
+    // .map(x => ) // strip out quotes and split by comma
+    // .flat() // flatten the array if any font families had multiple specified
+    .map((x) => x.trim()); // trim off any white space
+
+  const fontSet = new Set<string>();
+  fontList.forEach((x) => loadedFonts.has(x) && fontSet.add(x));
+
+  // if new fontSet hasn't changed from the current theme fonts
+  // return the original Set for redux performance
+  if (previousFonts && isSetEq(new Set(previousFonts), fontSet)) {
+    return previousFonts;
+  }
+
+  return [...fontSet];
+};
+
+const onRemoveSavedTheme = (state: RootState, themeId: string) => {
+  const newSavedThemes = { ...state.savedThemes };
+  delete newSavedThemes[themeId];
+  return { savedThemes: newSavedThemes };
+};
 
 export default (state = initialState, action: any) => {
   // run editor reducers
@@ -82,7 +164,9 @@ export default (state = initialState, action: any) => {
         },
       };
     case 'ADD_NEW_THEME':
+      // eslint-disable-next-line no-case-declarations
       const newThemeId = generateThemeId(state);
+
       return {
         ...state,
         themeId: newThemeId,
@@ -124,10 +208,9 @@ export default (state = initialState, action: any) => {
         ...onRemoveSavedTheme(state, action.themeId),
       };
     case 'FONTS_LOADED':
-      const loadedFonts = new Set([...state.loadedFonts, ...action.fonts].sort());
       return {
         ...state,
-        loadedFonts,
+        loadedFonts: new Set([...state.loadedFonts, ...action.fonts].sort()),
       };
     case 'SET_TAB':
       return {
@@ -182,85 +265,4 @@ export default (state = initialState, action: any) => {
     default:
       return state;
   }
-};
-
-/**
- * Parse a `ThemeOptions` object to get a list of google fonts included
- * Note that the Material-UI default Theme uses Roboto as the base Font
- * @param themeOptions - the `ThemeOptions` object to parse
- * @param previousFonts - previous state of `savedThemes[id].fonts`
- * @param loadedFonts - `RootState.loadedFonts`
- *
- * @returns string[] - the google fonts included in `themeOptions`
- */
-const getFontsFromThemeOptions = (
-  themeOptions: ThemeOptions,
-  previousFonts: string[] | undefined,
-  loadedFonts: Set<string>,
-) => {
-  const typography: TypographyOptions | undefined = themeOptions.typography;
-
-  // get all defined fonts from the themeOptions
-  const fontList: string[] = [
-    typography?.fontFamily || 'Roboto',
-    typography?.h1?.fontFamily,
-    typography?.h2?.fontFamily,
-    typography?.h3?.fontFamily,
-    typography?.h4?.fontFamily,
-    typography?.h5?.fontFamily,
-    typography?.h6?.fontFamily,
-    typography?.subtitle1?.fontFamily,
-    typography?.subtitle2?.fontFamily,
-    typography?.body1?.fontFamily,
-    typography?.body2?.fontFamily,
-    typography?.button?.fontFamily,
-    typography?.caption?.fontFamily,
-    typography?.overline?.fontFamily,
-  ]
-    .flatMap((x) => (x == null ? [] : x?.replace(/"/g, '').split(',')))
-    // .filter((x): x is string => !!x) // remove nulls and undefined items
-    // .map(x => ) // strip out quotes and split by comma
-    // .flat() // flatten the array if any font families had multiple specified
-    .map((x) => x.trim()); // trim off any white space
-
-  const fontSet = new Set<string>();
-  fontList.forEach((x) => loadedFonts.has(x) && fontSet.add(x));
-
-  // if new fontSet hasn't changed from the current theme fonts
-  // return the original Set for redux performance
-  if (previousFonts && isSetEq(new Set(previousFonts), fontSet)) {
-    return previousFonts;
-  }
-
-  return [...fontSet];
-};
-
-const onRemoveSavedTheme = (state: RootState, themeId: string) => {
-  const newSavedThemes = { ...state.savedThemes };
-  delete newSavedThemes[themeId];
-  return { savedThemes: newSavedThemes };
-};
-
-function loadFontsIfRequired(fonts: string[], loadedFonts: Set<string>) {
-  const fontsToLoad = fonts.filter((x) => !loadedFonts.has(x));
-
-  if (!fontsToLoad.length) return loadedFonts;
-
-  loadFonts(fontsToLoad);
-
-  return new Set([...loadedFonts, ...fontsToLoad].sort());
-}
-
-const createPreviewMuiTheme = (themeOptions: ThemeOptions, previewSize: PreviewSize) => {
-  const spoofedBreakpoints: Record<string, { xs: number; sm: number; md: number; lg: number; xl: number }> = {
-    xs: { xs: 0, sm: 10000, md: 10001, lg: 10002, xl: 10003 },
-    sm: { xs: 0, sm: 1, md: 10001, lg: 10002, xl: 10003 },
-    md: { xs: 0, sm: 1, md: 2, lg: 10002, xl: 10003 },
-    lg: { xs: 0, sm: 1, md: 2, lg: 3, xl: 10003 },
-    xl: { xs: 0, sm: 1, md: 2, lg: 3, xl: 4 },
-  };
-
-  if (!previewSize) return createTheme(themeOptions);
-
-  return createTheme(deepmerge({ breakpoints: { values: spoofedBreakpoints[previewSize] } }, themeOptions));
 };

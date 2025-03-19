@@ -3,14 +3,13 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Divider from '@mui/material/Divider';
 import Typography from '@mui/material/Typography';
-import React from 'react';
 
 import TutorialStepButton from './TutorialStepButton';
 
 interface Props extends CardProps {
   title: string;
 }
-const TutorialCard = ({ title, ...props }: Props) => {
+function TutorialCard({ title, ...props }: Props) {
   return (
     <Card {...props} sx={{ maxWidth: 750 }}>
       <CardContent>
@@ -24,6 +23,6 @@ const TutorialCard = ({ title, ...props }: Props) => {
       </CardActions>
     </Card>
   );
-};
+}
 
 export default TutorialCard;

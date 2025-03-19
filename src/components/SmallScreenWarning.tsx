@@ -1,5 +1,4 @@
 import { Box, Button, Dialog, DialogContent, Hidden, Slide, SlideProps, Typography, darken } from '@mui/material';
-import { TransitionProps } from '@mui/material/transitions/transition';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import hereBeDragonsImage from 'src/images/herebedragons.webp';
@@ -10,7 +9,7 @@ const Transition = React.forwardRef<HTMLElement, SlideProps>(function Transition
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const SmallScreenWarning = () => {
+function SmallScreenWarning() {
   const warningSeen = useSelector((state: RootState) => state.mobileWarningSeen);
   const dispatch = useDispatch();
 
@@ -63,6 +62,6 @@ const SmallScreenWarning = () => {
       </Dialog>
     </Hidden>
   );
-};
+}
 
 export default SmallScreenWarning;

@@ -21,7 +21,7 @@ interface LayoutProps {
 }
 
 // 移除 Gatsby 相关代码，简化为纯 React 组件
-const Layout: React.FC<LayoutProps> = ({ children }) => {
+function Layout({ children }: LayoutProps) {
   return (
     <StyledEngineProvider injectFirst>
       <ThemeProvider theme={theme}>
@@ -30,6 +30,6 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
       </ThemeProvider>
     </StyledEngineProvider>
   );
-};
+}
 
 export default Layout;

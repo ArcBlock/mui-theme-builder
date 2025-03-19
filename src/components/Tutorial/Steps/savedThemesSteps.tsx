@@ -1,5 +1,4 @@
 import Typography from '@mui/material/Typography';
-import React from 'react';
 import { savedThemesTabId } from 'src/components/MainWindow';
 import { addThemeButtonId } from 'src/components/SavedThemes/AddThemeButton';
 import { defaultThemesId } from 'src/components/SavedThemes/DefaultThemes';
@@ -8,18 +7,19 @@ import { savedThemeListId } from 'src/components/SavedThemes/SavedThemeList';
 import TutorialTooltip from '../TutorialTooltip';
 import { useSwitchToTab } from './hooks';
 
-const SavedThemesTabTutorialStep = () => {
+function SavedThemesTabTutorialStep() {
   useSwitchToTab('saved');
   return (
     <TutorialTooltip anchorId={savedThemesTabId} placement="bottom">
       <Typography variant="h5">This is the Saved Themes Tab</Typography>
     </TutorialTooltip>
   );
-};
+}
 
-const AddNewThemesTutorialStep = () => {
+function AddNewThemesTutorialStep() {
+  // eslint-disable-next-line no-console
   console.log(defaultThemesId);
-  // useSwitchToTab("saved")
+
   return (
     <>
       <TutorialTooltip anchorId={savedThemeListId} placement="right">
@@ -34,6 +34,6 @@ const AddNewThemesTutorialStep = () => {
       </TutorialTooltip>
     </>
   );
-};
+}
 
 export default [SavedThemesTabTutorialStep, AddNewThemesTutorialStep];

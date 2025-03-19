@@ -9,7 +9,7 @@ import { useSelector } from 'react-redux';
 import { useUpdateEditorState } from 'src/state/editor/actions';
 import { RootState } from 'src/state/types';
 
-const EditorButton = () => {
+function EditorButton() {
   const [anchorEl, setAnchorEl] = React.useState<Element | null>(null);
 
   const handleOpen = (event: React.MouseEvent) => {
@@ -44,10 +44,10 @@ const EditorButton = () => {
       </Popover>
     </>
   );
-};
+}
 export default EditorButton;
 
-const EditorSettings = () => {
+function EditorSettings() {
   const formatOnSave = useSelector((state: RootState) => state.editor.formatOnSave);
   const outputTypescript = useSelector((state: RootState) => state.editor.outputTypescript);
   const updateEditor = useUpdateEditorState();
@@ -81,4 +81,4 @@ const EditorSettings = () => {
       </ListItem>
     </List>
   );
-};
+}

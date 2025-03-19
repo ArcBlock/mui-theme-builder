@@ -1,5 +1,5 @@
 import { Button, Grid } from '@mui/material';
-import React, { useCallback } from 'react';
+import { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import ColorInput from 'src/components/ColorInput';
 import { removeThemeOption, setThemeOption } from 'src/state/actions';
@@ -13,9 +13,9 @@ export default function PaletteInput({ label, path }: Props) {
   const themeValueInfo = useThemeValueInfo(path);
   const dispatch = useDispatch();
 
-  const handleColorChange = useCallback((color) => dispatch(setThemeOption(path, color)), [dispatch]);
+  const handleColorChange = useCallback((color: string) => dispatch(setThemeOption(path, color)), [dispatch, path]);
 
-  const handleReset = useCallback(() => dispatch(removeThemeOption(path)), [dispatch]);
+  const handleReset = useCallback(() => dispatch(removeThemeOption(path)), [dispatch, path]);
 
   return (
     <Grid container justifyContent="space-between" alignItems="flex-end">

@@ -6,7 +6,6 @@ import Grid from '@mui/material/Grid';
 import Hidden from '@mui/material/Hidden';
 import List from '@mui/material/List';
 import Paper from '@mui/material/Paper';
-import React from 'react';
 
 import Chart from './Chart';
 import Deposits from './Deposits';

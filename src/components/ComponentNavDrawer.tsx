@@ -19,7 +19,11 @@ const drawerWidth: React.CSSProperties['width'] = 200;
 
 export const componentNavDrawerId = 'component-nav-drawer';
 
-const ComponentNavDrawer = () => {
+const NavLink = React.forwardRef<HTMLAnchorElement, LinkProps>((linkProps, ref) => (
+  <Link ref={ref} {...linkProps} color="textPrimary" underline="hover" />
+));
+
+function ComponentNavDrawer() {
   const theme = useTheme();
   const permanent = useMediaQuery(theme.breakpoints.up('md'));
   const open = useSelector((state: RootState) => state.componentNavOpen);
@@ -29,10 +33,6 @@ const ComponentNavDrawer = () => {
     dispatch({ type: 'TOGGLE_COMPONENT_NAV' });
     dispatch(setActiveTab('components'));
   }, [dispatch]);
-
-  const NavLink = React.forwardRef<HTMLAnchorElement, LinkProps>((linkProps, ref) => (
-    <Link ref={ref} {...linkProps} color="textPrimary" underline="hover" />
-  ));
 
   return (
     <Drawer
@@ -63,6 +63,6 @@ const ComponentNavDrawer = () => {
       </List>
     </Drawer>
   );
-};
+}
 
 export default ComponentNavDrawer;

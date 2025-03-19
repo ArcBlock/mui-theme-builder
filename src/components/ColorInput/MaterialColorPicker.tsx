@@ -29,9 +29,10 @@ const muiShades = ['50', '100', '200', '300', '400', '500', '600', '700', '800',
 
 // record of {"#hexcode": ["hue", "shade"]}
 // for all colors in material-ui's spec
-let muiColorByHex: Record<string, [string, string]> = {};
+const muiColorByHex: Record<string, [string, string]> = {};
 for (let i = 0; i < muiHues.length; i++) {
   for (let j = 0; j < muiShades.length; j++) {
+    // @ts-expect-error
     muiColorByHex[colors[muiHues[i]][muiShades[j]]] = [muiHues[i], muiShades[j]];
   }
 }
@@ -40,7 +41,13 @@ const paletteWidth = 400;
 const colorTypeWidth = paletteWidth / muiHues.length;
 const colorStrengthWidth = paletteWidth / muiShades.length;
 
-export default function MaterialColorPicker({ color, onChangeComplete }) {
+export default function MaterialColorPicker({
+  color,
+  onChangeComplete,
+}: {
+  color: string;
+  onChangeComplete: (color: string) => void;
+}) {
   const [hue, setHue] = React.useState('red');
   const [shade, setShade] = React.useState<string | null>(null);
 
@@ -52,7 +59,9 @@ export default function MaterialColorPicker({ color, onChangeComplete }) {
     const decomposed = decomposeColor(color);
     switch (decomposed.type) {
       case 'rgba':
-        hexColor = rgbToHex(recomposeColor({ type: 'rgb', values: decomposed.values.slice(0, 3) }));
+        hexColor = rgbToHex(
+          recomposeColor({ type: 'rgb', values: decomposed.values.slice(0, 3) as [number, number, number] }),
+        );
         break;
       case 'rgb':
         hexColor = rgbToHex(color);
@@ -62,7 +71,7 @@ export default function MaterialColorPicker({ color, onChangeComplete }) {
           hslToRgb(
             recomposeColor({
               type: 'hsl',
-              values: decomposed.values.slice(0, 3),
+              values: decomposed.values.slice(0, 3) as [number, number, number],
             }),
           ),
         );
@@ -98,7 +107,7 @@ export default function MaterialColorPicker({ color, onChangeComplete }) {
                 style={{
                   height: hue === c ? '1.5em' : '1em',
                   width: colorTypeWidth,
-                  backgroundColor: colors[c]['500'],
+                  backgroundColor: colors[c as keyof typeof colors]['500'],
                 }}
                 sx={{ transition: (theme) => theme.transitions.create('height') }}
                 onClick={() => setHue(c)}
@@ -114,16 +123,16 @@ export default function MaterialColorPicker({ color, onChangeComplete }) {
           }}>
           {muiShades.map((s) => (
             <Tooltip title={s} key={`${hue ?? 'red'}-${s}`} placement="bottom" TransitionComponent={Collapse} arrow>
-              <div
+              <Box
                 style={{
                   height: shade === s ? '1.5em' : '1em',
                   width: colorStrengthWidth,
-                  backgroundColor: colors[hue ?? 'red'][s],
+                  backgroundColor: colors[(hue ?? 'red') as keyof typeof colors][s],
                 }}
                 sx={{ transition: (theme) => theme.transitions.create('height') }}
                 onClick={() => {
                   setShade(s);
-                  onChangeComplete(colors[hue ?? 'red'][s]);
+                  onChangeComplete(colors[(hue ?? 'red') as keyof typeof colors][s]);
                 }}
               />
             </Tooltip>

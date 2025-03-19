@@ -15,7 +15,8 @@ export function colorFromString(input: string) {
 
   if (trimmed.match(hexRegexNoHash)) {
     return `#${trimmed}`;
-  } else if (
+  }
+  if (
     trimmed.match(hexRegex) ||
     trimmed.match(rgbaRegex) ||
     trimmed.match(rgbRegex) ||
@@ -24,6 +25,5 @@ export function colorFromString(input: string) {
   ) {
     return trimmed;
   }
-
   return null;
 }

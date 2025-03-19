@@ -1,12 +1,12 @@
 import Button from '@mui/material/Button';
-import React, { useCallback } from 'react';
+import { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { decrementTutorialStep, incrementTutorialStep, toggleTutorial } from 'src/state/actions';
 import { RootState } from 'src/state/types';
 
 import stepList from './Steps';
 
-const TutorialStepButton = ({ variant }) => {
+function TutorialStepButton({ variant }: { variant: 'next' | 'prev' }) {
   const tutorialStep = useSelector((state: RootState) => state.tutorialStep);
   const dispatch = useDispatch();
 
@@ -31,11 +31,12 @@ const TutorialStepButton = ({ variant }) => {
       disabled={
         (variant === 'prev' && tutorialStep === 0) || (variant === 'next' && tutorialStep === stepList.length - 1)
       }
+      // eslint-disable-next-line no-nested-ternary
       onClick={variant === 'next' ? handleNext : variant === 'prev' ? handlePrev : undefined}>
       {variant === 'next' && 'Next'}
       {variant === 'prev' && 'Prev'}
     </Button>
   );
-};
+}
 
 export default TutorialStepButton;

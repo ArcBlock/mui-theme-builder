@@ -10,7 +10,7 @@ import ThemeTools from './ThemeTools/ThemeTools';
 
 const drawerWidth: React.CSSProperties['width'] = 400;
 
-const ThemeConfigDrawer = () => {
+function ThemeConfigDrawer() {
   const themeId = useSelector((state: RootState) => state.themeId);
   const open = useSelector((state: RootState) => state.themeConfigOpen);
   const dispatch = useDispatch();
@@ -65,6 +65,6 @@ const ThemeConfigDrawer = () => {
       </Grid>
     </Drawer>
   );
-};
+}
 
 export default ThemeConfigDrawer;

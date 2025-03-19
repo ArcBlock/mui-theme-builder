@@ -1,6 +1,5 @@
 import Link from '@mui/material/Link';
 import Typography from '@mui/material/Typography';
-import React from 'react';
 import { codeEditorId } from 'src/components/MonacoThemeCodeEditor';
 import intellisenseCssImage from 'src/images/tutorial/intellisense-css.webp';
 import intellisenseImage from 'src/images/tutorial/intellisense.webp';
@@ -8,7 +7,7 @@ import intellisenseImage from 'src/images/tutorial/intellisense.webp';
 import TutorialCard from '../TutorialCard';
 import TutorialTooltip from '../TutorialTooltip';
 
-const CodeEditorTutorialStep = () => {
+function CodeEditorTutorialStep() {
   return (
     <TutorialTooltip anchorId={codeEditorId} placement="left">
       <Typography variant="h5">This is the Theme Code Editor</Typography>
@@ -23,9 +22,9 @@ const CodeEditorTutorialStep = () => {
       </Typography>
     </TutorialTooltip>
   );
-};
+}
 
-const IntellisenseTutorialStep = () => {
+function IntellisenseTutorialStep() {
   return (
     <>
       <TutorialCard title="Intellisense Suggestions">
@@ -47,6 +46,6 @@ const IntellisenseTutorialStep = () => {
       </TutorialTooltip>
     </>
   );
-};
+}
 
 export default [CodeEditorTutorialStep, IntellisenseTutorialStep];

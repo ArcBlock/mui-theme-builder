@@ -2,7 +2,7 @@ import AddIcon from '@mui/icons-material/Add';
 import { CircularProgress, InputAdornment, Typography } from '@mui/material';
 import Link from '@mui/material/Link';
 import TextField from '@mui/material/TextField';
-import React, { FormEvent, useCallback, useState } from 'react';
+import { FormEvent, useCallback, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { addFonts } from 'src/state/actions';
 
@@ -15,12 +15,13 @@ function AddFontInput() {
     (event: FormEvent<HTMLFormElement>) => {
       event.preventDefault();
       event.persist();
-      const fontName: string = event.target['fontname'].value;
+      const fontName: string = (event.target as HTMLFormElement).fontname.value;
       setLoading(true);
-      dispatch(addFonts([fontName])).then((loaded) => {
+
+      dispatch(addFonts([fontName])).then((loaded: boolean) => {
         setLoading(false);
         if (loaded) {
-          event.target['fontname'].value = '';
+          (event.target as HTMLFormElement).fontname.value = '';
         } else {
           setError(true);
         }
@@ -41,9 +42,9 @@ function AddFontInput() {
             'Error loading font'
           ) : (
             <>
-              {`Enter the name of a `}
+              {'Enter the name of a '}
               <Link href="https://fonts.google.com/" target="_blank" rel="noreferrer" underline="hover">
-                {`Google Font`}
+                'Google Font'
               </Link>
             </>
           )

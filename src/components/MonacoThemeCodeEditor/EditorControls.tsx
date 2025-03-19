@@ -66,7 +66,7 @@ function EditorControls({ onRedo, onUndo, onSave }: EditorControlsProps) {
 
 export default EditorControls;
 
-const CopyButton = ({}) => {
+function CopyButton() {
   const themeInput = useSelector((state: RootState) => state.editor.themeInput);
   const outputTypescript = useSelector((state: RootState) => state.editor.outputTypescript);
   const [open, setOpen] = useState(false);
@@ -74,7 +74,7 @@ const CopyButton = ({}) => {
     let codeToCopy = themeInput;
     if (!outputTypescript) {
       // naively strip out typescript (first three lines)
-      codeToCopy = [`export const themeOptions = {`, ...themeInput.split('\n').slice(3)].join('\n');
+      codeToCopy = ['export const themeOptions = {', ...themeInput.split('\n').slice(3)].join('\n');
     }
     navigator.clipboard.writeText(codeToCopy).then(() => setOpen(true));
   };
@@ -97,4 +97,4 @@ const CopyButton = ({}) => {
       </Snackbar>
     </>
   );
-};
+}

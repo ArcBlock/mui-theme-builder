@@ -1,5 +1,4 @@
 import { Accordion, AccordionSummary, Typography } from '@mui/material';
-import React from 'react';
 
 import PaletteSubType from './PaletteSubType';
 import ThemeTypeInput from './ThemeTypeInput';
@@ -39,10 +38,10 @@ export default function PaletteTools() {
           title={colorType}
           path={`palette.${colorType}`}
           paletteValues={[
-            ['Main', `main`],
-            ['Light', `light`],
-            ['Dark', `dark`],
-            ['Contrast Text', `contrastText`],
+            ['Main', 'main'],
+            ['Light', 'light'],
+            ['Dark', 'dark'],
+            ['Contrast Text', 'contrastText'],
           ]}
         />
       ))}

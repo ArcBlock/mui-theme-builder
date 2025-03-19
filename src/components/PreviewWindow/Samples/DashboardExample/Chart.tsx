@@ -30,8 +30,8 @@ export default function Chart() {
   const theme = useTheme();
 
   return (
-    <React.Fragment>
-      <Tooltip title={`<Typography color="primary" variant="h6">`} placement="left" arrow>
+    <>
+      <Tooltip title='<Typography color="primary" variant="h6">' placement="left" arrow>
         <Typography variant="h6" color="primary" gutterBottom>
           Today
         </Typography>
@@ -56,6 +56,6 @@ export default function Chart() {
           <Line type="monotone" dataKey="amount3" stroke={theme.palette.primary.dark} dot={false} />
         </LineChart>
       </ResponsiveContainer>
-    </React.Fragment>
+    </>
   );
 }

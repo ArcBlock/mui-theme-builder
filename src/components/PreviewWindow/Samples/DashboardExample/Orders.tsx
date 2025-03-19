@@ -28,13 +28,13 @@ function preventDefault(event: React.MouseEvent) {
 
 export default function Orders() {
   return (
-    <React.Fragment>
-      <Tooltip title={`<Typography color="primary" variant="h6">`} placement="left" arrow>
+    <>
+      <Tooltip title='<Typography color="primary" variant="h6">' placement="left" arrow>
         <Typography variant="h6" color="primary" gutterBottom>
           Recent Orders
         </Typography>
       </Tooltip>
-      <Tooltip title={`<Table>`} placement="top" arrow>
+      <Tooltip title="<Table>" placement="top" arrow>
         <Table>
           <TableHead>
             <TableRow>
@@ -59,12 +59,13 @@ export default function Orders() {
         </Table>
       </Tooltip>
       <Box sx={{ mt: 3 }}>
-        <Tooltip title={`<Link color="primary">`} placement="left" arrow>
+        <Tooltip title='<Link color="primary">' placement="left" arrow>
+          {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
           <Link color="primary" href="#" onClick={preventDefault} underline="hover">
             See more orders
           </Link>
         </Tooltip>
       </Box>
-    </React.Fragment>
+    </>
   );
 }

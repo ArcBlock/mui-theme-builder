@@ -6,6 +6,14 @@ import { canSave } from './selectors';
 import { NewSavedTheme, PreviewSize } from './types';
 
 /**
+ * Check if the code editor has unsaved work, and if so, prompt the user
+ * as to whether they'd like to overwrite with changes being made
+ */
+const checkIfUserAllowsOverwrite = (state: any) =>
+  // eslint-disable-next-line no-alert
+  !canSave(state) || window.confirm('There are unsaved changes in the code editor. Wipe changes and proceed?');
+
+/**
  * Remove a key/value in the theme options object by a given path.
  * Paths ending in "main" eg. "palette.primary.main" must be declared.
  * if the key path ends in "main"
@@ -21,7 +29,7 @@ export const removeThemeOption = (path: string) => (dispatch: Function, getState
     let updatedThemeOptions: ThemeOptions;
 
     // path with ".<name>" removed
-    const parentPath = path.substring(0, path.lastIndexOf('.'));
+    // const parentPath = path.substring(0, path.lastIndexOf('.'));
 
     // paths ending in "main" must be declared
     // replace with the value from the default Theme object
@@ -44,8 +52,11 @@ export const removeThemeOptions =
   (configs: { path: string; value: any }[]) => (dispatch: Function, getState: Function) => {
     if (checkIfUserAllowsOverwrite(getState())) {
       let updatedThemeOptions = getState().themeOptions;
-      configs.forEach(({ path, value }) => (updatedThemeOptions = removeByPath(updatedThemeOptions, path)));
-      return dispatch({
+      configs.forEach(({ path }) => {
+        updatedThemeOptions = removeByPath(updatedThemeOptions, path);
+      });
+
+      dispatch({
         type: 'UPDATE_THEME',
         themeOptions: updatedThemeOptions,
       });
@@ -55,7 +66,8 @@ export const removeThemeOptions =
 export const setThemeOption = (path: string, value: any) => (dispatch: Function, getState: Function) => {
   if (checkIfUserAllowsOverwrite(getState())) {
     const updatedThemeOptions = setByPath(getState().themeOptions, path, value);
-    return dispatch({
+
+    dispatch({
       type: 'UPDATE_THEME',
       themeOptions: updatedThemeOptions,
     });
@@ -66,20 +78,16 @@ export const setThemeOptions =
   (configs: { path: string; value: any }[]) => (dispatch: Function, getState: Function) => {
     if (checkIfUserAllowsOverwrite(getState())) {
       let updatedThemeOptions = getState().themeOptions;
-      configs.forEach(({ path, value }) => (updatedThemeOptions = setByPath(updatedThemeOptions, path, value)));
-      return dispatch({
+      configs.forEach(({ path, value }) => {
+        updatedThemeOptions = setByPath(updatedThemeOptions, path, value);
+      });
+
+      dispatch({
         type: 'UPDATE_THEME',
         themeOptions: updatedThemeOptions,
       });
     }
   };
-
-/**
- * Check if the code editor has unsaved work, and if so, prompt the user
- * as to whether they'd like to overwrite with changes being made
- */
-const checkIfUserAllowsOverwrite = (state: any) =>
-  !canSave(state) || confirm('There are unsaved changes in the code editor. Wipe changes and proceed?');
 
 /**
  * Add a new theme and switch to it
@@ -125,8 +133,8 @@ export const renameSavedTheme = (themeId: string, name: string) => ({
  * when the fonts load, or fail to load
  * @param fonts
  */
-export async function loadFonts(fonts: string[]) {
-  return new Promise<boolean>((resolve, reject) => {
+export function loadFonts(fonts: string[]) {
+  return new Promise<boolean>((resolve) => {
     // require inline to support server side rendering
     try {
       const WebFont = require('webfontloader');
@@ -152,16 +160,15 @@ export async function loadFonts(fonts: string[]) {
 /**
  * Load fonts using webfontloader, then add those fonts to the redux store
  */
-export const addFonts = (fonts: string[]) => async (dispatch: Function, getState?: Function) => {
+export const addFonts = (fonts: string[]) => async (dispatch: Function) => {
   const fontsLoaded: boolean = await loadFonts(fonts);
   if (fontsLoaded) {
     return dispatch({
       type: 'FONTS_LOADED',
       fonts,
     });
-  } else {
-    return false;
   }
+  return false;
 };
 
 /**

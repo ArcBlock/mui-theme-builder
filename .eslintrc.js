@@ -11,5 +11,8 @@ module.exports = {
   },
   rules: {
     'unicorn/filename-case': 'off',
+    'import/prefer-default-export': 'off',
+    '@typescript-eslint/no-use-before-define': 'off',
+    'jsx-a11y/alt-text': 'off',
   },
 };

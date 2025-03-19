@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/default-param-last */
 import { ThemeOptions } from '@mui/material';
 import JSON5 from 'json5';
 import { defaultThemeOptions } from 'src/siteTheme';
@@ -33,6 +34,7 @@ export default (state = initialState, action: any, savedThemes: RootState['saved
           themeInput: stringify(action.payload.themeOptions),
         };
       }
+    // eslint-disable-next-line no-fallthrough
     case 'UPDATE_EDITOR_STATE':
       return {
         ...state,

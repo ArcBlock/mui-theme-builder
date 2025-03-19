@@ -1,5 +1,5 @@
 import { Box, Switch, Typography } from '@mui/material';
-import React, { useCallback } from 'react';
+import { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import { setThemeOption } from 'src/state/actions';
 import { useThemeValue } from 'src/state/selectors';

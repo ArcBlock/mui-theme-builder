@@ -35,12 +35,12 @@ export const setByPath = (object: any, path: string, value: any) => dotProp.set(
  */
 export const generateThemeId = (savedThemes: RootState['savedThemes']) => {
   // generate a long string of characters
-  const genString = () => ['', '', ''].reduce((str, _) => (str += Math.random().toString(36).substring(2, 15)), '');
+  const genString = () => ['', '', ''].reduce((str) => str + Math.random().toString(36).substring(2, 15), '');
 
   let id;
   do {
     id = genString();
-  } while (savedThemes.hasOwnProperty(id));
+  } while (Object.prototype.hasOwnProperty.call(savedThemes, id));
 
   return id;
 };
@@ -52,7 +52,7 @@ export const generateThemeId = (savedThemes: RootState['savedThemes']) => {
  */
 export function isSetEq(a: Set<any>, b: Set<any>) {
   if (a.size !== b.size) return false;
-  for (var x of a) if (!b.has(x)) return false;
+  for (const x of a) if (!b.has(x)) return false;
 
   return true;
 }
@@ -63,6 +63,7 @@ export function isSetEq(a: Set<any>, b: Set<any>) {
  */
 export function verbose(...args: any[]) {
   if (process.env.NODE_ENV === 'development') {
+    // eslint-disable-next-line no-console
     console.log(...args);
   }
 }

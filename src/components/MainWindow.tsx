@@ -18,10 +18,10 @@ const tabStyle = {
   minWidth: { sm: 160 },
 };
 
-const MainWindow = () => {
+function MainWindow() {
   const activeTab = useSelector((state: RootState) => state.activeTab);
   const dispatch = useDispatch();
-  const setTab = React.useCallback((value) => dispatch(setActiveTab(value)), [dispatch]);
+  const setTab = React.useCallback((value: string) => dispatch(setActiveTab(value)), [dispatch]);
 
   return (
     <>
@@ -74,6 +74,6 @@ const MainWindow = () => {
       </Box>
     </>
   );
-};
+}
 
 export default MainWindow;

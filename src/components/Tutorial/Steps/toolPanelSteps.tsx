@@ -1,6 +1,5 @@
 import Link from '@mui/material/Link';
 import Typography from '@mui/material/Typography';
-import React from 'react';
 import { fontToolsId, paletteToolsId, snippetToolsId, typographyToolsId } from 'src/components/ThemeTools/ThemeTools';
 import { toolPanelId } from 'src/components/ThemeTools/ToolPanel';
 import colorPickerImage from 'src/images/tutorial/colorpicker.webp';
@@ -10,16 +9,16 @@ import typographyToolsImage from 'src/images/tutorial/typographytools.webp';
 import TutorialCard from '../TutorialCard';
 import TutorialTooltip from '../TutorialTooltip';
 
-const ToolPanelTutorialStep = () => {
+function ToolPanelTutorialStep() {
   return (
     <TutorialTooltip anchorId={toolPanelId} placement="top">
       <Typography variant="h5">This is the Theme Tool Panel</Typography>
       <Typography>Controls here will help you quickly edit the theme</Typography>
     </TutorialTooltip>
   );
-};
+}
 
-const PaletteTutorialStep = () => {
+function PaletteTutorialStep() {
   return (
     <>
       <TutorialTooltip anchorId={paletteToolsId} placement="top">
@@ -48,9 +47,9 @@ const PaletteTutorialStep = () => {
       </TutorialCard>
     </>
   );
-};
+}
 
-const FontTutorialStep = () => {
+function FontTutorialStep() {
   return (
     <>
       <TutorialTooltip anchorId={fontToolsId} placement="top">
@@ -77,9 +76,9 @@ const FontTutorialStep = () => {
       </TutorialCard>
     </>
   );
-};
+}
 
-const TypographyTutorialStep = () => {
+function TypographyTutorialStep() {
   return (
     <>
       <TutorialTooltip anchorId={typographyToolsId} placement="top">
@@ -94,9 +93,9 @@ const TypographyTutorialStep = () => {
       </TutorialCard>
     </>
   );
-};
+}
 
-const SnippetsTutorialStep = () => {
+function SnippetsTutorialStep() {
   return (
     <>
       <TutorialTooltip anchorId={snippetToolsId} placement="top">
@@ -112,7 +111,7 @@ const SnippetsTutorialStep = () => {
       </TutorialCard>
     </>
   );
-};
+}
 
 export default [
   ToolPanelTutorialStep,

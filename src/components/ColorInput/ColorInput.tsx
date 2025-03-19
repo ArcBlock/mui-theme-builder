@@ -1,6 +1,6 @@
 import { Box, InputAdornment, Popover, TextField } from '@mui/material';
 import React, { useEffect } from 'react';
-import { ChromePicker, Color, ColorChangeHandler, HSLColor, RGBColor } from 'react-color';
+import { ChromePicker, Color, HSLColor, RGBColor } from 'react-color';
 import { ThemeValueChangeEvent } from 'src/components/ThemeTools/events';
 
 import MaterialColorPicker from './MaterialColorPicker';
@@ -32,9 +32,9 @@ export default function ColorInput({ label, color, onColorChange }: ColorInputPr
 
   const handlePaste = (event: React.ClipboardEvent<HTMLDivElement>) => {
     const pastedText = event.clipboardData.getData('text');
-    const color = colorFromString(pastedText);
-    if (color) {
-      handleColorChange(color);
+    const c = colorFromString(pastedText);
+    if (c) {
+      handleColorChange(c);
     }
   };
 
@@ -112,19 +112,20 @@ function ColorPicker({ color, onChangeComplete }: ColorPickerProps) {
     setInputValue(color);
   }, [color]);
 
-  const handleChange = (colorObject: ColorObject, event?: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (colorObject: ColorObject) => {
     if (colorObject.rgb.a === 1) {
       setInputValue(colorObject.hex);
       return colorObject.hex;
-    } else {
-      const rgb = `rgba(${colorObject.rgb.r},${colorObject.rgb.g},${colorObject.rgb.b},${colorObject.rgb.a})`;
-      setInputValue(rgb);
-      return rgb;
     }
+
+    const rgb = `rgba(${colorObject.rgb.r},${colorObject.rgb.g},${colorObject.rgb.b},${colorObject.rgb.a})`;
+
+    setInputValue(rgb);
+    return rgb;
   };
 
-  const handleChangeComplete = (colorObject: ColorObject, event: React.ChangeEvent<HTMLInputElement>) => {
-    const colorString = handleChange(colorObject, event);
+  const handleChangeComplete = (colorObject: ColorObject) => {
+    const colorString = handleChange(colorObject);
     onChangeComplete(colorString, null);
   };
 

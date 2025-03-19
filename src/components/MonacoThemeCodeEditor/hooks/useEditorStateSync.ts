@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { ThemeValueChangeEvent } from 'src/components/ThemeTools/events';
 import { useUpdateEditorState } from 'src/state/editor/actions';
 import { RootState } from 'src/state/types';
@@ -20,7 +20,7 @@ const useSyncToStore = (editorRef: EditorRefType) => {
   const updateEditorState = useUpdateEditorState();
 
   useEffect(() => {
-    const modelContentChangeBinding = editorRef.current?.onDidChangeModelContent((event) =>
+    const modelContentChangeBinding = editorRef.current?.onDidChangeModelContent(() =>
       updateEditorState({ themeInput: editorRef.current?.getValue() }),
     );
 
@@ -52,7 +52,7 @@ const useSyncFromStore = (editorRef: EditorRefType) => {
       // update the last saved version after update is applied
       updateEditorState({ savedVersion: model?.getAlternativeVersionId() });
     }
-  }, [themeInput]);
+  }, [themeInput, editorRef, updateEditorState]);
 };
 
 const useListenForThemeChangeEvent = (editorRef: EditorRefType) => {

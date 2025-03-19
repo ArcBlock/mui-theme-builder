@@ -60,7 +60,7 @@ export default function Checkout() {
             p: 3,
           },
         })}>
-        <Tooltip title={`<Typography color="textPrimary" variant="h4">`} placement="top" arrow>
+        <Tooltip title='<Typography color="textPrimary" variant="h4">' placement="top" arrow>
           <Typography component="h1" variant="h4" align="center">
             Checkout
           </Typography>
@@ -74,51 +74,49 @@ export default function Checkout() {
           }}>
           {steps.map((label) => (
             <Step key={label}>
-              <Tooltip title={`<StepLabel>`} placement="top" arrow>
+              <Tooltip title="<StepLabel>" placement="top" arrow>
                 <StepLabel>{label}</StepLabel>
               </Tooltip>
             </Step>
           ))}
         </Stepper>
-        <React.Fragment>
-          {activeStep === steps.length ? (
-            <React.Fragment>
-              <Tooltip title={`<Typography color="textPrimary" variant="h5">`} placement="left" arrow>
-                <Typography variant="h5" gutterBottom>
-                  Thank you for your order.
-                </Typography>
-              </Tooltip>
-              <Tooltip title={`<Typography color="textPrimary" variant="subtitle1">`} placement="left" arrow>
-                <Typography variant="subtitle1">
-                  Your order number is #2001539. We have emailed your order confirmation, and will send you an update
-                  when your order has shipped.
-                </Typography>
-              </Tooltip>
-            </React.Fragment>
-          ) : (
-            <React.Fragment>
-              {getStepContent(activeStep)}
-              <Box
-                sx={{
-                  display: 'flex',
-                  justifyContent: 'flex-end',
-                }}>
-                {activeStep !== 0 && (
-                  <Tooltip title={`<Button variant="text">`} arrow>
-                    <Button onClick={handleBack} sx={{ mt: 3, ml: 1 }}>
-                      Back
-                    </Button>
-                  </Tooltip>
-                )}
-                <Tooltip title={`<Button color="primary" variant="contained">`} arrow>
-                  <Button variant="contained" color="primary" onClick={handleNext} sx={{ mt: 3, ml: 1 }}>
-                    {activeStep === steps.length - 1 ? 'Place order' : 'Next'}
+        {activeStep === steps.length ? (
+          <>
+            <Tooltip title='<Typography color="textPrimary" variant="h5">' placement="left" arrow>
+              <Typography variant="h5" gutterBottom>
+                Thank you for your order.
+              </Typography>
+            </Tooltip>
+            <Tooltip title='<Typography color="textPrimary" variant="subtitle1">' placement="left" arrow>
+              <Typography variant="subtitle1">
+                Your order number is #2001539. We have emailed your order confirmation, and will send you an update when
+                your order has shipped.
+              </Typography>
+            </Tooltip>
+          </>
+        ) : (
+          <>
+            {getStepContent(activeStep)}
+            <Box
+              sx={{
+                display: 'flex',
+                justifyContent: 'flex-end',
+              }}>
+              {activeStep !== 0 && (
+                <Tooltip title='<Button variant="text">' arrow>
+                  <Button onClick={handleBack} sx={{ mt: 3, ml: 1 }}>
+                    Back
                   </Button>
                 </Tooltip>
-              </Box>
-            </React.Fragment>
-          )}
-        </React.Fragment>
+              )}
+              <Tooltip title='<Button color="primary" variant="contained">' arrow>
+                <Button variant="contained" color="primary" onClick={handleNext} sx={{ mt: 3, ml: 1 }}>
+                  {activeStep === steps.length - 1 ? 'Place order' : 'Next'}
+                </Button>
+              </Tooltip>
+            </Box>
+          </>
+        )}
       </Paper>
     </Box>
   );

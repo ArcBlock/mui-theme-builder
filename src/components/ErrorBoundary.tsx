@@ -1,7 +1,6 @@
 import { Box, Button } from '@mui/material';
 import Typography from '@mui/material/Typography';
-import withStyles from '@mui/styles/withStyles';
-import React, { Component, ErrorInfo, ReactNode, useCallback } from 'react';
+import { Component, ErrorInfo, ReactNode, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import { resetSiteData } from 'src/state/actions';
 
@@ -13,20 +12,25 @@ interface State {
   hasError: boolean;
   error: Error | null;
 }
-
 class ErrorBoundary extends Component<Props, State> {
-  public state: State = {
-    hasError: false,
-    error: null,
-  };
+  constructor(props: Props) {
+    super(props);
+    this.state = {
+      hasError: false,
+      // eslint-disable-next-line react/no-unused-state
+      error: null,
+    };
+  }
 
   public static getDerivedStateFromError(error: Error) {
     // Update state so the next render will show the fallback UI.
-    return { hasError: true, error: error };
+    return { hasError: true, error };
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   public componentDidCatch(error: Error, errorInfo: ErrorInfo) {
     // You can also log the error to an error reporting service
+    // eslint-disable-next-line no-console
     console.log('Caught Error', error);
   }
 
@@ -44,7 +48,9 @@ class ErrorBoundary extends Component<Props, State> {
             overflowY: 'auto',
           }}>
           <Typography variant="h2">Something went wrong, causing the app to crash</Typography>
-          <Typography variant="h1" gutterBottom>{`:(`}</Typography>
+          <Typography variant="h1" gutterBottom>
+            ':('
+          </Typography>
           <Typography variant="h5" gutterBottom>
             This likely is caused by an error on the ThemeOptions object
           </Typography>
@@ -68,11 +74,11 @@ class ErrorBoundary extends Component<Props, State> {
 
 export default ErrorBoundary;
 
-const ClearStorageButton = () => {
+function ClearStorageButton() {
   const dispatch = useDispatch();
   const handleClick = useCallback(() => {
     dispatch(resetSiteData());
-    location.reload();
+    window.location.reload();
   }, [dispatch]);
 
   return (
@@ -80,4 +86,4 @@ const ClearStorageButton = () => {
       Reset Site Data
     </Button>
   );
-};
+}
