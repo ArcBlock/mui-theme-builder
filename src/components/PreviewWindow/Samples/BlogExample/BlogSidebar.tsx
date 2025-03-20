@@ -16,34 +16,34 @@ export default function BlogSidebar({ archives, description, social, title }: Pr
   return (
     <Grid item xs={12} md={4}>
       <Paper elevation={0} sx={{ p: 2 }}>
-        <Tooltip title={`<Typography variant="h6">`} placement="left" arrow>
+        <Tooltip title='<Typography variant="h6">' placement="left" arrow>
           <Typography variant="h6" gutterBottom>
             {title}
           </Typography>
         </Tooltip>
-        <Tooltip title={`<Typography variant="body1">`} placement="left" arrow>
+        <Tooltip title='<Typography variant="body1">' placement="left" arrow>
           <Typography>{description}</Typography>
         </Tooltip>
       </Paper>
-      <Tooltip title={`<Typography variant="h6">`} placement="left" arrow>
+      <Tooltip title='<Typography variant="h6">' placement="left" arrow>
         <Typography variant="h6" gutterBottom sx={{ mt: 3 }}>
           Archives
         </Typography>
       </Tooltip>
       {archives.map((archive) => (
-        <Tooltip key={archive.title} title={`<Link color="primary" variant="body1">`} placement="left" arrow>
+        <Tooltip key={archive.title} title='<Link color="primary" variant="body1">' placement="left" arrow>
           <Link display="block" variant="body1" href={archive.url} underline="hover">
             {archive.title}
           </Link>
         </Tooltip>
       ))}
-      <Tooltip title={`<Typography variant="h6">`} placement="left" arrow>
+      <Tooltip title='<Typography variant="h6">' placement="left" arrow>
         <Typography variant="h6" gutterBottom sx={{ mt: 3 }}>
           Social
         </Typography>
       </Tooltip>
       {social.map((network: Social) => (
-        <Tooltip key={network.name} title={`<Link color="primary" variant="body1">`} placement="left" arrow>
+        <Tooltip key={network.name} title='<Link color="primary" variant="body1">' placement="left" arrow>
           <Link display="block" variant="body1" href="#" underline="hover">
             <Grid container direction="row" spacing={1} alignItems="center">
               <Grid item>

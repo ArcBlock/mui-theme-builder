@@ -165,7 +165,7 @@ interface EnhancedTableToolbarProps {
   numSelected: number;
 }
 
-const EnhancedTableToolbar = (props: EnhancedTableToolbarProps) => {
+function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
   const { numSelected } = props;
   const theme = useTheme();
 
@@ -177,13 +177,13 @@ const EnhancedTableToolbar = (props: EnhancedTableToolbarProps) => {
         ...(props.numSelected > 0
           ? theme.palette.mode === 'light'
             ? {
-                color: theme.palette.secondary.main,
-                backgroundColor: lighten(theme.palette.secondary.light, 0.85),
-              }
+              color: theme.palette.secondary.main,
+              backgroundColor: lighten(theme.palette.secondary.light, 0.85),
+            }
             : {
-                color: theme.palette.text.primary,
-                backgroundColor: theme.palette.secondary.dark,
-              }
+              color: theme.palette.text.primary,
+              backgroundColor: theme.palette.secondary.dark,
+            }
           : {}),
       }}>
       {numSelected > 0 ? (
@@ -210,7 +210,7 @@ const EnhancedTableToolbar = (props: EnhancedTableToolbarProps) => {
       )}
     </Toolbar>
   );
-};
+}
 
 export default function TableExample() {
   const [order, setOrder] = React.useState<Order>('asc');

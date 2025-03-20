@@ -47,11 +47,11 @@ function DeleteThemeButton({ themeId, themeName, disabled }) {
         <DialogTitle id="delete-theme-dialog">Delete Theme?</DialogTitle>
         <DialogContent>
           <DialogContentText id="delete-theme-description">
-            {`Delete the theme `}
+            {'Delete the theme '}
             <Typography color="secondary" component="span">
               {themeName}
             </Typography>
-            {`? This action cannot be undone`}
+            ? This action cannot be undone
           </DialogContentText>
         </DialogContent>
         <DialogActions>

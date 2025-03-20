@@ -9,7 +9,7 @@ import { RootState } from 'src/state/types';
 
 export const previewSizeControlsId = 'preview-size-controls';
 
-const PreviewSizeControls = () => {
+function PreviewSizeControls() {
   const previewSize = useSelector((state: RootState) => state.previewSize);
   const dispatch = useDispatch();
   const handleOnChange = useCallback((_, value) => dispatch(setPreviewSize(value)), [dispatch]);
@@ -48,6 +48,6 @@ const PreviewSizeControls = () => {
       <BottomNavigationAction label="Desktop" value={false} icon={<DesktopWindowsIcon />} />
     </BottomNavigation>
   );
-};
+}
 
 export default PreviewSizeControls;

@@ -21,7 +21,7 @@ export default function SignUpExample() {
           flexDirection: 'column',
           alignItems: 'center',
         }}>
-        <Tooltip title={`<Avatar> color="secondary"`} arrow>
+        <Tooltip title='<Avatar> color="secondary"' arrow>
           <Avatar
             sx={{
               m: 1,
@@ -30,7 +30,7 @@ export default function SignUpExample() {
             <LockOutlinedIcon />
           </Avatar>
         </Tooltip>
-        <Tooltip title={`<Typography color="textPrimary" variant="h5">`} arrow>
+        <Tooltip title='<Typography color="textPrimary" variant="h5">' arrow>
           <Typography variant="h5">Sign up</Typography>
         </Tooltip>
         <Box
@@ -90,7 +90,7 @@ export default function SignUpExample() {
             <Grid item xs={12}>
               <FormControlLabel
                 control={
-                  <Tooltip title={`<Checkbox color="primary">`} arrow>
+                  <Tooltip title='<Checkbox color="primary">' arrow>
                     <Checkbox value="allowExtraEmails" color="primary" />
                   </Tooltip>
                 }
@@ -98,14 +98,14 @@ export default function SignUpExample() {
               />
             </Grid>
           </Grid>
-          <Tooltip title={`<Button color="primary" variant="contained">`} arrow>
+          <Tooltip title='<Button color="primary" variant="contained">' arrow>
             <Button type="submit" fullWidth variant="contained" color="primary" sx={{ mt: 3, mx: 0, mb: 2 }}>
               Sign Up
             </Button>
           </Tooltip>
           <Grid container justifyContent="flex-end">
             <Grid item>
-              <Tooltip title={`<Link color="primary" variant="body2">`} arrow>
+              <Tooltip title='<Link color="primary" variant="body2">' arrow>
                 <Link href="#" variant="body2" underline="hover">
                   Already have an account? Sign in
                 </Link>

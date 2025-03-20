@@ -17,13 +17,14 @@ const getFontSizeUnit = (value: string | number) => {
   if (typeof value === 'string') {
     if (value.endsWith('pt')) {
       return 'pt';
-    } else if (value.endsWith('rem')) {
-      return 'rem';
-    } else if (value.endsWith('em')) {
-      return 'em';
-    } else {
-      return undefined;
     }
+    if (value.endsWith('rem')) {
+      return 'rem';
+    }
+    if (value.endsWith('em')) {
+      return 'em';
+    }
+    return undefined;
   }
   return 'px';
 };

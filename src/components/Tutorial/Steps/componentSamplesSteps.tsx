@@ -6,7 +6,7 @@ import { componentsTabId } from 'src/components/MainWindow';
 import TutorialTooltip from '../TutorialTooltip';
 import { useSwitchToTab } from './hooks';
 
-const ComponentsTabTutorialStep = () => {
+function ComponentsTabTutorialStep() {
   useSwitchToTab('components');
   return (
     <>
@@ -19,6 +19,6 @@ const ComponentsTabTutorialStep = () => {
       </TutorialTooltip>
     </>
   );
-};
+}
 
 export default [ComponentsTabTutorialStep];

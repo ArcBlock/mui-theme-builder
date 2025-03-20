@@ -13,7 +13,7 @@ interface ThemeWrapperProps {
  * Wraps example content in the dynamically controlled theme
  * set by the theme editor sidebar
  */
-const ThemeWrapper = ({ children }: ThemeWrapperProps) => {
+function ThemeWrapper({ children }: ThemeWrapperProps) {
   const themeObject = useSelector((state: RootState) => state.themeObject);
 
   return (
@@ -23,14 +23,14 @@ const ThemeWrapper = ({ children }: ThemeWrapperProps) => {
       </ThemeProvider>
     </StyledEngineProvider>
   );
-};
+}
 
 /**
  *
  * CssBa
  *
  */
-const ThemeContainer = ({ children }: ThemeWrapperProps) => {
+function ThemeContainer({ children }: ThemeWrapperProps) {
   return (
     <Paper
       sx={{
@@ -43,6 +43,6 @@ const ThemeContainer = ({ children }: ThemeWrapperProps) => {
       {children}
     </Paper>
   );
-};
+}
 
 export default ThemeWrapper;

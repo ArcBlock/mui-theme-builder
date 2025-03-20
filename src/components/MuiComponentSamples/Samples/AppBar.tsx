@@ -103,7 +103,7 @@ export default function AppBarExample({ onDrawerButtonClick }: Props) {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <Tooltip title={`<AppBar color="primary">`} placement="left" arrow>
+      <Tooltip title='<AppBar color="primary">' placement="left" arrow>
         <AppBar position="static">
           <Toolbar>
             <IconButton

@@ -38,7 +38,7 @@ const tabStyle = {
   minWidth: { sm: 160 },
 };
 
-const PreviewWindow = () => {
+function PreviewWindow() {
   const [tabIndex, setTabIndex] = React.useState(0);
   const [drawerOpen, setDrawerOpen] = React.useState(false);
 
@@ -52,7 +52,7 @@ const PreviewWindow = () => {
   return (
     <PreviewWrapper>
       <AppBarExample onDrawerButtonClick={toggleDrawer} />
-      <Tooltip title={`<AppBar color="primary">`} placement="left" arrow>
+      <Tooltip title='<AppBar color="primary">' placement="left" arrow>
         <AppBar position="static" id={previewNavTabsId}>
           <Tabs
             value={tabIndex}
@@ -96,6 +96,6 @@ const PreviewWindow = () => {
       </div>
     </PreviewWrapper>
   );
-};
+}
 
 export default PreviewWindow;

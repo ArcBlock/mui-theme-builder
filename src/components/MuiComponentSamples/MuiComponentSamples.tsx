@@ -3,7 +3,7 @@ import React from 'react';
 
 import componentSamples from './Samples';
 
-const MuiComponentSamples = () => {
+function MuiComponentSamples() {
   return (
     <Box
       sx={{
@@ -38,6 +38,6 @@ const MuiComponentSamples = () => {
       ))}
     </Box>
   );
-};
+}
 
 export default MuiComponentSamples;

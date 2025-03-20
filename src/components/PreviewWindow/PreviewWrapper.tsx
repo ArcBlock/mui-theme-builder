@@ -13,7 +13,7 @@ interface PreviewWrapperProps {
 /**
  * Wraps children in ThemeWrapper and creates a letterbox around the component
  */
-const PreviewWrapper = ({ children }: PreviewWrapperProps) => {
+function PreviewWrapper({ children }: PreviewWrapperProps) {
   return (
     <Box
       sx={{
@@ -33,7 +33,7 @@ const PreviewWrapper = ({ children }: PreviewWrapperProps) => {
       </ThemeWrapper>
     </Box>
   );
-};
+}
 
 export default PreviewWrapper;
 
@@ -45,7 +45,7 @@ interface PreviewBackgroundProps {
  * Creates a Paper component with a backgroundColor of `palette.background.default`
  * adds 'rtl' as a className if required by the theme to enable RTL styles.
  */
-const PreviewBackground = ({ children }: PreviewBackgroundProps) => {
+function PreviewBackground({ children }: PreviewBackgroundProps) {
   // if the theme has `direction` set to 'rtl', then add 'rtl' as a classname
   // to the Paper component, so that RTL styles will be enabled
   const directionIsRTL = useSelector((state: RootState) => state.themeOptions.direction === 'rtl');
@@ -66,4 +66,4 @@ const PreviewBackground = ({ children }: PreviewBackgroundProps) => {
       {children}
     </Paper>
   );
-};
+}

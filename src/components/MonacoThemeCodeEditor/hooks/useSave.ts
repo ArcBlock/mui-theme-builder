@@ -2,8 +2,7 @@ import * as monaco from 'monaco-editor';
 import { useCallback, useEffect } from 'react';
 // custom theme config
 import { useDispatch, useSelector } from 'react-redux';
-import { updateEditorState } from 'src/state/editor/actions';
-import { saveEditorToTheme } from 'src/state/editor/actions';
+import { saveEditorToTheme, updateEditorState } from 'src/state/editor/actions';
 import { RootState } from 'src/state/types';
 import { verbose } from 'src/utils';
 
@@ -23,7 +22,7 @@ async function validateInput(editorRef: EditorRefType) {
   const proxy = await worker(model.uri);
 
   // get the current semantic errors, and the emitted output
-  return await Promise.all([
+  return Promise.all([
     proxy.getSemanticDiagnostics(model.uri.toString()),
     proxy.getSyntacticDiagnostics(model.uri.toString()),
     proxy.getEmitOutput(model.uri.toString()),

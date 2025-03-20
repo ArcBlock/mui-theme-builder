@@ -108,7 +108,7 @@ const sidebar: SideBar = {
 
 export default function Blog() {
   return (
-    <React.Fragment>
+    <>
       <Container maxWidth="lg">
         <BlogHeader title="Blog" sections={sections} />
         <div>
@@ -130,6 +130,6 @@ export default function Blog() {
         </div>
       </Container>
       <BlogFooter title="Footer" description="Something here to give the footer a purpose!" />
-    </React.Fragment>
+    </>
   );
 }

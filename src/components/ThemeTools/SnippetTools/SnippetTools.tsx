@@ -3,7 +3,7 @@ import React from 'react';
 import SnippetItem from './SnippetItem';
 import snippets from './snippets';
 
-const SnippetTools = () => {
+function SnippetTools() {
   return (
     <>
       {snippets.map((snippet) => (
@@ -11,6 +11,6 @@ const SnippetTools = () => {
       ))}
     </>
   );
-};
+}
 
 export default SnippetTools;

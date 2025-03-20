@@ -6,7 +6,7 @@ import React from 'react';
  * name, and if they are specified, the color and variant.
  */
 function wrapTooltip(Component: React.ComponentType, componentName: string) {
-  return ({ variant, color, placement, ...componentProps }) => {
+  return function ({ variant, color, placement, ...componentProps }) {
     const colorString = color ? ` color="${color}"` : '';
     const variantString = variant ? ` variant="${variant}"` : '';
     return (

@@ -21,22 +21,22 @@ export default function FeaturedPost({ post }: Props) {
         <Card sx={{ display: 'flex' }}>
           <Box sx={{ flex: 1 }}>
             <CardContent>
-              <Tooltip title={`<Typography variant="h5">`} placement="left" arrow>
+              <Tooltip title='<Typography variant="h5">' placement="left" arrow>
                 <Typography component="h2" variant="h5">
                   {post.title}
                 </Typography>
               </Tooltip>
-              <Tooltip title={`<Typography color="textSecondary" variant="subtitle1">`} placement="left" arrow>
+              <Tooltip title='<Typography color="textSecondary" variant="subtitle1">' placement="left" arrow>
                 <Typography variant="subtitle1" color="textSecondary">
                   {post.date}
                 </Typography>
               </Tooltip>
-              <Tooltip title={`<Typography variant="subtitle1">`} placement="left" arrow>
+              <Tooltip title='<Typography variant="subtitle1">' placement="left" arrow>
                 <Typography variant="subtitle1" paragraph>
                   {post.description}
                 </Typography>
               </Tooltip>
-              <Tooltip title={`<Typography color="primary" variant="subtitle1">`} placement="left" arrow>
+              <Tooltip title='<Typography color="primary" variant="subtitle1">' placement="left" arrow>
                 <Typography variant="subtitle1" color="primary">
                   Continue reading...
                 </Typography>

@@ -10,7 +10,7 @@ interface Props {
 export default function Main({ title }: Props) {
   return (
     <Grid item xs={12} md={8}>
-      <Tooltip title={`<Typography color="textPrimary" variant="h6">`} placement="left" arrow>
+      <Tooltip title='<Typography color="textPrimary" variant="h6">' placement="left" arrow>
         <Typography variant="h6" gutterBottom>
           {title}
         </Typography>
@@ -22,20 +22,20 @@ export default function Main({ title }: Props) {
           py: 3,
           px: 0,
         }}>
-        <Tooltip title={`<Typography color="textPrimary" variant="h5">`} placement="left" arrow>
+        <Tooltip title='<Typography color="textPrimary" variant="h5">' placement="left" arrow>
           <Typography variant="h5">Sample blog post</Typography>
         </Tooltip>
-        <Tooltip title={`<Typography color="textPrimary" variant="body1">`} placement="left" arrow>
+        <Tooltip title='<Typography color="textPrimary" variant="body1">' placement="left" arrow>
           <Typography>
             April 1, 2020 by{' '}
-            <Tooltip title={`<Link color="primary" variant="body1">`} arrow>
+            <Tooltip title='<Link color="primary" variant="body1">' arrow>
               <Link href="#" underline="hover">
                 [Olivier]
               </Link>
             </Tooltip>
           </Typography>
         </Tooltip>
-        <Tooltip title={`<Typography color="textPrimary" variant="body1">`} placement="left" arrow>
+        <Tooltip title='<Typography color="textPrimary" variant="body1">' placement="left" arrow>
           <Typography paragraph>
             {`Cum sociis natoque penatibus et magnis dis parturient montes, nascetur
             ridiculus mus. Aenean eu leo quam. Pellentesque ornare sem lacinia quam
@@ -49,10 +49,10 @@ export default function Main({ title }: Props) {
             lacinia bibendum nulla sed consectetur.`}
           </Typography>
         </Tooltip>
-        <Tooltip title={`<Typography color="textPrimary" variant="body1">`} placement="left" arrow>
+        <Tooltip title='<Typography color="textPrimary" variant="body1">' placement="left" arrow>
           <Typography>Heading</Typography>
         </Tooltip>
-        <Tooltip title={`<Typography color="textPrimary" variant="body1">`} placement="left" arrow>
+        <Tooltip title='<Typography color="textPrimary" variant="body1">' placement="left" arrow>
           <Typography paragraph>
             {`Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.
             Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget
@@ -60,18 +60,18 @@ export default function Main({ title }: Props) {
             vestibulum at eros.`}
           </Typography>
         </Tooltip>
-        <Tooltip title={`<Typography color="textPrimary" variant="body1">`} placement="left" arrow>
+        <Tooltip title='<Typography color="textPrimary" variant="body1">' placement="left" arrow>
           <Typography>Sub-heading</Typography>
         </Tooltip>
-        <Tooltip title={`<Typography color="textPrimary" variant="body1">`} placement="left" arrow>
+        <Tooltip title='<Typography color="textPrimary" variant="body1">' placement="left" arrow>
           <Typography paragraph>
-            {`Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.`}
+            Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
           </Typography>
         </Tooltip>
-        <Tooltip title={`<Typography color="textPrimary" variant="body1">`} placement="left" arrow>
+        <Tooltip title='<Typography color="textPrimary" variant="body1">' placement="left" arrow>
           <Typography>Sub-heading</Typography>
         </Tooltip>
-        <Tooltip title={`<Typography color="textPrimary" variant="body1">`} placement="left" arrow>
+        <Tooltip title='<Typography color="textPrimary" variant="body1">' placement="left" arrow>
           <Typography paragraph>
             {`Cum sociis natoque penatibus et magnis dis parturient montes, nascetur
             ridiculus mus. Aenean lacinia bibendum nulla sed consectetur. Etiam porta
@@ -85,9 +85,9 @@ export default function Main({ title }: Props) {
           <li>Donec id elit non mi porta gravida at eget metus.</li>
           <li>Nulla vitae elit libero, a pharetra augue.</li>
         </ul>
-        <Tooltip title={`<Typography color="textPrimary" variant="body1">`} placement="left" arrow>
+        <Tooltip title='<Typography color="textPrimary" variant="body1">' placement="left" arrow>
           <Typography paragraph>
-            {`Donec ullamcorper nulla non metus auctor fringilla. Nulla vitae elit libero, a pharetra augue.`}
+            Donec ullamcorper nulla non metus auctor fringilla. Nulla vitae elit libero, a pharetra augue.
           </Typography>
         </Tooltip>
         <ol>

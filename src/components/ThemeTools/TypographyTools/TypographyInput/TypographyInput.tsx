@@ -74,6 +74,6 @@ function TypographyPropertyInput({ property, ...props }: TypographyPropertyInput
     case 'lineHeight':
       return <LineHeightInput {...props} />;
     default:
-      return <div></div>;
+      return <div />;
   }
 }

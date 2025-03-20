@@ -15,22 +15,22 @@ interface Props {
 }
 export default function BlogHeader({ sections, title }: Props) {
   return (
-    <React.Fragment>
+    <>
       <Toolbar sx={{ borderBottom: 1, borderBottomColor: 'divider' }}>
-        <Tooltip title={`<Button color="default" size="small">`} arrow>
+        <Tooltip title='<Button color="default" size="small">' arrow>
           <Button size="small">Subscribe</Button>
         </Tooltip>
-        <Tooltip title={`<Typography color="inherit" variant="h5">`} arrow>
+        <Tooltip title='<Typography color="inherit" variant="h5">' arrow>
           <Typography component="h2" variant="h5" color="inherit" align="center" noWrap sx={{ flex: 1 }}>
             {title}
           </Typography>
         </Tooltip>
-        <Tooltip title={`<IconButton color="default">`} arrow>
+        <Tooltip title='<IconButton color="default">' arrow>
           <IconButton size="large">
             <SearchIcon />
           </IconButton>
         </Tooltip>
-        <Tooltip title={`<Button color="default" variant="outlined" size="small">`} arrow>
+        <Tooltip title='<Button color="default" variant="outlined" size="small">' arrow>
           <Button variant="outlined" size="small">
             Sign up
           </Button>
@@ -44,7 +44,7 @@ export default function BlogHeader({ sections, title }: Props) {
           overflowX: 'auto',
         }}>
         {sections.map((section) => (
-          <Tooltip title={`<Link color="inherit" variant="body2">`} arrow key={section.title}>
+          <Tooltip title='<Link color="inherit" variant="body2">' arrow key={section.title}>
             <Link
               color="inherit"
               noWrap
@@ -60,6 +60,6 @@ export default function BlogHeader({ sections, title }: Props) {
           </Tooltip>
         ))}
       </Toolbar>
-    </React.Fragment>
+    </>
   );
 }

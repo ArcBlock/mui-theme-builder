@@ -72,33 +72,33 @@ const footers = [
 
 export default function PricingExample() {
   return (
-    <React.Fragment>
-      <Tooltip title={`<AppBar color="default">`} placement="bottom" arrow>
+    <>
+      <Tooltip title='<AppBar color="default">' placement="bottom" arrow>
         <AppBar position="static" color="default" elevation={0} sx={{ borderBottom: 1, borderBottomColor: 'divider' }}>
           <Toolbar sx={{ flexWrap: 'wrap' }}>
-            <Tooltip title={`<Typography color="textPrimary" variant="h6">`} placement="left" arrow>
+            <Tooltip title='<Typography color="textPrimary" variant="h6">' placement="left" arrow>
               <Typography variant="h6" color="inherit" noWrap sx={{ flexGrow: 1 }}>
                 Company name
               </Typography>
             </Tooltip>
             <nav>
-              <Tooltip title={`<Link color="textPrimary" variant="button">`} arrow>
+              <Tooltip title='<Link color="textPrimary" variant="button">' arrow>
                 <Link variant="button" color="textPrimary" href="#" sx={{ my: 1, mx: 1.5 }} underline="hover">
                   Features
                 </Link>
               </Tooltip>
-              <Tooltip title={`<Link color="textPrimary" variant="button">`} arrow>
+              <Tooltip title='<Link color="textPrimary" variant="button">' arrow>
                 <Link variant="button" color="textPrimary" href="#" sx={{ my: 1, mx: 1.5 }} underline="hover">
                   Enterprise
                 </Link>
               </Tooltip>
-              <Tooltip title={`<Link color="textPrimary" variant="button">`} arrow>
+              <Tooltip title='<Link color="textPrimary" variant="button">' arrow>
                 <Link variant="button" color="textPrimary" href="#" sx={{ my: 1, mx: 1.5 }} underline="hover">
                   Support
                 </Link>
               </Tooltip>
             </nav>
-            <Tooltip title={`<Button color="primary" variant="outlined">`} arrow>
+            <Tooltip title='<Button color="primary" variant="outlined">' arrow>
               <Button href="#" color="primary" variant="outlined" sx={{ my: 1, mx: 1.5 }}>
                 Login
               </Button>
@@ -108,12 +108,12 @@ export default function PricingExample() {
       </Tooltip>
       {/* Hero unit */}
       <Container maxWidth="sm" component="main" sx={{ mt: 8, my: 0, mb: 6 }}>
-        <Tooltip title={`<Typography color="textPrimary" variant="h2">`} placement="top" arrow>
+        <Tooltip title='<Typography color="textPrimary" variant="h2">' placement="top" arrow>
           <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
             Pricing
           </Typography>
         </Tooltip>
-        <Tooltip title={`<Typography color="textSecondary" variant="h5">`} arrow>
+        <Tooltip title='<Typography color="textSecondary" variant="h5">' arrow>
           <Typography variant="h5" align="center" color="textSecondary" component="p">
             Quickly build an effective pricing table for your potential customers with this layout. It&apos;s built with
             default Material-UI components with little customization.
@@ -127,7 +127,7 @@ export default function PricingExample() {
             // Enterprise card is full width at sm breakpoint
             <Grid item key={tier.title} xs={12} sm={tier.title === 'Enterprise' ? 12 : 6} md={4}>
               <Card>
-                <Tooltip title={`<CardHeader>`} arrow placement="top">
+                <Tooltip title="<CardHeader>" arrow placement="top">
                   <div>
                     <CardHeader
                       title={tier.title}
@@ -166,12 +166,12 @@ export default function PricingExample() {
                       alignItems: 'baseline',
                       mb: 2,
                     }}>
-                    <Tooltip title={`<Typography color="textPrimary" variant="h3">`} placement="left" arrow>
+                    <Tooltip title='<Typography color="textPrimary" variant="h3">' placement="left" arrow>
                       <Typography component="h2" variant="h3" color="textPrimary">
                         ${tier.price}
                       </Typography>
                     </Tooltip>
-                    <Tooltip title={`<Typography color="textSecondary" variant="h6">`} placement="right" arrow>
+                    <Tooltip title='<Typography color="textSecondary" variant="h6">' placement="right" arrow>
                       <Typography variant="h6" color="textSecondary">
                         /mo
                       </Typography>
@@ -181,7 +181,7 @@ export default function PricingExample() {
                     {tier.description.map((line) => (
                       <Tooltip
                         key={line}
-                        title={`<Typography color="textPrimary" variant="subtitle1" component="li">`}
+                        title='<Typography color="textPrimary" variant="subtitle1" component="li">'
                         placement="left"
                         arrow>
                         <Typography component="li" variant="subtitle1" align="center">
@@ -218,7 +218,7 @@ export default function PricingExample() {
         <Grid container spacing={4} justifyContent="space-evenly">
           {footers.map((footer) => (
             <Grid item xs={6} sm={3} key={footer.title}>
-              <Tooltip title={`<Typography color="textPrimary" variant="h6">`} placement="left" arrow>
+              <Tooltip title='<Typography color="textPrimary" variant="h6">' placement="left" arrow>
                 <Typography variant="h6" color="textPrimary" gutterBottom>
                   {footer.title}
                 </Typography>
@@ -232,7 +232,7 @@ export default function PricingExample() {
                 }}>
                 {footer.description.map((item) => (
                   <li key={item}>
-                    <Tooltip title={`<Link color="textSecondary" variant="subtitle1">`} placement="left" arrow>
+                    <Tooltip title='<Link color="textSecondary" variant="subtitle1">' placement="left" arrow>
                       <Link href="#" variant="subtitle1" color="textSecondary" underline="hover">
                         {item}
                       </Link>
@@ -245,6 +245,6 @@ export default function PricingExample() {
         </Grid>
       </Container>
       {/* End footer */}
-    </React.Fragment>
+    </>
   );
 }

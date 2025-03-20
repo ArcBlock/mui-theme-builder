@@ -14,7 +14,7 @@ import useUndoRedo from './hooks/useUndoRedo';
 
 export const codeEditorId = 'code-editor';
 
-const MonacoThemeCodeEditor = () => {
+function MonacoThemeCodeEditor() {
   const editorRef = useRef<monaco.editor.IStandaloneCodeEditor | null>(null);
 
   // set up editor and configure options
@@ -52,6 +52,6 @@ const MonacoThemeCodeEditor = () => {
       <EditorErrors editorRef={editorRef} />
     </Box>
   );
-};
+}
 
 export default MonacoThemeCodeEditor;

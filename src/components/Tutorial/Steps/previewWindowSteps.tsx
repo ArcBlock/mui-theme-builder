@@ -7,16 +7,16 @@ import { previewNavTabsId } from 'src/components/PreviewWindow/PreviewWindow';
 import TutorialTooltip from '../TutorialTooltip';
 import { useSwitchToTab } from './hooks';
 
-const PreviewTabTutorialStep = () => {
+function PreviewTabTutorialStep() {
   useSwitchToTab('preview');
   return (
     <TutorialTooltip anchorId={previewTabId} placement="bottom">
       <Typography variant="h5">This is the Preview Tab</Typography>
     </TutorialTooltip>
   );
-};
+}
 
-const SiteSamplesTutorialStep = () => {
+function SiteSamplesTutorialStep() {
   useSwitchToTab('preview');
   return (
     <>
@@ -28,6 +28,6 @@ const SiteSamplesTutorialStep = () => {
       </TutorialTooltip>
     </>
   );
-};
+}
 
 export default [PreviewTabTutorialStep, SiteSamplesTutorialStep];

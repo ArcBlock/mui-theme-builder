@@ -30,7 +30,7 @@ interface SnippetItemProps {
   snippet: SnippetModification;
 }
 
-const SnippetItem = ({ snippet }: SnippetItemProps) => {
+function SnippetItem({ snippet }: SnippetItemProps) {
   const dispatch = useDispatch();
   const handleAddSnippet = useCallback(() => {
     dispatch(setThemeOptions(snippet.configs));
@@ -74,6 +74,6 @@ const SnippetItem = ({ snippet }: SnippetItemProps) => {
       </AccordionSummary>
     </Accordion>
   );
-};
+}
 
 export default SnippetItem;

@@ -20,7 +20,7 @@ interface Props {
   open: boolean;
   onClose: () => void;
 }
-const DrawerExample = ({ open, onClose }: Props) => {
+function DrawerExample({ open, onClose }: Props) {
   const drawerRef = React.useRef<HTMLDivElement | null>(null);
 
   const getParent = () => drawerRef.current?.parentElement;
@@ -56,7 +56,7 @@ const DrawerExample = ({ open, onClose }: Props) => {
       <List>{secondaryListItems}</List>
     </Drawer>
   );
-};
+}
 
 export default DrawerExample;
 

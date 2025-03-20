@@ -36,27 +36,27 @@ export default function DefaultExample() {
               </ListItem>
               <ThemeToolUsageListItem label="Palette" icon={<PaletteIcon />}>
                 <>
-                  {` Configure palette options like `}
+                  {' Configure palette options like '}
                   <Typography color="primary" variant="body2" component="span">
                     {'primary, '}
                   </Typography>
                   <Typography color="secondary" variant="body2" component="span">
                     {'secondary, '}
                   </Typography>
-                  {'and surface colors'}
+                  and surface colors
                 </>
               </ThemeToolUsageListItem>
               <ThemeToolUsageListItem label="Fonts" icon={<FontIcon />}>
                 <>
-                  {` Add `}
+                  {' Add '}
                   <Link href="https://fonts.google.com/" target="_blank" rel="noreferrer" underline="hover">
-                    {`Google Fonts`}
+                    Google Fonts
                   </Link>
-                  {` to use on typography elements on this page`}
+                  {' to use on typography elements on this page'}
                 </>
               </ThemeToolUsageListItem>
               <ThemeToolUsageListItem label="Typography" icon={<TypographyIcon />}>
-                {` Configure typography options like font sizes and font families`}
+                {' Configure typography options like font sizes and font families'}
               </ThemeToolUsageListItem>
 
               <Divider />

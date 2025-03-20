@@ -12,37 +12,40 @@ import TutorialStepButton from './TutorialStepButton';
 interface TutorialTooltipProps extends TooltipProps {
   anchorId: string;
 }
-const TutorialTooltip = ({ anchorId, children, ...props }: TutorialTooltipProps) =>
-  document.getElementById(anchorId) && (
-    <Tooltip
-      {...props}
-      open
-      arrow
-      title={<TooltipContents>{children}</TooltipContents>}
-      PopperProps={{
-        anchorEl: document.getElementById(anchorId),
-        disablePortal: true,
-        modifiers: [
-          {
-            name: 'preventOverflow',
-            enabled: true,
-            options: {
-              altBoundary: true,
-              tether: false,
-              rootBoundary: 'viewport',
-              padding: 8,
+function TutorialTooltip({ anchorId, children, ...props }: TutorialTooltipProps) {
+  return (
+    document.getElementById(anchorId) && (
+      <Tooltip
+        {...props}
+        open
+        arrow
+        title={<TooltipContents>{children}</TooltipContents>}
+        PopperProps={{
+          anchorEl: document.getElementById(anchorId),
+          disablePortal: true,
+          modifiers: [
+            {
+              name: 'preventOverflow',
+              enabled: true,
+              options: {
+                altBoundary: true,
+                tether: false,
+                rootBoundary: 'viewport',
+                padding: 8,
+              },
             },
-          },
-        ],
-      }}>
-      <div />
-    </Tooltip>
+          ],
+        }}>
+        <div />
+      </Tooltip>
+    )
   );
+}
 
 interface TooltipContentsProps {
   children: React.ReactNode;
 }
-const TooltipContents = ({ children }: TooltipContentsProps) => {
+function TooltipContents({ children }: TooltipContentsProps) {
   const dispatch = useDispatch();
   return (
     <Box
@@ -73,7 +76,7 @@ const TooltipContents = ({ children }: TooltipContentsProps) => {
       </Box>
     </Box>
   );
-};
+}
 
 export default withStyles((theme: Theme) => ({
   tooltip: {

@@ -25,7 +25,7 @@ export default function MainFeaturedPost({ post }: Props) {
         backgroundPosition: 'center',
       }}>
       {/* Increase the priority of the hero background image */}
-      {<img style={{ display: 'none' }} src={post.image} alt={post.imageText} />}
+      <img style={{ display: 'none' }} src={post.image} alt={post.imageText} />
       <Box
         sx={{
           position: 'absolute',
@@ -50,17 +50,17 @@ export default function MainFeaturedPost({ post }: Props) {
                 md: 0,
               },
             }}>
-            <Tooltip title={`<Typography color="textPrimary" variant="h3">`} placement="left" arrow>
+            <Tooltip title='<Typography color="textPrimary" variant="h3">' placement="left" arrow>
               <Typography component="h1" variant="h3" color="inherit" gutterBottom>
                 {post.title}
               </Typography>
             </Tooltip>
-            <Tooltip title={`<Typography color="textPrimary" variant="h5">`} placement="left" arrow>
+            <Tooltip title='<Typography color="textPrimary" variant="h5">' placement="left" arrow>
               <Typography variant="h5" color="inherit" paragraph>
                 {post.description}
               </Typography>
             </Tooltip>
-            <Tooltip title={`<Link color="primary" variant="subtitle1">`} placement="left" arrow>
+            <Tooltip title='<Link color="primary" variant="subtitle1">' placement="left" arrow>
               <Link variant="subtitle1" href="#" underline="hover">
                 {post.linkText}
               </Link>

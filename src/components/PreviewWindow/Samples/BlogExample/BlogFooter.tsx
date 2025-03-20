@@ -7,14 +7,13 @@ import React from 'react';
 
 function Copyright() {
   return (
-    <Tooltip title={`<Typography variant="body2" color="textSecondary">`} arrow>
+    <Tooltip title='<Typography variant="body2" color="textSecondary">' arrow>
       <Typography variant="body2" color="textSecondary" align="center">
         {'Copyright © '}
         <Link color="inherit" href="https://material-ui.com/" underline="hover">
           Your Website
         </Link>{' '}
-        {new Date().getFullYear()}
-        {'.'}
+        {new Date().getFullYear()}.
       </Typography>
     </Tooltip>
   );
@@ -34,12 +33,12 @@ export default function BlogFooter({ description, title }: Props) {
         px: 0,
       }}>
       <Container maxWidth="lg">
-        <Tooltip title={`<Typography variant="h6">`} arrow>
+        <Tooltip title='<Typography variant="h6">' arrow>
           <Typography variant="h6" align="center" gutterBottom>
             {title}
           </Typography>
         </Tooltip>
-        <Tooltip title={`<Typography color="textSecondary" variant="subtitle1">`} arrow>
+        <Tooltip title='<Typography color="textSecondary" variant="subtitle1">' arrow>
           <Typography variant="subtitle1" align="center" color="textSecondary" component="p">
             {description}
           </Typography>
