@@ -81,6 +81,7 @@ export default function useSave(editorRef: EditorRefType) {
         }),
       );
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, formatOnSave]);
 
   useSaveKey(editorRef, handleSave);
@@ -100,6 +101,7 @@ export const useSaveKey = (editorRef: EditorRefType, onSave: Function) => {
     const actionBinding = editorRef.current?.addAction({
       id: 'save-editor-contents',
       label: 'Save Editor Theme Contents',
+      // eslint-disable-next-line no-bitwise
       keybindings: [monaco.KeyMod.CtrlCmd | monaco.KeyCode.KEY_S],
       contextMenuGroupId: 'navigation',
       contextMenuOrder: 1,
@@ -108,7 +110,7 @@ export const useSaveKey = (editorRef: EditorRefType, onSave: Function) => {
 
     // global save key listener
     const handleGlobalSave = (event: KeyboardEvent) => {
-      if (event.ctrlKey && event.code == 'KeyS') {
+      if (event.ctrlKey && event.code === 'KeyS') {
         event.preventDefault();
         onSave();
       }
@@ -119,5 +121,6 @@ export const useSaveKey = (editorRef: EditorRefType, onSave: Function) => {
       actionBinding?.dispose();
       window.removeEventListener('keydown', handleGlobalSave);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [onSave]);
 };

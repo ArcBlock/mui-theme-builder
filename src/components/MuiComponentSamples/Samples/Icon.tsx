@@ -1,6 +1,5 @@
 import SvgIcon, { SvgIconProps } from '@mui/material/SvgIcon';
 import { green } from '@mui/material/colors';
-import React from 'react';
 
 function HomeIcon(props: SvgIconProps) {
   return (

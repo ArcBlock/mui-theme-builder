@@ -1,5 +1,3 @@
-import React from 'react';
-
 import AccordionExample from './Accordion';
 import AlertExample from './Alert';
 import AppBarExample from './AppBar';

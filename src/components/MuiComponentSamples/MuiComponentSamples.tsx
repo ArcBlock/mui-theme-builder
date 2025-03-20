@@ -1,5 +1,4 @@
 import { Box, Button, Grid, Typography } from '@mui/material';
-import React from 'react';
 
 import componentSamples from './Samples';
 

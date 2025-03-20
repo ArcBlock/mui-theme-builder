@@ -3,14 +3,15 @@ import FaceIcon from '@mui/icons-material/Face';
 import { Box, Typography } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
 import Chip from '@mui/material/Chip';
-import React from 'react';
 
 export default function ChipExample() {
   const handleDelete = () => {
+    // eslint-disable-next-line no-console
     console.info('You clicked the delete icon.');
   };
 
   const handleClick = () => {
+    // eslint-disable-next-line no-console
     console.info('You clicked the Chip.');
   };
 

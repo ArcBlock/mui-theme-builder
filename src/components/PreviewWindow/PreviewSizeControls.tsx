@@ -2,7 +2,7 @@ import DesktopWindowsIcon from '@mui/icons-material/DesktopWindows';
 import SmartphoneIcon from '@mui/icons-material/Smartphone';
 import TabletIcon from '@mui/icons-material/TabletAndroid';
 import { BottomNavigation, BottomNavigationAction, useMediaQuery, useTheme } from '@mui/material';
-import React, { useCallback, useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setPreviewSize } from 'src/state/actions';
 import { RootState } from 'src/state/types';
@@ -25,7 +25,7 @@ function PreviewSizeControls() {
         handleOnChange(null, 'xs');
       }
     },
-    [screenIsMdDown],
+    [screenIsMdDown, handleOnChange],
   );
 
   return screenIsMdDown ? null : (

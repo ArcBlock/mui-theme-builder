@@ -1,7 +1,6 @@
-import { useCallback, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { updateVersionStates, useUpdateEditorState } from 'src/state/editor/actions';
-import { RootState } from 'src/state/types';
 import { verbose } from 'src/utils';
 
 import { EditorRefType } from '../types';
@@ -20,6 +19,7 @@ export default function useUndoRedo(editorRef: EditorRefType) {
       lastVersion: initialVersionId,
       savedVersion: initialVersionId,
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useTrackUndoRedoState(editorRef);
@@ -42,6 +42,7 @@ const useTrackUndoRedoState = (editorRef: EditorRefType) => {
     return () => {
       modelContentChangeBinding?.dispose();
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 };
 
@@ -76,6 +77,7 @@ const useUndoRedoHandlers = (editorRef: EditorRefType) => {
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // return the handlers to be used on undo/redo

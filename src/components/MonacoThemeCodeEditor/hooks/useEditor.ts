@@ -57,8 +57,10 @@ export default function useEditor(editorRef: MutableEditorRefType) {
       editorRef.current?.getModel()?.dispose(); // clear undo/redo on unmount
       editorRef.current?.dispose();
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // @ts-ignore
   useEditorResizeListener(editorRef);
 }
 
@@ -74,21 +76,19 @@ const setPrettierFormatting = () => {
   // Monaco editor has an "auto-format" function.
   // this tells monaco to use Prettier to format code
   monaco.languages.registerDocumentFormattingEditProvider('typescript', {
-    async provideDocumentFormattingEdits(model, options, token) {
+    async provideDocumentFormattingEdits(model) {
       const prettier = await import('prettier/standalone');
-      const babel = await import('prettier/parser-babel');
-      const text = prettier
-        .format(model.getValue(), {
-          parser: 'babel',
-          plugins: [babel],
-          singleQuote: true,
-        })
-        .replace(/[\r\n]+$/, ''); // remove new line at end of prettier format
+      const babel = await import('prettier/plugins/babel');
+      const text = await prettier.format(model.getValue(), {
+        parser: 'babel',
+        plugins: [babel],
+        singleQuote: true,
+      });
 
       return [
         {
           range: model.getFullModelRange(),
-          text,
+          text: text.replace(/[\r\n]+$/, ''), // remove new line at end of prettier format,
         },
       ];
     },
@@ -102,7 +102,7 @@ const setMuiThemeTypeData = () => {
   //
   // see https://medium.com/@rohitghatol/web-based-ide-with-react-microsoft-monaco-editor-5ad5eaebaf92
   // for more
-  for (const fileName in muiTypeFiles) {
+  for (const fileName of Object.keys(muiTypeFiles)) {
     const fakePath = `file:///node_modules/${fileName}`;
 
     monaco.languages.typescript.typescriptDefaults.addExtraLib(muiTypeFiles[fileName], fakePath);
@@ -110,11 +110,12 @@ const setMuiThemeTypeData = () => {
 };
 
 export const useEditorResizeListener = (editorRef: EditorRefType) => {
-  const resizeEditor = () => editorRef.current?.layout();
   useEffect(() => {
+    const resizeEditor = () => editorRef.current?.layout();
+
     window.addEventListener('resize', resizeEditor);
     return () => {
       window.removeEventListener('resize', resizeEditor);
     };
-  }, []);
+  }, [editorRef]);
 };

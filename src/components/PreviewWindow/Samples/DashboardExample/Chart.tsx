@@ -1,7 +1,6 @@
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 import { useTheme } from '@mui/material/styles';
-import React from 'react';
 import { Label, Line, LineChart, ResponsiveContainer, XAxis, YAxis } from 'recharts';
 
 // Generate Sales Data

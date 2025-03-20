@@ -5,7 +5,6 @@ import { Box } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
 import AvatarGroup from '@mui/material/AvatarGroup';
 import { deepOrange, deepPurple, green, pink } from '@mui/material/colors';
-import React from 'react';
 
 const avatarSetStyle = {
   display: 'flex',

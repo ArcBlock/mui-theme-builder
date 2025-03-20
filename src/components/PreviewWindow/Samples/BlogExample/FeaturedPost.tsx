@@ -7,7 +7,6 @@ import Grid from '@mui/material/Grid';
 import Hidden from '@mui/material/Hidden';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
-import React from 'react';
 
 import { Post } from './Blog';
 
