@@ -16,6 +16,7 @@ export default defineConfig(() => {
         src: path.resolve(__dirname, './src'),
       },
     },
+    base: '/',
     server: {
       port: 3001,
       open: true,

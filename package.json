@@ -12,6 +12,13 @@
   "contributors": [
     "ArcBlock (https://github.com/ArcBlock)"
   ],
+  "files": [
+    "dist",
+    "public",
+    "screenshots",
+    "LICENSE",
+    "README.md"
+  ],
   "scripts": {
     "dev": "blocklet dev",
     "serve": "vite preview",
@@ -19,7 +26,8 @@
     "lint:fix": "npm run lint -- --fix",
     "start": "vite --host",
     "clean": "node scripts/build-clean.mjs",
-    "bundle": "npm run clean && vite build && blocklet bundle --zip --create-release",
+    "build": "vite build",
+    "bundle": "npm run clean && npm run build && blocklet bundle --zip --create-release",
     "deploy": "npm run bundle && blocklet deploy .blocklet/bundle",
     "upload": "npm run bundle && blocklet upload .blocklet/release/blocklet.json",
     "prepare": "npx simple-git-hooks",
