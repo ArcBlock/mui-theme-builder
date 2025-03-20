@@ -21,7 +21,6 @@ function App() {
             <BrowserRouter>
               <Routes>
                 <Route path="/" element={<HomePage />} />
-                {/* 添加更多路由 */}
               </Routes>
             </BrowserRouter>
           </PersistGate>

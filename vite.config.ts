@@ -1,6 +1,8 @@
+/* eslint-disable import/no-extraneous-dependencies */
 import react from '@vitejs/plugin-react';
 import path from 'path';
 import { defineConfig } from 'vite';
+// @ts-ignore
 import { createBlockletPlugin } from 'vite-plugin-blocklet';
 import monacoEditorPlugin from 'vite-plugin-monaco-editor';
 import svgr from 'vite-plugin-svgr';
@@ -13,6 +15,10 @@ export default defineConfig(() => {
       alias: {
         src: path.resolve(__dirname, './src'),
       },
+    },
+    server: {
+      port: 3001,
+      open: true,
     },
     test: {
       globals: true,
