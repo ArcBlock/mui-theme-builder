@@ -1,5 +1,5 @@
 import { Button, Grid } from '@mui/material';
-import React, { useCallback } from 'react';
+import { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import { removeThemeOption, setThemeOption } from 'src/state/actions';
 import { useThemeValueInfo } from 'src/state/selectors';
@@ -20,14 +20,16 @@ export default function TypographyInput({ variantPath, property }: TypographyInp
   const themeValueInfo = useThemeValueInfo(path);
   const dispatch = useDispatch();
 
-  const handleValueChange = useCallback(
-    (event, value) => {
+  const handleValueChange = useCallback<InputProps['onChange']>(
+    (_, value) => {
       dispatch(setThemeOption(path, value));
       document.dispatchEvent(ThemeValueChangeEvent());
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [dispatch],
   );
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const handleReset = useCallback(() => dispatch(removeThemeOption(path)), [dispatch]);
 
   return (

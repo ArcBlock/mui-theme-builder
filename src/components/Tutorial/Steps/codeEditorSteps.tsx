@@ -6,6 +6,7 @@ import intellisenseImage from 'src/images/tutorial/intellisense.webp';
 
 import TutorialCard from '../TutorialCard';
 import TutorialTooltip from '../TutorialTooltip';
+import { increment } from './length';
 
 function CodeEditorTutorialStep() {
   return (
@@ -48,4 +49,7 @@ function IntellisenseTutorialStep() {
   );
 }
 
-export default [CodeEditorTutorialStep, IntellisenseTutorialStep];
+const steps = [CodeEditorTutorialStep, IntellisenseTutorialStep];
+increment(steps.length);
+
+export default steps;

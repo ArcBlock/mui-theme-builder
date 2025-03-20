@@ -1,10 +1,8 @@
 import FacebookIcon from '@mui/icons-material/Facebook';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import TwitterIcon from '@mui/icons-material/Twitter';
-import { SvgIconTypeMap } from '@mui/material';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
-import { OverridableComponent } from '@mui/material/OverridableComponent';
 
 import BlogFooter from './BlogFooter';
 import BlogHeader from './BlogHeader';
@@ -12,11 +10,8 @@ import BlogSidebar from './BlogSidebar';
 import FeaturedPost from './FeaturedPost';
 import Main from './Main';
 import MainFeaturedPost from './MainFeaturedPost';
+import { Post, Section, SideBar } from './blog-types';
 
-export type Section = {
-  title: string;
-  url: string;
-};
 const sections: Section[] = [
   { title: 'Technology', url: '#' },
   { title: 'Design', url: '#' },
@@ -29,15 +24,6 @@ const sections: Section[] = [
   { title: 'Style', url: '#' },
   { title: 'Travel', url: '#' },
 ];
-
-export type Post = {
-  title: string;
-  date: string;
-  description: string;
-  image: string;
-  imageText: string;
-  linkText?: string;
-};
 
 const mainFeaturedPost: Post = {
   title: 'Title of a longer featured blog post',
@@ -65,22 +51,6 @@ const featuredPosts: Post[] = [
   },
 ];
 
-export type Archive = {
-  title: string;
-  url: string;
-};
-
-export type Social = {
-  icon: OverridableComponent<SvgIconTypeMap<{}, 'svg'>> & { muiName: string };
-  name: string;
-};
-
-interface SideBar {
-  title: string;
-  description: string;
-  archives: Archive[];
-  social: Social[];
-}
 const sidebar: SideBar = {
   title: 'About',
   description:

@@ -119,15 +119,16 @@ const onRemoveSavedTheme = (state: RootState, themeId: string) => {
 };
 
 export default (state = initialState, action: any) => {
+  let newState = {} as RootState;
   // run editor reducers
-  state = {
+  newState = {
     ...state,
     editor: editorReducer(state.editor, action, state.savedThemes),
   };
 
   // on initial page load, load the initial fonts
   if (!state.loadedFonts.size) {
-    state = {
+    newState = {
       ...state,
       loadedFonts: loadFontsIfRequired(initialFonts, state.loadedFonts),
     };
@@ -137,27 +138,30 @@ export default (state = initialState, action: any) => {
     case 'persist/REHYDRATE':
       if (action.payload != null) {
         return {
-          ...state,
-          themeObject: createPreviewMuiTheme(action.payload.themeOptions, state.previewSize),
-          loadedFonts: loadFontsIfRequired(action.payload.savedThemes[action.payload.themeId].fonts, state.loadedFonts),
+          ...newState,
+          themeObject: createPreviewMuiTheme(action.payload.themeOptions, newState.previewSize),
+          loadedFonts: loadFontsIfRequired(
+            action.payload.savedThemes[action.payload.themeId].fonts,
+            newState.loadedFonts,
+          ),
         };
       }
-      return state;
+      return newState;
     case 'SAVE_THEME_INPUT':
     case 'UPDATE_THEME':
       return {
-        ...state,
+        ...newState,
         themeOptions: action.themeOptions,
-        themeObject: createPreviewMuiTheme(action.themeOptions, state.previewSize),
+        themeObject: createPreviewMuiTheme(action.themeOptions, newState.previewSize),
         savedThemes: {
-          ...state.savedThemes,
-          [state.themeId]: {
-            ...state.savedThemes[state.themeId],
+          ...newState.savedThemes,
+          [newState.themeId]: {
+            ...newState.savedThemes[newState.themeId],
             themeOptions: action.themeOptions,
             fonts: getFontsFromThemeOptions(
               action.themeOptions,
-              state.savedThemes[state.themeId]?.fonts,
-              state.loadedFonts,
+              newState.savedThemes[newState.themeId]?.fonts,
+              newState.loadedFonts,
             ),
             lastUpdated: new Date().toISOString(),
           },
@@ -165,38 +169,38 @@ export default (state = initialState, action: any) => {
       };
     case 'ADD_NEW_THEME':
       // eslint-disable-next-line no-case-declarations
-      const newThemeId = generateThemeId(state);
+      const newThemeId = generateThemeId(newState.savedThemes);
 
       return {
-        ...state,
+        ...newState,
         themeId: newThemeId,
         themeOptions: action.savedTheme.themeOptions,
-        themeObject: createPreviewMuiTheme(action.savedTheme.themeOptions, state.previewSize),
+        themeObject: createPreviewMuiTheme(action.savedTheme.themeOptions, newState.previewSize),
         savedThemes: {
-          ...state.savedThemes,
+          ...newState.savedThemes,
           [newThemeId]: {
             id: newThemeId,
             ...action.savedTheme,
             lastUpdated: new Date().toISOString(),
           },
         },
-        loadedFonts: loadFontsIfRequired(action.savedTheme.fonts, state.loadedFonts),
+        loadedFonts: loadFontsIfRequired(action.savedTheme.fonts, newState.loadedFonts),
       };
     case 'LOAD_THEME':
       return {
-        ...state,
+        ...newState,
         themeId: action.themeId,
-        themeOptions: state.savedThemes[action.themeId].themeOptions,
-        themeObject: createPreviewMuiTheme(state.savedThemes[action.themeId].themeOptions, state.previewSize),
-        loadedFonts: loadFontsIfRequired(state.savedThemes[action.themeId].fonts, state.loadedFonts),
+        themeOptions: newState.savedThemes[action.themeId].themeOptions,
+        themeObject: createPreviewMuiTheme(newState.savedThemes[action.themeId].themeOptions, newState.previewSize),
+        loadedFonts: loadFontsIfRequired(newState.savedThemes[action.themeId].fonts, newState.loadedFonts),
       };
     case 'RENAME_THEME':
       return {
-        ...state,
+        ...newState,
         savedThemes: {
-          ...state.savedThemes,
+          ...newState.savedThemes,
           [action.themeId]: {
-            ...state.savedThemes[action.themeId],
+            ...newState.savedThemes[action.themeId],
             name: action.name,
             lastUpdated: new Date().toISOString(),
           },
@@ -204,58 +208,58 @@ export default (state = initialState, action: any) => {
       };
     case 'REMOVE_THEME':
       return {
-        ...state,
-        ...onRemoveSavedTheme(state, action.themeId),
+        ...newState,
+        ...onRemoveSavedTheme(newState, action.themeId),
       };
     case 'FONTS_LOADED':
       return {
-        ...state,
-        loadedFonts: new Set([...state.loadedFonts, ...action.fonts].sort()),
+        ...newState,
+        loadedFonts: new Set([...newState.loadedFonts, ...action.fonts].sort()),
       };
     case 'SET_TAB':
       return {
-        ...state,
+        ...newState,
         activeTab: action.tab,
       };
     case 'SET_PREVIEW_SIZE':
       return {
-        ...state,
+        ...newState,
         previewSize: action.previewSize,
-        themeObject: createPreviewMuiTheme(state.themeOptions, action.previewSize),
+        themeObject: createPreviewMuiTheme(newState.themeOptions, action.previewSize),
       };
     case 'INCREMENT_TUTORIAL_STEP':
       return {
-        ...state,
-        tutorialStep: state.tutorialStep + 1,
+        ...newState,
+        tutorialStep: newState.tutorialStep + 1,
       };
     case 'DECREMENT_TUTORIAL_STEP':
       return {
-        ...state,
-        tutorialStep: state.tutorialStep - 1,
+        ...newState,
+        tutorialStep: newState.tutorialStep - 1,
       };
     case 'RESET_TUTORIAL_STEP':
       return {
-        ...state,
+        ...newState,
         tutorialStep: 0,
       };
     case 'TOGGLE_TUTORIAL':
       return {
-        ...state,
-        tutorialOpen: !state.tutorialOpen,
+        ...newState,
+        tutorialOpen: !newState.tutorialOpen,
       };
     case 'TOGGLE_COMPONENT_NAV':
       return {
-        ...state,
-        componentNavOpen: !state.componentNavOpen,
+        ...newState,
+        componentNavOpen: !newState.componentNavOpen,
       };
     case 'TOGGLE_THEME_CONFIG':
       return {
-        ...state,
-        themeConfigOpen: !state.themeConfigOpen,
+        ...newState,
+        themeConfigOpen: !newState.themeConfigOpen,
       };
     case 'WARNING_SCREEN_SEEN':
       return {
-        ...state,
+        ...newState,
         mobileWarningSeen: true,
       };
     case 'RESET_SITE_DATA':
@@ -263,6 +267,6 @@ export default (state = initialState, action: any) => {
         ...initialState,
       };
     default:
-      return state;
+      return newState;
   }
 };

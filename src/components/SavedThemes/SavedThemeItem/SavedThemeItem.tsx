@@ -3,7 +3,7 @@ import { Box, Button, Card, ThemeOptions, Typography } from '@mui/material';
 import moment from 'moment';
 import { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { loadSavedTheme, removeSavedTheme } from 'src/state/actions';
+import { loadSavedTheme } from 'src/state/actions';
 import { RootState } from 'src/state/types';
 
 import ThemeThumbnail from '../ThemeThumbnail';
@@ -20,19 +20,11 @@ function SavedThemeItem({ name, themeId, lastUpdated, ...thumbnailProps }: Props
   const dispatch = useDispatch();
 
   const handleLoadTheme = useCallback(
-    (event) => {
+    (event: React.MouseEvent) => {
       event.stopPropagation();
       dispatch(loadSavedTheme(themeId));
     },
-    [dispatch],
-  );
-
-  const handleRemoveTheme = useCallback(
-    (event) => {
-      event.stopPropagation();
-      dispatch(removeSavedTheme(themeId));
-    },
-    [dispatch],
+    [dispatch, themeId],
   );
 
   const loadedThemeId = useSelector((state: RootState) => state.themeId);

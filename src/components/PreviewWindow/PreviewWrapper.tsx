@@ -56,7 +56,11 @@ function PreviewBackground({ children }: PreviewBackgroundProps) {
       square
       sx={{
         bgcolor: 'background.default',
-        maxWidth: previewSize === 'xs' ? 375 : previewSize === 'sm' ? 650 : 1000,
+        maxWidth: (() => {
+          if (previewSize === 'xs') return 375;
+          if (previewSize === 'sm') return 650;
+          return 1000;
+        })(),
         height: 1,
         overflowY: 'scroll',
         margin: 'auto',

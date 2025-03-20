@@ -1,10 +1,10 @@
 import Typography from '@mui/material/Typography';
-import React from 'react';
 import { componentNavDrawerId } from 'src/components/ComponentNavDrawer';
 import { componentsTabId } from 'src/components/MainWindow';
 
 import TutorialTooltip from '../TutorialTooltip';
 import { useSwitchToTab } from './hooks';
+import { increment } from './length';
 
 function ComponentsTabTutorialStep() {
   useSwitchToTab('components');
@@ -21,4 +21,7 @@ function ComponentsTabTutorialStep() {
   );
 }
 
-export default [ComponentsTabTutorialStep];
+const steps = [ComponentsTabTutorialStep];
+increment(steps.length);
+
+export default steps;

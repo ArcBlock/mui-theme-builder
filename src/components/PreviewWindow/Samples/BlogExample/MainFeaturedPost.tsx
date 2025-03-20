@@ -5,7 +5,7 @@ import Paper from '@mui/material/Paper';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 
-import { Post } from './Blog';
+import { Post } from './blog-types';
 
 interface Props {
   post: Post;

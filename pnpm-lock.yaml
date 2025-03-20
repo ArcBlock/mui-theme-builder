@@ -53,6 +53,9 @@ importers:
       monaco-editor:
         specifier: ^0.20.0
         version: 0.20.0
+      prettier:
+        specifier: ^3.5.1
+        version: 3.5.3
       react:
         specifier: ~18.2.0
         version: 18.2.0
@@ -141,9 +144,6 @@ importers:
       lint-staged:
         specifier: ^15.4.3
         version: 15.5.0
-      prettier:
-        specifier: ^3.5.1
-        version: 3.5.3
       rimraf:
         specifier: ^5.0.10
         version: 5.0.10

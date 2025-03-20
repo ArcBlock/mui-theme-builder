@@ -5,8 +5,7 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
-import TextField from '@mui/material/TextField';
-import React, { FormEvent, useCallback } from 'react';
+import { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import { removeSavedTheme } from 'src/state/actions';
 
@@ -29,7 +28,7 @@ function DeleteThemeButton({ themeId, themeName, disabled }) {
       dispatch(removeSavedTheme(themeId));
       handleClose();
     },
-    [dispatch],
+    [dispatch, themeId],
   );
 
   return (

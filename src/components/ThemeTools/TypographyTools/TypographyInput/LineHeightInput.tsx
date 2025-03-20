@@ -1,7 +1,7 @@
 import Grid from '@mui/material/Grid';
 import Slider from '@mui/material/Slider';
 import Typography from '@mui/material/Typography';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 function LineHeightInput({ value, onChange }) {
   const [displayValue, setDisplayValue] = useState(value);

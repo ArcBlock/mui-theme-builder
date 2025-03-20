@@ -6,7 +6,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 
-import { Section } from './Blog';
+import { Section } from './blog-types';
 
 interface Props {
   sections: Section[];

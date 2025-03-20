@@ -6,6 +6,7 @@ import { savedThemeListId } from 'src/components/SavedThemes/SavedThemeList';
 
 import TutorialTooltip from '../TutorialTooltip';
 import { useSwitchToTab } from './hooks';
+import { increment } from './length';
 
 function SavedThemesTabTutorialStep() {
   useSwitchToTab('saved');
@@ -36,4 +37,7 @@ function AddNewThemesTutorialStep() {
   );
 }
 
-export default [SavedThemesTabTutorialStep, AddNewThemesTutorialStep];
+const steps = [SavedThemesTabTutorialStep, AddNewThemesTutorialStep];
+increment(steps.length);
+
+export default steps;

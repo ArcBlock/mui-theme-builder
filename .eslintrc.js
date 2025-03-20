@@ -15,5 +15,9 @@ module.exports = {
     '@typescript-eslint/no-use-before-define': 'off',
     'jsx-a11y/alt-text': 'off',
     'react/require-default-props': 'off',
+    'react/no-unused-prop-types': 'off',
+    'react/prop-types': 'off',
+    'jsx-a11y/anchor-is-valid': 'off',
+    '@typescript-eslint/indent': 'off',
   },
 };

@@ -5,7 +5,6 @@ import { useSelector } from 'react-redux';
 import { RootState } from 'src/state/types';
 
 function FontFamilyInput({ value, onChange }) {
-  const loadedFonts = useSelector((state: RootState) => state.loadedFonts);
   const [input, setInput] = useState(value);
 
   useEffect(() => setInput(value), [value]);
@@ -14,7 +13,7 @@ function FontFamilyInput({ value, onChange }) {
     onChange(event, input);
   };
 
-  const handleFontSelected = (fontName) => {
+  const handleFontSelected = (fontName: string) => {
     onChange(null, fontName);
   };
 

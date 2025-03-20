@@ -1,11 +1,11 @@
 import Typography from '@mui/material/Typography';
-import React from 'react';
 import { previewTabId } from 'src/components/MainWindow';
 import { previewSizeControlsId } from 'src/components/PreviewWindow/PreviewSizeControls';
 import { previewNavTabsId } from 'src/components/PreviewWindow/PreviewWindow';
 
 import TutorialTooltip from '../TutorialTooltip';
 import { useSwitchToTab } from './hooks';
+import { increment } from './length';
 
 function PreviewTabTutorialStep() {
   useSwitchToTab('preview');
@@ -30,4 +30,7 @@ function SiteSamplesTutorialStep() {
   );
 }
 
-export default [PreviewTabTutorialStep, SiteSamplesTutorialStep];
+const steps = [PreviewTabTutorialStep, SiteSamplesTutorialStep];
+increment(steps.length);
+
+export default steps;

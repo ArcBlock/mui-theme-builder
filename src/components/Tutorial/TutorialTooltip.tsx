@@ -9,8 +9,9 @@ import { toggleTutorial } from 'src/state/actions';
 
 import TutorialStepButton from './TutorialStepButton';
 
-interface TutorialTooltipProps extends TooltipProps {
+interface TutorialTooltipProps extends Omit<TooltipProps, 'title' | 'children'> {
   anchorId: string;
+  children: React.ReactNode;
 }
 function TutorialTooltip({ anchorId, children, ...props }: TutorialTooltipProps) {
   return (

@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { decrementTutorialStep, incrementTutorialStep, toggleTutorial } from 'src/state/actions';
 import { RootState } from 'src/state/types';
 
-import stepList from './Steps';
+import { get } from './Steps/length';
 
 function TutorialStepButton({ variant }: { variant: 'next' | 'prev' }) {
   const tutorialStep = useSelector((state: RootState) => state.tutorialStep);
@@ -22,15 +22,13 @@ function TutorialStepButton({ variant }: { variant: 'next' | 'prev' }) {
     dispatch(toggleTutorial());
   }, [dispatch]);
 
-  if (variant === 'next' && tutorialStep === stepList.length - 1) {
+  if (variant === 'next' && tutorialStep === get() - 1) {
     return <Button onClick={handleClose}>Finish</Button>;
   }
 
   return (
     <Button
-      disabled={
-        (variant === 'prev' && tutorialStep === 0) || (variant === 'next' && tutorialStep === stepList.length - 1)
-      }
+      disabled={(variant === 'prev' && tutorialStep === 0) || (variant === 'next' && tutorialStep === get() - 1)}
       // eslint-disable-next-line no-nested-ternary
       onClick={variant === 'next' ? handleNext : variant === 'prev' ? handlePrev : undefined}>
       {variant === 'next' && 'Next'}

@@ -18,7 +18,7 @@ function RenameThemeButton({ themeId, defaultName }) {
     setOpen(true);
   };
 
-  const handleClose = (event) => {
+  const handleClose = () => {
     setOpen(false);
   };
 
@@ -30,7 +30,7 @@ function RenameThemeButton({ themeId, defaultName }) {
       dispatch(renameSavedTheme(themeId, event.target.themeName.value));
       // handleClose(event)
     },
-    [dispatch],
+    [dispatch, themeId],
   );
 
   return (

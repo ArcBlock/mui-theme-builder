@@ -137,6 +137,7 @@ export default function PricingExample() {
                         sx: {
                           color: 'secondary.contrastText',
                           bgcolor:
+                            // eslint-disable-next-line no-nested-ternary
                             tier.color === 'main'
                               ? 'secondary.main'
                               : tier.color === 'light'
@@ -148,6 +149,7 @@ export default function PricingExample() {
                       sx={{
                         color: 'secondary.contrastText',
                         bgcolor:
+                          // eslint-disable-next-line no-nested-ternary
                           tier.color === 'main'
                             ? 'secondary.main'
                             : tier.color === 'light'

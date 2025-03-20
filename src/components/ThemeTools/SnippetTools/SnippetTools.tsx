@@ -1,5 +1,3 @@
-import React from 'react';
-
 import SnippetItem from './SnippetItem';
 import snippets from './snippets';
 

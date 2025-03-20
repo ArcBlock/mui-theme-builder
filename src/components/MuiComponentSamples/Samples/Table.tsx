@@ -174,17 +174,18 @@ function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
       sx={{
         pl: 2,
         pr: 1,
-        ...(props.numSelected > 0
-          ? theme.palette.mode === 'light'
+        ...(() => {
+          if (!props.numSelected) return {};
+          return theme.palette.mode === 'light'
             ? {
-              color: theme.palette.secondary.main,
-              backgroundColor: lighten(theme.palette.secondary.light, 0.85),
-            }
+                color: theme.palette.secondary.main,
+                backgroundColor: lighten(theme.palette.secondary.light, 0.85),
+              }
             : {
-              color: theme.palette.text.primary,
-              backgroundColor: theme.palette.secondary.dark,
-            }
-          : {}),
+                color: theme.palette.text.primary,
+                backgroundColor: theme.palette.secondary.dark,
+              };
+        })(),
       }}>
       {numSelected > 0 ? (
         <Typography sx={{ flex: '1 1 100%' }} color="inherit" variant="subtitle1" component="div">

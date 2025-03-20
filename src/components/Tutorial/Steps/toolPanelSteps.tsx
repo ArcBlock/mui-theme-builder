@@ -8,6 +8,7 @@ import typographyToolsImage from 'src/images/tutorial/typographytools.webp';
 
 import TutorialCard from '../TutorialCard';
 import TutorialTooltip from '../TutorialTooltip';
+import { increment } from './length';
 
 function ToolPanelTutorialStep() {
   return (
@@ -113,10 +114,13 @@ function SnippetsTutorialStep() {
   );
 }
 
-export default [
+const steps = [
   ToolPanelTutorialStep,
   PaletteTutorialStep,
   FontTutorialStep,
   TypographyTutorialStep,
   SnippetsTutorialStep,
 ];
+increment(steps.length);
+
+export default steps;

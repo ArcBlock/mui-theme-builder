@@ -46,6 +46,7 @@ export const removeThemeOption = (path: string) => (dispatch: Function, getState
       themeOptions: updatedThemeOptions,
     });
   }
+  return undefined;
 };
 
 export const removeThemeOptions =
@@ -135,25 +136,26 @@ export const renameSavedTheme = (themeId: string, name: string) => ({
  */
 export function loadFonts(fonts: string[]) {
   return new Promise<boolean>((resolve) => {
-    // require inline to support server side rendering
-    try {
-      const WebFont = require('webfontloader');
-      WebFont.load({
-        google: {
-          families: fonts,
-        },
-        active: () => {
-          verbose('state/actions -> loadFonts: webfonts loaded', fonts);
-          resolve(true);
-        },
-        inactive: () => {
-          verbose('state/actions -> loadFonts: webfonts could not load', fonts);
-          resolve(false);
-        },
+    import('webfontloader')
+      .then((WebFontModule) => {
+        const WebFont = WebFontModule.default || WebFontModule;
+        WebFont.load({
+          google: {
+            families: fonts,
+          },
+          active: () => {
+            verbose('state/actions -> loadFonts: webfonts loaded', fonts);
+            resolve(true);
+          },
+          inactive: () => {
+            verbose('state/actions -> loadFonts: webfonts could not load', fonts);
+            resolve(false);
+          },
+        });
+      })
+      .catch(() => {
+        resolve(false);
       });
-    } catch (err) {
-      resolve(false);
-    }
   });
 }
 

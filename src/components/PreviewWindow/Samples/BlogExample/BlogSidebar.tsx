@@ -4,7 +4,7 @@ import Paper from '@mui/material/Paper';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 
-import { Archive, Social } from './Blog';
+import { Archive, Social } from './blog-types';
 
 interface Props {
   archives: Archive[];

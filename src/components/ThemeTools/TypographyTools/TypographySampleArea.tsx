@@ -1,5 +1,4 @@
 import { Grid, Paper, StyledEngineProvider, Theme, ThemeProvider, Typography } from '@mui/material';
-import React from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from 'src/state/types';
 
@@ -8,22 +7,23 @@ declare module '@mui/styles/defaultTheme' {
   interface DefaultTheme extends Theme {}
 }
 
+type Variant =
+  | 'inherit'
+  | 'button'
+  | 'overline'
+  | 'caption'
+  | 'h1'
+  | 'h2'
+  | 'h3'
+  | 'h4'
+  | 'h5'
+  | 'h6'
+  | 'subtitle1'
+  | 'subtitle2'
+  | 'body1'
+  | 'body2';
 interface Props {
-  variant:
-    | 'inherit'
-    | 'button'
-    | 'overline'
-    | 'caption'
-    | 'h1'
-    | 'h2'
-    | 'h3'
-    | 'h4'
-    | 'h5'
-    | 'h6'
-    | 'subtitle1'
-    | 'subtitle2'
-    | 'body1'
-    | 'body2';
+  variant: Variant;
   bgText: string;
   paperText: string;
   smallPreview?: boolean;

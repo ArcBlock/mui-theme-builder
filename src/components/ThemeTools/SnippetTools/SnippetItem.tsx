@@ -2,7 +2,7 @@ import AddIcon from '@mui/icons-material/Add';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import RemoveIcon from '@mui/icons-material/Remove';
 import { Accordion, AccordionSummary, Link, Tooltip, Typography } from '@mui/material';
-import React, { useCallback } from 'react';
+import { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { removeThemeOptions, setThemeOptions } from 'src/state/actions';
 import { RootState } from 'src/state/types';
@@ -18,8 +18,8 @@ import { SnippetModification } from './types';
  */
 const useIsSnippetIncluded = (configs: SnippetModification['configs']) => {
   const themeOptions = useSelector((state: RootState) => state.themeOptions);
-  for (const c in configs) {
-    if (getByPath(themeOptions, configs[c].path) == null) {
+  for (const config of configs) {
+    if (getByPath(themeOptions, config.path) == null) {
       return false;
     }
   }
@@ -35,12 +35,12 @@ function SnippetItem({ snippet }: SnippetItemProps) {
   const handleAddSnippet = useCallback(() => {
     dispatch(setThemeOptions(snippet.configs));
     document.dispatchEvent(ThemeValueChangeEvent());
-  }, [dispatch]);
+  }, [dispatch, snippet.configs]);
 
   const handleRemoveSnippet = useCallback(() => {
     dispatch(removeThemeOptions(snippet.configs));
     document.dispatchEvent(ThemeValueChangeEvent());
-  }, [dispatch]);
+  }, [dispatch, snippet.configs]);
 
   const isSnippetIncluded = useIsSnippetIncluded(snippet.configs);
 

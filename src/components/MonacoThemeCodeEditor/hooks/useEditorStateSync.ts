@@ -27,6 +27,7 @@ const useSyncToStore = (editorRef: EditorRefType) => {
     return () => {
       modelContentChangeBinding?.dispose();
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 };
 

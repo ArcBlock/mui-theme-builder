@@ -32,7 +32,7 @@ export default function useReadOnlyLines(editorRef: EditorRefType) {
       const selection = editorRef.current?.getSelection();
       const lastEditableLine = (editorRef.current?.getModel()?.getLineCount() || 0) - readOnlyLines.bottom;
 
-      if (!selection || lastEditableLine < 0) return null;
+      if (!selection || lastEditableLine < 0) return;
 
       if (selection.startLineNumber <= readOnlyLines.top || selection.endLineNumber > lastEditableLine) {
         const allowedKeys = [
@@ -60,7 +60,7 @@ export default function useReadOnlyLines(editorRef: EditorRefType) {
       if (event.keyCode === monaco.KeyCode.Backspace) {
         const selection = editorRef.current?.getSelection();
 
-        if (!selection) return null;
+        if (!selection) return;
 
         if (selection.startLineNumber === readOnlyLines.top + 1) {
           if (selection.startColumn === 1 && selection.isEmpty()) {
@@ -79,7 +79,7 @@ export default function useReadOnlyLines(editorRef: EditorRefType) {
         const selection = editorRef.current?.getSelection();
         const lastEditableLine = (editorRef.current?.getModel()?.getLineCount() || 0) - readOnlyLines.bottom;
 
-        if (!selection || lastEditableLine < 0) return null;
+        if (!selection || lastEditableLine < 0) return;
 
         if (selection.endLineNumber === lastEditableLine) {
           const lineLength = editorRef.current?.getModel()?.getLineLength(lastEditableLine) || 0;
@@ -99,6 +99,7 @@ export default function useReadOnlyLines(editorRef: EditorRefType) {
     });
 
     return () => keyDownBinding?.dispose();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 }
 
@@ -145,12 +146,14 @@ export const useReadOnlyStyles = (editorRef: EditorRefType) => {
     // add the initial styles
     applyStyles();
 
+    const editorRefCurrent = editorRef.current;
     // when model content changes, ensure that styles are reapplied
-    const modelContentChangeBinding = editorRef.current?.onDidChangeModelContent(applyStyles);
+    const modelContentChangeBinding = editorRefCurrent?.onDidChangeModelContent(applyStyles);
 
     return () => {
-      editorRef.current?.deltaDecorations(decorationIds, []); // wipe any existing decorations
+      editorRefCurrent?.deltaDecorations(decorationIds, []); // wipe any existing decorations
       modelContentChangeBinding?.dispose();
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 };

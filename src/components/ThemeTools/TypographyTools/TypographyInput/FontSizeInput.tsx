@@ -3,7 +3,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import Slider from '@mui/material/Slider';
 import Typography from '@mui/material/Typography';
-import React, { SyntheticEvent, useEffect, useState } from 'react';
+import { SyntheticEvent, useEffect, useState } from 'react';
 
 const supportedFontSizeTypes = ['rem', 'em', 'px', 'pt'];
 const fontSizeSliderProps: Record<string, object> = {
@@ -30,7 +30,7 @@ const getFontSizeUnit = (value: string | number) => {
 };
 
 const getFontSizeValue = (value: number | string, fontSizeUnit?: string) => {
-  if (fontSizeUnit == undefined) {
+  if (fontSizeUnit === undefined) {
     return 0;
   }
   return typeof value === 'string' ? parseFloat(value.substring(0, value.lastIndexOf(fontSizeUnit))) : value;

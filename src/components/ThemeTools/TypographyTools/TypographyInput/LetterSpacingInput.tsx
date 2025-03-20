@@ -2,7 +2,7 @@ import { SelectChangeEvent } from '@mui/material';
 import Grid from '@mui/material/Grid';
 import Slider from '@mui/material/Slider';
 import Typography from '@mui/material/Typography';
-import React, { SyntheticEvent, useEffect, useState } from 'react';
+import { SyntheticEvent, useEffect, useState } from 'react';
 
 const getLetterSpacingValue = (letterSpacing: string) => {
   if (letterSpacing == null || letterSpacing.endsWith('rem') || !letterSpacing.endsWith('em')) {
@@ -21,7 +21,7 @@ function LetterSpacingInput({ value, onChange }: InputProps) {
 
   useEffect(() => setDisplayValue(getLetterSpacingValue(value)), [value]);
 
-  const disabled = displayValue == undefined;
+  const disabled = displayValue === undefined;
 
   return (
     <>

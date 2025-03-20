@@ -7,22 +7,24 @@ import TypographySampleArea from './TypographySampleArea';
 
 const defaultVariantProperties = ['fontFamily', 'fontSize', 'fontWeight', 'lineHeight', 'letterSpacing'];
 
+type Variant =
+  | 'button'
+  | 'caption'
+  | 'h1'
+  | 'h2'
+  | 'h3'
+  | 'h4'
+  | 'h5'
+  | 'h6'
+  | 'inherit'
+  | 'overline'
+  | 'subtitle1'
+  | 'subtitle2'
+  | 'body1'
+  | 'body2';
+
 interface Props {
-  variant:
-    | 'button'
-    | 'caption'
-    | 'h1'
-    | 'h2'
-    | 'h3'
-    | 'h4'
-    | 'h5'
-    | 'h6'
-    | 'inherit'
-    | 'overline'
-    | 'subtitle1'
-    | 'subtitle2'
-    | 'body1'
-    | 'body2';
+  variant: Variant;
   text: string;
   smallPreview?: boolean;
 }
