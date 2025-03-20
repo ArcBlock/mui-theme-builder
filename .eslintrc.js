@@ -14,5 +14,6 @@ module.exports = {
     'import/prefer-default-export': 'off',
     '@typescript-eslint/no-use-before-define': 'off',
     'jsx-a11y/alt-text': 'off',
+    'react/require-default-props': 'off',
   },
 };

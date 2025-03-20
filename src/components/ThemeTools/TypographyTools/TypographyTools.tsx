@@ -1,5 +1,3 @@
-import React from 'react';
-
 import TypographyGlobals from './TypographyGlobals';
 import TypographyVariant from './TypographyVariant';
 

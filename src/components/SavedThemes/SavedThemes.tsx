@@ -1,5 +1,4 @@
 import { Box, Divider, Grid, Typography } from '@mui/material';
-import React from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from 'src/state/types';
 

@@ -79,6 +79,7 @@ export default function ThemeTools() {
         onChange={(event, newValue) => setBottomNavIndex(newValue)}>
         {toolPanels.map((panel, index) => (
           <BottomNavigationAction
+            // eslint-disable-next-line react/no-array-index-key
             key={`${index}-${panel.label}`}
             id={panel.id}
             label={panel.label}

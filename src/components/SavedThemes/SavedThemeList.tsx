@@ -1,5 +1,4 @@
 import { Grid } from '@mui/material';
-import React from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from 'src/state/types';
 
@@ -10,6 +9,7 @@ export const savedThemeListId = 'saved-theme-list';
 function SavedThemeList() {
   const savedThemes = useSelector((state: RootState) => state.savedThemes);
   const sortedThemes = Object.values(savedThemes).sort((a, b) =>
+    // eslint-disable-next-line no-nested-ternary
     a.lastUpdated > b.lastUpdated ? -1 : a.lastUpdated < b.lastUpdated ? 1 : 0,
   );
 

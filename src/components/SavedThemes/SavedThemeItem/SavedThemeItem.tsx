@@ -1,7 +1,7 @@
 import SwapHorizIcon from '@mui/icons-material/SwapHoriz';
 import { Box, Button, Card, ThemeOptions, Typography } from '@mui/material';
 import moment from 'moment';
-import React, { useCallback } from 'react';
+import { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadSavedTheme, removeSavedTheme } from 'src/state/actions';
 import { RootState } from 'src/state/types';

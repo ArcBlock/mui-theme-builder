@@ -1,6 +1,6 @@
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { Accordion, AccordionDetails, AccordionSummary, Divider } from '@mui/material';
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 import TypographyInput from './TypographyInput/TypographyInput';
 import TypographySampleArea from './TypographySampleArea';
