@@ -1,8 +1,21 @@
 import { Box, Button, Grid, Typography } from '@mui/material';
+import { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 
 import componentSamples from './Samples';
 
 function MuiComponentSamples() {
+  const { id } = useParams();
+
+  useEffect(() => {
+    if (id) {
+      const element = document.getElementById(id);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  }, [id]);
+
   return (
     <Box
       sx={{
@@ -13,8 +26,8 @@ function MuiComponentSamples() {
       <Typography variant="h4" gutterBottom>
         Material-UI Components
       </Typography>
-      {componentSamples.map(({ id, title, component, docs }) => (
-        <div key={id} id={id}>
+      {componentSamples.map(({ id: _id, title, component, docs }) => (
+        <div key={_id} id={_id}>
           <Grid container justifyContent="space-between" alignItems="center">
             <Typography variant="h5" gutterBottom>
               {title}

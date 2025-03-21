@@ -5,14 +5,14 @@ import { BottomNavigation, BottomNavigationAction, useMediaQuery, useTheme } fro
 import { useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setPreviewSize } from 'src/state/actions';
-import { RootState } from 'src/state/types';
+import { PreviewSize, RootState } from 'src/state/types';
 
 export const previewSizeControlsId = 'preview-size-controls';
 
 function PreviewSizeControls() {
   const previewSize = useSelector((state: RootState) => state.previewSize);
   const dispatch = useDispatch();
-  const handleOnChange = useCallback((_, value) => dispatch(setPreviewSize(value)), [dispatch]);
+  const handleOnChange = useCallback((_: unknown, value: PreviewSize) => dispatch(setPreviewSize(value)), [dispatch]);
 
   const theme = useTheme();
   const screenIsMdDown = useMediaQuery(theme.breakpoints.down('lg'));
@@ -36,11 +36,7 @@ function PreviewSizeControls() {
       sx={{
         height: 'auto',
         bgcolor: 'background.default',
-        position: 'absolute',
-        bottom: 0,
-        left: 0,
-        zIndex: 1,
-        flexDirection: 'column',
+        flexDirection: 'row',
       }}
       showLabels>
       <BottomNavigationAction label="Phone" value="xs" icon={<SmartphoneIcon />} />

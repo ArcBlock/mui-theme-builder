@@ -5,6 +5,9 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { PersistGate } from 'redux-persist/integration/react';
 import theme from 'src/siteTheme';
 
+import BlockletSamples from './components/BlockletSamples';
+import MuiComponentSamples from './components/MuiComponentSamples/MuiComponentSamples';
+import PreviewWindow from './components/PreviewWindow/PreviewWindow';
 import './components/layout.css';
 import HomePage from './pages/index';
 import createStore from './state/createStore';
@@ -20,7 +23,13 @@ function App() {
           <PersistGate loading={null} persistor={persistor}>
             <BrowserRouter>
               <Routes>
-                <Route path="/" element={<HomePage />} />
+                <Route path="/" element={<HomePage />}>
+                  <Route path="preview" element={<PreviewWindow />} />
+                  <Route path="components/:id?" element={<MuiComponentSamples />} />
+                  {BlockletSamples.map(({ id, component }) => (
+                    <Route path={`blocklets/${id}`} element={component} />
+                  ))}
+                </Route>
               </Routes>
             </BrowserRouter>
           </PersistGate>

@@ -6,7 +6,6 @@ import Layout from 'src/components/Layout';
 import MainWindow from 'src/components/MainWindow';
 import SmallScreenWarning from 'src/components/SmallScreenWarning';
 import ThemeConfigDrawer from 'src/components/ThemeConfigDrawer';
-import Tutorial from 'src/components/Tutorial';
 
 function IndexPage() {
   return (
@@ -32,7 +31,6 @@ function IndexPage() {
                 },
               }}
             />
-
             <Box
               sx={{
                 flex: 1,
@@ -40,7 +38,6 @@ function IndexPage() {
                 minHeight: 0,
               }}>
               <ComponentNavDrawer />
-
               <Box
                 component="main"
                 sx={{
@@ -54,12 +51,10 @@ function IndexPage() {
               </Box>
             </Box>
           </Box>
-
           <ThemeConfigDrawer />
         </ErrorBoundary>
       </Box>
       <SmallScreenWarning />
-      <Tutorial />
     </Layout>
   );
 }

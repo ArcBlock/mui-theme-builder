@@ -1,27 +1,15 @@
-import {
-  Drawer,
-  Link,
-  LinkProps,
-  List,
-  ListItemButton,
-  ListItemText,
-  ListSubheader,
-  useMediaQuery,
-  useTheme,
-} from '@mui/material';
+import { Drawer, List, ListItemButton, ListItemText, ListSubheader, useMediaQuery, useTheme } from '@mui/material';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import componentSamples from 'src/components/MuiComponentSamples/Samples';
-import { setActiveTab } from 'src/state/actions';
 import { RootState } from 'src/state/types';
+
+import BlockletSamples from './BlockletSamples';
 
 const drawerWidth: React.CSSProperties['width'] = 200;
 
 export const componentNavDrawerId = 'component-nav-drawer';
-
-const NavLink = React.forwardRef<HTMLAnchorElement, LinkProps>((linkProps, ref) => (
-  <Link ref={ref} {...linkProps} color="textPrimary" underline="hover" />
-));
 
 function ComponentNavDrawer() {
   const theme = useTheme();
@@ -31,7 +19,6 @@ function ComponentNavDrawer() {
   const dispatch = useDispatch();
   const handleClick = React.useCallback(() => {
     dispatch({ type: 'TOGGLE_COMPONENT_NAV' });
-    dispatch(setActiveTab('components'));
   }, [dispatch]);
 
   return (
@@ -48,9 +35,15 @@ function ComponentNavDrawer() {
       anchor="left"
       onClose={() => dispatch({ type: 'TOGGLE_COMPONENT_NAV' })}>
       <List dense sx={{ bgcolor: 'background.paper' }}>
+        <ListSubheader>Blocklets</ListSubheader>
+        {BlockletSamples.map(({ id, title }) => (
+          <ListItemButton key={id} component={Link} to={`/blocklets/${id}`} onClick={handleClick}>
+            <ListItemText primary={title} sx={{ pl: 2 }} />
+          </ListItemButton>
+        ))}
         <ListSubheader>Components</ListSubheader>
         {componentSamples.map(({ id, title }) => (
-          <ListItemButton key={id} component={NavLink} href={`#${id}`} onClick={handleClick}>
+          <ListItemButton key={id} component={Link} to={`/components/${id}`} onClick={handleClick}>
             <ListItemText
               primary={title}
               sx={{ pl: 2 }}

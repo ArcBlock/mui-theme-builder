@@ -4,8 +4,6 @@ import { useSelector } from 'react-redux';
 import ThemeWrapper from 'src/components/ThemeWrapper';
 import { RootState } from 'src/state/types';
 
-import PreviewSizeControls from './PreviewSizeControls';
-
 interface PreviewWrapperProps {
   children: React.ReactNode;
 }
@@ -20,7 +18,6 @@ function PreviewWrapper({ children }: PreviewWrapperProps) {
         height: 1,
         position: 'relative',
       }}>
-      <PreviewSizeControls />
       <ThemeWrapper>
         <Box
           sx={{
