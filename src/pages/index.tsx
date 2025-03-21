@@ -25,7 +25,6 @@ function IndexPage() {
             }}>
             <Header
               sx={{
-                backgroundColor: '#000000',
                 position: {
                   md: 'static',
                 },

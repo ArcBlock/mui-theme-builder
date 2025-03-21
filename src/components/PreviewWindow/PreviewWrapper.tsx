@@ -21,7 +21,7 @@ function PreviewWrapper({ children }: PreviewWrapperProps) {
       <ThemeWrapper>
         <Box
           sx={{
-            bgcolor: '#212121',
+            // bgcolor: '#212121',
             p: 2,
             height: 1,
           }}>

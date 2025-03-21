@@ -5,7 +5,7 @@ import PreviewSizeControls from './PreviewWindow/PreviewSizeControls';
 
 function Header(props: AppBarProps) {
   return (
-    <AppBar position="static" color="default" {...props}>
+    <AppBar position="static" color="default" style={{ backgroundColor: '#fff' }} {...props}>
       <Toolbar
         sx={{
           display: 'flex',
@@ -14,9 +14,7 @@ function Header(props: AppBarProps) {
             sm: '48px',
           },
         }}>
-        <Typography variant="h6" sx={{ typography: 'h6', lineHeight: '1.25rem', mr: 2 }}>
-          MUI Theme Builder
-        </Typography>
+        <Typography sx={{ lineHeight: '1.25rem', mr: 2 }}>MUI Theme Builder</Typography>
         <PreviewSizeControls />
         <Box sx={{ flexGrow: 1 }} />
         <Link

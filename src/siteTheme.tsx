@@ -16,12 +16,19 @@ export const defaultTheme: Theme = createTheme();
 
 export const themeConfig: ThemeOptions = {
   palette: {
-    mode: 'dark',
+    // mode: 'dark',
+    // primary: {
+    //   main: '#90caf9',
+    // },
+    // secondary: {
+    //   main: '#f48fb1',
+    // },
+    mode: 'light',
     primary: {
-      main: '#90caf9',
+      main: '#3f51b5', // the default primary color
     },
     secondary: {
-      main: '#f48fb1',
+      main: '#f50057', // the default secondary color
     },
   },
   components: {
@@ -73,7 +80,7 @@ export const themeConfig: ThemeOptions = {
     MuiAccordionDetails: {
       styleOverrides: {
         root: {
-          backgroundColor: '#212121',
+          // backgroundColor: '#212121',
         },
       },
     },
@@ -90,7 +97,7 @@ export const themeConfig: ThemeOptions = {
     MuiPopover: {
       styleOverrides: {
         paper: {
-          backgroundColor: '#121212',
+          // backgroundColor: '#121212',
         },
       },
     },

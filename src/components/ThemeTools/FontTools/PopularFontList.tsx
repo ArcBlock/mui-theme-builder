@@ -22,7 +22,7 @@ function PopularFontList() {
   }, [loadedFonts]);
 
   const handleDefaultFontClick = useCallback(
-    (fontName) => {
+    (fontName: string) => {
       dispatch(addFonts([fontName]));
       const index = fontShortList.indexOf(fontName);
       setFontShortList([...fontShortList.slice(0, index), ...fontShortList.slice(index + 1)]);

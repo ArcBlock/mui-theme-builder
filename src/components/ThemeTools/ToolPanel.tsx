@@ -13,7 +13,7 @@ function ToolPanel({ panelTitle, children }: Props) {
     <Box
       id={toolPanelId}
       sx={{
-        bgcolor: '#212121',
+        // bgcolor: '#212121',
         flexGrow: 1,
         overflowX: 'hidden',
         display: 'flex',

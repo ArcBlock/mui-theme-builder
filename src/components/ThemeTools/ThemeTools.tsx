@@ -87,7 +87,7 @@ export default function ThemeTools() {
             icon={panel.icon}
             sx={{
               '&.Mui-selected': {
-                bgcolor: '#212121',
+                // bgcolor: '#212121',
               },
             }}
           />
