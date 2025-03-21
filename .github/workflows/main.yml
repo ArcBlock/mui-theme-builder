@@ -15,13 +15,13 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v3
-        with:
-          version: 9
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-          cache: 'pnpm'
+      # - uses: pnpm/action-setup@v3
+      #   with:
+      #     version: 9
+      # - uses: actions/setup-node@v4
+      #   with:
+      #     node-version: '20'
+      #     cache: 'pnpm'
       # - name: Blocklet workflow
       #   uses: blocklet/action-workflow@v1
       #   with:
@@ -35,8 +35,8 @@ jobs:
       #     server-access-secret: ${{ secrets.SERVER_ACCESS_SECRET }}
       #     slack-webhook: ${{ secrets.SLACK_WEBHOOK }}
       #     github-token: ${{ secrets.GITHUB_TOKEN }}
-      - name: Publish Package
-        run: |
-          npm config set '//registry.npmjs.org/:_authToken' "${{ secrets.NPM_TOKEN }}"
-          node publish.js
-          cd .package && npm publish
+      # - name: Publish Package
+      #   run: |
+      #     npm config set '//registry.npmjs.org/:_authToken' "${{ secrets.NPM_TOKEN }}"
+      #     node publish.js
+      #     cd .package && npm publish
