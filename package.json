@@ -20,13 +20,13 @@
     "README.md"
   ],
   "scripts": {
-    "dev": "blocklet dev",
+    "dev": "vite --host",
     "serve": "vite preview",
     "lint": "eslint src --ext .mjs,.js,.jsx,.ts,.tsx",
     "lint:fix": "npm run lint -- --fix",
     "start": "vite --host",
     "clean": "node scripts/build-clean.mjs",
-    "build": "./extractMuiVersion.sh && vite build",
+    "build": "./extractMuiVersion.sh && vite build && node publish.js",
     "bundle": "npm run clean && npm run build && blocklet bundle --zip --create-release",
     "deploy": "npm run bundle && blocklet deploy .blocklet/bundle",
     "upload": "npm run bundle && blocklet upload .blocklet/release/blocklet.json",
@@ -68,6 +68,7 @@
     "@mui/material": "^5.17.1",
     "@mui/styles": "^5.17.1",
     "@types/recharts": "^1.8.14",
+    "axios": "^1.8.4",
     "deepmerge": "^4.2.2",
     "dot-prop-immutable": "^2.1.0",
     "json5": "^2.1.3",
@@ -122,6 +123,5 @@
   },
   "bugs": {
     "url": "https://github.com/ArcBlock/mui-theme-builder/issues"
-  },
-  "packageManager": "pnpm@9.14.2"
+  }
 }

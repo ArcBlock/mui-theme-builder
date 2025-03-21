@@ -51,7 +51,7 @@ function EditorControls({ onRedo, onUndo, onSave }: EditorControlsProps) {
         </Tooltip>
         <Tooltip title="Save Changes (Ctrl + S)">
           <span>
-            <IconButton disabled={!canSave} onClick={onSave} size="large">
+            <IconButton onClick={onSave} size="large">
               <SaveIcon />
             </IconButton>
           </span>

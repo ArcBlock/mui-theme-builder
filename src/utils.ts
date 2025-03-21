@@ -1,4 +1,6 @@
+import { ThemeOptions } from '@mui/material';
 import dotProp from 'dot-prop-immutable';
+import JSON5 from 'json5';
 
 import { RootState } from './state/types';
 
@@ -67,6 +69,12 @@ export function verbose(...args: any[]) {
     console.log(...args);
   }
 }
+
+export const stringify = (themeOptions: ThemeOptions) => {
+  return `import { ThemeOptions } from '@mui/material/styles';
+
+export const themeOptions: ThemeOptions = ${JSON5.stringify(themeOptions, null, 2)};`;
+};
 
 export function getAuthHeaders() {
   const headers: Record<string, any> = {};

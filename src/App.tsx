@@ -13,6 +13,7 @@ import HomePage from './pages/index';
 import createStore from './state/createStore';
 
 function App() {
+  const basePath = import.meta.env.BASE_URL;
   const { store, persistor } = createStore();
 
   return (
@@ -21,7 +22,7 @@ function App() {
         <CssBaseline />
         <Provider store={store}>
           <PersistGate loading={null} persistor={persistor}>
-            <BrowserRouter>
+            <BrowserRouter basename={basePath}>
               <Routes>
                 <Route path="/" element={<HomePage />}>
                   <Route path="preview" element={<PreviewWindow />} />

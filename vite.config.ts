@@ -7,16 +7,26 @@ import { createBlockletPlugin } from 'vite-plugin-blocklet';
 import monacoEditorPlugin from 'vite-plugin-monaco-editor';
 import svgr from 'vite-plugin-svgr';
 
+const monacoEditorPublicPath = 'monacoeditorwork';
+
 // https://vitejs.dev/config/
 export default defineConfig(() => {
   return {
-    plugins: [react(), createBlockletPlugin(), svgr(), monacoEditorPlugin({})],
+    base: '/hosted/theme-builder',
+    plugins: [
+      react(),
+      // createBlockletPlugin(),
+      svgr(),
+      monacoEditorPlugin({
+        publicPath: monacoEditorPublicPath,
+        customDistPath: (root, buildOutDir) => path.resolve(buildOutDir, monacoEditorPublicPath),
+      }),
+    ],
     resolve: {
       alias: {
         src: path.resolve(__dirname, './src'),
       },
     },
-    base: '/',
     server: {
       port: 3001,
       open: true,

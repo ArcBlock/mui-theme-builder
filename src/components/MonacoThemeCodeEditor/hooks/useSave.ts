@@ -1,10 +1,12 @@
+import axios from 'axios';
 import * as monaco from 'monaco-editor';
 import { useCallback, useEffect } from 'react';
 // custom theme config
 import { useDispatch, useSelector } from 'react-redux';
 import { saveEditorToTheme, updateEditorState } from 'src/state/editor/actions';
+import { parseEditorOutput } from 'src/state/editor/parser';
 import { RootState } from 'src/state/types';
-import { verbose } from 'src/utils';
+import { getAuthHeaders, verbose } from 'src/utils';
 
 import { EditorRefType } from '../types';
 
@@ -81,6 +83,19 @@ export default function useSave(editorRef: EditorRefType) {
         }),
       );
     }
+
+    // save to Blocklet.settings.theme
+    const urlParams = new URLSearchParams(window.location.search);
+    const blockletId = urlParams.get('id');
+    await axios.post(
+      `${window.location.origin}/api/theme?id=${blockletId}`,
+      {
+        theme: parseEditorOutput(emittedOutput.outputFiles[0].text),
+      },
+      {
+        headers: getAuthHeaders(),
+      },
+    );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, formatOnSave]);
 

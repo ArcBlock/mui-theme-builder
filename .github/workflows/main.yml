@@ -15,7 +15,6 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
-
       - uses: pnpm/action-setup@v3
         with:
           version: 9
@@ -23,17 +22,21 @@ jobs:
         with:
           node-version: '20'
           cache: 'pnpm'
-
-      - name: Blocklet workflow
-        uses: blocklet/action-workflow@v1
-        with:
-          skip-upload: false
-          skip-deploy: false
-          bundle-command: pnpm bundle
-          store-endpoint: ${{ secrets.STORE_ENDPOINT }}
-          store-access-token: ${{ secrets.STORE_ACCESS_TOKEN }}
-          server-endpoint: ${{ secrets.SERVER_ENDPOINT }}
-          server-access-key: ${{ secrets.SERVER_ACCESS_KEY }}
-          server-access-secret: ${{ secrets.SERVER_ACCESS_SECRET }}
-          slack-webhook: ${{ secrets.SLACK_WEBHOOK }}
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+      # - name: Blocklet workflow
+      #   uses: blocklet/action-workflow@v1
+      #   with:
+      #     skip-upload: false
+      #     skip-deploy: false
+      #     bundle-command: pnpm bundle
+      #     store-endpoint: ${{ secrets.STORE_ENDPOINT }}
+      #     store-access-token: ${{ secrets.STORE_ACCESS_TOKEN }}
+      #     server-endpoint: ${{ secrets.SERVER_ENDPOINT }}
+      #     server-access-key: ${{ secrets.SERVER_ACCESS_KEY }}
+      #     server-access-secret: ${{ secrets.SERVER_ACCESS_SECRET }}
+      #     slack-webhook: ${{ secrets.SLACK_WEBHOOK }}
+      #     github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Publish Package
+        run: |
+          npm config set '//registry.npmjs.org/:_authToken' "${{ secrets.NPM_TOKEN }}"
+          node publish.js
+          cd .package && npm publish

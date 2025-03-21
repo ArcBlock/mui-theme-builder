@@ -1,16 +1,9 @@
 /* eslint-disable @typescript-eslint/default-param-last */
-import { ThemeOptions } from '@mui/material';
-import JSON5 from 'json5';
 import { defaultThemeOptions } from 'src/siteTheme';
+import { stringify } from 'src/utils';
 
 import { RootState } from '../types';
 import { EditorState } from './types';
-
-const stringify = (themeOptions: ThemeOptions) => {
-  return `import { ThemeOptions } from '@mui/material/styles';
-
-export const themeOptions: ThemeOptions = ${JSON5.stringify(themeOptions, null, 2)};`;
-};
 
 export const initialState: EditorState = {
   themeInput: stringify(defaultThemeOptions),

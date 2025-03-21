@@ -8,7 +8,7 @@ author:
   name: wangshijun
   email: shijun@arcblock.io
 specVersion: 1.2.8
-version: 0.1.0
+version: 1.0.0
 logo: logo.png
 files:
   - logo.png

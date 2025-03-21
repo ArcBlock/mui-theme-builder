@@ -1,8 +1,10 @@
+import axios from 'axios';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { ThemeValueChangeEvent } from 'src/components/ThemeTools/events';
 import { useUpdateEditorState } from 'src/state/editor/actions';
 import { RootState } from 'src/state/types';
+import { getAuthHeaders, stringify } from 'src/utils';
 
 import { EditorRefType } from '../types';
 
@@ -10,6 +12,7 @@ export default function useEditorStateSync(editorRef: EditorRefType) {
   useSyncToStore(editorRef);
   useSyncFromStore(editorRef);
   useListenForThemeChangeEvent(editorRef);
+  useSyncFromRemote(editorRef);
 }
 
 /**
@@ -20,9 +23,9 @@ const useSyncToStore = (editorRef: EditorRefType) => {
   const updateEditorState = useUpdateEditorState();
 
   useEffect(() => {
-    const modelContentChangeBinding = editorRef.current?.onDidChangeModelContent(() =>
-      updateEditorState({ themeInput: editorRef.current?.getValue() }),
-    );
+    const modelContentChangeBinding = editorRef.current?.onDidChangeModelContent(() => {
+      updateEditorState({ themeInput: editorRef.current?.getValue() });
+    });
 
     return () => {
       modelContentChangeBinding?.dispose();
@@ -68,4 +71,24 @@ const useListenForThemeChangeEvent = (editorRef: EditorRefType) => {
       document.removeEventListener(ThemeValueChangeEvent().type, onChangeEvent);
     };
   });
+};
+
+const useSyncFromRemote = (editorRef: EditorRefType) => {
+  const updateEditorState = useUpdateEditorState();
+
+  useEffect(() => {
+    if (!editorRef.current) return;
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const blockletId = urlParams.get('id');
+
+    axios
+      .get(`${window.location.origin}/api/theme?id=${blockletId}`, {
+        headers: getAuthHeaders(),
+      })
+      .then((res) => {
+        updateEditorState({ themeInput: stringify(res.data) });
+      });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 };

@@ -15,6 +15,7 @@ dist
 dist-ssr
 .blocklet
 .next
+.package
 
 # local env files
 *.local
