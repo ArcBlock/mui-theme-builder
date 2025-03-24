@@ -2,7 +2,7 @@ import FontIcon from '@mui/icons-material/FontDownload';
 import PaletteIcon from '@mui/icons-material/Palette';
 import SnippetsIcon from '@mui/icons-material/PlaylistAdd';
 import TypographyIcon from '@mui/icons-material/TextFields';
-import { Box, Typography } from '@mui/material';
+import { Box } from '@mui/material';
 import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 import React, { useState } from 'react';
@@ -63,9 +63,6 @@ export default function ThemeTools() {
         height: 1,
         overflow: 'auto',
       }}>
-      <Box sx={{ px: 2, borderBottom: 1, borderBottomColor: 'divider' }}>
-        <Typography sx={{ lineHeight: '48px' }}>MUI Theme Builder</Typography>
-      </Box>
       <BottomNavigation
         value={bottomNavIndex}
         showLabels
@@ -85,7 +82,7 @@ export default function ThemeTools() {
             value={index}
             icon={panel.icon}
             sx={{
-              '&.Mui-selected': {},
+              height: '48px',
             }}
           />
         ))}

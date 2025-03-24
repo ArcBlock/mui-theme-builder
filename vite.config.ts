@@ -11,7 +11,7 @@ const monacoEditorPublicPath = 'monacoeditorwork';
 // https://vitejs.dev/config/
 export default defineConfig(() => {
   return {
-    base: '/hosted/theme-builder', // @TODO 移除 react-router-dom，可以不用设置 base
+    base: './',
     plugins: [
       react(),
       svgr(),
