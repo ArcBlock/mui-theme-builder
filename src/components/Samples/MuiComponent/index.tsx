@@ -49,6 +49,7 @@ export default [
   {
     id: 'Appbar',
     title: 'App Bar',
+    // @ts-ignore
     component: <AppBarExample />,
     docs: 'https://material-ui.com/components/app-bar/',
   },

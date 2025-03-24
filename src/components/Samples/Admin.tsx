@@ -1,15 +1,14 @@
 import { AppBar, Tab, Tabs, Tooltip } from '@mui/material';
 import React from 'react';
-import AppBarExample from 'src/components/MuiComponentSamples/Samples/AppBar';
 
-import PreviewWrapper from './PreviewWrapper';
-import BlogExample from './Samples/BlogExample';
-import CheckoutExample from './Samples/CheckoutExample';
-import DashboardExample from './Samples/DashboardExample';
-import DefaultExample from './Samples/DefaultExample';
-import DrawerExample from './Samples/DrawerExample';
-import PricingExample from './Samples/PricingExample';
-import SignUpExample from './Samples/SignUpExample';
+import BlogExample from './Admin/BlogExample';
+import CheckoutExample from './Admin/CheckoutExample';
+import DashboardExample from './Admin/DashboardExample';
+import DefaultExample from './Admin/DefaultExample';
+import DrawerExample from './Admin/DrawerExample';
+import PricingExample from './Admin/PricingExample';
+import SignUpExample from './Admin/SignUpExample';
+import AppBarExample from './MuiComponent/AppBar';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -38,7 +37,7 @@ const tabStyle = {
   minWidth: { sm: 160 },
 };
 
-function PreviewWindow() {
+function Admin() {
   const [tabIndex, setTabIndex] = React.useState(0);
   const [drawerOpen, setDrawerOpen] = React.useState(false);
 
@@ -50,7 +49,7 @@ function PreviewWindow() {
   const handleCloseDrawer = () => setDrawerOpen(false);
 
   return (
-    <PreviewWrapper>
+    <>
       <AppBarExample onDrawerButtonClick={toggleDrawer} />
       <Tooltip title='<AppBar color="primary">' placement="left" arrow>
         <AppBar position="static" id={previewNavTabsId}>
@@ -94,8 +93,8 @@ function PreviewWindow() {
           <CheckoutExample />
         </TabPanel>
       </div>
-    </PreviewWrapper>
+    </>
   );
 }
 
-export default PreviewWindow;
+export default Admin;

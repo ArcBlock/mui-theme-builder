@@ -21,7 +21,7 @@ function ThemeConfigDrawer() {
   return (
     <Drawer
       variant={permanent ? 'permanent' : 'temporary'}
-      anchor="right"
+      anchor="left"
       sx={{
         width: drawerWidth,
         height: '100vh',
@@ -45,6 +45,14 @@ function ThemeConfigDrawer() {
         <Grid
           item
           sx={{
+            minHeight: '60vh',
+            height: 1,
+          }}>
+          <ThemeTools />
+        </Grid>
+        <Grid
+          item
+          sx={{
             flexGrow: 1,
             minHeight: '30vh',
             maxHeight: '50vh',
@@ -52,15 +60,6 @@ function ThemeConfigDrawer() {
           }}>
           {/* Use themeId as key so that editor is torn down and rebuilt with new theme */}
           <MonacoThemeCodeEditor key={themeId} />
-        </Grid>
-
-        <Grid
-          item
-          sx={{
-            minHeight: '30vh',
-            height: 1,
-          }}>
-          <ThemeTools />
         </Grid>
       </Grid>
     </Drawer>

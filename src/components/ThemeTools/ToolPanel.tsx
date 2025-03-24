@@ -1,34 +1,23 @@
-import { Box } from '@mui/material';
-import Typography from '@mui/material/Typography';
+import { Box, BoxProps } from '@mui/material';
 import React from 'react';
 
 export const toolPanelId = 'theme-tool-panel';
 
-interface Props {
-  panelTitle: string;
+interface Props extends BoxProps {
   children: React.ReactNode;
 }
-function ToolPanel({ panelTitle, children }: Props) {
+function ToolPanel({ children, sx, ...props }: Props) {
   return (
     <Box
       id={toolPanelId}
       sx={{
-        // bgcolor: '#212121',
         flexGrow: 1,
         overflowX: 'hidden',
         display: 'flex',
         flexDirection: 'column',
-      }}>
-      <Box
-        sx={{
-          px: 2,
-          borderBottom: 1,
-          borderBottomColor: 'divider',
-          borderTop: 1,
-          borderTopColor: '#808080',
-        }}>
-        <Typography variant="overline">{panelTitle}</Typography>
-      </Box>
+        ...sx,
+      }}
+      {...props}>
       <Box
         sx={{
           flex: 1,

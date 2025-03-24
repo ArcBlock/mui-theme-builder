@@ -21,7 +21,6 @@ function PreviewWrapper({ children }: PreviewWrapperProps) {
       <ThemeWrapper>
         <Box
           sx={{
-            // bgcolor: '#212121',
             p: 2,
             height: 1,
           }}>
@@ -56,10 +55,10 @@ function PreviewBackground({ children }: PreviewBackgroundProps) {
         maxWidth: (() => {
           if (previewSize === 'xs') return 375;
           if (previewSize === 'sm') return 650;
-          return 1000;
+          return 'unset';
         })(),
         height: 1,
-        overflowY: 'scroll',
+        overflowY: 'auto',
         margin: 'auto',
         position: 'relative', // for FAB positioning
       }}

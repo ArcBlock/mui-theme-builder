@@ -1,11 +1,33 @@
-import { AppBar, AppBarProps, Box, Link, Toolbar, Typography } from '@mui/material';
-import muiVersion from 'src/muiVersion';
+import { AppBar, Box, Button, Toolbar } from '@mui/material';
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import Samples from 'src/components/Samples';
+import { RootState } from 'src/state/types';
 
-import PreviewSizeControls from './PreviewWindow/PreviewSizeControls';
+function Header() {
+  const dispatch = useDispatch();
+  const selectedComponentId = useSelector((state: RootState) => state.selectedComponentId);
 
-function Header(props: AppBarProps) {
+  const handleSampleSelect = (id: string, component: React.ReactNode) => {
+    dispatch({
+      type: 'SET_PREVIEW_COMPONENT',
+      payload: {
+        id,
+        component,
+      },
+    });
+  };
+
   return (
-    <AppBar position="static" color="default" style={{ backgroundColor: '#fff' }} {...props}>
+    <AppBar
+      position="static"
+      color="default"
+      sx={{
+        backgroundColor: '#fff',
+        boxShadow: 'none',
+        borderBottom: '1px solid',
+        borderColor: 'divider',
+      }}>
       <Toolbar
         sx={{
           display: 'flex',
@@ -13,17 +35,31 @@ function Header(props: AppBarProps) {
             xs: '48px',
             sm: '48px',
           },
+          overflowX: 'auto',
         }}>
-        <Typography sx={{ lineHeight: '1.25rem', mr: 2 }}>MUI Theme Builder</Typography>
-        <PreviewSizeControls />
-        <Box sx={{ flexGrow: 1 }} />
-        <Link
-          href="https://v5.mui.com/material-ui/customization/default-theme/"
-          target="_blank"
-          rel="noreferrer"
-          underline="hover">
-          {`@mui/material@${muiVersion}`}
-        </Link>
+        <Box sx={{ display: 'flex', flexDirection: 'row' }}>
+          {Samples.map(({ id, title, component }) => (
+            <Button
+              key={id}
+              onClick={() => handleSampleSelect(id, component)}
+              color={selectedComponentId === id ? 'primary' : 'inherit'}
+              sx={{
+                mx: 1,
+                px: 2,
+                py: 1,
+                fontWeight: selectedComponentId === id ? 'medium' : 'normal',
+                backgroundColor: selectedComponentId === id ? 'rgba(25, 118, 210, 0.08)' : 'transparent',
+                borderRadius: 1,
+                '&:hover': {
+                  backgroundColor: selectedComponentId === id ? 'rgba(25, 118, 210, 0.12)' : 'rgba(0, 0, 0, 0.04)',
+                },
+                transition: 'background-color 0.3s',
+                textTransform: 'none', // 确保按钮内容不大写
+              }}>
+              {title}
+            </Button>
+          ))}
+        </Box>
       </Toolbar>
     </AppBar>
   );

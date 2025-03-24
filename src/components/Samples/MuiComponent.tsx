@@ -1,21 +1,8 @@
 import { Box, Button, Grid, Typography } from '@mui/material';
-import { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
 
-import componentSamples from './Samples';
+import componentSamples from './MuiComponent/index';
 
-function MuiComponentSamples() {
-  const { id } = useParams();
-
-  useEffect(() => {
-    if (id) {
-      const element = document.getElementById(id);
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
-      }
-    }
-  }, [id]);
-
+function MuiComponent() {
   return (
     <Box
       sx={{
@@ -52,4 +39,4 @@ function MuiComponentSamples() {
   );
 }
 
-export default MuiComponentSamples;
+export default MuiComponent;

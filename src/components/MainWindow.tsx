@@ -1,15 +1,18 @@
 import { Box } from '@mui/material';
-import { Outlet } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { RootState } from 'src/state/types';
 
-import ThemeWrapper from './ThemeWrapper';
+import PreviewSizeControls from './PreviewWindow/PreviewSizeControls';
+import PreviewWrapper from './PreviewWindow/PreviewWrapper';
 
 function MainWindow() {
+  const previewComponent = useSelector((state: RootState) => state.previewComponent);
+
   return (
-    <Box sx={{ overflowY: 'auto', height: 1, padding: 2 }}>
+    <Box sx={{ overflowY: 'auto', height: 1, padding: 2, position: 'relative' }}>
       <Box sx={{ bgcolor: '#fff' }}>
-        <ThemeWrapper>
-          <Outlet />
-        </ThemeWrapper>
+        <PreviewWrapper>{previewComponent || null}</PreviewWrapper>
+        <PreviewSizeControls />
       </Box>
     </Box>
   );

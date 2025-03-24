@@ -1,11 +1,10 @@
 import { Drawer, List, ListItemButton, ListItemText, ListSubheader, useMediaQuery, useTheme } from '@mui/material';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
 import componentSamples from 'src/components/MuiComponentSamples/Samples';
 import { RootState } from 'src/state/types';
 
-import BlockletSamples from './BlockletSamples';
+import BlockletSamples from './Samples';
 
 const drawerWidth: React.CSSProperties['width'] = 200;
 

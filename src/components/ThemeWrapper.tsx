@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from 'src/state/types';
 
 interface ThemeWrapperProps {
-  children: React.ReactNode | React.ReactNodeArray;
+  children: React.ReactNode;
 }
 
 /**

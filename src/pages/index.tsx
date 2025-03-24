@@ -1,5 +1,5 @@
 import { Box } from '@mui/material';
-import ComponentNavDrawer from 'src/components/ComponentNavDrawer';
+// import ComponentNavDrawer from 'src/components/ComponentNavDrawer';
 import ErrorBoundary from 'src/components/ErrorBoundary';
 import Header from 'src/components/Header';
 import Layout from 'src/components/Layout';
@@ -16,6 +16,7 @@ function IndexPage() {
           height: '100vh',
         }}>
         <ErrorBoundary>
+          <ThemeConfigDrawer />
           <Box
             sx={{
               flex: 1,
@@ -36,7 +37,6 @@ function IndexPage() {
                 display: 'flex',
                 minHeight: 0,
               }}>
-              <ComponentNavDrawer />
               <Box
                 component="main"
                 sx={{
@@ -50,7 +50,6 @@ function IndexPage() {
               </Box>
             </Box>
           </Box>
-          <ThemeConfigDrawer />
         </ErrorBoundary>
       </Box>
       <SmallScreenWarning />

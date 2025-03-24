@@ -2,6 +2,7 @@
 import { ThemeOptions, createTheme } from '@mui/material';
 import { TypographyOptions } from '@mui/material/styles/createTypography';
 import deepmerge from 'deepmerge';
+import Samples from 'src/components/Samples';
 import { defaultThemeOptions } from 'src/siteTheme';
 import { PreviewSize, RootState } from 'src/state/types';
 import { generateThemeId, isSetEq } from 'src/utils';
@@ -33,6 +34,8 @@ const initialState: RootState = {
   componentNavOpen: false,
   themeConfigOpen: false,
   mobileWarningSeen: false,
+  selectedComponentId: Samples[0]?.id ?? '',
+  previewComponent: Samples[0]?.component ?? null,
 };
 
 const initialFonts = ['Droid Sans', 'Droid Serif', 'Open Sans', 'Roboto'];
@@ -265,6 +268,12 @@ export default (state = initialState, action: any) => {
     case 'RESET_SITE_DATA':
       return {
         ...initialState,
+      };
+    case 'SET_PREVIEW_COMPONENT':
+      return {
+        ...newState,
+        selectedComponentId: action.payload.id,
+        previewComponent: action.payload.component,
       };
     default:
       return newState;

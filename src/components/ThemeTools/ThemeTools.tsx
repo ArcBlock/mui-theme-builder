@@ -2,7 +2,7 @@ import FontIcon from '@mui/icons-material/FontDownload';
 import PaletteIcon from '@mui/icons-material/Palette';
 import SnippetsIcon from '@mui/icons-material/PlaylistAdd';
 import TypographyIcon from '@mui/icons-material/TextFields';
-import { Box } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 import React, { useState } from 'react';
@@ -31,16 +31,16 @@ const toolPanels: Array<{
     id: paletteToolsId,
   },
   {
-    label: 'Fonts',
-    icon: <FontIcon />,
-    tools: FontTools,
-    id: fontToolsId,
-  },
-  {
     label: 'Typography',
     icon: <TypographyIcon />,
     tools: TypographyTools,
     id: typographyToolsId,
+  },
+  {
+    label: 'Fonts',
+    icon: <FontIcon />,
+    tools: FontTools,
+    id: fontToolsId,
   },
   {
     label: 'Snippets',
@@ -63,17 +63,16 @@ export default function ThemeTools() {
         height: 1,
         overflow: 'auto',
       }}>
-      <ToolPanel panelTitle={currentTool.label}>
-        <currentTool.tools />
-      </ToolPanel>
-
+      <Box sx={{ px: 2, borderBottom: 1, borderBottomColor: 'divider' }}>
+        <Typography sx={{ lineHeight: '48px' }}>MUI Theme Builder</Typography>
+      </Box>
       <BottomNavigation
         value={bottomNavIndex}
         showLabels
         sx={{
           bgcolor: 'background.default',
-          borderTop: 1,
-          borderTopColor: 'divider',
+          borderBottom: 1,
+          borderBottomColor: 'divider',
           width: 'calc(100% - 1px)', // to prevent scroll bar
         }}
         onChange={(event, newValue) => setBottomNavIndex(newValue)}>
@@ -86,13 +85,14 @@ export default function ThemeTools() {
             value={index}
             icon={panel.icon}
             sx={{
-              '&.Mui-selected': {
-                // bgcolor: '#212121',
-              },
+              '&.Mui-selected': {},
             }}
           />
         ))}
       </BottomNavigation>
+      <ToolPanel sx={{ borderBottom: 1, borderBottomColor: 'divider' }}>
+        <currentTool.tools />
+      </ToolPanel>
     </Box>
   );
 }

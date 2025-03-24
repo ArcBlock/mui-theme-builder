@@ -17,6 +17,8 @@ export interface RootState {
   componentNavOpen: boolean;
   themeConfigOpen: boolean;
   mobileWarningSeen: boolean;
+  selectedComponentId: string;
+  previewComponent: React.ReactNode;
 }
 
 export type SavedTheme = {
