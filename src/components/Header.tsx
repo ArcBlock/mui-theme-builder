@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import Samples from 'src/components/Samples';
 import { RootState } from 'src/state/types';
 
+import PreviewSizeControls from './PreviewWindow/PreviewSizeControls';
+
 function Header() {
   const dispatch = useDispatch();
   const selectedComponentId = useSelector((state: RootState) => state.selectedComponentId);
@@ -76,6 +78,8 @@ function Header() {
             </Button>
           ))}
         </Box>
+        <Box sx={{ flexGrow: 1 }} />
+        <PreviewSizeControls />
       </Toolbar>
     </AppBar>
   );

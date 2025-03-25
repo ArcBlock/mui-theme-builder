@@ -244,6 +244,7 @@ export default function LandingPage() {
               lineHeight: '40px',
             },
           }}>
+          {/* @ts-expect-error */}
           <Footer
             className="custom-footer"
             meta={{ navigation: [...socialMedia, ...navs, ...links], ...baseMeta, ...brand }}

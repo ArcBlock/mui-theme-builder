@@ -1,7 +1,7 @@
 import DesktopWindowsIcon from '@mui/icons-material/DesktopWindows';
 import SmartphoneIcon from '@mui/icons-material/Smartphone';
-import TabletIcon from '@mui/icons-material/TabletAndroid';
-import { BottomNavigation, BottomNavigationAction, Paper, useMediaQuery, useTheme } from '@mui/material';
+import TabletMacIcon from '@mui/icons-material/TabletMac';
+import { BottomNavigation, BottomNavigationAction, useMediaQuery, useTheme } from '@mui/material';
 import { useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setPreviewSize } from 'src/state/actions';
@@ -29,42 +29,20 @@ function PreviewSizeControls() {
   );
 
   return screenIsMdDown ? null : (
-    <Paper
-      elevation={8}
-      square
+    <BottomNavigation
+      id={previewSizeControlsId}
+      value={previewSize}
+      onChange={handleOnChange}
       sx={{
-        padding: 1,
-        bgcolor: 'background.default',
-        position: 'absolute',
-        bottom: 0,
-        left: 0,
-        zIndex: 1,
-      }}>
-      <BottomNavigation
-        id={previewSizeControlsId}
-        value={previewSize}
-        onChange={handleOnChange}
-        sx={{
-          height: 'auto',
-          flexDirection: 'column',
-          gap: 1,
-        }}
-        showLabels>
-        <BottomNavigationAction
-          sx={{ padding: 0, minWidth: '60px' }}
-          label="Phone"
-          value="xs"
-          icon={<SmartphoneIcon />}
-        />
-        <BottomNavigationAction sx={{ padding: 0, minWidth: '60px' }} label="Tablet" value="sm" icon={<TabletIcon />} />
-        <BottomNavigationAction
-          sx={{ padding: 0, minWidth: '60px' }}
-          label="Desktop"
-          value={false}
-          icon={<DesktopWindowsIcon />}
-        />
-      </BottomNavigation>
-    </Paper>
+        height: 'auto',
+        flexDirection: 'row',
+        gap: 1,
+      }}
+      showLabels>
+      <BottomNavigationAction sx={{ p: 1, minWidth: '32px' }} value="xs" icon={<SmartphoneIcon />} />
+      <BottomNavigationAction sx={{ p: 1, minWidth: '32px' }} value="sm" icon={<TabletMacIcon />} />
+      <BottomNavigationAction sx={{ p: 1, minWidth: '32px' }} value={false} icon={<DesktopWindowsIcon />} />
+    </BottomNavigation>
   );
 }
 

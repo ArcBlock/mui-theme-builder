@@ -70,6 +70,7 @@ export default function ThemeTools() {
           bgcolor: 'background.default',
           borderBottom: 1,
           borderBottomColor: 'divider',
+          height: 'auto',
           width: 'calc(100% - 1px)', // to prevent scroll bar
         }}
         onChange={(event, newValue) => setBottomNavIndex(newValue)}>
