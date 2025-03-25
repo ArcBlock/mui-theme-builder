@@ -10,7 +10,6 @@ import React, { useState } from 'react';
 import FontTools from './FontTools/FontTools';
 import PaletteTools from './PaletteTools/PaletteTools';
 import SnippetTools from './SnippetTools';
-import ToolPanel from './ToolPanel';
 import TypographyTools from './TypographyTools/TypographyTools';
 
 export const paletteToolsId = 'palette-tools-nav';
@@ -52,7 +51,6 @@ const toolPanels: Array<{
 
 export default function ThemeTools() {
   const [bottomNavIndex, setBottomNavIndex] = useState(0);
-
   const currentTool = toolPanels[bottomNavIndex];
 
   return (
@@ -60,8 +58,7 @@ export default function ThemeTools() {
       sx={{
         display: 'flex',
         flexDirection: 'column',
-        height: 1,
-        overflow: 'auto',
+        height: '100%',
       }}>
       <BottomNavigation
         value={bottomNavIndex}
@@ -88,9 +85,9 @@ export default function ThemeTools() {
           />
         ))}
       </BottomNavigation>
-      <ToolPanel sx={{ borderBottom: 1, borderBottomColor: 'divider' }}>
+      <Box sx={{ flexGrow: 1, borderBottom: 1, borderBottomColor: 'divider' }}>
         <currentTool.tools />
-      </ToolPanel>
+      </Box>
     </Box>
   );
 }

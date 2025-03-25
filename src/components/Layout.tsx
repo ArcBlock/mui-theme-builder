@@ -26,7 +26,7 @@ function Layout({ children }: LayoutProps) {
     <StyledEngineProvider injectFirst>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <main>{children}</main>
+        {children}
       </ThemeProvider>
     </StyledEngineProvider>
   );

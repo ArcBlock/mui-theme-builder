@@ -1,4 +1,4 @@
-import { AppBar, Box, Button, Toolbar } from '@mui/material';
+import { AppBar, AppBarProps, Box, Button, Toolbar } from '@mui/material';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Samples from 'src/components/Samples';
@@ -6,7 +6,9 @@ import { RootState } from 'src/state/types';
 
 import PreviewSizeControls from './PreviewWindow/PreviewSizeControls';
 
-function Header() {
+export interface HeaderProps extends AppBarProps {}
+
+export default function Header({ sx, ...props }: HeaderProps) {
   const dispatch = useDispatch();
   const selectedComponentId = useSelector((state: RootState) => state.selectedComponentId);
 
@@ -45,7 +47,9 @@ function Header() {
         boxShadow: 'none',
         borderBottom: '1px solid',
         borderColor: 'divider',
-      }}>
+        ...sx,
+      }}
+      {...props}>
       <Toolbar
         sx={{
           display: 'flex',
@@ -84,5 +88,3 @@ function Header() {
     </AppBar>
   );
 }
-
-export default Header;

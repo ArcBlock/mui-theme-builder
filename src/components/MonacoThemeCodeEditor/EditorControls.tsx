@@ -1,8 +1,8 @@
 import FileCopyIcon from '@mui/icons-material/FileCopy';
-import RedoIcon from '@mui/icons-material/Redo';
+// import RedoIcon from '@mui/icons-material/Redo';
 import SaveIcon from '@mui/icons-material/Save';
-import UndoIcon from '@mui/icons-material/Undo';
-import { Box, Divider, IconButton, Snackbar } from '@mui/material';
+// import UndoIcon from '@mui/icons-material/Undo';
+import { Box, IconButton, Snackbar } from '@mui/material';
 import Alert from '@mui/material/Alert';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
@@ -19,9 +19,10 @@ interface EditorControlsProps {
   onSave: React.MouseEventHandler<HTMLButtonElement>;
 }
 
-function EditorControls({ onRedo, onUndo, onSave }: EditorControlsProps) {
-  const canUndo = useSelector((state: RootState) => state.editor.canUndo);
-  const canRedo = useSelector((state: RootState) => state.editor.canRedo);
+function EditorControls({ onSave }: EditorControlsProps) {
+  // TODO: undo/redo 目前不能很好的跟 Theme Tools 联动，暂时屏蔽
+  // const canUndo = useSelector((state: RootState) => state.editor.canUndo);
+  // const canRedo = useSelector((state: RootState) => state.editor.canRedo);
   const canSave = useCanSave();
   return (
     <Box
@@ -30,12 +31,12 @@ function EditorControls({ onRedo, onUndo, onSave }: EditorControlsProps) {
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
+        borderBottom: '1px solid #dedede',
       }}>
       <Box sx={{ display: 'flex' }}>
         <EditorButton />
         <CopyButton />
-        <Divider orientation="vertical" flexItem />
-        <Tooltip title="Undo (Ctrl + Z)">
+        {/* <Tooltip title="Undo (Ctrl + Z)">
           <span>
             <IconButton disabled={!canUndo} onClick={onUndo} size="large">
               <UndoIcon />
@@ -48,7 +49,7 @@ function EditorControls({ onRedo, onUndo, onSave }: EditorControlsProps) {
               <RedoIcon />
             </IconButton>
           </span>
-        </Tooltip>
+        </Tooltip> */}
         <Tooltip title="Save Changes (Ctrl + S)">
           <span>
             <IconButton onClick={onSave} size="large">

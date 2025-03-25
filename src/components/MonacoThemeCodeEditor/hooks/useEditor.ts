@@ -10,7 +10,7 @@ import { EditorRefType, MutableEditorRefType } from '../types';
 
 const editorOptions: monaco.editor.IStandaloneEditorConstructionOptions = {
   language: 'typescript',
-  theme: 'monokai',
+  theme: 'vs',
   selectOnLineNumbers: true,
   scrollBeyondLastLine: false,
   minimap: { enabled: false },

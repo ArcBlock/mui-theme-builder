@@ -13,7 +13,7 @@ function IndexPage() {
       <Box
         sx={{
           display: 'flex',
-          height: '100vh',
+          height: '100%',
         }}>
         <ErrorBoundary>
           <ThemeConfigDrawer />
@@ -24,13 +24,7 @@ function IndexPage() {
               flexDirection: 'column',
               minWidth: 0,
             }}>
-            <Header
-              sx={{
-                position: {
-                  md: 'static',
-                },
-              }}
-            />
+            <Header />
             <Box
               sx={{
                 flex: 1,
