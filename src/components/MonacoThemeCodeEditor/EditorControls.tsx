@@ -1,58 +1,66 @@
 import FileCopyIcon from '@mui/icons-material/FileCopy';
-// import RedoIcon from '@mui/icons-material/Redo';
+import RedoIcon from '@mui/icons-material/Redo';
 import SaveIcon from '@mui/icons-material/Save';
-// import UndoIcon from '@mui/icons-material/Undo';
-import { Box, IconButton, Snackbar } from '@mui/material';
+import UndoIcon from '@mui/icons-material/Undo';
+import { Box, BoxProps, IconButton, Snackbar } from '@mui/material';
 import Alert from '@mui/material/Alert';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useCanSave } from 'src/state/selectors';
 import { RootState } from 'src/state/types';
 
 import EditorButton from './EditorSettings';
+import useSave from './hooks/useSave';
+import useUndoRedo from './hooks/useUndoRedo';
+import { MutableCodeEditor } from './types';
 
-interface EditorControlsProps {
-  onRedo: React.MouseEventHandler<HTMLButtonElement>;
-  onUndo: React.MouseEventHandler<HTMLButtonElement>;
-  onSave: React.MouseEventHandler<HTMLButtonElement>;
+interface EditorControlsProps extends BoxProps {
+  codeEditor: MutableCodeEditor;
 }
 
-function EditorControls({ onSave }: EditorControlsProps) {
+export default function EditorControls({ codeEditor, sx, ...rest }: EditorControlsProps) {
   // TODO: undo/redo 目前不能很好的跟 Theme Tools 联动，暂时屏蔽
-  // const canUndo = useSelector((state: RootState) => state.editor.canUndo);
-  // const canRedo = useSelector((state: RootState) => state.editor.canRedo);
+  const canUndo = useSelector((state: RootState) => state.editor.canUndo);
+  const canRedo = useSelector((state: RootState) => state.editor.canRedo);
   const canSave = useCanSave();
+
+  // set Save and Undo/Redo listeners, and get handlers
+  const handleSave = useSave(codeEditor);
+  const { handleRedo, handleUndo } = useUndoRedo(codeEditor);
+
   return (
     <Box
       sx={{
-        paddingRight: 1,
+        px: 1,
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
         borderBottom: '1px solid #dedede',
-      }}>
+        ...sx,
+      }}
+      {...rest}>
       <Box sx={{ display: 'flex' }}>
         <EditorButton />
         <CopyButton />
-        {/* <Tooltip title="Undo (Ctrl + Z)">
+        <Tooltip title="Undo (Ctrl + Z)">
           <span>
-            <IconButton disabled={!canUndo} onClick={onUndo} size="large">
+            <IconButton disabled={!canUndo} onClick={handleUndo} size="small">
               <UndoIcon />
             </IconButton>
           </span>
         </Tooltip>
         <Tooltip title="Redo (Ctrl + Y)">
           <span>
-            <IconButton disabled={!canRedo} onClick={onRedo} size="large">
+            <IconButton disabled={!canRedo} onClick={handleRedo} size="small">
               <RedoIcon />
             </IconButton>
           </span>
-        </Tooltip> */}
+        </Tooltip>
         <Tooltip title="Save Changes (Ctrl + S)">
           <span>
-            <IconButton onClick={onSave} size="large">
+            <IconButton onClick={handleSave} size="small">
               <SaveIcon />
             </IconButton>
           </span>
@@ -64,8 +72,6 @@ function EditorControls({ onSave }: EditorControlsProps) {
     </Box>
   );
 }
-
-export default EditorControls;
 
 function CopyButton() {
   const themeInput = useSelector((state: RootState) => state.editor.themeInput);
@@ -83,7 +89,7 @@ function CopyButton() {
   return (
     <>
       <Tooltip title="Copy theme code">
-        <IconButton color="primary" onClick={copyToClipboard} size="large">
+        <IconButton color="primary" onClick={copyToClipboard} size="small">
           <FileCopyIcon />
         </IconButton>
       </Tooltip>

@@ -6,7 +6,7 @@ import monokai from 'src/components/MonacoThemeCodeEditor/monaco-themes/monokai'
 import { files as muiTypeFiles } from 'src/muiTypeStrings';
 import { RootState } from 'src/state/types';
 
-import { EditorRefType, MutableEditorRefType } from '../types';
+import { CodeEditor } from '../types';
 
 const editorOptions: monaco.editor.IStandaloneEditorConstructionOptions = {
   language: 'typescript',
@@ -31,8 +31,9 @@ const languageCompilerOptions: monaco.languages.typescript.CompilerOptions = {
   suppressExcessPropertyErrors: true,
 };
 
-export default function useEditor(editorRef: MutableEditorRefType) {
+export default function useEditor(onCreate?: (editor: CodeEditor) => void) {
   const themeInput = useSelector((state: RootState) => state.editor.themeInput);
+
   useEffect(() => {
     // set the editor theme
     monaco.editor.defineTheme('monokai', monokai as monaco.editor.IStandaloneThemeData);
@@ -44,7 +45,7 @@ export default function useEditor(editorRef: MutableEditorRefType) {
     setMuiThemeTypeData();
 
     // create the editor
-    editorRef.current = monaco.editor.create(document.getElementById('container')!, {
+    const editor = monaco.editor.create(document.getElementById('container')!, {
       ...editorOptions,
       value: themeInput,
       // this will ensure the model is created only once
@@ -53,15 +54,19 @@ export default function useEditor(editorRef: MutableEditorRefType) {
         monaco.editor.createModel(themeInput, 'typescript', monaco.Uri.parse('file:///main.tsx')),
     });
 
+    // resize listener
+    const resizeEditor = () => editor.layout();
+    window.addEventListener('resize', resizeEditor);
+
+    onCreate?.(editor);
+
     return () => {
-      editorRef.current?.getModel()?.dispose(); // clear undo/redo on unmount
-      editorRef.current?.dispose();
+      editor.getModel()?.dispose(); // clear undo/redo on unmount
+      editor.dispose();
+      window.removeEventListener('resize', resizeEditor);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  // @ts-ignore
-  useEditorResizeListener(editorRef);
 }
 
 const setLanguageDiagnosticOptions = () => {
@@ -107,15 +112,4 @@ const setMuiThemeTypeData = () => {
 
     monaco.languages.typescript.typescriptDefaults.addExtraLib(muiTypeFiles[fileName], fakePath);
   }
-};
-
-export const useEditorResizeListener = (editorRef: EditorRefType) => {
-  useEffect(() => {
-    const resizeEditor = () => editorRef.current?.layout();
-
-    window.addEventListener('resize', resizeEditor);
-    return () => {
-      window.removeEventListener('resize', resizeEditor);
-    };
-  }, [editorRef]);
 };

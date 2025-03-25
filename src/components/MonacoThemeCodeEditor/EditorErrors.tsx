@@ -2,21 +2,23 @@ import CloseIcon from '@mui/icons-material/Close';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import { Box, Collapse, Divider, IconButton, Snackbar } from '@mui/material';
 import Alert from '@mui/material/Alert';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from 'src/state/types';
 
+import { MutableCodeEditor } from './types';
+
 interface EditorErrorsProps {
-  editorRef: React.RefObject<any>;
+  codeEditor: MutableCodeEditor;
 }
 
-function EditorErrors({ editorRef }: EditorErrorsProps) {
+function EditorErrors({ codeEditor }: EditorErrorsProps) {
   const errors = useSelector((state: RootState) => state.editor.errors);
   const [open, setOpen] = useState(true);
   const [expanded, setExpanded] = useState(errors.length < 3); // default open if 1 or 2 errors
   const handleClose = () => setOpen(false);
   const handleExpand = () => setExpanded(!expanded);
-  const model = editorRef.current?.getModel();
+  const model = codeEditor?.getModel();
 
   useEffect(() => {
     if (errors.length > 0) {
@@ -37,7 +39,7 @@ function EditorErrors({ editorRef }: EditorErrorsProps) {
       return error.messageText;
     }
     const pos = model?.getPositionAt(error.start);
-    return `Line ${pos.lineNumber}:${pos.column}. ${error.messageText.messageText ?? error.messageText}`;
+    return `Line ${pos?.lineNumber}:${pos?.column}. ${error.messageText.messageText ?? error.messageText}`;
   };
 
   const alertIcon = (

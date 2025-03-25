@@ -8,17 +8,16 @@ import { parseEditorOutput } from 'src/state/editor/parser';
 import { RootState } from 'src/state/types';
 import { getAuthHeaders, verbose } from 'src/utils';
 
-import { EditorRefType } from '../types';
+import { MutableCodeEditor } from '../types';
 
 /**
  * Transpile the editor and return any semantic or syntactic
  * errors as well as the emitted code
- * @param editorRef - ref of the monaco-editor
  * @returns [semanticDiagnostics: Diagnostic[], syntacticDiagnostics: Diagnostic[], emittedOutput: any]
  */
-async function validateInput(editorRef: EditorRefType) {
+async function validateInput(codeEditor: MutableCodeEditor) {
   // get the JS output of the typescript inside the code editor
-  const model = editorRef.current?.getModel();
+  const model = codeEditor?.getModel();
   if (!model) return [null, null, null];
   const worker = await monaco.languages.typescript.getTypeScriptWorker();
   const proxy = await worker(model.uri);
@@ -33,12 +32,11 @@ async function validateInput(editorRef: EditorRefType) {
 
 /**
  * Run the formatDocument action on the monaco editor
- * @param editorRef - ref of the monaco-editor
  * @returns true if document was formatted, false otherwise
  */
-async function formatInput(editorRef: EditorRefType) {
+async function formatInput(codeEditor: MutableCodeEditor) {
   try {
-    await editorRef.current?.getAction('editor.action.formatDocument').run();
+    await codeEditor?.getAction('editor.action.formatDocument').run();
     return true;
   } catch (err) {
     verbose('MonacoThemeCodeEditor/hooks/useSave -> formatInput: Error formatting document', err);
@@ -50,23 +48,24 @@ async function formatInput(editorRef: EditorRefType) {
  * Create a handler for saving the code editor contents to the theme options,
  * create an event listener for the Ctrl + S key combo, and return the
  * handler for saving code editor contents
- * @param editorRef
- * @returns Function that handles saving code editor contents
  */
-export default function useSave(editorRef: EditorRefType) {
+export default function useSave(codeEditor: MutableCodeEditor) {
   const formatOnSave = useSelector((state: RootState) => state.editor.formatOnSave);
   const dispatch = useDispatch();
+
   const handleSave = useCallback(async () => {
     // clear existing errors first
     dispatch(updateEditorState({ errors: [] }));
 
     // format document if required
-    if (formatOnSave) await formatInput(editorRef);
+    if (formatOnSave) await formatInput(codeEditor);
 
-    const [semanticDiagnostics, syntacticDiagnostics, emittedOutput] = await validateInput(editorRef);
+    const [semanticDiagnostics, syntacticDiagnostics, emittedOutput] = await validateInput(codeEditor);
 
     // if there are semantic errors, prevent saving, else save to redux store
+    // @ts-expect-error
     const errors = [...syntacticDiagnostics, ...semanticDiagnostics];
+
     if (errors.length > 0) {
       // handle errors
       dispatch(
@@ -79,7 +78,7 @@ export default function useSave(editorRef: EditorRefType) {
       // update the saved version
       dispatch(
         updateEditorState({
-          savedVersion: editorRef.current?.getModel()?.getAlternativeVersionId(),
+          savedVersion: codeEditor?.getModel()?.getAlternativeVersionId(),
         }),
       );
     }
@@ -97,9 +96,9 @@ export default function useSave(editorRef: EditorRefType) {
       },
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dispatch, formatOnSave]);
+  }, [codeEditor, dispatch, formatOnSave]);
 
-  useSaveKey(editorRef, handleSave);
+  useSaveKey(codeEditor, handleSave);
 
   return handleSave;
 }
@@ -107,13 +106,11 @@ export default function useSave(editorRef: EditorRefType) {
 /**
  * Add an event listener for the Ctrl + S key combo that saves the editor contents
  * to the saved theme options
- * @param editorRef
- * @param onSave
  */
-export const useSaveKey = (editorRef: EditorRefType, onSave: Function) => {
+export const useSaveKey = (codeEditor: MutableCodeEditor, onSave: Function) => {
   useEffect(() => {
     // save key action in the monaco editor
-    const actionBinding = editorRef.current?.addAction({
+    const actionBinding = codeEditor?.addAction({
       id: 'save-editor-contents',
       label: 'Save Editor Theme Contents',
       // eslint-disable-next-line no-bitwise
@@ -137,5 +134,5 @@ export const useSaveKey = (editorRef: EditorRefType, onSave: Function) => {
       window.removeEventListener('keydown', handleGlobalSave);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [onSave]);
+  }, [codeEditor, onSave]);
 };

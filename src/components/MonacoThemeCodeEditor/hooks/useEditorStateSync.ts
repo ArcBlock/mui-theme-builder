@@ -1,48 +1,48 @@
 import axios from 'axios';
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { ThemeValueChangeEvent } from 'src/components/ThemeTools/events';
 import { useUpdateEditorState } from 'src/state/editor/actions';
 import { RootState } from 'src/state/types';
 import { getAuthHeaders, stringify } from 'src/utils';
 
-import { EditorRefType } from '../types';
+import { MutableCodeEditor } from '../types';
 
-export default function useEditorStateSync(editorRef: EditorRefType) {
-  useSyncToStore(editorRef);
-  useSyncFromStore(editorRef);
-  useListenForThemeChangeEvent(editorRef);
-  useSyncFromRemote(editorRef);
+export default function useEditorStateSync(codeEditor: MutableCodeEditor) {
+  useSyncToStore(codeEditor);
+  useSyncFromStore(codeEditor);
+  useListenForThemeChangeEvent(codeEditor);
+  useSyncFromRemote(codeEditor);
 }
 
 /**
  * ensure that when the code editor is updated,
  * the redux store themeInput is also updated
  */
-const useSyncToStore = (editorRef: EditorRefType) => {
+const useSyncToStore = (codeEditor: MutableCodeEditor) => {
   const updateEditorState = useUpdateEditorState();
 
   useEffect(() => {
-    const modelContentChangeBinding = editorRef.current?.onDidChangeModelContent(() => {
-      updateEditorState({ themeInput: editorRef.current?.getValue() });
+    const modelContentChangeBinding = codeEditor?.onDidChangeModelContent(() => {
+      updateEditorState({ themeInput: codeEditor?.getValue() });
     });
 
     return () => {
       modelContentChangeBinding?.dispose();
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [codeEditor, updateEditorState]);
 };
 
 /**
  * ensure that when the redux store themeInput is updated,
  * the code editor is also updated
  */
-const useSyncFromStore = (editorRef: EditorRefType) => {
+const useSyncFromStore = (codeEditor: MutableCodeEditor) => {
   const themeInput = useSelector((state: RootState) => state.editor.themeInput);
   const updateEditorState = useUpdateEditorState();
+
   useEffect(() => {
-    const model = editorRef.current?.getModel();
+    const model = codeEditor?.getModel();
 
     // only modify the editor if themeInput differs from editor,
     // so as to not pollute the undo/redo stack
@@ -56,28 +56,29 @@ const useSyncFromStore = (editorRef: EditorRefType) => {
       // update the last saved version after update is applied
       updateEditorState({ savedVersion: model?.getAlternativeVersionId() });
     }
-  }, [themeInput, editorRef, updateEditorState]);
+  }, [themeInput, codeEditor, updateEditorState]);
 };
 
-const useListenForThemeChangeEvent = (editorRef: EditorRefType) => {
-  const onChangeEvent = () => {
-    const model = editorRef.current?.getModel();
+const useListenForThemeChangeEvent = (codeEditor: MutableCodeEditor) => {
+  const onChangeEvent = useCallback(() => {
+    const model = codeEditor?.getModel();
     model?.pushStackElement();
-  };
+  }, [codeEditor]);
+
   useEffect(() => {
     document.addEventListener(ThemeValueChangeEvent().type, onChangeEvent);
 
     return () => {
       document.removeEventListener(ThemeValueChangeEvent().type, onChangeEvent);
     };
-  });
+  }, [onChangeEvent]);
 };
 
-const useSyncFromRemote = (editorRef: EditorRefType) => {
+const useSyncFromRemote = (codeEditor: MutableCodeEditor) => {
   const updateEditorState = useUpdateEditorState();
 
   useEffect(() => {
-    if (!editorRef.current) return;
+    if (!codeEditor) return;
 
     const urlParams = new URLSearchParams(window.location.search);
     const blockletId = urlParams.get('id');
@@ -89,6 +90,5 @@ const useSyncFromRemote = (editorRef: EditorRefType) => {
       .then((res) => {
         updateEditorState({ themeInput: stringify(res.data) });
       });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [codeEditor, updateEditorState]);
 };

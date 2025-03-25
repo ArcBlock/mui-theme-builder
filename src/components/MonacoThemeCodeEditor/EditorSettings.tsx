@@ -24,7 +24,7 @@ function EditorButton() {
   return (
     <>
       <Tooltip title="Editor Settings">
-        <IconButton onClick={handleOpen} size="large">
+        <IconButton onClick={handleOpen} size="small">
           <SettingsIcon />
         </IconButton>
       </Tooltip>

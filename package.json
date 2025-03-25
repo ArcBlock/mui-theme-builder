@@ -71,6 +71,7 @@
     "@types/recharts": "^1.8.14",
     "ahooks": "^3.8.4",
     "axios": "^1.8.4",
+    "axios-mock-adapter": "^2.1.0",
     "deepmerge": "^4.2.2",
     "dot-prop-immutable": "^2.1.0",
     "json5": "^2.1.3",

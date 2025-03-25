@@ -1,8 +1,8 @@
 import * as monaco from 'monaco-editor';
-import { useEffect } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import { verbose } from 'src/utils';
 
-import { EditorRefType } from '../types';
+import { MutableCodeEditor } from '../types';
 
 // number of lines from the top and bottom of the
 // code in the editor that should be considered read only
@@ -17,11 +17,10 @@ const readOnlyLines = {
 /**
  * Restricts backspace and delete on read only lines,
  * also attempts to restrict closing the themeOptions object
- * @param editorRef
  */
-export default function useReadOnlyLines(editorRef: EditorRefType) {
+export default function useReadOnlyLines(codeEditor: MutableCodeEditor) {
   // apply read only styles
-  useReadOnlyStyles(editorRef);
+  useReadOnlyStyles(codeEditor);
 
   useEffect(() => {
     /**
@@ -29,8 +28,8 @@ export default function useReadOnlyLines(editorRef: EditorRefType) {
      * on read only lines
      */
     function preventModifyReadOnlyLines(event: monaco.IKeyboardEvent) {
-      const selection = editorRef.current?.getSelection();
-      const lastEditableLine = (editorRef.current?.getModel()?.getLineCount() || 0) - readOnlyLines.bottom;
+      const selection = codeEditor?.getSelection();
+      const lastEditableLine = (codeEditor?.getModel()?.getLineCount() || 0) - readOnlyLines.bottom;
 
       if (!selection || lastEditableLine < 0) return;
 
@@ -58,7 +57,7 @@ export default function useReadOnlyLines(editorRef: EditorRefType) {
      */
     function preventBackspaceToReadOnlyLines(event: monaco.IKeyboardEvent) {
       if (event.keyCode === monaco.KeyCode.Backspace) {
-        const selection = editorRef.current?.getSelection();
+        const selection = codeEditor?.getSelection();
 
         if (!selection) return;
 
@@ -76,13 +75,13 @@ export default function useReadOnlyLines(editorRef: EditorRefType) {
      */
     function preventDeleteToReadOnlyLines(event: monaco.IKeyboardEvent) {
       if (event.keyCode === monaco.KeyCode.Delete) {
-        const selection = editorRef.current?.getSelection();
-        const lastEditableLine = (editorRef.current?.getModel()?.getLineCount() || 0) - readOnlyLines.bottom;
+        const selection = codeEditor?.getSelection();
+        const lastEditableLine = (codeEditor?.getModel()?.getLineCount() || 0) - readOnlyLines.bottom;
 
         if (!selection || lastEditableLine < 0) return;
 
         if (selection.endLineNumber === lastEditableLine) {
-          const lineLength = editorRef.current?.getModel()?.getLineLength(lastEditableLine) || 0;
+          const lineLength = codeEditor?.getModel()?.getLineLength(lastEditableLine) || 0;
 
           if (selection.endColumn > lineLength && selection.isEmpty()) {
             verbose('preventing delete on read-only lines');
@@ -92,32 +91,30 @@ export default function useReadOnlyLines(editorRef: EditorRefType) {
       }
     }
 
-    const keyDownBinding = editorRef.current?.onKeyDown((event: monaco.IKeyboardEvent) => {
+    const keyDownBinding = codeEditor?.onKeyDown((event: monaco.IKeyboardEvent) => {
       preventModifyReadOnlyLines(event);
       preventBackspaceToReadOnlyLines(event);
       preventDeleteToReadOnlyLines(event);
     });
 
     return () => keyDownBinding?.dispose();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [codeEditor]);
 }
 
 /**
  * Add styles and hover messages to read only lines, and create
  * an event listener to ensure proper read only styles are applied
  * after the editor input updates
- * @param editorRef
  */
-export const useReadOnlyStyles = (editorRef: EditorRefType) => {
-  let decorationIds: string[] = []; // the IDs of decorations created
+export const useReadOnlyStyles = (codeEditor: MutableCodeEditor) => {
+  const decorationIds = useRef<string[]>([]); // the IDs of decorations created
 
   /**
    * Add the className "readOnlyLine" (styles defined in ../editor.css)
    * to the first three lines and the last line in the editor
    */
-  const applyStyles = () => {
-    const lastLine = editorRef.current?.getModel()?.getLineCount() || 0;
+  const applyStyles = useCallback(() => {
+    const lastLine = codeEditor?.getModel()?.getLineCount() || 0;
 
     // wipe the existing read only decorations, and add new ones
     const decorationOptions = {
@@ -129,8 +126,8 @@ export const useReadOnlyStyles = (editorRef: EditorRefType) => {
         },
       ],
     };
-    decorationIds =
-      editorRef.current?.deltaDecorations(decorationIds, [
+    decorationIds.current =
+      codeEditor?.deltaDecorations(decorationIds.current, [
         {
           range: new monaco.Range(1, 1, readOnlyLines.top, 50),
           options: decorationOptions,
@@ -140,20 +137,18 @@ export const useReadOnlyStyles = (editorRef: EditorRefType) => {
           options: decorationOptions,
         },
       ]) || [];
-  };
+  }, [codeEditor]);
 
   useEffect(() => {
     // add the initial styles
     applyStyles();
 
-    const editorRefCurrent = editorRef.current;
     // when model content changes, ensure that styles are reapplied
-    const modelContentChangeBinding = editorRefCurrent?.onDidChangeModelContent(applyStyles);
+    const modelContentChangeBinding = codeEditor?.onDidChangeModelContent(applyStyles);
 
     return () => {
-      editorRefCurrent?.deltaDecorations(decorationIds, []); // wipe any existing decorations
+      codeEditor?.deltaDecorations(decorationIds.current, []); // wipe any existing decorations
       modelContentChangeBinding?.dispose();
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [applyStyles, codeEditor]);
 };

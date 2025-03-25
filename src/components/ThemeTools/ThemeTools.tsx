@@ -2,7 +2,7 @@ import FontIcon from '@mui/icons-material/FontDownload';
 import PaletteIcon from '@mui/icons-material/Palette';
 import SnippetsIcon from '@mui/icons-material/PlaylistAdd';
 import TypographyIcon from '@mui/icons-material/TextFields';
-import { Box } from '@mui/material';
+import { Box, styled } from '@mui/material';
 import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 import React, { useState } from 'react';
@@ -85,9 +85,22 @@ export default function ThemeTools() {
           />
         ))}
       </BottomNavigation>
-      <Box sx={{ flexGrow: 1, borderBottom: 1, borderBottomColor: 'divider' }}>
+      <ToolWrapper>
         <currentTool.tools />
-      </Box>
+      </ToolWrapper>
     </Box>
   );
 }
+
+const ToolWrapper = styled(Box)({
+  flexGrow: 1,
+  borderBottom: 1,
+  borderBottomColor: 'divider',
+
+  '.MuiAccordionSummary-root': {
+    minHeight: 'unset',
+  },
+  '.MuiAccordionSummary-contentGutters': {
+    margin: '6px 0',
+  },
+});

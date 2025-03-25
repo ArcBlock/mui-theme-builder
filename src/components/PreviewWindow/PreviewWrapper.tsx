@@ -21,8 +21,8 @@ function PreviewWrapper({ children }: PreviewWrapperProps) {
       <ThemeWrapper>
         <Box
           sx={{
-            p: 2,
             height: 1,
+            backgroundColor: '#F8F8F8',
           }}>
           <PreviewBackground>{children}</PreviewBackground>
         </Box>
@@ -51,7 +51,6 @@ function PreviewBackground({ children }: PreviewBackgroundProps) {
       elevation={8}
       square
       sx={{
-        bgcolor: 'background.default',
         maxWidth: (() => {
           if (previewSize === 'xs') return 375;
           if (previewSize === 'sm') return 650;

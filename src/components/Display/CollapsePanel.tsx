@@ -25,7 +25,9 @@ export default function CollapsePanel({ expand = false, title, children, onToggl
         }}
         onClick={() => onToggle?.(!expand)}>
         <Box sx={{ display: 'flex', alignItems: 'center', flex: 1 }}>
-          <IconButton size="small">{expand ? <ExpandLessIcon /> : <ExpandMoreIcon />}</IconButton>
+          <IconButton size="small" sx={{ p: 0 }}>
+            {expand ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+          </IconButton>
           <Box sx={{ ml: 1, fontWeight: 'medium' }}>{title}</Box>
         </Box>
       </Box>

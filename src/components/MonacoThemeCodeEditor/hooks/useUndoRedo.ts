@@ -1,16 +1,16 @@
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { updateVersionStates, useUpdateEditorState } from 'src/state/editor/actions';
 import { verbose } from 'src/utils';
 
-import { EditorRefType } from '../types';
+import { MutableCodeEditor } from '../types';
 
-export default function useUndoRedo(editorRef: EditorRefType) {
+export default function useUndoRedo(codeEditor: MutableCodeEditor) {
   const updateEditorState = useUpdateEditorState();
 
   // handle initial configuration of undo/redo state properties
   useEffect(() => {
-    const initialVersionId = editorRef.current?.getModel()?.getAlternativeVersionId();
+    const initialVersionId = codeEditor?.getModel()?.getAlternativeVersionId();
 
     // set initial versions
     updateEditorState({
@@ -19,56 +19,58 @@ export default function useUndoRedo(editorRef: EditorRefType) {
       lastVersion: initialVersionId,
       savedVersion: initialVersionId,
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [codeEditor, updateEditorState]);
 
-  useTrackUndoRedoState(editorRef);
-  return useUndoRedoHandlers(editorRef);
+  useTrackUndoRedoState(codeEditor);
+
+  return useUndoRedoHandlers(codeEditor);
 }
 
-const useTrackUndoRedoState = (editorRef: EditorRefType) => {
+const useTrackUndoRedoState = (codeEditor: MutableCodeEditor) => {
   const dispatch = useDispatch();
 
-  const handleContentChange = () => {
-    const nextVersionId = editorRef.current?.getModel()?.getAlternativeVersionId() || 0;
+  const handleContentChange = useCallback(() => {
+    const nextVersionId = codeEditor?.getModel()?.getAlternativeVersionId() || 0;
 
     dispatch(updateVersionStates(nextVersionId));
-  };
+  }, [codeEditor, dispatch]);
 
   useEffect(() => {
     // set up event handler for editor changes
-    const modelContentChangeBinding = editorRef.current?.onDidChangeModelContent(handleContentChange);
+    const modelContentChangeBinding = codeEditor?.onDidChangeModelContent(handleContentChange);
 
     return () => {
       modelContentChangeBinding?.dispose();
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [codeEditor, handleContentChange]);
 };
 
-const useUndoRedoHandlers = (editorRef: EditorRefType) => {
-  const handleRedo = () => {
+const useUndoRedoHandlers = (codeEditor: MutableCodeEditor) => {
+  const handleRedo = useCallback(() => {
     verbose('MonacoThemeCodeEditor/hooks/useUndoRedo -> handleRedo: global redo listener fired');
-    editorRef.current?.trigger('MonacoThemeCodeEditor', 'redo', null);
-    editorRef.current?.focus();
-  };
+    codeEditor?.trigger('MonacoThemeCodeEditor', 'redo', null);
+    codeEditor?.focus();
+  }, [codeEditor]);
 
-  const handleUndo = () => {
+  const handleUndo = useCallback(() => {
     verbose('MonacoThemeCodeEditor/hooks/useUndoRedo -> handleUndo: global undo listener fired');
-    editorRef.current?.trigger('MonacoThemeCodeEditor', 'undo', null);
-    editorRef.current?.focus();
-  };
+    codeEditor?.trigger('MonacoThemeCodeEditor', 'undo', null);
+    codeEditor?.focus();
+  }, [codeEditor]);
 
-  const handleKeyDown = (event: KeyboardEvent) => {
-    if (event.ctrlKey) {
-      if (event.code === 'KeyZ') {
-        handleUndo();
+  const handleKeyDown = useCallback(
+    (event: KeyboardEvent) => {
+      if (event.ctrlKey) {
+        if (event.code === 'KeyZ') {
+          handleUndo();
+        }
+        if (event.code === 'KeyY') {
+          handleRedo();
+        }
       }
-      if (event.code === 'KeyY') {
-        handleRedo();
-      }
-    }
-  };
+    },
+    [handleRedo, handleUndo],
+  );
 
   // set up event listener to handle Ctrl+Z or Ctrl+Y keydowns
   useEffect(() => {
@@ -77,8 +79,7 @@ const useUndoRedoHandlers = (editorRef: EditorRefType) => {
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [handleKeyDown]);
 
   // return the handlers to be used on undo/redo
   return { handleRedo, handleUndo };
