@@ -1,5 +1,5 @@
 import { AppBar, Box, Button, Toolbar } from '@mui/material';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Samples from 'src/components/Samples';
 import { RootState } from 'src/state/types';
@@ -9,6 +9,10 @@ function Header() {
   const selectedComponentId = useSelector((state: RootState) => state.selectedComponentId);
 
   const handleSampleSelect = (id: string, component: React.ReactNode) => {
+    const url = new URL(window.location.href);
+    url.searchParams.set('componentId', id);
+    window.history.pushState({}, '', url);
+
     dispatch({
       type: 'SET_PREVIEW_COMPONENT',
       payload: {
@@ -17,6 +21,18 @@ function Header() {
       },
     });
   };
+
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const componentId = urlParams.get('componentId');
+    if (componentId) {
+      const sample = Samples.find((s) => s.id === componentId);
+      if (sample) {
+        handleSampleSelect(sample.id, sample.component);
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <AppBar
