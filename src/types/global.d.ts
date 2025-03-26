@@ -32,3 +32,9 @@ declare module '*.webp' {
   const value: any;
   export = value;
 }
+
+declare global {
+  interface Window {
+    blocklet: Record<string, any>;
+  }
+}

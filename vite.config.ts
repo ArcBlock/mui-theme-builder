@@ -20,6 +20,9 @@ export default defineConfig(() => {
         customDistPath: (root, buildOutDir) => path.resolve(buildOutDir, monacoEditorPublicPath),
       }),
     ],
+    define: {
+      global: 'window',
+    },
     resolve: {
       alias: {
         src: path.resolve(__dirname, './src'),

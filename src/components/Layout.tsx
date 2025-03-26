@@ -4,9 +4,11 @@
  *
  * See: https://www.gatsbyjs.org/docs/use-static-query/
  */
+import { LocaleProvider } from '@arcblock/ux/lib/Locale/context';
 import CssBaseline from '@mui/material/CssBaseline';
 import { StyledEngineProvider, Theme, ThemeProvider } from '@mui/material/styles';
 import React from 'react';
+import { translations } from 'src/locales';
 import theme from 'src/siteTheme';
 
 import './layout.css';
@@ -26,7 +28,9 @@ function Layout({ children }: LayoutProps) {
     <StyledEngineProvider injectFirst>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        {children}
+        <LocaleProvider locale="en" translations={translations}>
+          {children}
+        </LocaleProvider>
       </ThemeProvider>
     </StyledEngineProvider>
   );

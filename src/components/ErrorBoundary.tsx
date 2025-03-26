@@ -1,5 +1,4 @@
-import { Box, Button } from '@mui/material';
-import Typography from '@mui/material/Typography';
+import { Alert, Box, Button } from '@mui/material';
 import { Component, ErrorInfo, ReactNode, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import { resetSiteData } from 'src/state/actions';
@@ -44,25 +43,14 @@ class ErrorBoundary extends Component<Props, State> {
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
+            justifyContent: 'center',
             height: '100vh',
             overflowY: 'auto',
           }}>
-          <Typography variant="h2">Something went wrong, causing the app to crash</Typography>
-          <Typography variant="h1" gutterBottom>
-            ':('
-          </Typography>
-          <Typography variant="h5" gutterBottom>
-            This likely is caused by an error on the ThemeOptions object
-          </Typography>
-          <Typography variant="h5" gutterBottom>
-            This can be cleared up by wiping the saved theme data...
-          </Typography>
-          <Typography variant="h5" gutterBottom>
-            but you will lose your saved themes. Sorry :(
-          </Typography>
-          <Typography variant="h6" gutterBottom>
-            Click the button below to reset your local storage data for this site
-          </Typography>
+          <Alert severity="error" sx={{ mb: 2, maxWidth: '80vw', maxHeight: '50vh', width: '100%' }}>
+            {this.state.error?.message}
+            <pre>{this.state.error?.stack}</pre>
+          </Alert>
           <ClearStorageButton />
         </Box>
       );

@@ -99,6 +99,7 @@ const ToolWrapper = styled(Box)({
 
   '.MuiAccordionSummary-root': {
     minHeight: 'unset',
+    zIndex: 1,
   },
   '.MuiAccordionSummary-contentGutters': {
     margin: '6px 0',

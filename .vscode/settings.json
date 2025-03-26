@@ -1,7 +1,7 @@
 {
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "files.autoSave": "onFocusChange", // optional but recommended
-  "cSpell.words": ["persistor", "blocklet", "blocklets", "arcblock", "iconify"],
+  "cSpell.words": ["persistor", "blocklet", "blocklets", "arcblock", "iconify", "abtnode"],
   "[markdown]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },

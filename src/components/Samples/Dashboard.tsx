@@ -1,14 +1,13 @@
-import DidAddress from '@arcblock/ux/lib/Address';
-import DidAvatar from '@arcblock/ux/lib/Avatar';
 import Dashboard from '@arcblock/ux/lib/Layout/Dashboard';
-import Tag from '@arcblock/ux/lib/Tag';
 import TerminalOutlinedIcon from '@mui/icons-material/TerminalOutlined';
 import WidgetsOutlinedIcon from '@mui/icons-material/WidgetsOutlined';
-import { styled } from '@mui/material';
-import Button from '@mui/material/Button';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { Box, styled } from '@mui/material';
 import StoreLogo from 'src/images/store-logo-notext.svg?react';
 
+import BlockletWrapper from './Share/BlockletWrapper';
+import HeaderAddons from './Share/HeaderAddons';
+
+// 左侧菜单配置
 const groupedLinks = [
   {
     url: '/nav1',
@@ -44,48 +43,23 @@ const groupedLinks = [
   },
 ];
 
-function CustomTag() {
-  return (
-    <div style={{ display: 'flex', alignItems: 'center' }}>
-      <Tag type="success" style={{ marginLeft: '10px' }}>
-        production
-      </Tag>
-    </div>
-  );
-}
-
 export default function DashboardSample() {
   return (
-    <Router>
+    <BlockletWrapper>
       <StyledDashboard
         // @ts-ignore
         links={groupedLinks}
         title="Blocklets"
         headerProps={{
           brand: 'ABT Node (Dev)',
-          brandAddon: CustomTag,
-          description: (
-            <DidAddress
-              compact
-              responsive={false}
-              copyable={false}
-              showCopyButtonInTooltip
-              prepend={<DidAvatar did="z3CtAkv2AGG4YvJU6S4oJmX39WuKQX72WQgUj" size={16} style={{ marginRight: 4 }} />}>
-              z3CtAkv2AGG4YvJU6S4oJmX39WuKQX72WQgUj
-            </DidAddress>
-          ),
-          addons: (
-            <Button variant="contained" color="primary" size="small">
-              Addons
-            </Button>
-          ),
+          addons: <HeaderAddons />,
           logo: <StoreLogo height={54} />,
         }}
         fullWidth
         legacy={false}>
-        Content
+        <Box sx={{ flexGrow: 1, marginTop: 2, height: '100%', backgroundColor: '#F8F8F8' }} />
       </StyledDashboard>
-    </Router>
+    </BlockletWrapper>
   );
 }
 
