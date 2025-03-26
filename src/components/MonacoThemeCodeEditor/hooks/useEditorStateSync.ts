@@ -1,11 +1,8 @@
-import axios from 'axios';
 import { useCallback, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { ThemeValueChangeEvent } from 'src/components/ThemeTools/events';
-import useSchemaKey from 'src/hooks/use-schema-key';
 import { useUpdateEditorState } from 'src/state/editor/actions';
 import { RootState } from 'src/state/types';
-import { getAuthHeaders, isDev, stringify } from 'src/utils';
 
 import { MutableCodeEditor } from '../types';
 
@@ -13,7 +10,6 @@ export default function useEditorStateSync(codeEditor: MutableCodeEditor) {
   useSyncToStore(codeEditor);
   useSyncFromStore(codeEditor);
   useListenForThemeChangeEvent(codeEditor);
-  useSyncFromRemote(codeEditor);
 }
 
 /**
@@ -73,21 +69,4 @@ const useListenForThemeChangeEvent = (codeEditor: MutableCodeEditor) => {
       document.removeEventListener(ThemeValueChangeEvent().type, onChangeEvent);
     };
   }, [onChangeEvent]);
-};
-
-const useSyncFromRemote = (codeEditor: MutableCodeEditor) => {
-  const updateEditorState = useUpdateEditorState();
-  const schemaKey = useSchemaKey();
-
-  useEffect(() => {
-    if (!codeEditor || isDev) return;
-
-    axios
-      .get(schemaKey, {
-        headers: getAuthHeaders(),
-      })
-      .then((res) => {
-        updateEditorState({ themeInput: stringify(res.data) });
-      });
-  }, [codeEditor, updateEditorState, schemaKey]);
 };
