@@ -60,6 +60,7 @@ function PreviewBackground({ children }: PreviewBackgroundProps) {
         overflowY: 'auto',
         margin: 'auto',
         position: 'relative', // for FAB positioning
+        zIndex: 1,
       }}
       dir={directionIsRTL ? 'rtl' : ''}>
       {children}

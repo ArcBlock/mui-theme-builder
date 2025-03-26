@@ -25,10 +25,20 @@ export default function EditorControls({ codeEditor, sx, ...rest }: EditorContro
   const canUndo = useSelector((state: RootState) => state.editor.canUndo);
   const canRedo = useSelector((state: RootState) => state.editor.canRedo);
   const canSave = useCanSave();
+  const [saveStatus, setSaveStatus] = useState<{ open: boolean; success: boolean }>({ open: false, success: false });
 
   // set Save and Undo/Redo listeners, and get handlers
   const handleSave = useSave(codeEditor);
   const { handleRedo, handleUndo } = useUndoRedo(codeEditor);
+
+  const onSave = async () => {
+    try {
+      await handleSave();
+      setSaveStatus({ open: true, success: true });
+    } catch (error) {
+      setSaveStatus({ open: true, success: false });
+    }
+  };
 
   return (
     <Box
@@ -60,7 +70,7 @@ export default function EditorControls({ codeEditor, sx, ...rest }: EditorContro
         </Tooltip>
         <Tooltip title="Save Changes (Ctrl + S)">
           <span>
-            <IconButton onClick={handleSave} size="small">
+            <IconButton onClick={onSave} size="small">
               <SaveIcon />
             </IconButton>
           </span>
@@ -69,6 +79,16 @@ export default function EditorControls({ codeEditor, sx, ...rest }: EditorContro
       <Typography variant="body2" color={canSave ? 'textPrimary' : 'textSecondary'} display="inline">
         {canSave ? '* Unsaved Changes' : 'All changes saved'}
       </Typography>
+      <Snackbar
+        open={saveStatus.open}
+        autoHideDuration={2000}
+        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+        onClose={() => setSaveStatus((prev) => ({ ...prev, open: false }))}>
+        <Alert variant="filled" severity={saveStatus.success ? 'success' : 'error'}>
+          {saveStatus.success ? 'Save successful!' : 'Save failed, please try again'}
+        </Alert>
+      </Snackbar>
+      ;
     </Box>
   );
 }
