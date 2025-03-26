@@ -26,7 +26,6 @@
     "lint:fix": "npm run lint -- --fix",
     "clean": "node scripts/build-clean.mjs",
     "build": "./extractMuiVersion.sh && vite build && node publish.js",
-    "bundle": "npm run clean && npm run build",
     "prepare": "npx simple-git-hooks",
     "bump-version": "zx --quiet scripts/bump-version.mjs",
     "test": "vitest run",
