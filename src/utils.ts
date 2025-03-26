@@ -1,8 +1,7 @@
 import { ThemeOptions } from '@mui/material';
+import { TypographyOptions } from '@mui/material/styles/createTypography';
 import dotProp from 'dot-prop-immutable';
 import JSON5 from 'json5';
-
-import { RootState } from './state/types';
 
 export const isDev = process.env.NODE_ENV === 'development';
 
@@ -37,14 +36,14 @@ export const setByPath = (object: any, path: string, value: any) => dotProp.set(
  * Generate an id for a saved theme, ensuring that it does not collide with
  * one already in the store
  */
-export const generateThemeId = (savedThemes: RootState['savedThemes']) => {
+export const generateThemeId = (lastId: string) => {
   // generate a long string of characters
   const genString = () => ['', '', ''].reduce((str) => str + Math.random().toString(36).substring(2, 15), '');
 
   let id;
   do {
     id = genString();
-  } while (Object.prototype.hasOwnProperty.call(savedThemes, id));
+  } while (id === lastId);
 
   return id;
 };
@@ -90,4 +89,55 @@ export function getAuthHeaders() {
   }
 
   return headers;
+}
+
+/**
+ * Parse a `ThemeOptions` object to get a list of google fonts included
+ * Note that the Material-UI default Theme uses Roboto as the base Font
+ * @param themeOptions - the `ThemeOptions` object to parse
+ * @param previousFonts - previous state of `savedThemes[id].fonts`
+ * @param loadedFonts - `RootState.loadedFonts`
+ *
+ * @returns string[] - the google fonts included in `themeOptions`
+ */
+export function getFontsFromThemeOptions(
+  themeOptions: ThemeOptions,
+  previousFonts: string[] | undefined,
+  loadedFonts: Set<string>,
+) {
+  const { typography } = themeOptions as { typography: TypographyOptions | undefined };
+
+  // get all defined fonts from the themeOptions
+  const fontList: string[] = [
+    typography?.fontFamily || 'Roboto',
+    typography?.h1?.fontFamily,
+    typography?.h2?.fontFamily,
+    typography?.h3?.fontFamily,
+    typography?.h4?.fontFamily,
+    typography?.h5?.fontFamily,
+    typography?.h6?.fontFamily,
+    typography?.subtitle1?.fontFamily,
+    typography?.subtitle2?.fontFamily,
+    typography?.body1?.fontFamily,
+    typography?.body2?.fontFamily,
+    typography?.button?.fontFamily,
+    typography?.caption?.fontFamily,
+    typography?.overline?.fontFamily,
+  ]
+    .flatMap((x) => (x == null ? [] : x?.replace(/"/g, '').split(',')))
+    // .filter((x): x is string => !!x) // remove nulls and undefined items
+    // .map(x => ) // strip out quotes and split by comma
+    // .flat() // flatten the array if any font families had multiple specified
+    .map((x) => x.trim()); // trim off any white space
+
+  const fontSet = new Set<string>();
+  fontList.forEach((x) => loadedFonts.has(x) && fontSet.add(x));
+
+  // if new fontSet hasn't changed from the current theme fonts
+  // return the original Set for redux performance
+  if (previousFonts && isSetEq(new Set(previousFonts), fontSet)) {
+    return previousFonts;
+  }
+
+  return [...fontSet];
 }

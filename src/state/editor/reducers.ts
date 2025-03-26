@@ -2,7 +2,6 @@
 import { defaultThemeOptions } from 'src/siteTheme';
 import { stringify } from 'src/utils';
 
-import { RootState } from '../types';
 import { EditorState } from './types';
 
 export const initialState: EditorState = {
@@ -18,7 +17,7 @@ export const initialState: EditorState = {
   outputTypescript: true,
 };
 
-export default (state = initialState, action: any, savedThemes: RootState['savedThemes']) => {
+export default (state = initialState, action: any) => {
   switch (action.type) {
     case 'persist/REHYDRATE':
       if (action.payload != null) {
@@ -37,16 +36,6 @@ export default (state = initialState, action: any, savedThemes: RootState['saved
       return {
         ...state,
         themeInput: stringify(action.themeOptions),
-      };
-    case 'ADD_NEW_THEME':
-      return {
-        ...state,
-        themeInput: stringify(action.savedTheme.themeOptions),
-      };
-    case 'LOAD_THEME':
-      return {
-        ...state,
-        themeInput: stringify(savedThemes[action.themeId].themeOptions),
       };
     default:
       return state;

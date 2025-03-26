@@ -7,9 +7,9 @@ import thunk from 'redux-thunk';
 import reducers from './reducers';
 
 const persistConfig = {
-  key: 'root',
+  key: 'blocklet-theme-builder',
   storage,
-  whitelist: ['themeId', 'themeOptions', 'savedThemes', 'selectedComponentId'],
+  whitelist: ['themeId', 'themeOptions', 'selectedComponentId'],
 };
 
 // in production, persist the mobileWarningSeen value so mobile users don't see the popup again on reload

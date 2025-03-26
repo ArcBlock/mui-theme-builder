@@ -1,9 +1,9 @@
 import { ThemeOptions } from '@mui/material';
-import { defaultTheme, defaultThemeOptions } from 'src/siteTheme';
+import { defaultTheme } from 'src/siteTheme';
 import { getByPath, removeByPath, setByPath, verbose } from 'src/utils';
 
 import { canSave } from './selectors';
-import { NewSavedTheme, PreviewSize } from './types';
+import { PreviewSize } from './types';
 
 /**
  * Check if the code editor has unsaved work, and if so, prompt the user
@@ -91,45 +91,6 @@ export const setThemeOptions =
   };
 
 /**
- * Add a new theme and switch to it
- */
-export const addNewSavedTheme = (name: string) => ({
-  type: 'ADD_NEW_THEME',
-  savedTheme: {
-    name,
-    themeOptions: defaultThemeOptions,
-    fonts: ['Roboto'],
-  },
-});
-
-export const addNewDefaultTheme = (newSavedTheme: NewSavedTheme | Omit<NewSavedTheme, 'lastUpdated'>) => ({
-  type: 'ADD_NEW_THEME',
-  savedTheme: newSavedTheme,
-});
-
-/**
- * Switch to a new theme by ID
- */
-export const loadSavedTheme = (themeId: string) => ({
-  type: 'LOAD_THEME',
-  themeId,
-});
-
-export const removeSavedTheme = (themeId: string) => (dispatch: Function, getState: Function) => {
-  // don't remove the theme unless it is not the current theme
-  if (getState().themeId === themeId) {
-    return false;
-  }
-  return dispatch({ type: 'REMOVE_THEME', themeId });
-};
-
-export const renameSavedTheme = (themeId: string, name: string) => ({
-  type: 'RENAME_THEME',
-  themeId,
-  name,
-});
-
-/**
  * loads a set of passed fonts and resolves a promise
  * when the fonts load, or fail to load
  * @param fonts
@@ -172,11 +133,6 @@ export const addFonts = (fonts: string[]) => async (dispatch: Function) => {
   }
   return false;
 };
-
-/**
- * Set the active tab for the editor page
- */
-export const setActiveTab = (tab: string) => ({ type: 'SET_TAB', tab });
 
 /**
  * Set the active tab for the editor page
