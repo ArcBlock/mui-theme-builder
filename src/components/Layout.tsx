@@ -12,6 +12,7 @@ import React from 'react';
 import useSchemaKey from 'src/hooks/use-schema-key';
 import { translations } from 'src/locales';
 import theme from 'src/siteTheme';
+import { isDev } from 'src/utils';
 
 import './layout.css';
 
@@ -28,7 +29,7 @@ interface LayoutProps {
 function Layout({ children }: LayoutProps) {
   const schemaKey = useSchemaKey();
 
-  if (!schemaKey) {
+  if (!schemaKey && !isDev) {
     return (
       <Box sx={{ display: 'flex', height: '100vh', alignItems: 'center', justifyContent: 'center' }}>
         <Alert severity="error">Theme Builder requires a valid schemaKey to work</Alert>

@@ -7,7 +7,7 @@ import useSchemaKey from 'src/hooks/use-schema-key';
 import { saveEditorToTheme, updateEditorState } from 'src/state/editor/actions';
 import { parseEditorOutput } from 'src/state/editor/parser';
 import { RootState } from 'src/state/types';
-import { getAuthHeaders, verbose } from 'src/utils';
+import { getAuthHeaders, isDev, verbose } from 'src/utils';
 
 import { MutableCodeEditor } from '../types';
 
@@ -51,11 +51,13 @@ async function formatInput(codeEditor: MutableCodeEditor) {
  * handler for saving code editor contents
  */
 export default function useSave(codeEditor: MutableCodeEditor) {
-  const formatOnSave = useSelector((state: RootState) => state.editor.formatOnSave);
   const dispatch = useDispatch();
   const schemaKey = useSchemaKey();
+  const formatOnSave = useSelector((state: RootState) => state.editor.formatOnSave);
 
   const handleSave = useCallback(async () => {
+    if (!codeEditor) return;
+
     // clear existing errors first
     dispatch(updateEditorState({ errors: [] }));
 
@@ -85,18 +87,19 @@ export default function useSave(codeEditor: MutableCodeEditor) {
       );
     }
 
-    // save to Blocklet.settings.theme
-    await axios.post(
-      schemaKey,
-      {
-        theme: parseEditorOutput(emittedOutput.outputFiles[0].text),
-      },
-      {
-        headers: getAuthHeaders(),
-      },
-    );
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [codeEditor, dispatch, formatOnSave]);
+    // 只在生产环境下调用远程保存
+    if (!isDev) {
+      await axios.post(
+        schemaKey,
+        {
+          theme: parseEditorOutput(emittedOutput.outputFiles[0].text),
+        },
+        {
+          headers: getAuthHeaders(),
+        },
+      );
+    }
+  }, [codeEditor, dispatch, formatOnSave, schemaKey]);
 
   useSaveKey(codeEditor, handleSave);
 

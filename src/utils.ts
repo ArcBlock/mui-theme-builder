@@ -4,6 +4,8 @@ import JSON5 from 'json5';
 
 import { RootState } from './state/types';
 
+export const isDev = process.env.NODE_ENV === 'development';
+
 /**
  * Get an nested value from an object by a string path
  * e.g. resolvePath({a: {b: {c : 5}}}, 'a.b.c') would return 5

@@ -13,20 +13,10 @@ import editorReducer, { initialState as editorInitialState } from './editor/redu
 const defaultThemeId = generateThemeId({});
 
 const getInitialSelectedComponent = () => {
-  const urlParams = new URLSearchParams(window.location.search);
-  const componentId = urlParams.get('componentId');
-  if (componentId) {
-    const sample = Samples.find((s) => s.id === componentId);
-    if (sample) {
-      return {
-        selectedComponentId: sample.id,
-        previewComponent: sample.component,
-      };
-    }
-  }
+  const initialId = Samples[0]?.id ?? '';
   return {
-    selectedComponentId: Samples[0]?.id ?? '',
-    previewComponent: Samples[0]?.component ?? null,
+    selectedComponentId: initialId,
+    previewComponent: Samples.find((s) => s.id === initialId)?.component ?? null,
   };
 };
 

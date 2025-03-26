@@ -13,10 +13,6 @@ export default function Header({ sx, ...props }: HeaderProps) {
   const selectedComponentId = useSelector((state: RootState) => state.selectedComponentId);
 
   const handleSampleSelect = (id: string, component: React.ReactNode) => {
-    const url = new URL(window.location.href);
-    url.searchParams.set('componentId', id);
-    window.history.pushState({}, '', url);
-
     dispatch({
       type: 'SET_PREVIEW_COMPONENT',
       payload: {
@@ -26,13 +22,18 @@ export default function Header({ sx, ...props }: HeaderProps) {
     });
   };
 
+  // 显示上次一选择的 Sample
   useEffect(() => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const componentId = urlParams.get('componentId');
-    if (componentId) {
-      const sample = Samples.find((s) => s.id === componentId);
+    if (selectedComponentId) {
+      const sample = Samples.find((s) => s.id === selectedComponentId);
       if (sample) {
-        handleSampleSelect(sample.id, sample.component);
+        dispatch({
+          type: 'SET_PREVIEW_COMPONENT',
+          payload: {
+            id: sample.id,
+            component: sample.component,
+          },
+        });
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

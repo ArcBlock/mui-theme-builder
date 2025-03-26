@@ -9,7 +9,7 @@ import reducers from './reducers';
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['themeId', 'themeOptions', 'savedThemes'],
+  whitelist: ['themeId', 'themeOptions', 'savedThemes', 'selectedComponentId'],
 };
 
 // in production, persist the mobileWarningSeen value so mobile users don't see the popup again on reload

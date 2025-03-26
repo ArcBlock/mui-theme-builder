@@ -5,7 +5,7 @@ import { ThemeValueChangeEvent } from 'src/components/ThemeTools/events';
 import useSchemaKey from 'src/hooks/use-schema-key';
 import { useUpdateEditorState } from 'src/state/editor/actions';
 import { RootState } from 'src/state/types';
-import { getAuthHeaders, stringify } from 'src/utils';
+import { getAuthHeaders, isDev, stringify } from 'src/utils';
 
 import { MutableCodeEditor } from '../types';
 
@@ -80,7 +80,7 @@ const useSyncFromRemote = (codeEditor: MutableCodeEditor) => {
   const schemaKey = useSchemaKey();
 
   useEffect(() => {
-    if (!codeEditor) return;
+    if (!codeEditor || isDev) return;
 
     axios
       .get(schemaKey, {
