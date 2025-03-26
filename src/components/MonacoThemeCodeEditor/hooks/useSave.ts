@@ -3,6 +3,7 @@ import * as monaco from 'monaco-editor';
 import { useCallback, useEffect } from 'react';
 // custom theme config
 import { useDispatch, useSelector } from 'react-redux';
+import useSchemaKey from 'src/hooks/use-schema-key';
 import { saveEditorToTheme, updateEditorState } from 'src/state/editor/actions';
 import { parseEditorOutput } from 'src/state/editor/parser';
 import { RootState } from 'src/state/types';
@@ -52,6 +53,7 @@ async function formatInput(codeEditor: MutableCodeEditor) {
 export default function useSave(codeEditor: MutableCodeEditor) {
   const formatOnSave = useSelector((state: RootState) => state.editor.formatOnSave);
   const dispatch = useDispatch();
+  const schemaKey = useSchemaKey();
 
   const handleSave = useCallback(async () => {
     // clear existing errors first
@@ -84,10 +86,8 @@ export default function useSave(codeEditor: MutableCodeEditor) {
     }
 
     // save to Blocklet.settings.theme
-    const urlParams = new URLSearchParams(window.location.search);
-    const blockletId = urlParams.get('id');
     await axios.post(
-      `${window.location.origin}/api/theme?id=${blockletId}`,
+      schemaKey,
       {
         theme: parseEditorOutput(emittedOutput.outputFiles[0].text),
       },

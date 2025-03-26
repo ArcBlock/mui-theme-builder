@@ -2,6 +2,7 @@ import axios from 'axios';
 import { useCallback, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { ThemeValueChangeEvent } from 'src/components/ThemeTools/events';
+import useSchemaKey from 'src/hooks/use-schema-key';
 import { useUpdateEditorState } from 'src/state/editor/actions';
 import { RootState } from 'src/state/types';
 import { getAuthHeaders, stringify } from 'src/utils';
@@ -76,19 +77,17 @@ const useListenForThemeChangeEvent = (codeEditor: MutableCodeEditor) => {
 
 const useSyncFromRemote = (codeEditor: MutableCodeEditor) => {
   const updateEditorState = useUpdateEditorState();
+  const schemaKey = useSchemaKey();
 
   useEffect(() => {
     if (!codeEditor) return;
 
-    const urlParams = new URLSearchParams(window.location.search);
-    const blockletId = urlParams.get('id');
-
     axios
-      .get(`${window.location.origin}/api/theme?id=${blockletId}`, {
+      .get(schemaKey, {
         headers: getAuthHeaders(),
       })
       .then((res) => {
         updateEditorState({ themeInput: stringify(res.data) });
       });
-  }, [codeEditor, updateEditorState]);
+  }, [codeEditor, updateEditorState, schemaKey]);
 };
