@@ -88,7 +88,6 @@ export default function EditorControls({ codeEditor, sx, ...rest }: EditorContro
           {saveStatus.success ? 'Save successful!' : 'Save failed, please try again'}
         </Alert>
       </Snackbar>
-      ;
     </Box>
   );
 }
