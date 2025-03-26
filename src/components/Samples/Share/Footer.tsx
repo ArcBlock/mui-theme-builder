@@ -1,4 +1,5 @@
 import BlockletFooter from '@blocklet/ui-react/lib/Footer';
+import { useTheme } from '@mui/material';
 import { useMemo } from 'react';
 
 const baseMeta = {
@@ -24,6 +25,7 @@ const socialMedia = [
 ];
 
 export default function Footer() {
+  const theme = useTheme();
   const locale = 'en';
   const links = useMemo(() => {
     return [
@@ -92,8 +94,5 @@ export default function Footer() {
     ];
   }, [locale]);
 
-  return (
-    // @ts-expect-error
-    <BlockletFooter className="custom-footer" meta={{ ...baseMeta, ...brand }} />
-  );
+  return <BlockletFooter className="custom-footer" meta={{ ...baseMeta, ...brand }} theme={theme} />;
 }
