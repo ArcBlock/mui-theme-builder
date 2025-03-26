@@ -117,7 +117,7 @@
     "rimraf": "^5.0.10",
     "simple-git-hooks": "^2.11.1",
     "typescript": "~5.5.4",
-    "vite": "^5.4.14",
+    "vite": "^5.4.15",
     "vite-plugin-blocklet": "^0.9.25",
     "vite-plugin-monaco-editor": "^1.1.0",
     "vite-plugin-svgr": "^4.3.0",
