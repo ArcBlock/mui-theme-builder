@@ -1,4 +1,4 @@
-import Dashboard from '@arcblock/ux/lib/Layout/Dashboard';
+import Dashboard from '@arcblock/ux/lib/Layout/dashboard';
 import TerminalOutlinedIcon from '@mui/icons-material/TerminalOutlined';
 import WidgetsOutlinedIcon from '@mui/icons-material/WidgetsOutlined';
 import { Box, styled } from '@mui/material';
