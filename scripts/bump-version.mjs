@@ -8,9 +8,9 @@ async function main() {
   const { version } = await fs.readJSON('package.json');
   await fs.writeFileSync('version', version);
 
-  console.log(chalk.greenBright(`[info]: start to modify blocklet version to ${version}`));
-  await $`blocklet version ${version}`;
-  console.log(chalk.greenBright('[info]: blocklet version modified.'));
+  // console.log(chalk.greenBright(`[info]: start to modify blocklet version to ${version}`));
+  // await $`blocklet version ${version}`;
+  // console.log(chalk.greenBright('[info]: blocklet version modified.'));
 
   let newChangelog = '';
   try {
