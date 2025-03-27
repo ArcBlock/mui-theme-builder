@@ -2,7 +2,7 @@
 import { ThemeOptions, createTheme } from '@mui/material';
 import deepmerge from 'deepmerge';
 import Samples from 'src/components/Samples';
-import { defaultThemeOptions } from 'src/siteTheme';
+import { darkDefaultThemeOptions, lightDefaultThemeOptions } from 'src/siteTheme';
 import { PreviewSize, RootState } from 'src/state/types';
 import { generateThemeId } from 'src/utils';
 
@@ -23,17 +23,11 @@ const initialState: RootState = {
   editor: editorInitialState,
   themeId: defaultThemeId,
   themeOptions: {
-    light: defaultThemeOptions,
-    dark: {
-      ...defaultThemeOptions,
-      palette: {
-        ...defaultThemeOptions.palette,
-        mode: 'dark',
-      },
-    },
+    light: lightDefaultThemeOptions,
+    dark: darkDefaultThemeOptions,
   },
   mode: 'light',
-  themeObject: createTheme(defaultThemeOptions),
+  themeObject: createTheme(lightDefaultThemeOptions),
   loadedFonts: new Set(),
   previewSize: false,
   tutorialStep: 0,

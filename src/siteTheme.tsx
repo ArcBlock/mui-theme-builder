@@ -1,20 +1,16 @@
+import { createDefaultThemeOptions } from '@arcblock/ux/lib/Theme';
 import { Theme, ThemeOptions, createTheme } from '@mui/material';
 
-export const defaultThemeOptions: ThemeOptions = {
-  palette: {
-    mode: 'light',
-    primary: {
-      main: '#3f51b5', // the default primary color
-    },
-    secondary: {
-      main: '#f50057', // the default secondary color
-    },
-  },
+export const lightDefaultThemeOptions: ThemeOptions = createDefaultThemeOptions('light');
+
+const darkTheme = createTheme({ palette: { mode: 'dark' } });
+export const darkDefaultThemeOptions: ThemeOptions = {
+  palette: darkTheme.palette,
 };
 
 export const defaultTheme: Theme = createTheme();
 
-export const themeConfig: ThemeOptions = {
+const siteTheme = createTheme({
   palette: {
     mode: 'light',
     primary: {
@@ -95,6 +91,6 @@ export const themeConfig: ThemeOptions = {
       },
     },
   },
-};
+});
 
-export default createTheme(themeConfig);
+export default siteTheme;
