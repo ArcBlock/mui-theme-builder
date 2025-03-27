@@ -22,7 +22,17 @@ const getInitialSelectedComponent = () => {
 const initialState: RootState = {
   editor: editorInitialState,
   themeId: defaultThemeId,
-  themeOptions: defaultThemeOptions, // the object loaded into createMuiTheme
+  themeOptions: {
+    light: defaultThemeOptions,
+    dark: {
+      ...defaultThemeOptions,
+      palette: {
+        ...defaultThemeOptions.palette,
+        mode: 'dark',
+      },
+    },
+  },
+  mode: 'light',
   themeObject: createTheme(defaultThemeOptions),
   loadedFonts: new Set(),
   previewSize: false,
@@ -66,7 +76,8 @@ export default (state = initialState, action: any) => {
   // run editor reducers
   currentState = {
     ...state,
-    editor: editorReducer(state.editor, action),
+    // 这里会触发 editor 的 actions
+    editor: editorReducer(state.editor, action, state),
   };
 
   // 初始化加载字体
@@ -79,16 +90,43 @@ export default (state = initialState, action: any) => {
       if (action.payload != null) {
         return {
           ...currentState,
-          themeObject: createPreviewMuiTheme(action.payload.themeOptions, currentState.previewSize),
-          loadedFonts: loadFontsIfRequired(action.payload.themeOptions.fonts, currentState.loadedFonts),
+          themeOptions: action.payload.themeOptions,
+          mode: action.payload.mode,
+          themeObject: createPreviewMuiTheme(
+            action.payload.themeOptions[action.payload.mode],
+            currentState.previewSize,
+          ),
+          loadedFonts: loadFontsIfRequired(
+            action.payload.themeOptions[action.payload.mode].fonts,
+            currentState.loadedFonts,
+          ),
         };
       }
       return currentState;
-    case 'SAVE_THEME_INPUT':
-    case 'UPDATE_THEME':
+    // 设置 ThemeOptions
+    case 'SET_THEME_OPTIONS':
       return {
         ...currentState,
         themeOptions: action.themeOptions,
+      };
+    // 切换 mode
+    case 'SET_THEME_MODE':
+      return {
+        ...currentState,
+        mode: action.mode,
+        // @ts-expect-error
+        themeObject: createPreviewMuiTheme(currentState.themeOptions[action.mode], currentState.previewSize),
+      };
+    // editor 编辑保存
+    case 'SAVE_THEME_INPUT':
+    case 'UPDATE_THEME':
+      // tools 编辑保存
+      return {
+        ...currentState,
+        themeOptions: {
+          ...currentState.themeOptions,
+          [currentState.mode]: action.themeOptions,
+        },
         themeObject: createPreviewMuiTheme(action.themeOptions, currentState.previewSize),
       };
     case 'FONTS_LOADED':
@@ -100,7 +138,7 @@ export default (state = initialState, action: any) => {
       return {
         ...currentState,
         previewSize: action.previewSize,
-        themeObject: createPreviewMuiTheme(currentState.themeOptions, action.previewSize),
+        themeObject: createPreviewMuiTheme(currentState.themeOptions[currentState.mode], action.previewSize),
       };
     case 'INCREMENT_TUTORIAL_STEP':
       return {

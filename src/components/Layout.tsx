@@ -1,12 +1,7 @@
-import { LocaleProvider } from '@arcblock/ux/lib/Locale/context';
-import { Alert, Box, CircularProgress } from '@mui/material';
-import CssBaseline from '@mui/material/CssBaseline';
-import { StyledEngineProvider, Theme, ThemeProvider } from '@mui/material/styles';
+import { Alert, Box, CircularProgress, Theme } from '@mui/material';
 import React from 'react';
 import useRemoteThemeSync from 'src/hooks/use-remote-theme-sync';
 import useSchemaKey from 'src/hooks/use-schema-key';
-import { translations } from 'src/locales';
-import theme from 'src/siteTheme';
 import { isDev } from 'src/utils';
 
 import './layout.css';
@@ -26,7 +21,6 @@ function Center({ children }: { children: React.ReactNode }) {
   );
 }
 
-// 移除 Gatsby 相关代码，简化为纯 React 组件
 function Layout({ children }: LayoutProps) {
   const schemaKey = useSchemaKey();
   const loading = useRemoteThemeSync();
@@ -47,16 +41,7 @@ function Layout({ children }: LayoutProps) {
     );
   }
 
-  return (
-    <StyledEngineProvider injectFirst>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <LocaleProvider locale="en" translations={translations}>
-          {children}
-        </LocaleProvider>
-      </ThemeProvider>
-    </StyledEngineProvider>
-  );
+  return children;
 }
 
 export default Layout;

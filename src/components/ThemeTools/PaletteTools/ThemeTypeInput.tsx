@@ -1,19 +1,19 @@
 import { Box, Switch, Typography } from '@mui/material';
 import { useCallback } from 'react';
-import { useDispatch } from 'react-redux';
-import { setThemeOption } from 'src/state/actions';
-import { useThemeValue } from 'src/state/selectors';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from 'src/state/types';
 
 import { ThemeValueChangeEvent } from '../events';
 
 export default function ThemeTypeInput() {
-  const themeIsDark = useThemeValue('palette.mode') === 'dark';
+  const mode = useSelector((state: RootState) => state.mode);
   const dispatch = useDispatch();
 
   const toggleThemeType = useCallback(() => {
-    dispatch(setThemeOption('palette.mode', themeIsDark ? 'light' : 'dark'));
+    const newMode = mode === 'light' ? 'dark' : 'light';
+    dispatch({ type: 'SET_THEME_MODE', mode: newMode });
     document.dispatchEvent(ThemeValueChangeEvent());
-  }, [dispatch, themeIsDark]);
+  }, [dispatch, mode]);
 
   return (
     <Box
@@ -21,11 +21,11 @@ export default function ThemeTypeInput() {
         display: 'flex',
         alignItems: 'center',
       }}>
-      <Typography variant="body2" color={themeIsDark ? 'textSecondary' : 'textPrimary'}>
+      <Typography variant="body2" color={mode === 'dark' ? 'textSecondary' : 'textPrimary'}>
         Light
       </Typography>
-      <Switch checked={themeIsDark} onClick={toggleThemeType} sx={{ color: '#fff' }} color="default" />
-      <Typography variant="body2" color={!themeIsDark ? 'textSecondary' : 'textPrimary'}>
+      <Switch checked={mode === 'dark'} onClick={toggleThemeType} sx={{ color: '#fff' }} color="default" />
+      <Typography variant="body2" color={mode === 'light' ? 'textSecondary' : 'textPrimary'}>
         Dark
       </Typography>
     </Box>

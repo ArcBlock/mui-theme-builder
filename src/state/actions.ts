@@ -25,7 +25,10 @@ const checkIfUserAllowsOverwrite = (state: any) =>
  * @param path - the path to remove from the themeOptions
  */
 export const removeThemeOption = (path: string) => (dispatch: Function, getState: Function) => {
-  if (checkIfUserAllowsOverwrite(getState())) {
+  const state = getState();
+
+  if (checkIfUserAllowsOverwrite(state)) {
+    const currentMode = state.mode;
     let updatedThemeOptions: ThemeOptions;
 
     // path with ".<name>" removed
@@ -35,10 +38,10 @@ export const removeThemeOption = (path: string) => (dispatch: Function, getState
     // replace with the value from the default Theme object
     if (path.endsWith('main')) {
       const defaultValueForPath = getByPath(defaultTheme, path);
-      updatedThemeOptions = setByPath(getState().themeOptions, path, defaultValueForPath);
+      updatedThemeOptions = setByPath(state.themeOptions[currentMode], path, defaultValueForPath);
     } else {
       // remove the key from the themeOptions (immutably)
-      updatedThemeOptions = removeByPath(getState().themeOptions, path);
+      updatedThemeOptions = removeByPath(state.themeOptions[currentMode], path);
     }
 
     return dispatch({
@@ -51,8 +54,12 @@ export const removeThemeOption = (path: string) => (dispatch: Function, getState
 
 export const removeThemeOptions =
   (configs: { path: string; value: any }[]) => (dispatch: Function, getState: Function) => {
-    if (checkIfUserAllowsOverwrite(getState())) {
-      let updatedThemeOptions = getState().themeOptions;
+    const state = getState();
+
+    if (checkIfUserAllowsOverwrite(state)) {
+      const currentMode = state.mode;
+      let updatedThemeOptions = state.themeOptions[currentMode];
+
       configs.forEach(({ path }) => {
         updatedThemeOptions = removeByPath(updatedThemeOptions, path);
       });
@@ -65,8 +72,11 @@ export const removeThemeOptions =
   };
 
 export const setThemeOption = (path: string, value: any) => (dispatch: Function, getState: Function) => {
-  if (checkIfUserAllowsOverwrite(getState())) {
-    const updatedThemeOptions = setByPath(getState().themeOptions, path, value);
+  const state = getState();
+
+  if (checkIfUserAllowsOverwrite(state)) {
+    const currentMode = state.mode;
+    const updatedThemeOptions = setByPath(state.themeOptions[currentMode], path, value);
 
     dispatch({
       type: 'UPDATE_THEME',
@@ -77,8 +87,12 @@ export const setThemeOption = (path: string, value: any) => (dispatch: Function,
 
 export const setThemeOptions =
   (configs: { path: string; value: any }[]) => (dispatch: Function, getState: Function) => {
-    if (checkIfUserAllowsOverwrite(getState())) {
-      let updatedThemeOptions = getState().themeOptions;
+    const state = getState();
+
+    if (checkIfUserAllowsOverwrite(state)) {
+      const currentMode = state.mode;
+      let updatedThemeOptions = state.themeOptions[currentMode];
+
       configs.forEach(({ path, value }) => {
         updatedThemeOptions = setByPath(updatedThemeOptions, path, value);
       });

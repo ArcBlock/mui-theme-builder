@@ -7,7 +7,11 @@ export interface RootState {
   editor: EditorState;
   themeId: string;
   themeObject: Theme;
-  themeOptions: ThemeOptions;
+  themeOptions: {
+    light: ThemeOptions;
+    dark: ThemeOptions;
+  };
+  mode: 'light' | 'dark';
   loadedFonts: Set<string>;
   previewSize: PreviewSize;
   tutorialStep: number;

@@ -16,13 +16,6 @@ export const defaultTheme: Theme = createTheme();
 
 export const themeConfig: ThemeOptions = {
   palette: {
-    // mode: 'dark',
-    // primary: {
-    //   main: '#90caf9',
-    // },
-    // secondary: {
-    //   main: '#f48fb1',
-    // },
     mode: 'light',
     primary: {
       main: '#3f51b5', // the default primary color

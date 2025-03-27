@@ -54,6 +54,8 @@ export default function useSave(codeEditor: MutableCodeEditor) {
   const dispatch = useDispatch();
   const schemaKey = useSchemaKey();
   const formatOnSave = useSelector((state: RootState) => state.editor.formatOnSave);
+  const mode = useSelector((state: RootState) => state.mode);
+  const themeOptions = useSelector((state: RootState) => state.themeOptions);
 
   const handleSave = useCallback(async () => {
     if (!codeEditor) return;
@@ -78,28 +80,36 @@ export default function useSave(codeEditor: MutableCodeEditor) {
         }),
       );
     } else {
-      dispatch(saveEditorToTheme(emittedOutput.outputFiles[0].text));
-      // update the saved version
+      const code = emittedOutput.outputFiles[0].text;
+
+      // 更新 root state
+      dispatch(saveEditorToTheme(code));
       dispatch(
         updateEditorState({
           savedVersion: codeEditor?.getModel()?.getAlternativeVersionId(),
         }),
       );
-    }
 
-    // 只在生产环境下调用远程保存
-    if (!isDev) {
-      await axios.post(
-        schemaKey,
-        {
-          theme: parseEditorOutput(emittedOutput.outputFiles[0].text),
-        },
-        {
-          headers: getAuthHeaders(),
-        },
-      );
+      // 保存到远端
+      if (!isDev) {
+        const parsedTheme = parseEditorOutput(code);
+        const updatedThemeOptions = {
+          ...themeOptions,
+          [mode]: parsedTheme,
+        };
+
+        await axios.post(
+          schemaKey,
+          {
+            theme: updatedThemeOptions,
+          },
+          {
+            headers: getAuthHeaders(),
+          },
+        );
+      }
     }
-  }, [codeEditor, dispatch, formatOnSave, schemaKey]);
+  }, [codeEditor, dispatch, formatOnSave, schemaKey, mode, themeOptions]);
 
   useSaveKey(codeEditor, handleSave);
 

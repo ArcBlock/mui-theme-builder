@@ -24,6 +24,7 @@ export const saveEditorToTheme = (code: string) => {
         errors: [
           {
             category: 1,
+            // @ts-expect-error
             messageText: `Error while JSON5 parsing code: ${err.message}`,
           },
         ],

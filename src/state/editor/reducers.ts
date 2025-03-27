@@ -2,6 +2,7 @@
 import { defaultThemeOptions } from 'src/siteTheme';
 import { stringify } from 'src/utils';
 
+import { RootState } from '../types';
 import { EditorState } from './types';
 
 export const initialState: EditorState = {
@@ -17,13 +18,15 @@ export const initialState: EditorState = {
   outputTypescript: true,
 };
 
-export default (state = initialState, action: any) => {
+export default (state = initialState, action: any, parentState: Omit<RootState, 'editor'>) => {
   switch (action.type) {
     case 'persist/REHYDRATE':
       if (action.payload != null) {
+        const { themeOptions, mode } = action.payload;
+
         return {
           ...state,
-          themeInput: stringify(action.payload.themeOptions),
+          themeInput: stringify(themeOptions[mode]),
         };
       }
     // eslint-disable-next-line no-fallthrough
@@ -32,10 +35,24 @@ export default (state = initialState, action: any) => {
         ...state,
         ...action.editorState,
       };
+    // 更新 mode 对应的 ThemeOptions
     case 'UPDATE_THEME':
       return {
         ...state,
         themeInput: stringify(action.themeOptions),
+      };
+    // 切换 mode
+    case 'SET_THEME_MODE':
+      return {
+        ...state,
+        // @ts-expect-error
+        themeInput: stringify(parentState.themeOptions[action.mode]),
+      };
+    // 设置 ThemeOptions
+    case 'SET_THEME_OPTIONS':
+      return {
+        ...state,
+        themeInput: stringify(action.themeOptions[action.mode]),
       };
     default:
       return state;

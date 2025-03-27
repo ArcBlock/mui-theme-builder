@@ -24,7 +24,7 @@ const getThemeValueInfo = (path: string, themeOptions: ThemeOptions, themeObject
 const makeThemeValueInfoSelector = () =>
   createSelector(
     (_: any, path: string) => path,
-    (state: RootState) => state.themeOptions,
+    (state: RootState) => state.themeOptions[state.mode],
     (state: RootState) => state.themeObject,
     getThemeValueInfo,
   );
