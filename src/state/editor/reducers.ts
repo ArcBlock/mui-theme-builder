@@ -52,7 +52,8 @@ export default (state = initialState, action: any, parentState: Omit<RootState, 
     case 'SET_THEME_OPTIONS':
       return {
         ...state,
-        themeInput: stringify(action.themeOptions[action.mode]),
+        // @ts-expect-error
+        themeInput: stringify(action.themeOptions[action.mode] || parentState.themeOptions[action.mode]),
       };
     default:
       return state;

@@ -107,7 +107,10 @@ export default (state = initialState, action: any) => {
     case 'SET_THEME_OPTIONS':
       return {
         ...currentState,
-        themeOptions: action.themeOptions,
+        themeOptions: {
+          light: action.themeOptions.light ? action.themeOptions.light : currentState.themeOptions.light,
+          dark: action.themeOptions.dark ? action.themeOptions.dark : currentState.themeOptions.dark,
+        },
       };
     // 切换 mode
     case 'SET_THEME_MODE':
