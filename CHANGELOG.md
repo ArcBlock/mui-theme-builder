@@ -1,3 +1,7 @@
+## 0.1.4 (2025-3-27)
+
+- feat: support dark theme
+
 ## 0.1.3 (2025-3-27)
 
 - fix: preview size not work for footer
