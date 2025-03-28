@@ -19,14 +19,10 @@ import {
   Typography,
 } from '@mui/material';
 import React from 'react';
-import { TutorialLink } from 'src/components/Tutorial/TutorialButton';
 
 export default function DefaultExample() {
   return (
     <Box p={3}>
-      <Typography paragraph>
-        <TutorialLink>Check out the Tutorial!</TutorialLink>
-      </Typography>
       <Grid container spacing={2} justifyContent="center">
         <Grid item xs={12} md={6}>
           <FeatureCard icon={<BuildIcon color="primary" />} title="Editor Usage">

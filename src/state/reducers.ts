@@ -31,8 +31,6 @@ const initialState: RootState = {
   fonts: ['Roboto'],
   loadedFonts: new Set(),
   previewSize: false,
-  tutorialStep: 0,
-  tutorialOpen: false,
   componentNavOpen: false,
   themeConfigOpen: false,
   mobileWarningSeen: false,
@@ -141,26 +139,6 @@ export default (state = initialState, action: any) => {
         ...currentState,
         previewSize: action.previewSize,
         themeObject: createPreviewMuiTheme(currentState.themeOptions[currentState.mode], action.previewSize),
-      };
-    case 'INCREMENT_TUTORIAL_STEP':
-      return {
-        ...currentState,
-        tutorialStep: currentState.tutorialStep + 1,
-      };
-    case 'DECREMENT_TUTORIAL_STEP':
-      return {
-        ...currentState,
-        tutorialStep: currentState.tutorialStep - 1,
-      };
-    case 'RESET_TUTORIAL_STEP':
-      return {
-        ...currentState,
-        tutorialStep: 0,
-      };
-    case 'TOGGLE_TUTORIAL':
-      return {
-        ...currentState,
-        tutorialOpen: !currentState.tutorialOpen,
       };
     case 'TOGGLE_COMPONENT_NAV':
       return {

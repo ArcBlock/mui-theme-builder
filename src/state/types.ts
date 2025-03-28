@@ -15,8 +15,6 @@ export interface RootState {
   mode: 'light' | 'dark';
   loadedFonts: Set<string>;
   previewSize: PreviewSize;
-  tutorialStep: number;
-  tutorialOpen: boolean;
   componentNavOpen: boolean;
   themeConfigOpen: boolean;
   mobileWarningSeen: boolean;

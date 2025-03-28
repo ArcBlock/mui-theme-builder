@@ -1,3 +1,9 @@
+## 0.1.5 (2025-3-28)
+
+- fix: use ux theme as default theme
+- fix: fonts panel error
+- fix: remove tutorial
+
 ## 0.1.4 (2025-3-27)
 
 - feat: support dark theme
