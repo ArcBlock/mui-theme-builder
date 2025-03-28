@@ -22,7 +22,7 @@ const loadedFontContentStyle = {
 
 function FontTools() {
   const loadedFonts = useSelector((state: RootState) => state.loadedFonts);
-  const currentFonts = useSelector((state: RootState) => state.savedThemes[state.themeId].fonts);
+  const currentFonts = useSelector((state: RootState) => state.fonts);
 
   return (
     <>

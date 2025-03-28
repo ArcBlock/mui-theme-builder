@@ -9,7 +9,7 @@ import reducers from './reducers';
 const persistConfig = {
   key: 'blocklet-theme-builder',
   storage,
-  whitelist: ['themeId', 'mode', 'themeOptions', 'selectedComponentId'],
+  whitelist: ['themeId', 'mode', 'fonts', 'themeOptions', 'selectedComponentId'],
 };
 
 // in production, persist the mobileWarningSeen value so mobile users don't see the popup again on reload

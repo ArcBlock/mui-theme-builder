@@ -4,7 +4,7 @@ import deepmerge from 'deepmerge';
 import Samples from 'src/components/Samples';
 import { darkDefaultThemeOptions, lightDefaultThemeOptions } from 'src/siteTheme';
 import { PreviewSize, RootState } from 'src/state/types';
-import { generateThemeId } from 'src/utils';
+import { generateThemeId, getFontsFromThemeOptions } from 'src/utils';
 
 import { loadFonts } from './actions';
 import editorReducer, { initialState as editorInitialState } from './editor/reducers';
@@ -28,6 +28,7 @@ const initialState: RootState = {
   },
   mode: 'light',
   themeObject: createTheme(lightDefaultThemeOptions),
+  fonts: ['Roboto'],
   loadedFonts: new Set(),
   previewSize: false,
   tutorialStep: 0,
@@ -90,10 +91,7 @@ export default (state = initialState, action: any) => {
             action.payload.themeOptions[action.payload.mode],
             currentState.previewSize,
           ),
-          loadedFonts: loadFontsIfRequired(
-            action.payload.themeOptions[action.payload.mode].fonts,
-            currentState.loadedFonts,
-          ),
+          loadedFonts: loadFontsIfRequired(action.payload.fonts, currentState.loadedFonts),
         };
       }
       return currentState;
@@ -113,6 +111,12 @@ export default (state = initialState, action: any) => {
         mode: action.mode,
         // @ts-expect-error
         themeObject: createPreviewMuiTheme(currentState.themeOptions[action.mode], currentState.previewSize),
+        fonts: getFontsFromThemeOptions(
+          // @ts-expect-error
+          currentState.themeOptions[action.mode],
+          currentState.fonts,
+          currentState.loadedFonts,
+        ),
       };
     // editor 编辑保存
     case 'SAVE_THEME_INPUT':
@@ -125,6 +129,7 @@ export default (state = initialState, action: any) => {
           [currentState.mode]: action.themeOptions,
         },
         themeObject: createPreviewMuiTheme(action.themeOptions, currentState.previewSize),
+        fonts: getFontsFromThemeOptions(action.themeOptions, currentState.fonts, currentState.loadedFonts),
       };
     case 'FONTS_LOADED':
       return {

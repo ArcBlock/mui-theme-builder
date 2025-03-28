@@ -95,7 +95,7 @@ export function getAuthHeaders() {
  * Parse a `ThemeOptions` object to get a list of google fonts included
  * Note that the Material-UI default Theme uses Roboto as the base Font
  * @param themeOptions - the `ThemeOptions` object to parse
- * @param previousFonts - previous state of `savedThemes[id].fonts`
+ * @param previousFonts - previous `state.fonts`
  * @param loadedFonts - `RootState.loadedFonts`
  *
  * @returns string[] - the google fonts included in `themeOptions`
@@ -120,6 +120,7 @@ export function getFontsFromThemeOptions(
     typography?.subtitle2?.fontFamily,
     typography?.body1?.fontFamily,
     typography?.body2?.fontFamily,
+    // @ts-expect-error
     typography?.button?.fontFamily,
     typography?.caption?.fontFamily,
     typography?.overline?.fontFamily,

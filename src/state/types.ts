@@ -11,6 +11,7 @@ export interface RootState {
     light: ThemeOptions;
     dark: ThemeOptions;
   };
+  fonts: string[];
   mode: 'light' | 'dark';
   loadedFonts: Set<string>;
   previewSize: PreviewSize;
