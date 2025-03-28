@@ -8,7 +8,7 @@ export const darkDefaultThemeOptions: ThemeOptions = {
   palette: darkTheme.palette,
 };
 
-export const defaultTheme: Theme = createTheme();
+export const defaultTheme: Theme = createTheme(lightDefaultThemeOptions);
 
 const siteTheme = createTheme({
   palette: {
