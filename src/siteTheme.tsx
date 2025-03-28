@@ -14,10 +14,10 @@ const siteTheme = createTheme({
   palette: {
     mode: 'light',
     primary: {
-      main: '#3f51b5', // the default primary color
+      main: '#1DC1C7',
     },
     secondary: {
-      main: '#f50057', // the default secondary color
+      main: '#16CED1',
     },
   },
   components: {
