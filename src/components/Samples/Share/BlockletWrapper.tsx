@@ -7,6 +7,8 @@ import noop from 'lodash/noop';
 import { useEffect, useState } from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 
+import './mock-backend';
+
 const mockSession = {
   login: noop,
   logout: noop,
@@ -15,10 +17,19 @@ const mockSession = {
   switchDid: noop,
   switchProfile: noop,
   switchPassport: noop,
+  bindWallet: noop,
   user: {
     did: 'z1exXZY2A7G4JuYv3AMzjCmioyQGQ4y3wtu',
     fullName: 'Foo',
     role: 'owner',
+    login: noop,
+    logout: noop,
+    refresh: noop,
+    switch: noop,
+    switchDid: noop,
+    switchProfile: noop,
+    switchPassport: noop,
+    bindWallet: noop,
   },
   didSpace: {
     did: 'zNKuiSAJ5Kx2rcaoxnNRWEQxupojK7Xni625',

@@ -58,6 +58,7 @@
   "dependencies": {
     "@abtnode/constant": "^1.16.40",
     "@arcblock/did-connect": "^2.12.49",
+    "@arcblock/icons": "^2.12.49",
     "@arcblock/ux": "^2.12.49",
     "@babel/eslint-parser": "^7.27.0",
     "@blocklet/ui-react": "^2.12.49",
@@ -72,7 +73,6 @@
     "@types/recharts": "^1.8.29",
     "ahooks": "^3.8.4",
     "axios": "^1.8.4",
-    "axios-mock-adapter": "^2.1.0",
     "deepmerge": "^4.3.1",
     "dot-prop-immutable": "^2.1.1",
     "flat": "^6.0.1",
@@ -93,7 +93,8 @@
     "redux-thunk": "^2.4.2",
     "reselect": "^4.1.8",
     "ufo": "^1.5.4",
-    "webfontloader": "^1.6.28"
+    "webfontloader": "^1.6.28",
+    "xhr-mock": "^2.5.1"
   },
   "devDependencies": {
     "@arcblock/eslint-config-ts": "^0.3.3",

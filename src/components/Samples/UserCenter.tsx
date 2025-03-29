@@ -4,14 +4,10 @@ import { useLocaleContext } from '@arcblock/ux/lib/Locale/context';
 import Tabs from '@arcblock/ux/lib/Tabs';
 import Nft from '@blocklet/ui-react/lib/UserCenter/components/nft';
 import Passport from '@blocklet/ui-react/lib/UserCenter/components/passport';
-import Settings from '@blocklet/ui-react/lib/UserCenter/components/settings';
-import DidSpace from '@blocklet/ui-react/lib/UserCenter/components/storage/index';
 import { UserBasicInfo } from '@blocklet/ui-react/lib/UserCenter/components/user-info';
-import { ConfigUserSpaceProvider } from '@blocklet/ui-react/lib/contexts/config-user-space';
 import { Box, Divider, Typography, useMediaQuery, useTheme } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { useCreation, useMemoizedFn } from 'ahooks';
-import noop from 'lodash/noop';
 import { useContext, useState } from 'react';
 
 import BlockletWrapper from './Share/BlockletWrapper';
@@ -82,17 +78,6 @@ function UserCenter() {
           </Box>
           <Nft user={session.user} />
         </Box>
-      );
-    }
-    if (currentTab === 'settings') {
-      // @ts-ignore
-      return <Settings user={session.user} settings={{ userCenterTabs }} onSave={noop} />;
-    }
-    if (currentTab === 'didSpaces') {
-      return (
-        <ConfigUserSpaceProvider>
-          <DidSpace />
-        </ConfigUserSpaceProvider>
       );
     }
     return null;

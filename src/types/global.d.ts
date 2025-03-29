@@ -1,5 +1,6 @@
 declare module 'vite-plugin-blocklet';
 declare module '@arcblock/did-connect/*';
+declare module '@arcblock/icons/*';
 
 declare module '@mui/material/colors' {
   export const amber: Record<number | string, string>;
