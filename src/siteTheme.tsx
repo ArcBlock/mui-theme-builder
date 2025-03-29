@@ -1,14 +1,13 @@
 import { createDefaultThemeOptions } from '@arcblock/ux/lib/Theme';
 import { Theme, ThemeOptions, createTheme } from '@mui/material';
 
-export const lightDefaultThemeOptions: ThemeOptions = createDefaultThemeOptions('light');
+export const defaultLightThemeOptions: ThemeOptions = createDefaultThemeOptions('light');
+export const defaultLightTheme: Theme = createTheme(defaultLightThemeOptions);
 
-const darkTheme = createTheme({ palette: { mode: 'dark' } });
+export const defaultDarkTheme = createTheme({ palette: { mode: 'dark' } });
 export const darkDefaultThemeOptions: ThemeOptions = {
-  palette: darkTheme.palette,
+  palette: defaultDarkTheme.palette,
 };
-
-export const defaultTheme: Theme = createTheme(lightDefaultThemeOptions);
 
 const siteTheme = createTheme({
   palette: {
@@ -32,7 +31,7 @@ const siteTheme = createTheme({
         root: {
           border: '1px solid rgba(255, 255, 255, .125)',
           boxShadow: 'none',
-          transition: defaultTheme.transitions.create('margin-left'),
+          transition: defaultLightTheme.transitions.create('margin-left'),
           '&:not(:last-child)': {
             borderBottom: 0,
           },

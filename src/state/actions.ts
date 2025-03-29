@@ -1,5 +1,5 @@
 import { ThemeOptions } from '@mui/material';
-import { defaultTheme } from 'src/siteTheme';
+import { defaultDarkTheme, defaultLightTheme } from 'src/siteTheme';
 import { getByPath, removeByPath, setByPath, verbose } from 'src/utils';
 
 import { canSave } from './selectors';
@@ -29,15 +29,11 @@ export const removeThemeOption = (path: string) => (dispatch: Function, getState
 
   if (checkIfUserAllowsOverwrite(state)) {
     const currentMode = state.mode;
+    const currentTheme = currentMode === 'light' ? defaultLightTheme : defaultDarkTheme;
     let updatedThemeOptions: ThemeOptions;
 
-    // path with ".<name>" removed
-    // const parentPath = path.substring(0, path.lastIndexOf('.'));
-
-    // paths ending in "main" must be declared
-    // replace with the value from the default Theme object
     if (path.endsWith('main')) {
-      const defaultValueForPath = getByPath(defaultTheme, path);
+      const defaultValueForPath = getByPath(currentTheme, path);
       updatedThemeOptions = setByPath(state.themeOptions[currentMode], path, defaultValueForPath);
     } else {
       // remove the key from the themeOptions (immutably)

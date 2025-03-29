@@ -1,5 +1,5 @@
 import { grey } from '@mui/material/colors';
-import { defaultTheme } from 'src/siteTheme';
+import { defaultLightTheme } from 'src/siteTheme';
 
 import { SnippetModification } from './types';
 
@@ -75,7 +75,7 @@ const snippets: Array<SnippetModification> = [
               border: `1px solid ${grey[400]}`,
               backgroundColor: grey[50],
               opacity: 1,
-              transition: defaultTheme.transitions.create(['background-color', 'border']),
+              transition: defaultLightTheme.transitions.create(['background-color', 'border']),
             },
           },
         },

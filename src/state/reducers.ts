@@ -2,7 +2,7 @@
 import { ThemeOptions, createTheme } from '@mui/material';
 import deepmerge from 'deepmerge';
 import Samples from 'src/components/Samples';
-import { darkDefaultThemeOptions, lightDefaultThemeOptions } from 'src/siteTheme';
+import { darkDefaultThemeOptions, defaultLightThemeOptions } from 'src/siteTheme';
 import { PreviewSize, RootState } from 'src/state/types';
 import { generateThemeId, getFontsFromThemeOptions } from 'src/utils';
 
@@ -23,11 +23,11 @@ const initialState: RootState = {
   editor: editorInitialState,
   themeId: defaultThemeId,
   themeOptions: {
-    light: lightDefaultThemeOptions,
+    light: defaultLightThemeOptions,
     dark: darkDefaultThemeOptions,
   },
   mode: 'light',
-  themeObject: createTheme(lightDefaultThemeOptions),
+  themeObject: createTheme(defaultLightThemeOptions),
   fonts: ['Roboto'],
   loadedFonts: new Set(),
   previewSize: false,
@@ -58,9 +58,14 @@ const createPreviewMuiTheme = (themeOptions: ThemeOptions, previewSize: PreviewS
     xl: { xs: 0, sm: 1, md: 2, lg: 3, xl: 4 },
   };
 
-  if (!previewSize) return createTheme(themeOptions);
+  const currentThemeOptions = deepmerge(
+    themeOptions.palette?.mode === 'light' ? defaultLightThemeOptions : darkDefaultThemeOptions,
+    themeOptions,
+  );
 
-  return createTheme(deepmerge({ breakpoints: { values: spoofedBreakpoints[previewSize] } }, themeOptions));
+  if (!previewSize) return createTheme(currentThemeOptions);
+
+  return createTheme(deepmerge(currentThemeOptions, { breakpoints: { values: spoofedBreakpoints[previewSize] } }));
 };
 
 export default (state = initialState, action: any) => {

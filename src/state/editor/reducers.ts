@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/default-param-last */
-import { lightDefaultThemeOptions } from 'src/siteTheme';
+import { defaultLightThemeOptions } from 'src/siteTheme';
 import { stringify } from 'src/utils';
 
 import { RootState } from '../types';
 import { EditorState } from './types';
 
 export const initialState: EditorState = {
-  themeInput: stringify(lightDefaultThemeOptions),
+  themeInput: stringify(defaultLightThemeOptions),
   initialVersion: 0,
   currentVersion: 0,
   lastVersion: 0,
