@@ -1,3 +1,9 @@
+## 0.1.6 (2025-3-29)
+
+- fix: MUI default fonts not used
+- fix: the reset value is incorrect
+- fix: notification message error
+
 ## 0.1.5 (2025-3-28)
 
 - fix: use ux theme as default theme
