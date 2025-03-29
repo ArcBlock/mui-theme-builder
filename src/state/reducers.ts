@@ -2,7 +2,7 @@
 import { ThemeOptions, createTheme } from '@mui/material';
 import deepmerge from 'deepmerge';
 import Samples from 'src/components/Samples';
-import { darkDefaultThemeOptions, defaultLightThemeOptions } from 'src/siteTheme';
+import { darkDefaultThemeOptions, defaultFonts, defaultLightThemeOptions } from 'src/siteTheme';
 import { PreviewSize, RootState } from 'src/state/types';
 import { generateThemeId, getFontsFromThemeOptions } from 'src/utils';
 
@@ -36,8 +36,6 @@ const initialState: RootState = {
   mobileWarningSeen: false,
   ...getInitialSelectedComponent(),
 };
-
-const initialFonts = ['Droid Sans', 'Droid Serif', 'Open Sans', 'Roboto'];
 
 function loadFontsIfRequired(fonts: string[] = [], loadedFonts: Set<string>) {
   const fontsToLoad = fonts.filter((x) => !loadedFonts.has(x));
@@ -80,7 +78,7 @@ export default (state = initialState, action: any) => {
 
   // 初始化加载字体
   if (!state.loadedFonts.size) {
-    currentState.loadedFonts = loadFontsIfRequired(initialFonts, state.loadedFonts);
+    currentState.loadedFonts = loadFontsIfRequired(defaultFonts, state.loadedFonts);
   }
 
   switch (action.type) {

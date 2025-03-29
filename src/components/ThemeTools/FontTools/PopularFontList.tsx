@@ -5,7 +5,20 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addFonts } from 'src/state/actions';
 import { RootState } from 'src/state/types';
 
-const defaultFonts = ['Lato', 'Lora', 'Montserrat', 'Oswald', 'PT Sans', 'Raleway', 'Slabo 27px', 'Source Sans Pro'];
+const defaultFonts = [
+  'Inter',
+  'Avenir',
+  '-apple-system',
+  'BlinkMacSystemFont',
+  '"Segoe UI"',
+  'Roboto',
+  '"Helvetica Neue"',
+  'Arial',
+  'sans-serif',
+  '"Apple Color Emoji"',
+  '"Segoe UI Emoji"',
+  '"Segoe UI Symbol"',
+];
 
 function PopularFontList() {
   const dispatch = useDispatch();
