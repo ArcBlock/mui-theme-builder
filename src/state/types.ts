@@ -22,4 +22,8 @@ export interface RootState {
   previewComponent: React.ReactNode;
 }
 
+export interface EndRootState extends Omit<RootState, 'loadedFonts'> {
+  loadedFonts: string[];
+}
+
 export type PreviewSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | false;

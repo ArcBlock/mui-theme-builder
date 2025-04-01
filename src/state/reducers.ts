@@ -11,11 +11,18 @@ import editorReducer, { initialState as editorInitialState } from './editor/redu
 
 const defaultThemeId = generateThemeId('');
 
-const getInitialSelectedComponent = () => {
-  const initialId = Samples[0]?.id ?? '';
+const getSelectedComponent = (id = '') => {
+  let cid = id;
+  let preview = Samples.find((s) => s.id === cid)?.component;
+
+  if (!cid || !preview) {
+    cid = Samples[0]?.id ?? '';
+    preview = Samples[0]?.component ?? null;
+  }
+
   return {
-    selectedComponentId: initialId,
-    previewComponent: Samples.find((s) => s.id === initialId)?.component ?? null,
+    selectedComponentId: cid,
+    previewComponent: preview,
   };
 };
 
@@ -28,13 +35,13 @@ const initialState: RootState = {
   },
   mode: 'light',
   themeObject: createTheme(defaultLightThemeOptions),
-  fonts: ['Roboto'],
-  loadedFonts: new Set(),
+  fonts: ['Roboto'], // themeOptions 中使用过的字体
+  loadedFonts: new Set(), // 已加载的字体
   previewSize: false,
   componentNavOpen: false,
   themeConfigOpen: false,
   mobileWarningSeen: false,
-  ...getInitialSelectedComponent(),
+  ...getSelectedComponent(),
 };
 
 function loadFontsIfRequired(fonts: string[] = [], loadedFonts: Set<string>) {
@@ -82,17 +89,23 @@ export default (state = initialState, action: any) => {
   }
 
   switch (action.type) {
+    // 从 localStorage 还原
     case 'persist/REHYDRATE':
       if (action.payload != null) {
         return {
           ...currentState,
           themeOptions: action.payload.themeOptions,
           mode: action.payload.mode,
+          fonts: action.payload.fonts,
+          loadedFonts: loadFontsIfRequired(
+            Array.from(action.payload.loadedFonts || new Set()),
+            currentState.loadedFonts,
+          ),
           themeObject: createPreviewMuiTheme(
             action.payload.themeOptions[action.payload.mode],
             currentState.previewSize,
           ),
-          loadedFonts: loadFontsIfRequired(action.payload.fonts, currentState.loadedFonts),
+          ...getSelectedComponent(action.payload.selectedComponentId),
         };
       }
       return currentState;

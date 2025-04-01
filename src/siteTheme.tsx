@@ -2,6 +2,9 @@ import { createDefaultThemeOptions } from '@arcblock/ux/lib/Theme';
 import { Theme, ThemeOptions, createTheme } from '@mui/material';
 import pick from 'lodash/pick';
 
+// MUI 默认字体
+export const defaultFonts = ['Roboto', 'Helvetica', 'Inter', 'Open Sans', 'Lato'];
+
 // 默认浅色主题
 export const defaultLightThemeOptions: ThemeOptions = pick(createDefaultThemeOptions('light'), [
   'palette',
@@ -13,15 +16,12 @@ export const defaultLightTheme: Theme = createTheme(defaultLightThemeOptions);
 export const darkDefaultThemeOptions: ThemeOptions = pick(createDefaultThemeOptions('dark'), ['palette']);
 export const defaultDarkTheme = createTheme(darkDefaultThemeOptions);
 
-// 默认字体
-export const defaultFonts = defaultLightTheme.typography.fontFamily?.split(',') ?? [];
-
 // 编辑器主题
 const siteTheme = createTheme({
   palette: {
     mode: 'light',
     primary: {
-      main: '#e62712',
+      main: '#1DC1C7',
     },
     secondary: {
       main: '#16CED1',

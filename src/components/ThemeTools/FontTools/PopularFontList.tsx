@@ -5,31 +5,18 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addFonts } from 'src/state/actions';
 import { RootState } from 'src/state/types';
 
-const defaultFonts = [
-  'Inter',
-  'Avenir',
-  '-apple-system',
-  'BlinkMacSystemFont',
-  '"Segoe UI"',
-  'Roboto',
-  '"Helvetica Neue"',
-  'Arial',
-  'sans-serif',
-  '"Apple Color Emoji"',
-  '"Segoe UI Emoji"',
-  '"Segoe UI Symbol"',
-];
+const popularFonts = ['Inter', 'Open Sans', 'Lato', 'Montserrat', 'Poppins', 'Merriweather', 'Lora'];
 
 function PopularFontList() {
   const dispatch = useDispatch();
   const loadedFonts = useSelector((state: RootState) => state.loadedFonts);
-  const [fontShortList, setFontShortList] = useState(defaultFonts);
+  const [fontShortList, setFontShortList] = useState(popularFonts);
 
   useEffect(() => {
-    const fonts = [...defaultFonts];
-    // reduce defaultFonts to only fonts not already loaded
+    const fonts = [...popularFonts];
 
     setFontShortList(
+      // reduce defaultFonts to only fonts not already loaded
       fonts.reduce((fontList: string[], font: string) => (loadedFonts.has(font) ? fontList : [...fontList, font]), []),
     );
   }, [loadedFonts]);

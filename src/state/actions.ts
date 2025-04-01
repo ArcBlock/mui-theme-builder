@@ -106,6 +106,7 @@ export const setThemeOptions =
  * @param fonts
  */
 export function loadFonts(fonts: string[]) {
+  console.log('loadFonts', fonts);
   return new Promise<boolean>((resolve) => {
     import('webfontloader')
       .then((WebFontModule) => {
