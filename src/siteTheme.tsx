@@ -1,30 +1,27 @@
 import { createDefaultThemeOptions } from '@arcblock/ux/lib/Theme';
 import { Theme, ThemeOptions, createTheme } from '@mui/material';
-import deepmerge from 'deepmerge';
-
-// 默认字体
-export const defaultFonts = ['Roboto', 'Helvetica', 'Arial', 'sans-serif'];
+import pick from 'lodash/pick';
 
 // 默认浅色主题
-export const defaultLightThemeOptions: ThemeOptions = deepmerge(createDefaultThemeOptions('light'), {
-  typography: {
-    fontFamily: defaultFonts.join(','),
-  },
-});
+export const defaultLightThemeOptions: ThemeOptions = pick(createDefaultThemeOptions('light'), [
+  'palette',
+  'typography',
+]);
 export const defaultLightTheme: Theme = createTheme(defaultLightThemeOptions);
 
 // 默认深色主题
-export const defaultDarkTheme = createTheme({ palette: { mode: 'dark' } });
-export const darkDefaultThemeOptions: ThemeOptions = {
-  palette: defaultDarkTheme.palette,
-};
+export const darkDefaultThemeOptions: ThemeOptions = pick(createDefaultThemeOptions('dark'), ['palette']);
+export const defaultDarkTheme = createTheme(darkDefaultThemeOptions);
+
+// 默认字体
+export const defaultFonts = defaultLightTheme.typography.fontFamily?.split(',') ?? [];
 
 // 编辑器主题
 const siteTheme = createTheme({
   palette: {
     mode: 'light',
     primary: {
-      main: '#1DC1C7',
+      main: '#e62712',
     },
     secondary: {
       main: '#16CED1',
