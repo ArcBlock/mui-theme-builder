@@ -17,16 +17,7 @@ export const darkDefaultThemeOptions: ThemeOptions = pick(createDefaultThemeOpti
 export const defaultDarkTheme = createTheme(darkDefaultThemeOptions);
 
 // 编辑器主题
-const siteTheme = createTheme({
-  palette: {
-    mode: 'light',
-    primary: {
-      main: '#1DC1C7',
-    },
-    secondary: {
-      main: '#16CED1',
-    },
-  },
+export const siteThemeOptions: ThemeOptions = {
   components: {
     MuiAccordion: {
       defaultProps: {
@@ -98,6 +89,4 @@ const siteTheme = createTheme({
       },
     },
   },
-});
-
-export default siteTheme;
+};

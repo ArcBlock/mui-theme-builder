@@ -108,7 +108,7 @@ function CopyButton() {
   return (
     <>
       <Tooltip title="Copy theme code">
-        <IconButton color="primary" onClick={copyToClipboard} size="small">
+        <IconButton onClick={copyToClipboard} size="small">
           <FileCopyIcon />
         </IconButton>
       </Tooltip>

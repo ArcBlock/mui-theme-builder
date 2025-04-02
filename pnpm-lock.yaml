@@ -65,6 +65,9 @@ importers:
       flat:
         specifier: ^5.0.2
         version: 5.0.2
+      is-url:
+        specifier: ^1.2.4
+        version: 1.2.4
       json5:
         specifier: ^2.2.3
         version: 2.2.3
@@ -141,6 +144,9 @@ importers:
       '@types/flat':
         specifier: ^5.0.5
         version: 5.0.5
+      '@types/is-url':
+        specifier: ^1.2.32
+        version: 1.2.32
       '@types/lodash':
         specifier: ^4.17.16
         version: 4.17.16
@@ -1442,6 +1448,9 @@ packages:
 
   '@types/http-proxy@1.17.16':
     resolution: {integrity: sha512-sdWoUajOB1cd0A8cRRQ1cfyWNbmFKLAqBB89Y8x5iYyG/mkJHc0YUH8pdWBy2omi9qtCpiIgGjuwO0dQST2l5w==}
+
+  '@types/is-url@1.2.32':
+    resolution: {integrity: sha512-46VLdbWI8Sc+hPexQ6NLNR2YpoDyDZIpASHkJQ2Yr+Kf9Giw6LdCTkwOdsnHKPQeh7xTjTmSnxbE8qpxYuCiHA==}
 
   '@types/istanbul-lib-coverage@2.0.6':
     resolution: {integrity: sha512-2QF/t/auWm0lsy8XtKVPG19v3sSOQlJe/YHZgfjb/KBBHOGSV+J2q/S671rcq9uTBrLAXmZpqJiaQbMT+zNU1w==}
@@ -8312,6 +8321,8 @@ snapshots:
   '@types/http-proxy@1.17.16':
     dependencies:
       '@types/node': 22.13.13
+
+  '@types/is-url@1.2.32': {}
 
   '@types/istanbul-lib-coverage@2.0.6': {}
 
