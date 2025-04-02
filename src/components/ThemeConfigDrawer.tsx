@@ -1,8 +1,9 @@
 import { styled, useMediaQuery, useTheme } from '@mui/material';
+import CircularProgress from '@mui/material/CircularProgress';
 import Drawer from '@mui/material/Drawer';
 import Grid from '@mui/material/Grid';
 import { useReactive } from 'ahooks';
-import React, { useState } from 'react';
+import React, { Suspense, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import MonacoThemeCodeEditor from 'src/components/MonacoThemeCodeEditor';
 import { RootState } from 'src/state/types';
@@ -70,8 +71,9 @@ function ThemeConfigDrawer() {
             onToggle={(expand) => {
               expandMap.themeCode = expand;
             }}>
-            {/* Use themeId as key so that editor is torn down and rebuilt with new theme */}
-            <MonacoThemeCodeEditor key={themeId} onCreate={setCodeEditor} />
+            <Suspense fallback={<CircularProgress />}>
+              <MonacoThemeCodeEditor key={themeId} onCreate={setCodeEditor} />
+            </Suspense>
           </CollapsePanel>
         </Grid>
       </StyledGrid>

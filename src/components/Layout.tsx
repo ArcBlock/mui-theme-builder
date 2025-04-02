@@ -1,15 +1,10 @@
-import { Alert, Box, CircularProgress, Theme } from '@mui/material';
+import { Alert, Box, CircularProgress } from '@mui/material';
 import React from 'react';
 import useRemoteThemeSync from 'src/hooks/use-remote-theme-sync';
 import useSchemaKey from 'src/hooks/use-schema-key';
 import { isDev } from 'src/utils';
 
 import './layout.css';
-
-declare module '@mui/styles/defaultTheme' {
-  // eslint-disable-next-line @typescript-eslint/no-empty-interface
-  interface DefaultTheme extends Theme {}
-}
 
 interface LayoutProps {
   children: React.ReactNode;

@@ -1,6 +1,5 @@
-// @ts-ignore
-import Loadable from '@loadable/component';
+import { lazy } from 'react';
 
-export default Loadable(() => import('./MonacoThemeCodeEditor'));
+export default lazy(() => import('./MonacoThemeCodeEditor'));
 
 export const codeEditorId = 'code-editor';

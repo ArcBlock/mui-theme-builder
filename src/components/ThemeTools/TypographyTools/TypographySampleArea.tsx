@@ -1,11 +1,6 @@
-import { Grid, Paper, StyledEngineProvider, Theme, ThemeProvider, Typography } from '@mui/material';
+import { Grid, Paper, StyledEngineProvider, ThemeProvider, Typography } from '@mui/material';
 import { useSelector } from 'react-redux';
 import { RootState } from 'src/state/types';
-
-declare module '@mui/styles/defaultTheme' {
-  // eslint-disable-next-line @typescript-eslint/no-empty-interface
-  interface DefaultTheme extends Theme {}
-}
 
 type Variant =
   | 'inherit'
