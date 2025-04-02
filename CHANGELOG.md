@@ -1,3 +1,7 @@
+## 0.1.7 (2025-4-2)
+
+- fix: loose loaded fonts
+
 ## 0.1.6 (2025-3-29)
 
 - fix: MUI default fonts not used
