@@ -1,3 +1,7 @@
+## 0.1.8 (2025-4-2)
+
+- feat: inherit blocklet theme
+
 ## 0.1.7 (2025-4-2)
 
 - fix: loose loaded fonts
