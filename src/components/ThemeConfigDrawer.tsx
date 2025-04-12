@@ -26,7 +26,7 @@ function ThemeConfigDrawer() {
   const [codeEditor, setCodeEditor] = useState<MutableCodeEditor>(null);
 
   const theme = useTheme();
-  const permanent = useMediaQuery(theme.breakpoints.up('sm'));
+  const permanent = useMediaQuery(theme.breakpoints.up('md')); // 常驻左侧
 
   return (
     <Drawer
@@ -51,9 +51,11 @@ function ThemeConfigDrawer() {
         direction="column"
         wrap="nowrap"
         sx={{ height: '100%', overflowX: 'hidden', overflowY: 'auto' }}>
+        {/* 编辑按钮 */}
         <Grid item className="editor-controls">
           <EditorControls codeEditor={codeEditor} sx={{ height: '49px' }} />
         </Grid>
+        {/* 主题工具 */}
         <Grid item>
           <CollapsePanel
             title="Theme Tools"
@@ -64,6 +66,7 @@ function ThemeConfigDrawer() {
             <ThemeTools />
           </CollapsePanel>
         </Grid>
+        {/* 主题代码 */}
         <Grid item>
           <CollapsePanel
             title="Theme Code"

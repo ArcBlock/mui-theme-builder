@@ -1,10 +1,8 @@
 import { Box } from '@mui/material';
-// import ComponentNavDrawer from 'src/components/ComponentNavDrawer';
 import ErrorBoundary from 'src/components/ErrorBoundary';
 import Header from 'src/components/Header';
 import Layout from 'src/components/Layout';
 import MainWindow from 'src/components/MainWindow';
-import SmallScreenWarning from 'src/components/SmallScreenWarning';
 import ThemeConfigDrawer from 'src/components/ThemeConfigDrawer';
 
 function IndexPage() {
@@ -46,7 +44,6 @@ function IndexPage() {
           </Box>
         </ErrorBoundary>
       </Box>
-      <SmallScreenWarning />
     </Layout>
   );
 }

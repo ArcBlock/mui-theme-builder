@@ -15,9 +15,7 @@ export interface RootState {
   mode: 'light' | 'dark';
   loadedFonts: Set<string>;
   previewSize: PreviewSize;
-  componentNavOpen: boolean;
   themeConfigOpen: boolean;
-  mobileWarningSeen: boolean;
   selectedComponentId: string;
   previewComponent: React.ReactNode;
 }

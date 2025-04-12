@@ -1,4 +1,5 @@
-import { AppBar, AppBarProps, Box, Button, Toolbar } from '@mui/material';
+import MenuIcon from '@mui/icons-material/Menu';
+import { AppBar, AppBarProps, Box, Button, IconButton, Toolbar, useMediaQuery, useTheme } from '@mui/material';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Samples from 'src/components/Samples';
@@ -11,6 +12,8 @@ export interface HeaderProps extends AppBarProps {}
 export default function Header({ sx, ...props }: HeaderProps) {
   const dispatch = useDispatch();
   const selectedComponentId = useSelector((state: RootState) => state.selectedComponentId);
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
   const handleSampleSelect = (id: string, component: React.ReactNode) => {
     dispatch({
@@ -60,6 +63,18 @@ export default function Header({ sx, ...props }: HeaderProps) {
           },
           overflowX: 'auto',
         }}>
+        {/* 切换配置 Drawer */}
+        {isMobile && (
+          <IconButton
+            size="small"
+            color="inherit"
+            aria-label="toggle theme config"
+            onClick={() => dispatch({ type: 'TOGGLE_THEME_CONFIG' })}
+            sx={{ p: 0.5 }}>
+            <MenuIcon sx={{ fontSize: '20px' }} />
+          </IconButton>
+        )}
+        {/* Demo 导航 */}
         <Box sx={{ display: 'flex', flexDirection: 'row' }}>
           {Samples.map(({ id, title, component }) => (
             <Button
@@ -68,7 +83,7 @@ export default function Header({ sx, ...props }: HeaderProps) {
               color={selectedComponentId === id ? 'primary' : 'inherit'}
               sx={{
                 mx: 1,
-                px: 2,
+                px: 1,
                 py: 1,
                 fontWeight: selectedComponentId === id ? 'medium' : 'normal',
                 backgroundColor: selectedComponentId === id ? 'rgba(25, 118, 210, 0.08)' : 'transparent',

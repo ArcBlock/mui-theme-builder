@@ -38,9 +38,7 @@ const initialState: RootState = {
   fonts: ['Roboto'], // themeOptions 中使用过的字体
   loadedFonts: new Set(), // 已加载的字体
   previewSize: false,
-  componentNavOpen: false,
   themeConfigOpen: false,
-  mobileWarningSeen: false,
   ...getSelectedComponent(),
 };
 
@@ -55,6 +53,7 @@ function loadFontsIfRequired(fonts: string[] = [], loadedFonts: Set<string>) {
 }
 
 const createPreviewMuiTheme = (themeOptions: ThemeOptions, previewSize: PreviewSize) => {
+  // 利用 breakpoints 强制布局
   const spoofedBreakpoints: Record<string, { xs: number; sm: number; md: number; lg: number; xl: number }> = {
     xs: { xs: 0, sm: 10000, md: 10001, lg: 10002, xl: 10003 },
     sm: { xs: 0, sm: 1, md: 10001, lg: 10002, xl: 10003 },
@@ -156,20 +155,10 @@ export default (state = initialState, action: any) => {
         previewSize: action.previewSize,
         themeObject: createPreviewMuiTheme(currentState.themeOptions[currentState.mode], action.previewSize),
       };
-    case 'TOGGLE_COMPONENT_NAV':
-      return {
-        ...currentState,
-        componentNavOpen: !currentState.componentNavOpen,
-      };
     case 'TOGGLE_THEME_CONFIG':
       return {
         ...currentState,
         themeConfigOpen: !currentState.themeConfigOpen,
-      };
-    case 'WARNING_SCREEN_SEEN':
-      return {
-        ...currentState,
-        mobileWarningSeen: true,
       };
     case 'RESET_SITE_DATA':
       return {

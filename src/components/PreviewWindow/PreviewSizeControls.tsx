@@ -15,20 +15,20 @@ function PreviewSizeControls() {
   const handleOnChange = useCallback((_: unknown, value: PreviewSize) => dispatch(setPreviewSize(value)), [dispatch]);
 
   const theme = useTheme();
-  const screenIsMdDown = useMediaQuery(theme.breakpoints.down('lg'));
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const isTablet = useMediaQuery(theme.breakpoints.between('sm', 'md'));
 
-  // spoof a 'xs' screen size on the preview theme
-  // when the user's screen is md breakpoint and below
-  useEffect(
-    function previewSizeFromScreen() {
-      if (screenIsMdDown) {
-        handleOnChange(null, 'xs');
-      }
-    },
-    [screenIsMdDown, handleOnChange],
-  );
+  useEffect(() => {
+    if (isMobile) {
+      handleOnChange(null, 'xs');
+    } else if (isTablet) {
+      handleOnChange(null, 'sm');
+    } else {
+      handleOnChange(null, false);
+    }
+  }, [isMobile, isTablet, handleOnChange]);
 
-  return screenIsMdDown ? null : (
+  return isMobile || isTablet ? null : (
     <BottomNavigation
       id={previewSizeControlsId}
       value={previewSize}

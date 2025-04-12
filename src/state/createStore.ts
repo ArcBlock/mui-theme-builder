@@ -23,11 +23,6 @@ const persistConfig = {
   ],
 };
 
-// in production, persist the mobileWarningSeen value so mobile users don't see the popup again on reload
-if (process.env.NODE_ENV === 'production') {
-  persistConfig.whitelist.push('mobileWarningSeen');
-}
-
 const persistedReducer = persistReducer(persistConfig, reducers);
 
 export default () => {

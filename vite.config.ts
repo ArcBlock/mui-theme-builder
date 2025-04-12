@@ -32,6 +32,9 @@ export default defineConfig(({ mode }) => {
     '@mui/material',
   ];
   if (arcblockUxBasePath) {
+    // eslint-disable-next-line no-console
+    console.log('enable debug with UX');
+
     alias['@arcblock/ux/lib'] = `${arcblockUxBasePath}/packages/ux/src`;
     alias['@arcblock/did-connect/lib'] = `${arcblockUxBasePath}/packages/did-connect/src`;
     alias['@blocklet/ui-react/lib'] = `${arcblockUxBasePath}/packages/blocklet-ui-react/src`;
