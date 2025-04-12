@@ -1,3 +1,7 @@
+## 0.1.9 (2025-4-12)
+
+- fix: responsive layout issues
+
 ## 0.1.8 (2025-4-2)
 
 - feat: inherit blocklet theme
