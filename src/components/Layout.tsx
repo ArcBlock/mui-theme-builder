@@ -8,8 +8,8 @@ import {
   createTheme,
 } from '@mui/material';
 import deepmerge from 'deepmerge';
-import React, { useMemo } from 'react';
-import useBlockletInfo from 'src/hooks/use-blocklet-info';
+import React, { useEffect, useMemo } from 'react';
+import useParentTheme from 'src/hooks/use-parent-theme';
 import useRemoteThemeSync from 'src/hooks/use-remote-theme-sync';
 import useSchemaKey from 'src/hooks/use-schema-key';
 import { siteThemeOptions } from 'src/siteTheme';
@@ -23,32 +23,36 @@ interface LayoutProps {
 
 function Center({ children }: { children: React.ReactNode }) {
   return (
-    <Box sx={{ display: 'flex', height: '100vh', alignItems: 'center', justifyContent: 'center' }}>{children}</Box>
+    <Box
+      sx={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: '100vh',
+        width: '100vw',
+      }}>
+      {children}
+    </Box>
   );
 }
 
 function Layout({ children }: LayoutProps) {
   const schemaKey = useSchemaKey();
   const syncLoading = useRemoteThemeSync();
-  const { data: blockletInfo, loading: blockletInfoLoading } = useBlockletInfo(schemaKey);
-  const loading = syncLoading || blockletInfoLoading;
+  const { data: parentTheme, loading: parentThemeLoading } = useParentTheme();
+  const loading = syncLoading || parentThemeLoading;
   const siteTheme = useMemo(() => {
-    if (blockletInfoLoading) return {};
+    if (parentThemeLoading) return {};
 
-    const baseThemeOptions = blockletInfo?.theme?.light ?? {
-      palette: {
-        mode: 'light',
-        primary: {
-          main: '#1DC1C7',
-        },
-        secondary: {
-          main: '#16CED1',
-        },
-      },
-    };
+    return createTheme(deepmerge(parentTheme, siteThemeOptions));
+  }, [parentTheme, parentThemeLoading]);
 
-    return createTheme(deepmerge(baseThemeOptions, siteThemeOptions));
-  }, [blockletInfo, blockletInfoLoading]);
+  // 通知父页面已经加载完毕
+  useEffect(() => {
+    if (window.parent !== window && !loading) {
+      window.parent?.postMessage({ type: 'THEME_BUILDER_LOADED' }, window.location.origin);
+    }
+  }, [loading]);
 
   if (!schemaKey && !isDev) {
     return (
