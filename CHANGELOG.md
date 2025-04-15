@@ -1,3 +1,7 @@
+## 0.1.10 (2025-4-15)
+
+- feat: pull theme from parent window
+
 ## 0.1.9 (2025-4-12)
 
 - fix: responsive layout issues
