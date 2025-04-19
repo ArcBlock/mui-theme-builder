@@ -1,3 +1,8 @@
+## 0.1.11 (2025-4-19)
+
+- chore: update deps
+- fix: default theme missing breakpoints
+
 ## 0.1.10 (2025-4-15)
 
 - feat: pull theme from parent window
