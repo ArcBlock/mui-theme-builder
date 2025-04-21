@@ -47,10 +47,11 @@ export default function Header({ sx, ...props }: HeaderProps) {
       position="static"
       color="default"
       sx={{
-        backgroundColor: '#fff',
+        backgroundColor: 'background.default',
         boxShadow: 'none',
         borderBottom: '1px solid',
         borderColor: 'divider',
+        color: 'text.secondary',
         ...sx,
       }}
       {...props}>

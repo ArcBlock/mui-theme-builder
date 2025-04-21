@@ -12,7 +12,7 @@ import React, { useEffect, useMemo } from 'react';
 import useParentTheme from 'src/hooks/use-parent-theme';
 import useRemoteThemeSync from 'src/hooks/use-remote-theme-sync';
 import useSchemaKey from 'src/hooks/use-schema-key';
-import { siteThemeOptions } from 'src/siteTheme';
+import { createSiteThemeOptions } from 'src/siteTheme';
 import { isDev } from 'src/utils';
 
 import './layout.css';
@@ -44,7 +44,7 @@ function Layout({ children }: LayoutProps) {
   const siteTheme = useMemo(() => {
     if (parentThemeLoading) return {};
 
-    return createTheme(deepmerge(parentTheme, siteThemeOptions));
+    return createTheme(deepmerge(parentTheme, createSiteThemeOptions(parentTheme)));
   }, [parentTheme, parentThemeLoading]);
 
   // 通知父页面已经加载完毕

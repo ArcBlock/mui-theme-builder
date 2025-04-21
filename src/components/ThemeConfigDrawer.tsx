@@ -42,6 +42,7 @@ function ThemeConfigDrawer() {
           overflowY: 'visible',
           zIndex: theme.zIndex.drawer + 2,
           maxWidth: '90vw',
+          backgroundColor: 'background.default',
         },
       }}
       open={open}
@@ -86,14 +87,14 @@ function ThemeConfigDrawer() {
 
 export default ThemeConfigDrawer;
 
-const StyledGrid = styled(Grid)({
+const StyledGrid = styled(Grid)(() => ({
   '.collapse-panel-header, .editor-controls': {
     position: 'sticky',
     top: 0,
     zIndex: 2,
-    backgroundColor: '#fff',
+    backgroundColor: 'transparent',
   },
   '.collapse-panel-header': {
     top: '49px',
   },
-});
+}));

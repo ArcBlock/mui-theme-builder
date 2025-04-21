@@ -40,7 +40,6 @@ function TypographyVariant({ variant, text, smallPreview = false }: Props) {
         sx={{
           position: 'sticky',
           top: 0,
-          bgcolor: 'background.paper',
           zIndex: (theme) => theme.zIndex.drawer + 3,
           borderBottom: 1,
           borderBottomColor: 'divider',

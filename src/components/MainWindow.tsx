@@ -9,7 +9,7 @@ function MainWindow() {
 
   return (
     <Box sx={{ overflowY: 'auto', height: 1, padding: 2, position: 'relative' }}>
-      <Box sx={{ bgcolor: '#fff' }}>
+      <Box sx={{ bgcolor: 'background.default' }}>
         <PreviewWrapper>{previewComponent || null}</PreviewWrapper>
       </Box>
     </Box>

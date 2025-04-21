@@ -47,7 +47,8 @@ export default function EditorControls({ codeEditor, sx, ...rest }: EditorContro
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
-        borderBottom: '1px solid #dedede',
+        borderBottom: '1px solid',
+        borderColor: 'divider',
         ...sx,
       }}
       {...rest}>
@@ -76,7 +77,7 @@ export default function EditorControls({ codeEditor, sx, ...rest }: EditorContro
           </span>
         </Tooltip>
       </Box>
-      <Typography variant="body2" color={canSave ? 'textPrimary' : 'textSecondary'} display="inline">
+      <Typography variant="body2" color={canSave ? 'text.primary' : 'text.secondary'} display="inline">
         {canSave ? '* Unsaved Changes' : 'All changes saved'}
       </Typography>
       <Snackbar

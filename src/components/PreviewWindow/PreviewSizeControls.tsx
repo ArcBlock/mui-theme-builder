@@ -37,6 +37,8 @@ function PreviewSizeControls() {
         height: 'auto',
         flexDirection: 'row',
         gap: 1,
+
+        backgroundColor: 'background.default',
       }}
       showLabels>
       <BottomNavigationAction sx={{ p: 1, minWidth: '32px' }} value="xs" icon={<SmartphoneIcon />} />
