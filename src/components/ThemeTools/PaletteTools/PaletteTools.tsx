@@ -46,6 +46,23 @@ export default function PaletteTools() {
         />
       ))}
       <PaletteSubType title="Divider" path="palette" paletteValues={[['Divider', 'divider']]} />
+      <PaletteSubType
+        title="Action"
+        path="palette.action"
+        paletteValues={[
+          ['Active', 'active'],
+          ['Hover', 'hover'],
+          // ['HoverOpacity', 'hoverOpacity'],
+          ['Selected', 'selected'],
+          // ['SelectedOpacity', 'selectedOpacity'],
+          ['Disabled', 'disabled'],
+          ['DisabledBackground', 'disabledBackground'],
+          // ['DisabledOpacity', 'disabledOpacity'],
+          ['Focus', 'focus'],
+          // ['FocusOpacity', 'focusOpacity'],
+          // ['ActivatedOpacity', 'activatedOpacity'],
+        ]}
+      />
     </>
   );
 }
