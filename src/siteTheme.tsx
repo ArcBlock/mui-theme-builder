@@ -92,3 +92,5 @@ export const createSiteThemeOptions = ({ palette }: ThemeOptions): ThemeOptions 
     },
   };
 };
+
+// console.log('defaultLightTheme', defaultLightTheme);

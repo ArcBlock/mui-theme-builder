@@ -1,9 +1,8 @@
 import { Accordion, AccordionSummary, Typography } from '@mui/material';
+import { sceneColorTypes } from 'src/constants';
 
 import PaletteSubType from './PaletteSubType';
 import ThemeTypeInput from './ThemeTypeInput';
-
-const paletteColorTypes = ['primary', 'secondary', 'error', 'warning', 'info', 'success'];
 
 export default function PaletteTools() {
   return (
@@ -32,7 +31,7 @@ export default function PaletteTools() {
           ['Hint', 'hint'],
         ]}
       />
-      {paletteColorTypes.map((colorType) => (
+      {sceneColorTypes.map((colorType) => (
         <PaletteSubType
           key={colorType}
           title={colorType}
