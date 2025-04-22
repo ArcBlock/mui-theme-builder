@@ -51,7 +51,7 @@ export default function Header({ sx, ...props }: HeaderProps) {
         boxShadow: 'none',
         borderBottom: '1px solid',
         borderColor: 'divider',
-        color: 'text.secondary',
+        color: 'text.hint',
         ...sx,
       }}
       {...props}>
@@ -87,10 +87,10 @@ export default function Header({ sx, ...props }: HeaderProps) {
                 px: 1,
                 py: 1,
                 fontWeight: selectedComponentId === id ? 'medium' : 'normal',
-                backgroundColor: selectedComponentId === id ? 'rgba(25, 118, 210, 0.08)' : 'transparent',
+                backgroundColor: selectedComponentId === id ? 'action.selected' : 'transparent',
                 borderRadius: 1,
                 '&:hover': {
-                  backgroundColor: selectedComponentId === id ? 'rgba(25, 118, 210, 0.12)' : 'rgba(0, 0, 0, 0.04)',
+                  backgroundColor: selectedComponentId === id ? 'action.focus' : 'action.hover',
                 },
                 transition: 'background-color 0.3s',
                 textTransform: 'none', // 确保按钮内容不大写

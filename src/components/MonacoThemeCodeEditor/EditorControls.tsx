@@ -11,7 +11,7 @@ import { useSelector } from 'react-redux';
 import { useCanSave } from 'src/state/selectors';
 import { RootState } from 'src/state/types';
 
-import EditorButton from './EditorSettings';
+import EditorSettings from './EditorSettings';
 import useSave from './hooks/useSave';
 import useUndoRedo from './hooks/useUndoRedo';
 import { MutableCodeEditor } from './types';
@@ -49,30 +49,31 @@ export default function EditorControls({ codeEditor, sx, ...rest }: EditorContro
         alignItems: 'center',
         borderBottom: '1px solid',
         borderColor: 'divider',
+        backgroundColor: 'background.default',
         ...sx,
       }}
       {...rest}>
       <Box sx={{ display: 'flex' }}>
-        <EditorButton />
+        <EditorSettings />
         <CopyButton />
         <Tooltip title="Undo (Ctrl + Z)">
           <span>
             <IconButton disabled={!canUndo} onClick={handleUndo} size="small">
-              <UndoIcon />
+              <UndoIcon sx={{ color: 'text.primary' }} />
             </IconButton>
           </span>
         </Tooltip>
         <Tooltip title="Redo (Ctrl + Y)">
           <span>
             <IconButton disabled={!canRedo} onClick={handleRedo} size="small">
-              <RedoIcon />
+              <RedoIcon sx={{ color: 'text.primary' }} />
             </IconButton>
           </span>
         </Tooltip>
         <Tooltip title="Save Changes (Ctrl + S)">
           <span>
             <IconButton onClick={onSave} size="small">
-              <SaveIcon />
+              <SaveIcon sx={{ color: 'text.primary' }} />
             </IconButton>
           </span>
         </Tooltip>
@@ -110,7 +111,7 @@ function CopyButton() {
     <>
       <Tooltip title="Copy theme code">
         <IconButton onClick={copyToClipboard} size="small">
-          <FileCopyIcon />
+          <FileCopyIcon sx={{ color: 'text.primary' }} />
         </IconButton>
       </Tooltip>
       <Snackbar

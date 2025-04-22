@@ -7,7 +7,7 @@ import Header from './Share/Header';
 export default function LandingPage() {
   return (
     <BlockletWrapper>
-      <Stack bgcolor="#fff">
+      <Stack>
         <Header />
         <Box
           sx={{

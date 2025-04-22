@@ -20,11 +20,11 @@ export default function CollapsePanel({ expand = false, title, children, onToggl
           p: 1,
           borderBottom: '1px solid',
           borderColor: 'divider',
-          bgcolor: 'background.paper',
+          backgroundColor: 'background.default',
           cursor: 'pointer',
         }}
         onClick={() => onToggle?.(!expand)}>
-        <Box sx={{ display: 'flex', alignItems: 'center', flex: 1 }}>
+        <Box sx={{ display: 'flex', alignItems: 'center', flex: 1, backgroundColor: 'background.default' }}>
           <IconButton size="small" sx={{ p: 0 }}>
             {expand ? <ExpandLessIcon /> : <ExpandMoreIcon />}
           </IconButton>

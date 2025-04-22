@@ -25,7 +25,7 @@ function EditorButton() {
     <>
       <Tooltip title="Editor Settings">
         <IconButton onClick={handleOpen} size="small">
-          <SettingsIcon />
+          <SettingsIcon sx={{ color: 'text.primary' }} />
         </IconButton>
       </Tooltip>
       <Popover
@@ -56,7 +56,7 @@ function EditorSettings() {
 
   return (
     <List dense sx={{ minWidth: 320 }}>
-      <ListSubheader>Editor Settings</ListSubheader>
+      <ListSubheader sx={{ backgroundColor: 'background.default' }}>Editor Settings</ListSubheader>
       <ListItem button onClick={toggleFormatOnSave}>
         <ListItemText id="format-document-label" primary="Format Document on Save (Prettier)" />
         <ListItemSecondaryAction>

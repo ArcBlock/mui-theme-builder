@@ -92,7 +92,6 @@ const StyledGrid = styled(Grid)(() => ({
     position: 'sticky',
     top: 0,
     zIndex: 2,
-    backgroundColor: 'transparent',
   },
   '.collapse-panel-header': {
     top: '49px',

@@ -34,7 +34,7 @@ function TypographySampleArea({ variant, bgText, paperText, smallPreview, ...typ
             overflow: 'auto',
             maxHeight: 200,
             pl: '4px',
-            bgcolor: themeObject.palette.background.default,
+            backgroundColor: themeObject.palette.background.default,
           }}>
           <Grid container wrap="nowrap" alignItems="baseline">
             <Grid item>
@@ -49,7 +49,10 @@ function TypographySampleArea({ variant, bgText, paperText, smallPreview, ...typ
               </Typography>
             </Grid>
             <Grid item>
-              <Paper variant="outlined" square sx={{ p: 0.5 }}>
+              <Paper
+                variant="outlined"
+                square
+                sx={{ p: 0.5, border: 0, backgroundColor: themeObject.palette.background.default }}>
                 <Typography
                   variant={variant}
                   {...typographyProps}

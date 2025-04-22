@@ -96,7 +96,7 @@ export default function Header() {
     <Box
       sx={{
         borderBottom: '1px solid',
-        borderColor: '#eee',
+        borderColor: 'divider',
         '.MuiContainer-root': {
           maxWidth: 'unset',
         },

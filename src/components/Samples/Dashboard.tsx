@@ -57,7 +57,7 @@ export default function DashboardSample() {
         }}
         fullWidth
         legacy={false}>
-        <Box sx={{ flexGrow: 1, marginTop: 2, height: '100%', backgroundColor: 'background.default' }} />
+        <Box sx={{ flexGrow: 1, marginTop: 2, height: '100%' }} />
       </StyledDashboard>
     </BlockletWrapper>
   );
