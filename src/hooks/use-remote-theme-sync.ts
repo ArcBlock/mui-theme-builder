@@ -1,6 +1,8 @@
 import axios from 'axios';
+import deepmerge from 'deepmerge';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { defaultThemeOptions } from 'src/siteTheme';
 import { RootState } from 'src/state/types';
 import { getAuthHeaders, isDev } from 'src/utils';
 
@@ -24,7 +26,7 @@ export default function useRemoteThemeSync() {
       .then((res) => {
         dispatch({
           type: 'SET_THEME_OPTIONS',
-          themeOptions: res.data,
+          themeOptions: deepmerge(defaultThemeOptions, res.data),
           mode,
         });
       })

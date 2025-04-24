@@ -1,18 +1,21 @@
-import { createDefaultThemeOptions } from '@arcblock/ux/lib/Theme';
+import { BLOCKLET_THEME_DARK, BLOCKLET_THEME_LIGHT } from '@blocklet/theme';
 import { Theme, ThemeOptions, createTheme } from '@mui/material';
-import pick from 'lodash/pick';
 
 // 默认字体
 export const defaultFonts = ['Roboto', 'Helvetica', 'Inter', 'Open Sans', 'Lato'];
 
 // 默认浅色主题
-const configFields = ['palette', 'typography', 'shape', 'breakpoints', 'shadows'];
-export const defaultLightThemeOptions: ThemeOptions = pick(createDefaultThemeOptions('light'), configFields);
-export const defaultLightTheme: Theme = createTheme(defaultLightThemeOptions);
+export const defaultLightTheme: Theme = createTheme(BLOCKLET_THEME_LIGHT);
 
 // 默认深色主题
-export const darkDefaultThemeOptions: ThemeOptions = pick(createDefaultThemeOptions('dark'), configFields);
-export const defaultDarkTheme = createTheme(darkDefaultThemeOptions);
+export const defaultDarkTheme = createTheme(BLOCKLET_THEME_DARK);
+
+// 默认 theme 配置
+export const defaultThemeOptions = {
+  light: BLOCKLET_THEME_LIGHT,
+  dark: BLOCKLET_THEME_DARK,
+  prefer: 'light',
+};
 
 // 创建编辑器主题
 export const createSiteThemeOptions = ({ palette }: ThemeOptions): ThemeOptions => {
@@ -95,4 +98,5 @@ export const createSiteThemeOptions = ({ palette }: ThemeOptions): ThemeOptions 
   };
 };
 
+// console.log('defaultLightTheme', defaultLightTheme);
 // console.log('defaultDarkTheme', defaultDarkTheme);

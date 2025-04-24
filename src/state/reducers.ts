@@ -2,7 +2,7 @@
 import { ThemeOptions, createTheme } from '@mui/material';
 import deepmerge from 'deepmerge';
 import Samples from 'src/components/Samples';
-import { darkDefaultThemeOptions, defaultFonts, defaultLightThemeOptions } from 'src/siteTheme';
+import { defaultFonts, defaultThemeOptions } from 'src/siteTheme';
 import { PreviewSize, RootState } from 'src/state/types';
 import { generateThemeId, getFontsFromThemeOptions } from 'src/utils';
 
@@ -29,12 +29,8 @@ const getSelectedComponent = (id = '') => {
 const initialState: RootState = {
   editor: editorInitialState,
   themeId: defaultThemeId,
-  themeOptions: {
-    light: defaultLightThemeOptions,
-    dark: darkDefaultThemeOptions,
-    prefer: 'light',
-  },
-  themeObject: createTheme(defaultLightThemeOptions),
+  themeOptions: defaultThemeOptions,
+  themeObject: createTheme(defaultThemeOptions.light),
   fonts: ['Roboto'], // themeOptions 中使用过的字体
   mode: 'light',
   loadedFonts: new Set(), // 已加载的字体
@@ -64,7 +60,7 @@ const createPreviewMuiTheme = (themeOptions: ThemeOptions, previewSize: PreviewS
   };
 
   const currentThemeOptions = deepmerge(
-    themeOptions.palette?.mode === 'light' ? defaultLightThemeOptions : darkDefaultThemeOptions,
+    themeOptions.palette?.mode === 'light' ? defaultThemeOptions.light : defaultThemeOptions.dark,
     themeOptions,
   );
 

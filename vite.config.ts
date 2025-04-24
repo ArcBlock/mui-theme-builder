@@ -39,6 +39,7 @@ export default defineConfig(({ mode }) => {
     alias['@arcblock/did-connect/lib'] = `${arcblockUxBasePath}/packages/did-connect/src`;
     alias['@blocklet/ui-react/lib'] = `${arcblockUxBasePath}/packages/blocklet-ui-react/src`;
     alias['@blocklet/ui-react'] = `${arcblockUxBasePath}/packages/blocklet-ui-react`;
+    alias['@blocklet/theme'] = `${arcblockUxBasePath}/packages/blocklet-theme/src`;
 
     for (const x of hoistedLibs) {
       alias[x] = join(process.cwd(), `./node_modules/${x}`);

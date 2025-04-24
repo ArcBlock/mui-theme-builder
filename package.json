@@ -61,6 +61,7 @@
     "@arcblock/icons": "^2.13.7",
     "@arcblock/ux": "^2.13.7",
     "@babel/eslint-parser": "^7.27.0",
+    "@blocklet/theme": "^2.13.12",
     "@blocklet/ui-react": "^2.13.7",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",

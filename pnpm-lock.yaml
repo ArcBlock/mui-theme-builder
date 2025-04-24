@@ -23,6 +23,9 @@ importers:
       '@babel/eslint-parser':
         specifier: ^7.27.0
         version: 7.27.0(@babel/core@7.26.10)(eslint@8.57.1)
+      '@blocklet/theme':
+        specifier: ^2.13.12
+        version: 2.13.12(@mui/material@5.17.1(@emotion/react@11.14.0(@types/react@19.0.12)(react@18.2.0))(@emotion/styled@11.14.0(@emotion/react@11.14.0(@types/react@19.0.12)(react@18.2.0))(@types/react@19.0.12)(react@18.2.0))(@types/react@19.0.12)(react-dom@18.2.0(react@18.2.0))(react@18.2.0))
       '@blocklet/ui-react':
         specifier: ^2.13.7
         version: 2.13.7(143b5f6c0338e3a7b64b74a471a92ac5)
@@ -550,8 +553,8 @@ packages:
   '@blocklet/sdk@1.16.40':
     resolution: {integrity: sha512-yJrKIFEyGNONTsmZ/ReaKUPbKmSg/Qg8cGOuNIMAgSjEm66ccZdb0+O5te9sSfhXXpxSreCKNEIPfUWuLdk4wg==}
 
-  '@blocklet/theme@2.13.7':
-    resolution: {integrity: sha512-Pf1V/IO/8qgDpDp3O1bGTmCWb8QY19qFdYgNvEP6p3zxntAz2UjF3uTI/zTpdS+ITDYcFZO9xfZVAHAcDT61Hg==}
+  '@blocklet/theme@2.13.12':
+    resolution: {integrity: sha512-y+ay4JNj4STrd1BjBBeihmb/UVJ3Y1yFX+QqmqZPnnPr0MMKgQPaoWzseim1TJpB0H/amJx9ETc/2GDW/2yAdQ==}
     peerDependencies:
       '@mui/material': '>=5.15.0'
 
@@ -6994,7 +6997,7 @@ snapshots:
       '@arcblock/nft-display': 2.13.7
       '@arcblock/react-hooks': 2.13.7
       '@babel/plugin-syntax-dynamic-import': 7.8.3(@babel/core@7.26.10)
-      '@blocklet/theme': 2.13.7(@mui/material@5.17.1(@emotion/react@11.14.0(@types/react@19.0.12)(react@18.2.0))(@emotion/styled@11.14.0(@emotion/react@11.14.0(@types/react@19.0.12)(react@18.2.0))(@types/react@19.0.12)(react@18.2.0))(@types/react@19.0.12)(react-dom@18.2.0(react@18.2.0))(react@18.2.0))
+      '@blocklet/theme': 2.13.12(@mui/material@5.17.1(@emotion/react@11.14.0(@types/react@19.0.12)(react@18.2.0))(@emotion/styled@11.14.0(@emotion/react@11.14.0(@types/react@19.0.12)(react@18.2.0))(@types/react@19.0.12)(react@18.2.0))(@types/react@19.0.12)(react-dom@18.2.0(react@18.2.0))(react@18.2.0))
       '@emotion/react': 11.14.0(@types/react@19.0.12)(react@18.2.0)
       '@emotion/styled': 11.14.0(@emotion/react@11.14.0(@types/react@19.0.12)(react@18.2.0))(@types/react@19.0.12)(react@18.2.0)
       '@fontsource/roboto': 5.1.1
@@ -7520,7 +7523,7 @@ snapshots:
       - supports-color
       - utf-8-validate
 
-  '@blocklet/theme@2.13.7(@mui/material@5.17.1(@emotion/react@11.14.0(@types/react@19.0.12)(react@18.2.0))(@emotion/styled@11.14.0(@emotion/react@11.14.0(@types/react@19.0.12)(react@18.2.0))(@types/react@19.0.12)(react@18.2.0))(@types/react@19.0.12)(react-dom@18.2.0(react@18.2.0))(react@18.2.0))':
+  '@blocklet/theme@2.13.12(@mui/material@5.17.1(@emotion/react@11.14.0(@types/react@19.0.12)(react@18.2.0))(@emotion/styled@11.14.0(@emotion/react@11.14.0(@types/react@19.0.12)(react@18.2.0))(@types/react@19.0.12)(react@18.2.0))(@types/react@19.0.12)(react-dom@18.2.0(react@18.2.0))(react@18.2.0))':
     dependencies:
       '@mui/material': 5.17.1(@emotion/react@11.14.0(@types/react@19.0.12)(react@18.2.0))(@emotion/styled@11.14.0(@emotion/react@11.14.0(@types/react@19.0.12)(react@18.2.0))(@types/react@19.0.12)(react@18.2.0))(@types/react@19.0.12)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       deepmerge: 4.3.1

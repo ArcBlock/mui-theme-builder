@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/default-param-last */
-import { defaultLightThemeOptions } from 'src/siteTheme';
+import { BLOCKLET_THEME_LIGHT } from '@blocklet/theme';
 import { stringify } from 'src/utils';
 
 import { RootState } from '../types';
 import { EditorState } from './types';
 
 export const initialState: EditorState = {
-  themeInput: stringify(defaultLightThemeOptions),
+  themeInput: stringify(BLOCKLET_THEME_LIGHT),
   initialVersion: 0,
   currentVersion: 0,
   lastVersion: 0,
