@@ -1,4 +1,5 @@
-import { Accordion, AccordionSummary, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
+import SettingItem from 'src/components/ThemeSettings/SettingItem';
 import { sceneColorTypes } from 'src/constants';
 
 import PaletteSubType from './PaletteSubType';
@@ -7,12 +8,10 @@ import ThemeTypeInput from './ThemeTypeInput';
 export default function PaletteTools() {
   return (
     <>
-      <Accordion>
-        <AccordionSummary>
-          <Typography variant="body2">Type</Typography>
-          <ThemeTypeInput />
-        </AccordionSummary>
-      </Accordion>
+      <SettingItem>
+        <Typography variant="body2">Type</Typography>
+        <ThemeTypeInput />
+      </SettingItem>
       <PaletteSubType
         title="Background"
         path="palette.background"

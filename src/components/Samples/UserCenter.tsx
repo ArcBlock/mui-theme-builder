@@ -65,10 +65,10 @@ function UserCenter() {
             flexDirection: 'column',
             gap: 2.5,
           }}>
-          <Box sx={{ border: `1px solid ${colors.dividerColor}`, borderRadius: 2, p: 2 }}>
+          <Box sx={{ border: '1px solid', borderColor: 'divider', borderRadius: 1.5, p: 2 }}>
             <Typography
               sx={{
-                color: colors.foregroundsFgBase,
+                color: 'text.primary',
                 fontWeight: 600,
                 mb: 2.5,
               }}>

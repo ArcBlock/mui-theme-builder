@@ -17,9 +17,9 @@ export default function CollapsePanel({ expand = false, title, children, onToggl
         sx={{
           display: 'flex',
           alignItems: 'center',
-          p: 1,
-          borderBottom: '1px solid',
-          borderColor: 'divider',
+          px: 1,
+          py: 0.5,
+          fontSize: '0.875rem',
           backgroundColor: 'background.default',
           cursor: 'pointer',
         }}

@@ -65,8 +65,6 @@ export default function ThemeTools() {
         showLabels
         sx={{
           bgcolor: 'background.default',
-          borderBottom: 1,
-          borderBottomColor: 'divider',
           height: 'auto',
           width: 'calc(100% - 1px)', // to prevent scroll bar
         }}

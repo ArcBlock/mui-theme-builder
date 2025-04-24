@@ -9,7 +9,7 @@ import reducers from './reducers';
 const persistConfig = {
   key: 'blocklet-theme-builder',
   storage,
-  whitelist: ['themeOptions', 'mode', 'fonts', 'loadedFonts', 'selectedComponentId'],
+  whitelist: ['themeOptions', 'mode', 'fonts', 'loadedFonts', 'selectedComponentId', 'themeSettings'],
   transforms: [
     createTransform<Set<string>, string[]>(
       (inState) => {

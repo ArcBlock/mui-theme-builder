@@ -153,3 +153,13 @@ export const setPreviewSize = (previewSize: PreviewSize) => ({
 });
 
 export const resetSiteData = () => ({ type: 'RESET_SITE_DATA' });
+
+export const setThemeSettings = (settings: { prefer: string }) => ({
+  type: 'SET_THEME_SETTINGS',
+  settings,
+});
+
+export const setThemePrefer = (prefer: string) => ({
+  type: 'SET_THEME_PREFER',
+  prefer,
+});

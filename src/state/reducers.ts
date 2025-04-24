@@ -32,10 +32,11 @@ const initialState: RootState = {
   themeOptions: {
     light: defaultLightThemeOptions,
     dark: darkDefaultThemeOptions,
+    prefer: 'light',
   },
-  mode: 'light',
   themeObject: createTheme(defaultLightThemeOptions),
   fonts: ['Roboto'], // themeOptions 中使用过的字体
+  mode: 'light',
   loadedFonts: new Set(), // 已加载的字体
   previewSize: false,
   themeConfigOpen: false,
@@ -115,6 +116,7 @@ export default (state = initialState, action: any) => {
         themeOptions: {
           light: action.themeOptions.light ? action.themeOptions.light : currentState.themeOptions.light,
           dark: action.themeOptions.dark ? action.themeOptions.dark : currentState.themeOptions.dark,
+          prefer: action.themeOptions.prefer ?? currentState.themeOptions.prefer,
         },
       };
     // 切换 mode
@@ -169,6 +171,14 @@ export default (state = initialState, action: any) => {
         ...currentState,
         selectedComponentId: action.payload.id,
         previewComponent: action.payload.component,
+      };
+    case 'SET_THEME_PREFER':
+      return {
+        ...currentState,
+        themeOptions: {
+          ...currentState.themeOptions,
+          prefer: action.prefer,
+        },
       };
     default:
       return currentState;

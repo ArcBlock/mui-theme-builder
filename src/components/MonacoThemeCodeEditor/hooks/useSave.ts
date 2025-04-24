@@ -90,23 +90,26 @@ export default function useSave(codeEditor: MutableCodeEditor) {
         }),
       );
 
+      const parsedTheme = parseEditorOutput(code);
+      const updatedTheme = {
+        ...themeOptions,
+        [mode]: parsedTheme,
+      };
+
       // 保存到远端
       if (!isDev) {
-        const parsedTheme = parseEditorOutput(code);
-        const updatedThemeOptions = {
-          ...themeOptions,
-          [mode]: parsedTheme,
-        };
-
         await axios.post(
           schemaKey,
           {
-            theme: updatedThemeOptions,
+            theme: updatedTheme,
           },
           {
             headers: getAuthHeaders(),
           },
         );
+      } else {
+        // eslint-disable-next-line no-console
+        console.log('updatedTheme', updatedTheme);
       }
     }
   }, [codeEditor, dispatch, formatOnSave, schemaKey, mode, themeOptions]);

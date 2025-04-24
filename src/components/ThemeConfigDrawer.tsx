@@ -11,6 +11,7 @@ import { RootState } from 'src/state/types';
 import CollapsePanel from './Display/CollapsePanel';
 import EditorControls from './MonacoThemeCodeEditor/EditorControls';
 import { MutableCodeEditor } from './MonacoThemeCodeEditor/types';
+import ThemeSettings from './ThemeSettings/ThemeSettings';
 import ThemeTools from './ThemeTools/ThemeTools';
 
 const drawerWidth: React.CSSProperties['width'] = 340;
@@ -20,8 +21,9 @@ function ThemeConfigDrawer() {
   const open = useSelector((state: RootState) => state.themeConfigOpen);
   const dispatch = useDispatch();
   const expandMap = useReactive({
-    themeCode: false,
+    themeSettings: true,
     themeTools: true,
+    themeCode: false,
   });
   const [codeEditor, setCodeEditor] = useState<MutableCodeEditor>(null);
 
@@ -55,6 +57,17 @@ function ThemeConfigDrawer() {
         {/* 编辑按钮 */}
         <Grid item className="editor-controls">
           <EditorControls codeEditor={codeEditor} sx={{ height: '49px' }} />
+        </Grid>
+        {/* 主题设置 */}
+        <Grid item>
+          <CollapsePanel
+            title="Theme Settings"
+            expand={expandMap.themeSettings}
+            onToggle={(expand) => {
+              expandMap.themeSettings = expand;
+            }}>
+            <ThemeSettings />
+          </CollapsePanel>
         </Grid>
         {/* 主题工具 */}
         <Grid item>
@@ -91,9 +104,12 @@ const StyledGrid = styled(Grid)(() => ({
   '.collapse-panel-header, .editor-controls': {
     position: 'sticky',
     top: 0,
-    zIndex: 2,
+  },
+  '.editor-controls': {
+    zIndex: 3,
   },
   '.collapse-panel-header': {
     top: '49px',
+    zIndex: 2,
   },
 }));

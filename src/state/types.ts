@@ -10,6 +10,7 @@ export interface RootState {
   themeOptions: {
     light: ThemeOptions;
     dark: ThemeOptions;
+    prefer: string;
   };
   fonts: string[];
   mode: 'light' | 'dark';
@@ -23,5 +24,4 @@ export interface RootState {
 export interface EndRootState extends Omit<RootState, 'loadedFonts'> {
   loadedFonts: string[];
 }
-
 export type PreviewSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | false;

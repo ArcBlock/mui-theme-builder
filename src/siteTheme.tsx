@@ -6,7 +6,7 @@ import pick from 'lodash/pick';
 export const defaultFonts = ['Roboto', 'Helvetica', 'Inter', 'Open Sans', 'Lato'];
 
 // 默认浅色主题
-const configFields = ['palette', 'typography', 'breakpoints'];
+const configFields = ['palette', 'typography', 'shape', 'breakpoints', 'shadows'];
 export const defaultLightThemeOptions: ThemeOptions = pick(createDefaultThemeOptions('light'), configFields);
 export const defaultLightTheme: Theme = createTheme(defaultLightThemeOptions);
 
@@ -16,6 +16,8 @@ export const defaultDarkTheme = createTheme(darkDefaultThemeOptions);
 
 // 创建编辑器主题
 export const createSiteThemeOptions = ({ palette }: ThemeOptions): ThemeOptions => {
+  const backgroundColor = palette?.background?.default ?? '#fff';
+
   return {
     components: {
       MuiAccordion: {
@@ -27,9 +29,9 @@ export const createSiteThemeOptions = ({ palette }: ThemeOptions): ThemeOptions 
         },
         styleOverrides: {
           root: {
-            border: '1px solid rgba(255, 255, 255, .125)',
+            border: 0,
             boxShadow: 'none',
-            backgroundColor: palette?.background?.default ?? '#fff',
+            backgroundColor,
             transition: defaultLightTheme.transitions.create('margin-left'),
             '&:not(:last-child)': {
               borderBottom: 0,
@@ -49,9 +51,9 @@ export const createSiteThemeOptions = ({ palette }: ThemeOptions): ThemeOptions 
       MuiAccordionSummary: {
         styleOverrides: {
           root: {
-            borderBottom: '1px solid rgba(255, 255, 255, .125)',
+            border: 0,
             minHeight: 56,
-            backgroundColor: palette?.background?.default ?? '#fff',
+            backgroundColor,
             '&.Mui-expanded': {
               minHeight: 56,
             },
@@ -68,7 +70,7 @@ export const createSiteThemeOptions = ({ palette }: ThemeOptions): ThemeOptions 
       MuiAccordionDetails: {
         styleOverrides: {
           root: {
-            backgroundColor: palette?.background?.default ?? '#fff',
+            backgroundColor,
           },
         },
       },
@@ -85,7 +87,7 @@ export const createSiteThemeOptions = ({ palette }: ThemeOptions): ThemeOptions 
       MuiPopover: {
         styleOverrides: {
           paper: {
-            backgroundColor: palette?.background?.default ?? '#fff',
+            backgroundColor,
           },
         },
       },
@@ -93,4 +95,4 @@ export const createSiteThemeOptions = ({ palette }: ThemeOptions): ThemeOptions 
   };
 };
 
-// console.log('defaultLightTheme', defaultLightTheme);
+// console.log('defaultDarkTheme', defaultDarkTheme);
