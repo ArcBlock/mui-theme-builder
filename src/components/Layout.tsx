@@ -1,3 +1,4 @@
+import { deepmerge } from '@arcblock/ux/lib/Theme';
 import {
   Alert,
   Box,
@@ -7,7 +8,6 @@ import {
   ThemeProvider,
   createTheme,
 } from '@mui/material';
-import deepmerge from 'deepmerge';
 import React, { useEffect, useMemo } from 'react';
 import useParentTheme from 'src/hooks/use-parent-theme';
 import useRemoteThemeSync from 'src/hooks/use-remote-theme-sync';

@@ -1,13 +1,16 @@
+import { Confirm } from '@arcblock/ux/lib/Dialog';
 import FileCopyIcon from '@mui/icons-material/FileCopy';
-import RedoIcon from '@mui/icons-material/Redo';
+import ReplayIcon from '@mui/icons-material/Replay';
+// import RedoIcon from '@mui/icons-material/Redo';
+// import UndoIcon from '@mui/icons-material/Undo';
 import SaveIcon from '@mui/icons-material/Save';
-import UndoIcon from '@mui/icons-material/Undo';
 import { Box, BoxProps, IconButton, Snackbar } from '@mui/material';
 import Alert from '@mui/material/Alert';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { resetStore } from 'src/state/actions';
 import { useCanSave } from 'src/state/selectors';
 import { RootState } from 'src/state/types';
 
@@ -20,84 +23,11 @@ interface EditorControlsProps extends BoxProps {
   codeEditor: MutableCodeEditor;
 }
 
-export default function EditorControls({ codeEditor, sx, ...rest }: EditorControlsProps) {
-  // TODO: undo/redo 目前不能很好的跟 Theme Tools 联动，暂时屏蔽
-  const canUndo = useSelector((state: RootState) => state.editor.canUndo);
-  const canRedo = useSelector((state: RootState) => state.editor.canRedo);
-  const canSave = useCanSave();
-  const [saveStatus, setSaveStatus] = useState<{ open: boolean; success: boolean }>({ open: false, success: false });
-
-  // set Save and Undo/Redo listeners, and get handlers
-  const handleSave = useSave(codeEditor);
-  const { handleRedo, handleUndo } = useUndoRedo(codeEditor);
-
-  const onSave = async () => {
-    try {
-      await handleSave();
-      setSaveStatus({ open: true, success: true });
-    } catch (error) {
-      setSaveStatus({ open: true, success: false });
-    }
-  };
-
-  return (
-    <Box
-      sx={{
-        px: 1,
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        borderBottom: '1px solid',
-        borderColor: 'divider',
-        backgroundColor: 'background.default',
-        ...sx,
-      }}
-      {...rest}>
-      <Box sx={{ display: 'flex' }}>
-        <EditorSettings />
-        <CopyButton />
-        <Tooltip title="Undo (Ctrl + Z)">
-          <span>
-            <IconButton disabled={!canUndo} onClick={handleUndo} size="small">
-              <UndoIcon sx={{ color: 'text.primary' }} />
-            </IconButton>
-          </span>
-        </Tooltip>
-        <Tooltip title="Redo (Ctrl + Y)">
-          <span>
-            <IconButton disabled={!canRedo} onClick={handleRedo} size="small">
-              <RedoIcon sx={{ color: 'text.primary' }} />
-            </IconButton>
-          </span>
-        </Tooltip>
-        <Tooltip title="Save Changes (Ctrl + S)">
-          <span>
-            <IconButton onClick={onSave} size="small">
-              <SaveIcon sx={{ color: 'text.primary' }} />
-            </IconButton>
-          </span>
-        </Tooltip>
-      </Box>
-      <Typography variant="body2" color={canSave ? 'text.primary' : 'text.secondary'} display="inline">
-        {canSave ? '* Unsaved Changes' : 'All changes saved'}
-      </Typography>
-      <Snackbar
-        open={saveStatus.open}
-        autoHideDuration={2000}
-        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-        onClose={() => setSaveStatus((prev) => ({ ...prev, open: false }))}>
-        <Alert variant="filled" severity={saveStatus.success ? 'success' : 'error'}>
-          {saveStatus.success ? 'Save successful!' : 'Save failed, please try again'}
-        </Alert>
-      </Snackbar>
-    </Box>
-  );
-}
-
-function CopyButton() {
+export function CopyButton() {
   const themeInput = useSelector((state: RootState) => state.editor.themeInput);
   const outputTypescript = useSelector((state: RootState) => state.editor.outputTypescript);
   const [open, setOpen] = useState(false);
+
   const copyToClipboard = () => {
     let codeToCopy = themeInput;
     if (!outputTypescript) {
@@ -124,5 +54,126 @@ function CopyButton() {
         </Alert>
       </Snackbar>
     </>
+  );
+}
+
+export function ResetButton() {
+  const dispatch = useDispatch();
+  const [open, setOpen] = useState(false);
+  const [confirmOpen, setConfirmOpen] = useState(false);
+
+  const handleReset = () => {
+    setConfirmOpen(true);
+  };
+
+  const handleConfirm = () => {
+    dispatch(resetStore());
+    setOpen(true);
+    setConfirmOpen(false);
+  };
+
+  return (
+    <>
+      <Tooltip title="Reset to Default Theme">
+        <span>
+          <IconButton onClick={handleReset} size="small">
+            <ReplayIcon sx={{ color: 'text.primary' }} />
+          </IconButton>
+        </span>
+      </Tooltip>
+      <Snackbar
+        open={open}
+        autoHideDuration={2000}
+        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+        onClose={() => setOpen(false)}>
+        <Alert variant="filled" severity="success">
+          Theme has been reset to default settings
+        </Alert>
+      </Snackbar>
+      <Confirm
+        open={confirmOpen}
+        title="Reset Theme"
+        confirmButton={{ props: { variant: 'contained' }, text: 'Confirm' }}
+        onConfirm={handleConfirm}
+        onCancel={() => setConfirmOpen(false)}>
+        Are you sure you want to reset the theme settings? This will discard all unsaved changes.
+      </Confirm>
+    </>
+  );
+}
+
+export default function EditorControls({ codeEditor, sx, ...rest }: EditorControlsProps) {
+  // TODO: undo/redo 目前不能很好的跟 Theme Tools 联动，暂时屏蔽
+  // const canUndo = useSelector((state: RootState) => state.editor.canUndo);
+  // const canRedo = useSelector((state: RootState) => state.editor.canRedo);
+  const canSave = useCanSave();
+  const [saveStatus, setSaveStatus] = useState<{ open: boolean; success: boolean }>({ open: false, success: false });
+
+  // set Save and Undo/Redo listeners, and get handlers
+  const handleSave = useSave(codeEditor);
+  useUndoRedo(codeEditor);
+  // const { handleRedo, handleUndo } = useUndoRedo(codeEditor);
+
+  const onSave = async () => {
+    try {
+      await handleSave();
+      setSaveStatus({ open: true, success: true });
+    } catch (error) {
+      setSaveStatus({ open: true, success: false });
+    }
+  };
+
+  return (
+    <Box
+      sx={{
+        px: 1,
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        borderBottom: '1px solid',
+        borderColor: 'divider',
+        backgroundColor: 'background.default',
+        ...sx,
+      }}
+      {...rest}>
+      <Box sx={{ display: 'flex' }}>
+        <EditorSettings />
+        <CopyButton />
+        <ResetButton />
+        {/* <Tooltip title="Undo (Ctrl + Z)">
+          <span>
+            <IconButton disabled={!canUndo} onClick={handleUndo} size="small">
+              <UndoIcon sx={{ color: 'text.primary' }} />
+            </IconButton>
+          </span>
+        </Tooltip>
+        <Tooltip title="Redo (Ctrl + Y)">
+          <span>
+            <IconButton disabled={!canRedo} onClick={handleRedo} size="small">
+              <RedoIcon sx={{ color: 'text.primary' }} />
+            </IconButton>
+          </span>
+        </Tooltip> */}
+        <Tooltip title="Save Changes (Ctrl + S)">
+          <span>
+            <IconButton onClick={onSave} size="small">
+              <SaveIcon sx={{ color: 'text.primary' }} />
+            </IconButton>
+          </span>
+        </Tooltip>
+      </Box>
+      <Typography variant="body2" color={canSave ? 'text.primary' : 'text.secondary'} display="inline">
+        {canSave ? '* Unsaved Changes' : 'All changes saved'}
+      </Typography>
+      <Snackbar
+        open={saveStatus.open}
+        autoHideDuration={2000}
+        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+        onClose={() => setSaveStatus((prev) => ({ ...prev, open: false }))}>
+        <Alert variant="filled" severity={saveStatus.success ? 'success' : 'error'}>
+          {saveStatus.success ? 'Save successful!' : 'Save failed, please try again'}
+        </Alert>
+      </Snackbar>
+    </Box>
   );
 }

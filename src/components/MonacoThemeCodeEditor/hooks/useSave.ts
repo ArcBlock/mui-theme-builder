@@ -82,7 +82,7 @@ export default function useSave(codeEditor: MutableCodeEditor) {
     } else {
       const code = emittedOutput.outputFiles[0].text;
 
-      // 更新 root state
+      // 将 editor 内容保存到 state
       dispatch(saveEditorToTheme(code));
       dispatch(
         updateEditorState({
@@ -90,6 +90,7 @@ export default function useSave(codeEditor: MutableCodeEditor) {
         }),
       );
 
+      // 解析 editor 内容
       const parsedTheme = parseEditorOutput(code);
       const updatedTheme = {
         ...themeOptions,

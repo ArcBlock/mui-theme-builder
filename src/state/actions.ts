@@ -163,3 +163,7 @@ export const setThemePrefer = (prefer: string) => ({
   type: 'SET_THEME_PREFER',
   prefer,
 });
+
+export const resetStore = () => ({
+  type: 'RESET_STORE',
+});

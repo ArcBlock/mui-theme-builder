@@ -120,7 +120,6 @@ export function getFontsFromThemeOptions(
     typography?.subtitle2?.fontFamily,
     typography?.body1?.fontFamily,
     typography?.body2?.fontFamily,
-    // @ts-expect-error
     typography?.button?.fontFamily,
     typography?.caption?.fontFamily,
     typography?.overline?.fontFamily,

@@ -1,9 +1,8 @@
+import { deepmerge } from '@arcblock/ux/lib/Theme';
 import axios from 'axios';
-import deepmerge from 'deepmerge';
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { defaultThemeOptions } from 'src/siteTheme';
-import { RootState } from 'src/state/types';
 import { getAuthHeaders, isDev } from 'src/utils';
 
 import useSchemaKey from './use-schema-key';
@@ -12,7 +11,6 @@ export default function useRemoteThemeSync() {
   const [loading, setLoading] = useState(!isDev);
   const dispatch = useDispatch();
   const schemaKey = useSchemaKey();
-  const mode = useSelector((state: RootState) => state.mode);
 
   useEffect(() => {
     if (isDev) {
@@ -27,13 +25,18 @@ export default function useRemoteThemeSync() {
         dispatch({
           type: 'SET_THEME_OPTIONS',
           themeOptions: deepmerge(defaultThemeOptions, res.data),
-          mode,
         });
       })
       .finally(() => {
         setLoading(false);
       });
-  }, [dispatch, schemaKey, mode]);
+  }, [dispatch, schemaKey]);
 
   return loading;
 }
+
+// const x = { items: ['a', 'b'] };
+// const y = { items: ['c'] };
+
+// const merged = deepmerge(x, y);
+// console.log(merged); // { items: ['c'] }

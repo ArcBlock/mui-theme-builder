@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/default-param-last */
+import { deepmerge } from '@arcblock/ux/lib/Theme';
 import { ThemeOptions, createTheme } from '@mui/material';
-import deepmerge from 'deepmerge';
 import Samples from 'src/components/Samples';
 import { defaultFonts, defaultThemeOptions } from 'src/siteTheme';
 import { PreviewSize, RootState } from 'src/state/types';
@@ -175,6 +175,12 @@ export default (state = initialState, action: any) => {
           ...currentState.themeOptions,
           prefer: action.prefer,
         },
+      };
+    case 'RESET_STORE':
+      return {
+        ...initialState,
+        loadedFonts: loadFontsIfRequired(defaultFonts, state.loadedFonts),
+        ...getSelectedComponent(),
       };
     default:
       return currentState;

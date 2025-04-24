@@ -21,6 +21,7 @@ export default function useUndoRedo(codeEditor: MutableCodeEditor) {
     });
   }, [codeEditor, updateEditorState]);
 
+  // @SideEffect 当 editor 内容发生变化时，更新 redux 中的版本状态
   useTrackUndoRedoState(codeEditor);
 
   return useUndoRedoHandlers(codeEditor);
