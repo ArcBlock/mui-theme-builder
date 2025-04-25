@@ -1,13 +1,5 @@
-import { deepmerge } from '@arcblock/ux/lib/Theme';
-import {
-  Alert,
-  Box,
-  CircularProgress,
-  CssBaseline,
-  StyledEngineProvider,
-  ThemeProvider,
-  createTheme,
-} from '@mui/material';
+import { ThemeProvider, deepmerge } from '@arcblock/ux/lib/Theme';
+import { Alert, Box, CircularProgress, Theme, createTheme } from '@mui/material';
 import React, { useEffect, useMemo } from 'react';
 import useParentTheme from 'src/hooks/use-parent-theme';
 import useRemoteThemeSync from 'src/hooks/use-remote-theme-sync';
@@ -42,7 +34,7 @@ function Layout({ children }: LayoutProps) {
   const { data: parentTheme, loading: parentThemeLoading } = useParentTheme();
   const loading = syncLoading || parentThemeLoading;
   const siteTheme = useMemo(() => {
-    if (parentThemeLoading) return {};
+    if (parentThemeLoading) return {} as Theme;
 
     return createTheme(deepmerge(parentTheme, createSiteThemeOptions(parentTheme)));
   }, [parentTheme, parentThemeLoading]);
@@ -71,12 +63,9 @@ function Layout({ children }: LayoutProps) {
   }
 
   return (
-    <StyledEngineProvider injectFirst>
-      <ThemeProvider theme={siteTheme}>
-        <CssBaseline />
-        {children}
-      </ThemeProvider>
-    </StyledEngineProvider>
+    <ThemeProvider theme={siteTheme} injectFirst>
+      {children}
+    </ThemeProvider>
   );
 }
 

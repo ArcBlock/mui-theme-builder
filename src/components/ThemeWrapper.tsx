@@ -1,5 +1,5 @@
-import Paper from '@mui/material/Paper';
-import { StyledEngineProvider, ThemeProvider } from '@mui/material/styles';
+import { ThemeProvider } from '@arcblock/ux/lib/Theme';
+import Paper, { PaperProps } from '@mui/material/Paper';
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from 'src/state/types';
@@ -17,22 +17,19 @@ function ThemeWrapper({ children }: ThemeWrapperProps) {
   const themeObject = useSelector((state: RootState) => state.themeObject);
 
   return (
-    <StyledEngineProvider injectFirst>
-      <ThemeProvider theme={themeObject}>
-        <ThemeContainer>{children}</ThemeContainer>
-      </ThemeProvider>
-    </StyledEngineProvider>
+    <ThemeProvider theme={themeObject} injectFirst>
+      <ThemeContainer>{children}</ThemeContainer>
+    </ThemeProvider>
   );
 }
 
 /**
- *
- * CssBa
- *
+ * CssBaseline
  */
-function ThemeContainer({ children }: ThemeWrapperProps) {
+function ThemeContainer({ children, ...rest }: PaperProps) {
   return (
     <Paper
+      {...rest}
       sx={{
         bgcolor: 'background.default',
         width: '100%',

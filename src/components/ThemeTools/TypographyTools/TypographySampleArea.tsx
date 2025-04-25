@@ -1,4 +1,5 @@
-import { Grid, Paper, StyledEngineProvider, ThemeProvider, Typography } from '@mui/material';
+import { ThemeProvider } from '@arcblock/ux/lib/Theme';
+import { Grid, Paper, Typography } from '@mui/material';
 import { useSelector } from 'react-redux';
 import { RootState } from 'src/state/types';
 
@@ -26,18 +27,32 @@ interface Props {
 function TypographySampleArea({ variant, bgText, paperText, smallPreview, ...typographyProps }: Props) {
   const themeObject = useSelector((state: RootState) => state.themeObject);
   return (
-    <StyledEngineProvider injectFirst>
-      <ThemeProvider theme={themeObject}>
-        <Paper
-          variant="outlined"
-          sx={{
-            overflow: 'auto',
-            maxHeight: 200,
-            pl: '4px',
-            backgroundColor: themeObject.palette.background.default,
-          }}>
-          <Grid container wrap="nowrap" alignItems="baseline">
-            <Grid item>
+    <ThemeProvider theme={themeObject} injectFirst>
+      <Paper
+        variant="outlined"
+        sx={{
+          overflow: 'auto',
+          maxHeight: 200,
+          pl: '4px',
+          backgroundColor: themeObject.palette.background.default,
+        }}>
+        <Grid container wrap="nowrap" alignItems="baseline">
+          <Grid item>
+            <Typography
+              variant={variant}
+              {...typographyProps}
+              sx={{
+                transition: (theme) => theme.transitions.create('font-size'),
+                fontSize: smallPreview ? '1rem' : null,
+              }}>
+              {bgText}
+            </Typography>
+          </Grid>
+          <Grid item>
+            <Paper
+              variant="outlined"
+              square
+              sx={{ p: 0.5, border: 0, backgroundColor: themeObject.palette.background.default }}>
               <Typography
                 variant={variant}
                 {...typographyProps}
@@ -45,29 +60,13 @@ function TypographySampleArea({ variant, bgText, paperText, smallPreview, ...typ
                   transition: (theme) => theme.transitions.create('font-size'),
                   fontSize: smallPreview ? '1rem' : null,
                 }}>
-                {bgText}
+                {paperText}
               </Typography>
-            </Grid>
-            <Grid item>
-              <Paper
-                variant="outlined"
-                square
-                sx={{ p: 0.5, border: 0, backgroundColor: themeObject.palette.background.default }}>
-                <Typography
-                  variant={variant}
-                  {...typographyProps}
-                  sx={{
-                    transition: (theme) => theme.transitions.create('font-size'),
-                    fontSize: smallPreview ? '1rem' : null,
-                  }}>
-                  {paperText}
-                </Typography>
-              </Paper>
-            </Grid>
+            </Paper>
           </Grid>
-        </Paper>
-      </ThemeProvider>
-    </StyledEngineProvider>
+        </Grid>
+      </Paper>
+    </ThemeProvider>
   );
 }
 

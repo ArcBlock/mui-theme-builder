@@ -51,7 +51,7 @@ export default function Header({ sx, ...props }: HeaderProps) {
         boxShadow: 'none',
         borderBottom: '1px solid',
         borderColor: 'divider',
-        color: 'text.hint',
+        color: 'text.secondary',
         ...sx,
       }}
       {...props}>
