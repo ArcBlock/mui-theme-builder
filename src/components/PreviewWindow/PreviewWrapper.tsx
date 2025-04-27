@@ -1,4 +1,4 @@
-import { Box, Paper } from '@mui/material';
+import { Box, Paper, useTheme } from '@mui/material';
 import React from 'react';
 import { useSelector } from 'react-redux';
 import ThemeWrapper from 'src/components/ThemeWrapper';
@@ -42,9 +42,8 @@ interface PreviewBackgroundProps {
  * adds 'rtl' as a className if required by the theme to enable RTL styles.
  */
 function PreviewBackground({ children }: PreviewBackgroundProps) {
-  // if the theme has `direction` set to 'rtl', then add 'rtl' as a classname
-  // to the Paper component, so that RTL styles will be enabled
-  const directionIsRTL = useSelector((state: RootState) => state.themeOptions.direction === 'rtl');
+  const theme = useTheme();
+  const directionIsRTL = theme.direction === 'rtl';
   const previewSize = useSelector((state: RootState) => state.previewSize);
   return (
     <Paper
