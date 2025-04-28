@@ -1,3 +1,13 @@
+## 0.1.12 (2025-4-28)
+
+- feat: support dark mode scrollbar
+- feat: support theme color preference
+- feat: support reset theme
+- feat: auto-calculate palette colors
+- fix: use theme options from @blocklet/theme
+- fix: editor uses parent theme (deduplicated)
+- fix: palette adds action colors
+
 ## 0.1.11 (2025-4-19)
 
 - chore: update deps
