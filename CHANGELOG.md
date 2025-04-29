@@ -1,3 +1,7 @@
+## 0.1.13 (2025-4-29)
+
+- chore: update deps
+
 ## 0.1.12 (2025-4-28)
 
 - feat: support dark mode scrollbar
