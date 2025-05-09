@@ -131,17 +131,41 @@ export default (state = initialState, action: any) => {
       };
     // editor 编辑保存
     case 'SAVE_THEME_INPUT':
-    case 'UPDATE_THEME':
-      // tools 编辑保存
+    case 'UPDATE_THEME': {
+      // 获取当前模式下的主题配置
+      const currentModeTheme = action.themeOptions;
+      const otherMode = currentState.mode === 'light' ? 'dark' : 'light';
+      const otherModeTheme = currentState.themeOptions[otherMode];
+      const excludeFields = ['palette', 'components'];
+      const { palette, components } = otherModeTheme;
+
+      // 创建新的主题配置，保持共享字段同步
+      const newThemeOptions = {
+        ...currentState.themeOptions,
+        [currentState.mode]: currentModeTheme,
+        [otherMode]: {
+          // 只保留当前主题中存在的共享字段
+          ...Object.keys(currentModeTheme).reduce(
+            (acc, key) => {
+              if (!excludeFields.includes(key)) {
+                acc[key] = currentModeTheme[key];
+              }
+              return acc;
+            },
+            {} as Record<string, unknown>,
+          ),
+          palette,
+          components,
+        },
+      };
+
       return {
         ...currentState,
-        themeOptions: {
-          ...currentState.themeOptions,
-          [currentState.mode]: action.themeOptions,
-        },
-        themeObject: createPreviewMuiTheme(action.themeOptions, currentState.previewSize),
-        fonts: getFontsFromThemeOptions(action.themeOptions, currentState.fonts, currentState.loadedFonts),
+        themeOptions: newThemeOptions,
+        themeObject: createPreviewMuiTheme(currentModeTheme, currentState.previewSize),
+        fonts: getFontsFromThemeOptions(currentModeTheme, currentState.fonts, currentState.loadedFonts),
       };
+    }
     case 'FONTS_LOADED':
       return {
         ...currentState,
