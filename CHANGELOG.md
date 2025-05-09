@@ -1,3 +1,8 @@
+## 0.1.14 (2025-5-7)
+
+- feat: shared font configuration for light and dark modes
+- chore: update deps
+
 ## 0.1.13 (2025-4-29)
 
 - chore: update deps
