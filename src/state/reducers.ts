@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/default-param-last */
 import { deepmerge } from '@arcblock/ux/lib/Theme';
-// import { ThemeOptions } from '@blocklet/theme';
 import { ThemeOptions, createTheme } from '@mui/material';
 import Samples from 'src/components/Samples';
 import { defaultFonts, defaultThemeOptions } from 'src/siteTheme';
