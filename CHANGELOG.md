@@ -1,3 +1,7 @@
+## 0.1.15 (2025-5-10)
+
+- fix: typography color configuration should distinguish between light and dark themes
+
 ## 0.1.14 (2025-5-7)
 
 - feat: shared font configuration for light and dark modes

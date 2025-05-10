@@ -136,27 +136,40 @@ export default (state = initialState, action: any) => {
       const currentModeTheme = action.themeOptions;
       const otherMode = currentState.mode === 'light' ? 'dark' : 'light';
       const otherModeTheme = currentState.themeOptions[otherMode];
-      const excludeFields = ['palette', 'components'];
-      const { palette, components } = otherModeTheme;
+      const excludeFields = ['palette', 'components', 'shadows'];
+      const { palette, components, typography, shadows } = otherModeTheme;
+
+      // 只保留当前主题中存在的共享字段
+      const newOtherModeTheme: ThemeOptions = {
+        ...Object.keys(currentModeTheme).reduce(
+          (acc, key) => {
+            if (!excludeFields.includes(key)) {
+              acc[key] = currentModeTheme[key];
+            }
+            return acc;
+          },
+          {} as Record<string, unknown>,
+        ),
+        palette,
+        components,
+        shadows,
+      };
+
+      // 保留历史遗留字段 typography.color
+      if (typeof typography === 'object' && typography.color) {
+        if (typeof newOtherModeTheme.typography === 'object' && newOtherModeTheme.typography) {
+          newOtherModeTheme.typography = {
+            ...newOtherModeTheme.typography,
+            color: typography.color,
+          };
+        }
+      }
 
       // 创建新的主题配置，保持共享字段同步
       const newThemeOptions = {
         ...currentState.themeOptions,
         [currentState.mode]: currentModeTheme,
-        [otherMode]: {
-          // 只保留当前主题中存在的共享字段
-          ...Object.keys(currentModeTheme).reduce(
-            (acc, key) => {
-              if (!excludeFields.includes(key)) {
-                acc[key] = currentModeTheme[key];
-              }
-              return acc;
-            },
-            {} as Record<string, unknown>,
-          ),
-          palette,
-          components,
-        },
+        [otherMode]: newOtherModeTheme,
       };
 
       return {
