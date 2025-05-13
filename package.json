@@ -2,7 +2,7 @@
   "name": "@blocklet/theme-builder",
   "private": true,
   "description": "A comprehensive tool to customize themes for Material-UI",
-  "version": "0.1.15",
+  "version": "0.1.16",
   "keywords": [
     "MUI",
     "MUI v5",
@@ -56,13 +56,13 @@
     ]
   },
   "dependencies": {
-    "@abtnode/constant": "^1.16.42",
-    "@arcblock/did-connect": "^2.13.24",
-    "@arcblock/icons": "^2.13.24",
-    "@arcblock/ux": "^2.13.24",
+    "@abtnode/constant": "^1.16.43",
+    "@arcblock/did-connect": "^2.13.29",
+    "@arcblock/icons": "^2.13.29",
+    "@arcblock/ux": "^2.13.29",
     "@babel/eslint-parser": "^7.27.1",
-    "@blocklet/theme": "^2.13.24",
-    "@blocklet/ui-react": "^2.13.24",
+    "@blocklet/theme": "^2.13.29",
+    "@blocklet/ui-react": "^2.13.29",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
     "@iconify/react": "^5.2.1",

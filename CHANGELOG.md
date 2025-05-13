@@ -1,3 +1,7 @@
+## 0.1.16 (2025-5-13)
+
+- chore: update deps
+
 ## 0.1.15 (2025-5-10)
 
 - fix: typography color configuration should distinguish between light and dark themes
