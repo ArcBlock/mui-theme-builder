@@ -1,4 +1,5 @@
 import { ThemeProvider, deepmerge } from '@arcblock/ux/lib/Theme';
+import { ToastProvider } from '@arcblock/ux/lib/Toast';
 import { Alert, Box, CircularProgress, Theme, createTheme } from '@mui/material';
 import React, { useEffect, useMemo } from 'react';
 import useParentTheme from 'src/hooks/use-parent-theme';
@@ -64,7 +65,7 @@ function Layout({ children }: LayoutProps) {
 
   return (
     <ThemeProvider theme={siteTheme} injectFirst>
-      {children}
+      <ToastProvider>{children}</ToastProvider>
     </ThemeProvider>
   );
 }

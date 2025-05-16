@@ -1,11 +1,11 @@
 import { Confirm } from '@arcblock/ux/lib/Dialog';
+import Toast from '@arcblock/ux/lib/Toast';
 import FileCopyIcon from '@mui/icons-material/FileCopy';
 import ReplayIcon from '@mui/icons-material/Replay';
 // import RedoIcon from '@mui/icons-material/Redo';
 // import UndoIcon from '@mui/icons-material/Undo';
 import SaveIcon from '@mui/icons-material/Save';
-import { Box, BoxProps, IconButton, Snackbar } from '@mui/material';
-import Alert from '@mui/material/Alert';
+import { Box, BoxProps, IconButton } from '@mui/material';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 import { useState } from 'react';
@@ -26,7 +26,6 @@ interface EditorControlsProps extends BoxProps {
 export function CopyButton() {
   const themeInput = useSelector((state: RootState) => state.editor.themeInput);
   const outputTypescript = useSelector((state: RootState) => state.editor.outputTypescript);
-  const [open, setOpen] = useState(false);
 
   const copyToClipboard = () => {
     let codeToCopy = themeInput;
@@ -34,32 +33,22 @@ export function CopyButton() {
       // naively strip out typescript (first three lines)
       codeToCopy = ['export const themeOptions = {', ...themeInput.split('\n').slice(3)].join('\n');
     }
-    navigator.clipboard.writeText(codeToCopy).then(() => setOpen(true));
+    navigator.clipboard.writeText(codeToCopy).then(() => {
+      Toast.success('Copied theme code to clipboard!');
+    });
   };
 
   return (
-    <>
-      <Tooltip title="Copy theme code">
-        <IconButton onClick={copyToClipboard} size="small">
-          <FileCopyIcon sx={{ color: 'text.primary' }} />
-        </IconButton>
-      </Tooltip>
-      <Snackbar
-        open={open}
-        autoHideDuration={2000}
-        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-        onClose={() => setOpen(false)}>
-        <Alert variant="filled" severity="success">
-          Copied theme code to clipboard!
-        </Alert>
-      </Snackbar>
-    </>
+    <Tooltip title="Copy theme code">
+      <IconButton onClick={copyToClipboard} size="small">
+        <FileCopyIcon sx={{ color: 'text.primary' }} />
+      </IconButton>
+    </Tooltip>
   );
 }
 
 export function ResetButton() {
   const dispatch = useDispatch();
-  const [open, setOpen] = useState(false);
   const [confirmOpen, setConfirmOpen] = useState(false);
 
   const handleReset = () => {
@@ -68,7 +57,7 @@ export function ResetButton() {
 
   const handleConfirm = () => {
     dispatch(resetStore());
-    setOpen(true);
+    Toast.success('Theme has been reset to default settings');
     setConfirmOpen(false);
   };
 
@@ -81,15 +70,6 @@ export function ResetButton() {
           </IconButton>
         </span>
       </Tooltip>
-      <Snackbar
-        open={open}
-        autoHideDuration={2000}
-        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-        onClose={() => setOpen(false)}>
-        <Alert variant="filled" severity="success">
-          Theme has been reset to default settings
-        </Alert>
-      </Snackbar>
       <Confirm
         open={confirmOpen}
         title="Reset Theme"
@@ -107,7 +87,6 @@ export default function EditorControls({ codeEditor, sx, ...rest }: EditorContro
   // const canUndo = useSelector((state: RootState) => state.editor.canUndo);
   // const canRedo = useSelector((state: RootState) => state.editor.canRedo);
   const canSave = useCanSave();
-  const [saveStatus, setSaveStatus] = useState<{ open: boolean; success: boolean }>({ open: false, success: false });
 
   // set Save and Undo/Redo listeners, and get handlers
   const handleSave = useSave(codeEditor);
@@ -117,9 +96,9 @@ export default function EditorControls({ codeEditor, sx, ...rest }: EditorContro
   const onSave = async () => {
     try {
       await handleSave();
-      setSaveStatus({ open: true, success: true });
+      Toast.success('Theme saved successfully. Please refresh the page to apply changes.');
     } catch (error) {
-      setSaveStatus({ open: true, success: false });
+      Toast.error('Save failed, please try again');
     }
   };
 
@@ -165,15 +144,6 @@ export default function EditorControls({ codeEditor, sx, ...rest }: EditorContro
       <Typography variant="body2" color={canSave ? 'text.primary' : 'text.secondary'} display="inline">
         {canSave ? '* Unsaved Changes' : 'All changes saved'}
       </Typography>
-      <Snackbar
-        open={saveStatus.open}
-        autoHideDuration={2000}
-        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-        onClose={() => setSaveStatus((prev) => ({ ...prev, open: false }))}>
-        <Alert variant="filled" severity={saveStatus.success ? 'success' : 'error'}>
-          {saveStatus.success ? 'Save successful!' : 'Save failed, please try again'}
-        </Alert>
-      </Snackbar>
     </Box>
   );
 }
