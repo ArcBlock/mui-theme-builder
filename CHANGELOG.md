@@ -1,3 +1,7 @@
+## 0.1.18 (2025-5-20)
+
+- chore: update deps
+
 ## 0.1.17 (2025-5-16)
 
 - fix: optimize save success tips
