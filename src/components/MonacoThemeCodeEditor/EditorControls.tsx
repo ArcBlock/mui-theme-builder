@@ -1,7 +1,7 @@
 import { Confirm } from '@arcblock/ux/lib/Dialog';
 import Toast from '@arcblock/ux/lib/Toast';
 import FileCopyIcon from '@mui/icons-material/FileCopy';
-import ReplayIcon from '@mui/icons-material/Replay';
+import RestartAltIcon from '@mui/icons-material/RestartAlt';
 // import RedoIcon from '@mui/icons-material/Redo';
 // import UndoIcon from '@mui/icons-material/Undo';
 import SaveIcon from '@mui/icons-material/Save';
@@ -65,15 +65,31 @@ export function ResetButton() {
     <>
       <Tooltip title="Reset to Default Theme">
         <span>
-          <IconButton onClick={handleReset} size="small">
-            <ReplayIcon sx={{ color: 'text.primary' }} />
+          <IconButton
+            onClick={handleReset}
+            size="small"
+            sx={{
+              '&:hover': {
+                backgroundColor: 'warning.lighter',
+                '& .MuiSvgIcon-root': {
+                  color: 'warning.main',
+                },
+              },
+            }}>
+            <RestartAltIcon sx={{ color: 'warning.light' }} />
           </IconButton>
         </span>
       </Tooltip>
       <Confirm
         open={confirmOpen}
         title="Reset Theme"
-        confirmButton={{ props: { variant: 'contained' }, text: 'Confirm' }}
+        confirmButton={{
+          props: {
+            variant: 'contained',
+            color: 'warning',
+          },
+          text: 'Reset',
+        }}
         onConfirm={handleConfirm}
         onCancel={() => setConfirmOpen(false)}>
         Are you sure you want to reset the theme settings? This will discard all unsaved changes.

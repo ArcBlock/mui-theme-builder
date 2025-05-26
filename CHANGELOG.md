@@ -1,3 +1,7 @@
+## 0.1.19 (2025-5-26)
+
+- fix(ux): toggle theme types via tabs and apply warning style to reset buttons
+
 ## 0.1.18 (2025-5-20)
 
 - chore: update deps
