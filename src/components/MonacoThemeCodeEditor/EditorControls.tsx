@@ -47,18 +47,23 @@ export function CopyButton() {
   );
 }
 
-export function ResetButton() {
+export function ResetButton({ codeEditor }: { codeEditor: MutableCodeEditor }) {
   const dispatch = useDispatch();
+  const handleSave = useSave(codeEditor);
+  const [loading, setLoading] = useState(false);
   const [confirmOpen, setConfirmOpen] = useState(false);
 
   const handleReset = () => {
     setConfirmOpen(true);
   };
 
-  const handleConfirm = () => {
+  const handleConfirm = async () => {
     dispatch(resetStore());
-    Toast.success('Theme has been reset to default settings');
     setConfirmOpen(false);
+    setLoading(true);
+    await handleSave();
+    setLoading(false);
+    Toast.success('Theme has been reset to default settings. Please refresh the page to apply changes.');
   };
 
   return (
@@ -67,6 +72,7 @@ export function ResetButton() {
         <span>
           <IconButton
             onClick={handleReset}
+            disabled={loading}
             size="small"
             sx={{
               '&:hover': {
@@ -134,7 +140,7 @@ export default function EditorControls({ codeEditor, sx, ...rest }: EditorContro
       <Box sx={{ display: 'flex' }}>
         <EditorSettings />
         <CopyButton />
-        <ResetButton />
+        <ResetButton codeEditor={codeEditor} />
         {/* <Tooltip title="Undo (Ctrl + Z)">
           <span>
             <IconButton disabled={!canUndo} onClick={handleUndo} size="small">
