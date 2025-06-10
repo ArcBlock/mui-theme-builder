@@ -4,10 +4,11 @@ import { useCallback, useEffect } from 'react';
 // custom theme config
 import { useDispatch, useSelector } from 'react-redux';
 import useSchemaKey from 'src/hooks/use-schema-key';
+import { defaultThemeOptions } from 'src/siteTheme';
 import { saveEditorToTheme, updateEditorState } from 'src/state/editor/actions';
 import { parseEditorOutput } from 'src/state/editor/parser';
 import { RootState } from 'src/state/types';
-import { getAuthHeaders, isDev, verbose } from 'src/utils';
+import { diffJSON, getAuthHeaders, isDev, verbose } from 'src/utils';
 
 import { MutableCodeEditor } from '../types';
 
@@ -79,30 +80,39 @@ export default function useSave(codeEditor: MutableCodeEditor) {
           errors,
         }),
       );
+      throw new Error(errors[0].messageText);
     } else {
       const code = emittedOutput.outputFiles[0].text;
 
       // 将 editor 内容保存到 state
       dispatch(saveEditorToTheme(code));
+      // 维护版本号
       dispatch(
         updateEditorState({
           savedVersion: codeEditor?.getModel()?.getAlternativeVersionId(),
         }),
       );
 
-      // 解析 editor 内容
+      // 将 editor 中的 js 代码 => ThemeOptions 对象
       const parsedTheme = parseEditorOutput(code);
       const updatedTheme = {
         ...themeOptions,
         [mode]: parsedTheme,
       };
 
-      // 保存到远端
+      // 差异化存储
+      const themeData = {
+        prefer: updatedTheme.prefer,
+        light: diffJSON(updatedTheme.light, defaultThemeOptions.light) || {},
+        dark: diffJSON(updatedTheme.dark, defaultThemeOptions.dark) || {},
+      };
+
+      // 后端保存
       if (!isDev) {
         await axios.post(
           schemaKey,
           {
-            theme: updatedTheme,
+            theme: themeData,
           },
           {
             headers: getAuthHeaders(),
@@ -110,7 +120,7 @@ export default function useSave(codeEditor: MutableCodeEditor) {
         );
       } else {
         // eslint-disable-next-line no-console
-        console.log('updatedTheme', updatedTheme);
+        console.log('themeData', themeData); // 本地测试用
       }
     }
   }, [codeEditor, dispatch, formatOnSave, schemaKey, mode, themeOptions]);

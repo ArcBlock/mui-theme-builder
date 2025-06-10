@@ -61,9 +61,13 @@ export function ResetButton({ codeEditor }: { codeEditor: MutableCodeEditor }) {
     dispatch(resetStore());
     setConfirmOpen(false);
     setLoading(true);
-    await handleSave();
+    try {
+      await handleSave();
+      Toast.success('Theme has been reset to default settings. Please refresh the page to apply changes.');
+    } catch (error) {
+      Toast.error(`Reset failed: ${error}`);
+    }
     setLoading(false);
-    Toast.success('Theme has been reset to default settings. Please refresh the page to apply changes.');
   };
 
   return (
@@ -120,7 +124,7 @@ export default function EditorControls({ codeEditor, sx, ...rest }: EditorContro
       await handleSave();
       Toast.success('Theme saved successfully. Please refresh the page to apply changes.');
     } catch (error) {
-      Toast.error('Save failed, please try again');
+      Toast.error(`Save failed: ${error}`);
     }
   };
 

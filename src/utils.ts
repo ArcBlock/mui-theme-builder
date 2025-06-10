@@ -141,3 +141,55 @@ export function getFontsFromThemeOptions(
 
   return [...fontSet];
 }
+
+/**
+ * 比较两个对象，返回第一个对象中与第二个对象不同的部分
+ * @param source 源对象，需要比较的对象
+ * @param target 目标对象，用于比较的基准对象
+ * @returns 返回 source 中与 target 不同的部分，如果完全相同则返回 undefined
+ */
+export function diffJSON(source: any, target: any): any {
+  if (typeof source !== 'object' || source === null) {
+    return source !== target ? source : undefined;
+  }
+
+  // 数组比较，只要有不同，则返回 source
+  if (Array.isArray(source)) {
+    if (!Array.isArray(target) || source.length !== target.length) {
+      return source;
+    }
+    for (let i = 0; i < source.length; i++) {
+      const diff = diffJSON(source[i], target[i]);
+      if (diff !== undefined) {
+        return source;
+      }
+    }
+    return undefined;
+  }
+
+  // 对象比较
+  const result: Record<string, any> = {};
+  let hasDiff = false;
+
+  if (typeof target !== 'object' || target === null) {
+    return source;
+  }
+
+  Object.keys(source).forEach((key) => {
+    const sourceValue = source[key];
+    const targetValue = target[key];
+
+    if (!(key in target)) {
+      result[key] = sourceValue;
+      hasDiff = true;
+    } else {
+      const diff = diffJSON(sourceValue, targetValue);
+      if (diff !== undefined) {
+        result[key] = diff;
+        hasDiff = true;
+      }
+    }
+  });
+
+  return hasDiff ? result : undefined;
+}
