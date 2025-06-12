@@ -1,12 +1,12 @@
 import Dashboard from './Dashboard';
-import LandingPage from './LandingPage';
 import UserCenter from './UserCenter';
+import Website from './Website';
 
-export default [
+const Samples = [
   {
-    id: 'LandingPage',
-    title: 'Landing Page',
-    component: <LandingPage />,
+    id: 'Website',
+    title: 'Website',
+    component: <Website />,
   },
   {
     id: 'UserCenter',
@@ -19,3 +19,17 @@ export default [
     component: <Dashboard />,
   },
 ];
+
+export const getSampleComponent = (id = '') => {
+  let cid = id;
+  let preview = Samples.find((s) => s.id === cid)?.component;
+
+  if (!cid || !preview) {
+    cid = Samples[0]?.id ?? '';
+    preview = Samples[0]?.component ?? null;
+  }
+
+  return preview;
+};
+
+export default Samples;

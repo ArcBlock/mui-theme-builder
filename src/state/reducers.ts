@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/default-param-last */
 import { deepmerge } from '@arcblock/ux/lib/Theme';
 import { ThemeOptions, createTheme } from '@mui/material';
-import Samples from 'src/components/Samples';
 import { defaultFonts, defaultThemeOptions } from 'src/siteTheme';
 import { PreviewSize, RootState } from 'src/state/types';
 import { generateThemeId, getFontsFromThemeOptions } from 'src/utils';
@@ -10,21 +9,6 @@ import { loadFonts } from './actions';
 import editorReducer, { initialState as editorInitialState } from './editor/reducers';
 
 const defaultThemeId = generateThemeId('');
-
-const getSelectedComponent = (id = '') => {
-  let cid = id;
-  let preview = Samples.find((s) => s.id === cid)?.component;
-
-  if (!cid || !preview) {
-    cid = Samples[0]?.id ?? '';
-    preview = Samples[0]?.component ?? null;
-  }
-
-  return {
-    selectedComponentId: cid,
-    previewComponent: preview,
-  };
-};
 
 const initialState: RootState = {
   editor: editorInitialState,
@@ -36,7 +20,7 @@ const initialState: RootState = {
   loadedFonts: new Set(), // 已加载的字体
   previewSize: false,
   themeConfigOpen: false,
-  ...getSelectedComponent(),
+  selectedComponentId: 'Website',
 };
 
 function loadFontsIfRequired(fonts: string[] = [], loadedFonts: Set<string>) {
@@ -90,9 +74,7 @@ export default (state = initialState, action: any) => {
       if (action.payload != null) {
         return {
           ...currentState,
-          themeOptions: action.payload.themeOptions,
-          mode: action.payload.mode,
-          fonts: action.payload.fonts,
+          ...action.payload,
           loadedFonts: loadFontsIfRequired(
             Array.from(action.payload.loadedFonts || new Set()),
             currentState.loadedFonts,
@@ -101,7 +83,6 @@ export default (state = initialState, action: any) => {
             action.payload.themeOptions[action.payload.mode],
             currentState.previewSize,
           ),
-          ...getSelectedComponent(action.payload.selectedComponentId),
         };
       }
       return currentState;
@@ -203,7 +184,6 @@ export default (state = initialState, action: any) => {
       return {
         ...currentState,
         selectedComponentId: action.payload.id,
-        previewComponent: action.payload.component,
       };
     case 'SET_THEME_PREFER':
       return {
@@ -217,7 +197,6 @@ export default (state = initialState, action: any) => {
       return {
         ...initialState,
         loadedFonts: loadFontsIfRequired(defaultFonts, state.loadedFonts),
-        ...getSelectedComponent(),
       };
     default:
       return currentState;
