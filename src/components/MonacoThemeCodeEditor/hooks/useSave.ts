@@ -1,4 +1,5 @@
 import axios from 'axios';
+import pick from 'lodash/pick';
 import * as monaco from 'monaco-editor';
 import { useCallback, useEffect } from 'react';
 // custom theme config
@@ -101,10 +102,13 @@ export default function useSave(codeEditor: MutableCodeEditor) {
       };
 
       // 差异化存储
+      const lightDiff = diffJSON(updatedTheme.light, defaultThemeOptions.light) || {};
+      const darkDiff = diffJSON(updatedTheme.dark, defaultThemeOptions.dark) || {};
       const themeData = {
         prefer: updatedTheme.prefer,
-        light: diffJSON(updatedTheme.light, defaultThemeOptions.light) || {},
-        dark: diffJSON(updatedTheme.dark, defaultThemeOptions.dark) || {},
+        common: pick(lightDiff, ['shape', 'typography', 'breakpoints']), // 共享的配置
+        light: pick(lightDiff, ['palette', 'components', 'shadows']),
+        dark: pick(darkDiff, ['palette', 'components', 'shadows']),
       };
 
       // 后端保存
