@@ -7,6 +7,7 @@ import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import SaveIcon from '@mui/icons-material/Save';
 import { Box, BoxProps, IconButton } from '@mui/material';
 import Tooltip from '@mui/material/Tooltip';
+import { useLatest } from 'ahooks';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { resetStore } from 'src/state/actions';
@@ -49,6 +50,7 @@ export function CopyButton() {
 export function ResetButton({ codeEditor }: { codeEditor: MutableCodeEditor }) {
   const dispatch = useDispatch();
   const handleSave = useSave(codeEditor);
+  const latestHandleSave = useLatest(handleSave);
   const [loading, setLoading] = useState(false);
   const [confirmOpen, setConfirmOpen] = useState(false);
 
@@ -56,17 +58,25 @@ export function ResetButton({ codeEditor }: { codeEditor: MutableCodeEditor }) {
     setConfirmOpen(true);
   };
 
-  const handleConfirm = async () => {
+  const handleConfirm = () => {
     dispatch(resetStore());
     setConfirmOpen(false);
     setLoading(true);
-    try {
-      await handleSave();
-      Toast.success('Theme has been reset to default settings. Please refresh the page to apply changes.');
-    } catch (error) {
-      Toast.error(`Reset failed: ${error}`);
-    }
-    setLoading(false);
+
+    // @FixMe resetStore 更新状态是异步的 + handleSave 会被闭包缓存。这里暂时使用 setTimeout 和 useLatest 解决问题 save 状态不一致问题。
+    setTimeout(() => {
+      latestHandleSave
+        .current()
+        .then(() => {
+          Toast.success('Theme has been reset to default settings. Please refresh the page to apply changes.');
+        })
+        .catch((error) => {
+          Toast.error(`Reset failed: ${error}`);
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+    }, 100);
   };
 
   return (
