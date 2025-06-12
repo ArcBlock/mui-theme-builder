@@ -1,16 +1,14 @@
 /* eslint-disable @typescript-eslint/default-param-last */
-import { deepmerge } from '@arcblock/ux/lib/Theme';
 import { ThemeOptions, createTheme } from '@mui/material';
 import { defaultFonts, defaultThemeOptions } from 'src/siteTheme';
-import { PreviewSize, RootState } from 'src/state/types';
-import { generateThemeId, getFontsFromThemeOptions } from 'src/utils';
+import { RootState } from 'src/state/types';
+import { createPreviewMuiTheme, generateThemeId, getFontsFromThemeOptions, loadFontsIfRequired } from 'src/utils';
 
-import { loadFonts } from './actions';
 import editorReducer, { initialState as editorInitialState } from './editor/reducers';
 
 const defaultThemeId = generateThemeId('');
 
-const initialState: RootState = {
+export const initialState: RootState = {
   editor: editorInitialState,
   themeId: defaultThemeId,
   themeOptions: defaultThemeOptions,
@@ -21,36 +19,6 @@ const initialState: RootState = {
   previewSize: false,
   themeConfigOpen: false,
   selectedComponentId: 'Website',
-};
-
-function loadFontsIfRequired(fonts: string[] = [], loadedFonts: Set<string>) {
-  const fontsToLoad = fonts.filter((x) => !loadedFonts.has(x));
-
-  if (!fontsToLoad.length) return loadedFonts;
-
-  loadFonts(fontsToLoad);
-
-  return new Set([...loadedFonts, ...fontsToLoad].sort());
-}
-
-const createPreviewMuiTheme = (themeOptions: ThemeOptions, previewSize: PreviewSize) => {
-  // 利用 breakpoints 强制布局
-  const spoofedBreakpoints: Record<string, { xs: number; sm: number; md: number; lg: number; xl: number }> = {
-    xs: { xs: 0, sm: 10000, md: 10001, lg: 10002, xl: 10003 },
-    sm: { xs: 0, sm: 1, md: 10001, lg: 10002, xl: 10003 },
-    md: { xs: 0, sm: 1, md: 2, lg: 10002, xl: 10003 },
-    lg: { xs: 0, sm: 1, md: 2, lg: 3, xl: 10003 },
-    xl: { xs: 0, sm: 1, md: 2, lg: 3, xl: 4 },
-  };
-
-  const currentThemeOptions = deepmerge(
-    themeOptions.palette?.mode === 'light' ? defaultThemeOptions.light : defaultThemeOptions.dark,
-    themeOptions,
-  );
-
-  if (!previewSize) return createTheme(currentThemeOptions);
-
-  return createTheme(deepmerge(currentThemeOptions, { breakpoints: { values: spoofedBreakpoints[previewSize] } }));
 };
 
 export default (state = initialState, action: any) => {
@@ -69,23 +37,6 @@ export default (state = initialState, action: any) => {
   }
 
   switch (action.type) {
-    // 从 localStorage 还原
-    case 'persist/REHYDRATE':
-      if (action.payload != null) {
-        return {
-          ...currentState,
-          ...action.payload,
-          loadedFonts: loadFontsIfRequired(
-            Array.from(action.payload.loadedFonts || new Set()),
-            currentState.loadedFonts,
-          ),
-          themeObject: createPreviewMuiTheme(
-            action.payload.themeOptions[action.payload.mode],
-            currentState.previewSize,
-          ),
-        };
-      }
-      return currentState;
     // 设置 ThemeOptions
     case 'SET_THEME_OPTIONS':
       return {

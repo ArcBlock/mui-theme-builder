@@ -7,11 +7,10 @@ import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import SaveIcon from '@mui/icons-material/Save';
 import { Box, BoxProps, IconButton } from '@mui/material';
 import Tooltip from '@mui/material/Tooltip';
-import Typography from '@mui/material/Typography';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { resetStore } from 'src/state/actions';
-import { useCanSave } from 'src/state/selectors';
+// import { useCanSave } from 'src/state/selectors';
 import { RootState } from 'src/state/types';
 
 import EditorSettings from './EditorSettings';
@@ -112,7 +111,7 @@ export default function EditorControls({ codeEditor, sx, ...rest }: EditorContro
   // TODO: undo/redo 目前不能很好的跟 Theme Tools 联动，暂时屏蔽
   // const canUndo = useSelector((state: RootState) => state.editor.canUndo);
   // const canRedo = useSelector((state: RootState) => state.editor.canRedo);
-  const canSave = useCanSave();
+  // const canSave = useCanSave();
 
   // set Save and Undo/Redo listeners, and get handlers
   const handleSave = useSave(codeEditor);
@@ -167,9 +166,9 @@ export default function EditorControls({ codeEditor, sx, ...rest }: EditorContro
           </span>
         </Tooltip>
       </Box>
-      <Typography variant="body2" color={canSave ? 'text.primary' : 'text.secondary'} display="inline">
+      {/* <Typography variant="body2" color={canSave ? 'text.primary' : 'text.secondary'} display="inline">
         {canSave ? '* Unsaved Changes' : 'All changes saved'}
-      </Typography>
+      </Typography> */}
     </Box>
   );
 }

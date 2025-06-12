@@ -1,7 +1,11 @@
-import { ThemeOptions } from '@mui/material';
+import { deepmerge } from '@arcblock/ux/lib/Theme';
+import { ThemeOptions, createTheme } from '@mui/material';
 import { TypographyOptions } from '@mui/material/styles/createTypography';
 import dotProp from 'dot-prop-immutable';
 import JSON5 from 'json5';
+
+import { defaultThemeOptions } from './siteTheme';
+import { PreviewSize } from './state/types';
 
 export const isDev = process.env.NODE_ENV === 'development';
 
@@ -192,4 +196,64 @@ export function diffJSON(source: any, target: any): any {
   });
 
   return hasDiff ? result : undefined;
+}
+
+/**
+ * loads a set of passed fonts and resolves a promise
+ * when the fonts load, or fail to load
+ * @param fonts
+ */
+export function loadFonts(fonts: string[]) {
+  return new Promise<boolean>((resolve) => {
+    import('webfontloader')
+      .then((WebFontModule) => {
+        const WebFont = WebFontModule.default || WebFontModule;
+        WebFont.load({
+          google: {
+            families: fonts,
+          },
+          active: () => {
+            verbose('state/actions -> loadFonts: webfonts loaded', fonts);
+            resolve(true);
+          },
+          inactive: () => {
+            verbose('state/actions -> loadFonts: webfonts could not load', fonts);
+            resolve(false);
+          },
+        });
+      })
+      .catch(() => {
+        resolve(false);
+      });
+  });
+}
+
+export function loadFontsIfRequired(fonts: string[], loadedFonts: Set<string>) {
+  const fontsToLoad = fonts.filter((x) => !loadedFonts.has(x));
+
+  if (!fontsToLoad.length) return loadedFonts;
+
+  loadFonts(fontsToLoad);
+
+  return new Set([...loadedFonts, ...fontsToLoad].sort());
+}
+
+export function createPreviewMuiTheme(themeOptions: ThemeOptions, previewSize: PreviewSize) {
+  // 利用 breakpoints 强制布局
+  const spoofedBreakpoints: Record<string, { xs: number; sm: number; md: number; lg: number; xl: number }> = {
+    xs: { xs: 0, sm: 10000, md: 10001, lg: 10002, xl: 10003 },
+    sm: { xs: 0, sm: 1, md: 10001, lg: 10002, xl: 10003 },
+    md: { xs: 0, sm: 1, md: 2, lg: 10002, xl: 10003 },
+    lg: { xs: 0, sm: 1, md: 2, lg: 3, xl: 10003 },
+    xl: { xs: 0, sm: 1, md: 2, lg: 3, xl: 4 },
+  };
+
+  const currentThemeOptions = deepmerge(
+    themeOptions.palette?.mode === 'light' ? defaultThemeOptions.light : defaultThemeOptions.dark,
+    themeOptions,
+  );
+
+  if (!previewSize) return createTheme(currentThemeOptions);
+
+  return createTheme(deepmerge(currentThemeOptions, { breakpoints: { values: spoofedBreakpoints[previewSize] } }));
 }

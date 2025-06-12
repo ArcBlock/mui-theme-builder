@@ -1,7 +1,8 @@
 import { applyMiddleware, createStore as reduxCreateStore } from 'redux';
 import thunk from 'redux-thunk';
+import { createPreviewMuiTheme, loadFontsIfRequired, stringify } from 'src/utils';
 
-import reducers from './reducers';
+import reducers, { initialState } from './reducers';
 
 const STORAGE_KEY = 'blocklet-theme-builder';
 
@@ -23,7 +24,7 @@ const persistMiddleware = (store: any) => (next: any) => (action: any) => {
   return result;
 };
 
-// 从 localStorage 恢复状态
+// 从 localStorage 恢复初始状态
 const loadState = () => {
   try {
     const serializedState = localStorage.getItem(STORAGE_KEY);
@@ -31,11 +32,18 @@ const loadState = () => {
       return undefined;
     }
     const state = JSON.parse(serializedState);
-    // 转换 loadedFonts 回 Set
-    if (state.loadedFonts) {
-      state.loadedFonts = new Set(state.loadedFonts);
-    }
-    return state;
+    state.loadedFonts = loadFontsIfRequired(state.loadedFonts, new Set(state.loadedFonts));
+    state.themeObject = createPreviewMuiTheme(state.themeOptions[state.mode], false);
+
+    return {
+      ...initialState,
+      ...state,
+      // @required editor 初始状态
+      editor: {
+        ...initialState.editor,
+        themeInput: stringify(state.themeOptions[state.mode]),
+      },
+    };
   } catch (err) {
     console.error('Failed to load state from localStorage:', err);
     return undefined;
