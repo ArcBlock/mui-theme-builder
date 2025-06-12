@@ -12,8 +12,8 @@ export default function ThemeTypeInput() {
   const toggleThemeType = useCallback(
     (newMode: 'light' | 'dark') => {
       if (newMode === mode) return;
-      dispatch({ type: 'SET_THEME_MODE', mode: newMode });
-      document.dispatchEvent(ThemeValueChangeEvent());
+    dispatch({ type: 'SET_THEME_MODE', mode: newMode });
+    document.dispatchEvent(ThemeValueChangeEvent());
     },
     [dispatch, mode],
   );
@@ -47,7 +47,7 @@ export default function ThemeTypeInput() {
             borderTopRightRadius: 0,
             borderBottomRightRadius: 0,
           }}>
-          Light
+        Light
         </Button>
         <Button
           variant={mode === 'dark' ? 'contained' : 'outlined'}
@@ -56,7 +56,7 @@ export default function ThemeTypeInput() {
             borderTopLeftRadius: 0,
             borderBottomLeftRadius: 0,
           }}>
-          Dark
+        Dark
         </Button>
       </ButtonGroup>
     </Box>

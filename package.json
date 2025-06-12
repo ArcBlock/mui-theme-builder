@@ -2,7 +2,7 @@
   "name": "@blocklet/theme-builder",
   "private": true,
   "description": "A comprehensive tool to customize themes for Material-UI",
-  "version": "0.1.19",
+  "version": "0.1.20",
   "keywords": [
     "MUI",
     "MUI v5",
@@ -89,7 +89,6 @@
     "react-router-dom": "^7.6.1",
     "recharts": "^2.15.3",
     "redux": "^4.2.1",
-    "redux-persist": "^6.0.0",
     "redux-thunk": "^2.4.2",
     "reselect": "^4.1.8",
     "ufo": "^1.6.1",

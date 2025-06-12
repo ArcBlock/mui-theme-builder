@@ -1,6 +1,6 @@
 import { ThemeOptions } from '@mui/material';
 import { defaultDarkTheme, defaultLightTheme } from 'src/siteTheme';
-import { getByPath, removeByPath, setByPath, verbose } from 'src/utils';
+import { getByPath, loadFonts, removeByPath, setByPath } from 'src/utils';
 
 import { canSave } from './selectors';
 import { PreviewSize } from './types';
@@ -99,36 +99,6 @@ export const setThemeOptions =
       });
     }
   };
-
-/**
- * loads a set of passed fonts and resolves a promise
- * when the fonts load, or fail to load
- * @param fonts
- */
-export function loadFonts(fonts: string[]) {
-  return new Promise<boolean>((resolve) => {
-    import('webfontloader')
-      .then((WebFontModule) => {
-        const WebFont = WebFontModule.default || WebFontModule;
-        WebFont.load({
-          google: {
-            families: fonts,
-          },
-          active: () => {
-            verbose('state/actions -> loadFonts: webfonts loaded', fonts);
-            resolve(true);
-          },
-          inactive: () => {
-            verbose('state/actions -> loadFonts: webfonts could not load', fonts);
-            resolve(false);
-          },
-        });
-      })
-      .catch(() => {
-        resolve(false);
-      });
-  });
-}
 
 /**
  * Load fonts using webfontloader, then add those fonts to the redux store

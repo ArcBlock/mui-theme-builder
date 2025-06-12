@@ -18,7 +18,6 @@ export interface RootState {
   previewSize: PreviewSize;
   themeConfigOpen: boolean;
   selectedComponentId: string;
-  previewComponent: React.ReactNode;
 }
 
 export interface EndRootState extends Omit<RootState, 'loadedFonts'> {

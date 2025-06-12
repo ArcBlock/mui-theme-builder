@@ -20,15 +20,6 @@ export const initialState: EditorState = {
 
 export default (state = initialState, action: any, parentState: Omit<RootState, 'editor'>) => {
   switch (action.type) {
-    case 'persist/REHYDRATE':
-      if (action.payload != null) {
-        const { themeOptions, mode } = action.payload;
-
-        return {
-          ...state,
-          themeInput: stringify(themeOptions[mode]),
-        };
-      }
     // eslint-disable-next-line no-fallthrough
     case 'UPDATE_EDITOR_STATE':
       return {

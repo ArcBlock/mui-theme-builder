@@ -1,3 +1,8 @@
+## 0.1.20 (2025-6-12)
+
+- feat: save theme configuration objects on demand
+- feat: save immediately after theme reset
+
 ## 0.1.19 (2025-5-26)
 
 - fix(ux): toggle theme types via tabs and apply warning style to reset buttons

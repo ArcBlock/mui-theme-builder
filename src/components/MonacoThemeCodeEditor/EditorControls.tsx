@@ -7,11 +7,10 @@ import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import SaveIcon from '@mui/icons-material/Save';
 import { Box, BoxProps, IconButton } from '@mui/material';
 import Tooltip from '@mui/material/Tooltip';
-import Typography from '@mui/material/Typography';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { resetStore } from 'src/state/actions';
-import { useCanSave } from 'src/state/selectors';
+// import { useCanSave } from 'src/state/selectors';
 import { RootState } from 'src/state/types';
 
 import EditorSettings from './EditorSettings';
@@ -47,18 +46,27 @@ export function CopyButton() {
   );
 }
 
-export function ResetButton() {
+export function ResetButton({ codeEditor }: { codeEditor: MutableCodeEditor }) {
   const dispatch = useDispatch();
+  const handleSave = useSave(codeEditor);
+  const [loading, setLoading] = useState(false);
   const [confirmOpen, setConfirmOpen] = useState(false);
 
   const handleReset = () => {
     setConfirmOpen(true);
   };
 
-  const handleConfirm = () => {
+  const handleConfirm = async () => {
     dispatch(resetStore());
-    Toast.success('Theme has been reset to default settings');
     setConfirmOpen(false);
+    setLoading(true);
+    try {
+      await handleSave();
+      Toast.success('Theme has been reset to default settings. Please refresh the page to apply changes.');
+    } catch (error) {
+      Toast.error(`Reset failed: ${error}`);
+    }
+    setLoading(false);
   };
 
   return (
@@ -67,6 +75,7 @@ export function ResetButton() {
         <span>
           <IconButton
             onClick={handleReset}
+            disabled={loading}
             size="small"
             sx={{
               '&:hover': {
@@ -102,7 +111,7 @@ export default function EditorControls({ codeEditor, sx, ...rest }: EditorContro
   // TODO: undo/redo 目前不能很好的跟 Theme Tools 联动，暂时屏蔽
   // const canUndo = useSelector((state: RootState) => state.editor.canUndo);
   // const canRedo = useSelector((state: RootState) => state.editor.canRedo);
-  const canSave = useCanSave();
+  // const canSave = useCanSave();
 
   // set Save and Undo/Redo listeners, and get handlers
   const handleSave = useSave(codeEditor);
@@ -114,7 +123,7 @@ export default function EditorControls({ codeEditor, sx, ...rest }: EditorContro
       await handleSave();
       Toast.success('Theme saved successfully. Please refresh the page to apply changes.');
     } catch (error) {
-      Toast.error('Save failed, please try again');
+      Toast.error(`Save failed: ${error}`);
     }
   };
 
@@ -134,7 +143,7 @@ export default function EditorControls({ codeEditor, sx, ...rest }: EditorContro
       <Box sx={{ display: 'flex' }}>
         <EditorSettings />
         <CopyButton />
-        <ResetButton />
+        <ResetButton codeEditor={codeEditor} />
         {/* <Tooltip title="Undo (Ctrl + Z)">
           <span>
             <IconButton disabled={!canUndo} onClick={handleUndo} size="small">
@@ -157,9 +166,9 @@ export default function EditorControls({ codeEditor, sx, ...rest }: EditorContro
           </span>
         </Tooltip>
       </Box>
-      <Typography variant="body2" color={canSave ? 'text.primary' : 'text.secondary'} display="inline">
+      {/* <Typography variant="body2" color={canSave ? 'text.primary' : 'text.secondary'} display="inline">
         {canSave ? '* Unsaved Changes' : 'All changes saved'}
-      </Typography>
+      </Typography> */}
     </Box>
   );
 }

@@ -1,6 +1,5 @@
 import MenuIcon from '@mui/icons-material/Menu';
 import { AppBar, AppBarProps, Box, Button, IconButton, Toolbar, useMediaQuery, useTheme } from '@mui/material';
-import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Samples from 'src/components/Samples';
 import { RootState } from 'src/state/types';
@@ -15,32 +14,14 @@ export default function Header({ sx, ...props }: HeaderProps) {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
-  const handleSampleSelect = (id: string, component: React.ReactNode) => {
+  const handleSampleSelect = (id: string) => {
     dispatch({
       type: 'SET_PREVIEW_COMPONENT',
       payload: {
         id,
-        component,
       },
     });
   };
-
-  // 显示上次一选择的 Sample
-  useEffect(() => {
-    if (selectedComponentId) {
-      const sample = Samples.find((s) => s.id === selectedComponentId);
-      if (sample) {
-        dispatch({
-          type: 'SET_PREVIEW_COMPONENT',
-          payload: {
-            id: sample.id,
-            component: sample.component,
-          },
-        });
-      }
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   return (
     <AppBar
@@ -77,10 +58,10 @@ export default function Header({ sx, ...props }: HeaderProps) {
         )}
         {/* Demo 导航 */}
         <Box sx={{ display: 'flex', flexDirection: 'row' }}>
-          {Samples.map(({ id, title, component }) => (
+          {Samples.map(({ id, title }) => (
             <Button
               key={id}
-              onClick={() => handleSampleSelect(id, component)}
+              onClick={() => handleSampleSelect(id)}
               color={selectedComponentId === id ? 'primary' : 'inherit'}
               sx={{
                 mx: 1,
