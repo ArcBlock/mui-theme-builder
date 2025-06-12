@@ -1,3 +1,7 @@
+## 0.1.22 (2025-6-12)
+
+- fix: first reset action has no effect
+
 ## 0.1.21 (2025-6-12)
 
 - chore: update deps
