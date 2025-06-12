@@ -1,3 +1,7 @@
+## 0.1.21 (2025-6-12)
+
+- chore: update deps
+
 ## 0.1.20 (2025-6-12)
 
 - feat: save theme configuration objects on demand
