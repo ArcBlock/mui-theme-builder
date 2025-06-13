@@ -1,3 +1,4 @@
+import { DEFAULT_FONTS } from '@blocklet/theme';
 import { applyMiddleware, createStore as reduxCreateStore } from 'redux';
 import thunk from 'redux-thunk';
 import { createPreviewMuiTheme, loadFontsIfRequired, stringify } from 'src/utils';
@@ -16,7 +17,6 @@ const persistMiddleware = (store: any) => (next: any) => (action: any) => {
     themeOptions: state.themeOptions,
     mode: state.mode,
     fonts: state.fonts,
-    loadedFonts: Array.from(state.loadedFonts),
     selectedComponentId: state.selectedComponentId,
   };
 
@@ -32,7 +32,7 @@ const loadState = () => {
       return undefined;
     }
     const state = JSON.parse(serializedState);
-    state.loadedFonts = loadFontsIfRequired(state.loadedFonts, new Set(state.loadedFonts));
+    state.loadedFonts = loadFontsIfRequired(state.fonts, new Set(DEFAULT_FONTS));
     state.themeObject = createPreviewMuiTheme(state.themeOptions[state.mode], false);
 
     return {

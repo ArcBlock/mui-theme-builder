@@ -1,8 +1,9 @@
 /* eslint-disable @typescript-eslint/default-param-last */
+import { DEFAULT_FONTS } from '@blocklet/theme';
 import { ThemeOptions, createTheme } from '@mui/material';
-import { defaultFonts, defaultThemeOptions } from 'src/siteTheme';
+import { defaultThemeOptions } from 'src/siteTheme';
 import { RootState } from 'src/state/types';
-import { createPreviewMuiTheme, generateThemeId, getFontsFromThemeOptions, loadFontsIfRequired } from 'src/utils';
+import { createPreviewMuiTheme, generateThemeId, getFontsFromThemeOptions } from 'src/utils';
 
 import editorReducer, { initialState as editorInitialState } from './editor/reducers';
 
@@ -15,7 +16,7 @@ export const initialState: RootState = {
   themeObject: createTheme(defaultThemeOptions.light),
   fonts: ['Roboto'], // themeOptions 中使用过的字体
   mode: 'light',
-  loadedFonts: new Set(), // 已加载的字体
+  loadedFonts: new Set(DEFAULT_FONTS), // 已加载的字体
   previewSize: false,
   themeConfigOpen: false,
   selectedComponentId: 'Website',
@@ -30,11 +31,6 @@ export default (state = initialState, action: any) => {
     // 这里会触发 editor 的 actions
     editor: editorReducer(state.editor, action, state),
   };
-
-  // 初始化加载字体
-  if (!state.loadedFonts.size) {
-    currentState.loadedFonts = loadFontsIfRequired(defaultFonts, state.loadedFonts);
-  }
 
   switch (action.type) {
     // 设置 ThemeOptions
@@ -147,7 +143,6 @@ export default (state = initialState, action: any) => {
     case 'RESET_STORE':
       return {
         ...initialState,
-        loadedFonts: loadFontsIfRequired(defaultFonts, state.loadedFonts),
       };
     default:
       return currentState;

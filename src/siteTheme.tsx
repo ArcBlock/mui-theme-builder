@@ -1,9 +1,6 @@
 import { BLOCKLET_THEME_DARK, BLOCKLET_THEME_LIGHT } from '@blocklet/theme';
 import { Theme, ThemeOptions, createTheme } from '@mui/material';
 
-// 默认字体
-export const defaultFonts = ['Roboto', 'Helvetica', 'Inter', 'Open Sans', 'Lato'];
-
 // 默认浅色主题
 export const defaultLightTheme: Theme = createTheme(BLOCKLET_THEME_LIGHT);
 
