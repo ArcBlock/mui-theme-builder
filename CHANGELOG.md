@@ -1,3 +1,7 @@
+## 0.1.23 (2025-6-13)
+
+- fix: remote font settings not applied
+
 ## 0.1.22 (2025-6-12)
 
 - fix: first reset action has no effect
