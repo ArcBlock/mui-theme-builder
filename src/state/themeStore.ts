@@ -1,58 +1,11 @@
 import { nanoid } from 'nanoid';
 import { defaultThemeOptions } from 'src/siteTheme';
-import type { EditorState, EditorStateOptions } from 'src/state/editor/types';
-import type { Concept, Mode } from 'src/types/theme';
+import type { Concept, EditorState, ThemeStoreState } from 'src/types/theme';
 import { loadFonts, removeByPath, setByPath } from 'src/utils';
 import { createPreviewMuiTheme } from 'src/utils';
 import { create } from 'zustand';
 import { subscribeWithSelector } from 'zustand/middleware';
 import { shallow } from 'zustand/shallow';
-
-import type { PreviewSize } from './types';
-
-interface ThemeStoreState {
-  concepts: Concept[];
-  currentConceptId: string;
-  mode: Mode;
-  fonts: string[];
-  loadedFonts: Set<string>;
-  previewSize: PreviewSize;
-  themeConfigOpen: boolean;
-  selectedComponentId: string;
-  editor: EditorState;
-  themeObject: ReturnType<typeof createPreviewMuiTheme>;
-
-  // Concepts 管理
-  addConcept: (name: string, baseThemeOptions?: Concept['themeOptions']) => void;
-  deleteConcept: (id: string) => void;
-  duplicateConcept: (id: string, name?: string) => void;
-  setCurrentConcept: (id: string) => void;
-  renameConcept: (id: string, name: string) => void;
-
-  // ThemeOptions 编辑
-  setThemeOption: (path: string, value: any) => void;
-  setThemeOptions: (configs: { path: string; value: any }[]) => void;
-  removeThemeOption: (path: string) => void;
-  removeThemeOptions: (configs: { path: string }[]) => void;
-  setThemePrefer: (prefer: string) => void;
-  setThemeMode: (mode: Mode) => void;
-  updateThemeOptions: (themeOptions: Concept['themeOptions']) => void;
-
-  // 字体
-  addFonts: (fonts: string[]) => Promise<void>;
-
-  // 预览
-  setPreviewSize: (size: PreviewSize) => void;
-  setSelectedComponentId: (id: string) => void;
-
-  // 编辑器
-  updateEditorState: (editorState: EditorStateOptions) => void;
-  saveEditorToTheme: (code: string) => void;
-
-  // 其它
-  resetStore: () => void;
-  resetSiteData: () => void;
-}
 
 // 获取当前主题配置的辅助函数
 function getCurrentThemeOptions(state: ThemeStoreState) {
@@ -61,8 +14,14 @@ function getCurrentThemeOptions(state: ThemeStoreState) {
   return current.themeOptions[state.mode];
 }
 
-export const useThemeStore = create<ThemeStoreState>()(
-  subscribeWithSelector((set, get) => {
+const initialEditorState: EditorState = {
+  colors: {},
+  typography: {},
+  styles: {},
+};
+
+export const useThemeStore = create(
+  subscribeWithSelector<ThemeStoreState>((set, get) => {
     const cid = nanoid();
 
     return {
@@ -81,18 +40,7 @@ export const useThemeStore = create<ThemeStoreState>()(
       previewSize: false,
       themeConfigOpen: false,
       selectedComponentId: 'Website',
-      editor: {
-        themeInput: '',
-        initialVersion: 0,
-        lastVersion: 0,
-        currentVersion: 0,
-        savedVersion: 0,
-        canRedo: false,
-        canUndo: false,
-        errors: [],
-        formatOnSave: true,
-        outputTypescript: true,
-      },
+      editor: initialEditorState,
       themeObject: createPreviewMuiTheme(defaultThemeOptions.light, false),
 
       // Concepts 管理
@@ -224,34 +172,6 @@ export const useThemeStore = create<ThemeStoreState>()(
           ),
         }));
       },
-
-      // 字体
-      addFonts: async (fonts) => {
-        const loaded = await loadFonts(fonts);
-        if (loaded) {
-          set((state) => ({
-            loadedFonts: new Set([...state.loadedFonts, ...fonts]),
-            fonts: Array.from(new Set([...state.fonts, ...fonts])),
-          }));
-        }
-      },
-
-      // 预览
-      setPreviewSize: (size) => set({ previewSize: size }),
-      setSelectedComponentId: (id) => set({ selectedComponentId: id }),
-
-      // 编辑器
-      updateEditorState: (editorState) => {
-        set((state) => ({
-          editor: { ...state.editor, ...editorState },
-        }));
-      },
-      saveEditorToTheme: () => {
-        // 这里需要 parseEditorOutput，略
-        // set({ ... })
-      },
-
-      // 其它
       resetStore: () =>
         set(() => ({
           concepts: [
@@ -268,23 +188,42 @@ export const useThemeStore = create<ThemeStoreState>()(
           previewSize: false,
           themeConfigOpen: false,
           selectedComponentId: 'Website',
-          editor: {
-            themeInput: '',
-            initialVersion: 0,
-            lastVersion: 0,
-            currentVersion: 0,
-            savedVersion: 0,
-            canRedo: false,
-            canUndo: false,
-            errors: [],
-            formatOnSave: true,
-            outputTypescript: true,
-          },
+          editor: initialEditorState,
         })),
       resetSiteData: () =>
         set(() => ({
           // 可根据实际需求重置部分状态
         })),
+
+      // Colors 编辑
+      setColorLock: (colorKey: string, isLocked: boolean) =>
+        set((state) => ({
+          editor: {
+            ...state.editor,
+            colors: {
+              ...state.editor.colors,
+              [colorKey]: {
+                ...state.editor.colors[colorKey],
+                isLocked: isLocked,
+              },
+            },
+          },
+        })),
+
+      // Fonts 编辑
+      addFonts: async (fonts) => {
+        const loaded = await loadFonts(fonts);
+        if (loaded) {
+          set((state) => ({
+            loadedFonts: new Set([...state.loadedFonts, ...fonts]),
+            fonts: Array.from(new Set([...state.fonts, ...fonts])),
+          }));
+        }
+      },
+
+      // Preview 查看
+      setPreviewSize: (size) => set({ previewSize: size }),
+      setSelectedComponentId: (id) => set({ selectedComponentId: id }),
     };
   }),
 );

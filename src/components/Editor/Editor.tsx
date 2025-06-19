@@ -46,7 +46,7 @@ export default function Editor() {
   }
 
   return (
-    <Box className="editor-sections" sx={{ flex: 1 }}>
+    <Box className="editor-sections" sx={{ flex: 1, p: 2 }}>
       <ColorsSection />
       <TypographySection />
       <StylesSection />

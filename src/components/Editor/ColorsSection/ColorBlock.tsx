@@ -1,83 +1,82 @@
-import { useLocaleContext } from '@arcblock/ux/lib/Locale/context';
-import { Box, Typography } from '@mui/material';
+import { Box, Paper, Typography } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
+import LockIcon from '@mui/icons-material/Lock';
+import LockOpenIcon from '@mui/icons-material/LockOpen';
 import { useThemeStore } from 'src/state/themeStore';
+import { PaletteColor } from '@mui/material/styles';
 
 interface ColorBlockProps {
-  colorType: 'neutral' | 'primary' | 'secondary' | 'success' | 'error' | 'info' | 'warning';
+  colorType: string;
   onClick?: () => void;
 }
 
 function ColorBlock({ colorType, onClick }: ColorBlockProps) {
-  const { t } = useLocaleContext();
-  const currentConcept = useThemeStore((s) => {
-    const { concepts } = s;
-    const { currentConceptId } = s;
-    return concepts.find((c) => c.id === currentConceptId);
-  });
-  const mode = useThemeStore((s) => s.mode);
+  const theme = useTheme();
+  const isLocked = useThemeStore((s) => s.editor.colors[colorType]?.isLocked ?? false);
+  const setColorLock = useThemeStore((s) => s.setColorLock);
 
-  // 获取颜色值
-  const getColorValue = () => {
-    if (!currentConcept) return '#000000';
-
-    const themeOptions = currentConcept.themeOptions[mode];
-    if (!themeOptions?.palette) return '#000000';
-
-    switch (colorType) {
-      case 'neutral':
-        return themeOptions.palette.background?.default || '#ffffff';
-      case 'primary':
-        return themeOptions.palette.primary?.main || '#1976d2';
-      case 'secondary':
-        return themeOptions.palette.secondary?.main || '#dc004e';
-      case 'success':
-        return themeOptions.palette.success?.main || '#2e7d32';
-      case 'error':
-        return themeOptions.palette.error?.main || '#d32f2f';
-      case 'info':
-        return themeOptions.palette.info?.main || '#0288d1';
-      case 'warning':
-        return themeOptions.palette.warning?.main || '#ed6c02';
-      default:
-        return '#000000';
-    }
-  };
-
-  const colorValue = getColorValue();
+  const color = theme.palette[colorType as keyof typeof theme.palette] as PaletteColor;
+  const mainColor = color?.main || '#000000';
+  const colorName = colorType.charAt(0).toUpperCase() + colorType.slice(1);
 
   return (
-    <Box
-      onClick={onClick}
+    <Paper
+      variant="outlined"
       sx={{
-        width: '100%',
-        height: 60,
-        backgroundColor: colorValue,
-        borderRadius: 1,
-        border: '1px solid',
-        borderColor: 'divider',
-        cursor: onClick ? 'pointer' : 'default',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'flex-end',
-        p: 1,
-        transition: 'transform 0.2s, box-shadow 0.2s',
-        '&:hover': onClick
-          ? {
-              transform: 'translateY(-2px)',
-              boxShadow: 2,
-            }
-          : {},
-      }}>
-      <Typography
-        variant="caption"
+        p: 2,
+        height: '100%',
+        cursor: 'pointer',
+        position: 'relative',
+        '&:hover': {
+          borderColor: 'primary.main',
+          '& .lock-icon': {
+            opacity: 1,
+          },
+        },
+      }}
+      onClick={onClick}>
+      <Box
+        className="lock-icon"
+        onClick={(e) => {
+          e.stopPropagation();
+          setColorLock(colorType, !isLocked);
+        }}
         sx={{
-          color: colorType === 'neutral' ? 'text.primary' : 'white',
-          fontWeight: 500,
-          textShadow: colorType === 'neutral' ? 'none' : '0 1px 2px rgba(0,0,0,0.3)',
+          position: 'absolute',
+          top: 8,
+          right: 8,
+          opacity: isLocked ? 1 : 0,
+          transition: 'opacity 0.2s',
+          cursor: 'pointer',
+          color: theme.palette.getContrastText(mainColor),
+          '&:hover': {
+            opacity: 1,
+          },
         }}>
-        {t(`editor.${colorType}`)}
+        {isLocked ? <LockIcon fontSize="small" /> : <LockOpenIcon fontSize="small" />}
+      </Box>
+      <Typography variant="subtitle1" sx={{ mb: 1 }}>
+        {colorName}
       </Typography>
-    </Box>
+      <Box
+        sx={{
+          backgroundColor: mainColor,
+          borderRadius: 1,
+          height: 120,
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'flex-end',
+          p: 1,
+          '& > *': {
+            color: theme.palette.getContrastText(mainColor),
+          },
+        }}>
+        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <Typography variant="caption">{mainColor}</Typography>
+          <Typography variant="caption">main</Typography>
+        </Box>
+      </Box>
+    </Paper>
   );
 }
 
