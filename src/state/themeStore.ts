@@ -2,7 +2,7 @@ import { nanoid } from 'nanoid';
 import { defaultThemeOptions } from 'src/siteTheme';
 import type { EditorState, EditorStateOptions } from 'src/state/editor/types';
 import type { Concept, Mode, PreviewSize } from 'src/types/theme';
-import { deepmerge, getByPath, loadFonts, removeByPath, setByPath } from 'src/utils';
+import { loadFonts, removeByPath, setByPath } from 'src/utils';
 import { create } from 'zustand';
 
 interface ThemeStoreState {
@@ -215,7 +215,7 @@ export const useThemeStore = create<ThemeStoreState>((set, get) => ({
       editor: { ...state.editor, ...editorState },
     }));
   },
-  saveEditorToTheme: (code) => {
+  saveEditorToTheme: () => {
     // 这里需要 parseEditorOutput，略
     // set({ ... })
   },

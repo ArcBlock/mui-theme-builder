@@ -1,26 +1,21 @@
 import MenuIcon from '@mui/icons-material/Menu';
 import { AppBar, AppBarProps, Box, Button, IconButton, Toolbar, useMediaQuery, useTheme } from '@mui/material';
-import { useDispatch, useSelector } from 'react-redux';
 import Samples from 'src/components/Samples';
-import { RootState } from 'src/state/types';
+import { useThemeStore } from 'src/state/themeStore';
 
+import ConceptMenu from './Header/ConceptMenu';
 import PreviewSizeControls from './PreviewWindow/PreviewSizeControls';
 
 export interface HeaderProps extends AppBarProps {}
 
 export default function Header({ sx, ...props }: HeaderProps) {
-  const dispatch = useDispatch();
-  const selectedComponentId = useSelector((state: RootState) => state.selectedComponentId);
+  const selectedComponentId = useThemeStore((s) => s.selectedComponentId);
+  const setSelectedComponentId = useThemeStore((s) => s.setSelectedComponentId);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
   const handleSampleSelect = (id: string) => {
-    dispatch({
-      type: 'SET_PREVIEW_COMPONENT',
-      payload: {
-        id,
-      },
-    });
+    setSelectedComponentId(id);
   };
 
   return (
@@ -45,17 +40,25 @@ export default function Header({ sx, ...props }: HeaderProps) {
           },
           overflowX: 'auto',
         }}>
+        {/* 主题管理菜单 */}
+        <Box sx={{ mr: 2 }}>
+          <ConceptMenu />
+        </Box>
+
         {/* 切换配置 Drawer */}
         {isMobile && (
           <IconButton
             size="small"
             color="inherit"
             aria-label="toggle theme config"
-            onClick={() => dispatch({ type: 'TOGGLE_THEME_CONFIG' })}
+            onClick={() => {
+              /* TODO: 实现移动端配置切换 */
+            }}
             sx={{ p: 0.5 }}>
             <MenuIcon sx={{ fontSize: '20px' }} />
           </IconButton>
         )}
+
         {/* Demo 导航 */}
         <Box sx={{ display: 'flex', flexDirection: 'row' }}>
           {Samples.map(({ id, title }) => (
