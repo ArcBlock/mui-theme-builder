@@ -54,7 +54,7 @@ function ThemeConfigDrawer() {
         direction="column"
         wrap="nowrap"
         sx={{ height: '100%', overflowX: 'hidden', overflowY: 'auto' }}>
-        {/* 编辑按钮 */}
+        {/* 工具栏按钮 */}
         <Grid item className="editor-controls">
           <EditorControls codeEditor={codeEditor} sx={{ height: '49px' }} />
         </Grid>

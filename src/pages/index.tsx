@@ -14,7 +14,9 @@ function IndexPage() {
           height: '100%',
         }}>
         <ErrorBoundary>
+          {/* 左侧编辑区 */}
           <ThemeConfigDrawer />
+          {/* 右侧预览区 */}
           <Box
             sx={{
               flex: 1,

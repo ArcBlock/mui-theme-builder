@@ -81,6 +81,7 @@
     "mdi-material-ui": "^7.9.4",
     "moment": "^2.30.1",
     "monaco-editor": "^0.20.0",
+    "nanoid": "^5.1.5",
     "prettier": "^3.5.3",
     "react": "~18.2.0",
     "react-color": "^2.19.3",
@@ -93,7 +94,8 @@
     "reselect": "^4.1.8",
     "ufo": "^1.6.1",
     "webfontloader": "^1.6.28",
-    "xhr-mock": "^2.5.1"
+    "xhr-mock": "^2.5.1",
+    "zustand": "^5.0.5"
   },
   "devDependencies": {
     "@arcblock/eslint-config-ts": "^0.3.3",

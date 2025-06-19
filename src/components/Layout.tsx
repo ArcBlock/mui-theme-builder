@@ -8,8 +8,6 @@ import useSchemaKey from 'src/hooks/use-schema-key';
 import { createSiteThemeOptions } from 'src/siteTheme';
 import { isDev } from 'src/utils';
 
-import './layout.css';
-
 interface LayoutProps {
   children: React.ReactNode;
 }
