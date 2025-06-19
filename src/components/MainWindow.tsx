@@ -1,12 +1,11 @@
 import { Box } from '@mui/material';
-import { useSelector } from 'react-redux';
-import { RootState } from 'src/state/types';
+import { useThemeStore } from 'src/state/themeStore';
 
 import PreviewWrapper from './PreviewWindow/PreviewWrapper';
 import { getSampleComponent } from './Samples';
 
 function MainWindow() {
-  const selectedComponentId = useSelector((state: RootState) => state.selectedComponentId);
+  const selectedComponentId = useThemeStore((s) => s.selectedComponentId);
   const previewComponent = getSampleComponent(selectedComponentId);
 
   return (

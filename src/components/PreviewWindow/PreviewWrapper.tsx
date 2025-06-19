@@ -1,8 +1,7 @@
 import { Box, Paper, useTheme } from '@mui/material';
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useThemeStore } from 'src/state/themeStore';
 import ThemeWrapper from 'src/components/ThemeWrapper';
-import { RootState } from 'src/state/types';
 
 interface PreviewWrapperProps {
   children: React.ReactNode;
@@ -44,7 +43,7 @@ interface PreviewBackgroundProps {
 function PreviewBackground({ children }: PreviewBackgroundProps) {
   const theme = useTheme();
   const directionIsRTL = theme.direction === 'rtl';
-  const previewSize = useSelector((state: RootState) => state.previewSize);
+  const previewSize = useThemeStore((s) => s.previewSize);
   return (
     <Paper
       elevation={8}

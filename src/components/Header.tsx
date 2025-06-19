@@ -58,7 +58,7 @@ export default function Header({ sx, ...props }: HeaderProps) {
             <MenuIcon sx={{ fontSize: '20px' }} />
           </IconButton>
         )}
-
+        <Box sx={{ flexGrow: 1 }} />
         {/* Demo 导航 */}
         <Box sx={{ display: 'flex', flexDirection: 'row' }}>
           {Samples.map(({ id, title }) => (
@@ -83,7 +83,6 @@ export default function Header({ sx, ...props }: HeaderProps) {
             </Button>
           ))}
         </Box>
-        <Box sx={{ flexGrow: 1 }} />
         <PreviewSizeControls />
       </Toolbar>
     </AppBar>

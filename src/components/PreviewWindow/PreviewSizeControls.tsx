@@ -3,16 +3,15 @@ import SmartphoneIcon from '@mui/icons-material/Smartphone';
 import TabletMacIcon from '@mui/icons-material/TabletMac';
 import { BottomNavigation, BottomNavigationAction, useMediaQuery, useTheme } from '@mui/material';
 import { useCallback, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { setPreviewSize } from 'src/state/actions';
-import { PreviewSize, RootState } from 'src/state/types';
+import { useThemeStore } from 'src/state/themeStore';
+import type { PreviewSize } from 'src/state/types';
 
 export const previewSizeControlsId = 'preview-size-controls';
 
 function PreviewSizeControls() {
-  const previewSize = useSelector((state: RootState) => state.previewSize);
-  const dispatch = useDispatch();
-  const handleOnChange = useCallback((_: unknown, value: PreviewSize) => dispatch(setPreviewSize(value)), [dispatch]);
+  const previewSize = useThemeStore((s) => s.previewSize);
+  const setPreviewSize = useThemeStore((s) => s.setPreviewSize);
+  const handleOnChange = useCallback((_: unknown, value: PreviewSize) => setPreviewSize(value), [setPreviewSize]);
 
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));

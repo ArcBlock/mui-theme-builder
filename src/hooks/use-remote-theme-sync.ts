@@ -1,7 +1,7 @@
 import { deepmerge } from '@arcblock/ux/lib/Theme';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useThemeStore } from 'src/state/themeStore';
 import { defaultThemeOptions } from 'src/siteTheme';
 import { getAuthHeaders, isDev } from 'src/utils';
 
@@ -9,7 +9,7 @@ import useSchemaKey from './use-schema-key';
 
 export default function useRemoteThemeSync() {
   const [loading, setLoading] = useState(!isDev);
-  const dispatch = useDispatch();
+  const updateThemeOptions = useThemeStore((s) => s.updateThemeOptions);
   const schemaKey = useSchemaKey();
 
   useEffect(() => {
@@ -24,19 +24,18 @@ export default function useRemoteThemeSync() {
       .then((res) => {
         const { light = {}, dark = {}, common = {}, prefer = 'light' } = res.data || {};
 
-        dispatch({
-          type: 'SET_THEME_OPTIONS',
-          themeOptions: deepmerge(defaultThemeOptions, {
+        updateThemeOptions(
+          deepmerge(defaultThemeOptions, {
             light: deepmerge(common, light),
             dark: deepmerge(common, dark),
             prefer,
-          }),
-        });
+          })
+        );
       })
       .finally(() => {
         setLoading(false);
       });
-  }, [dispatch, schemaKey]);
+  }, [updateThemeOptions, schemaKey]);
 
   return loading;
 }

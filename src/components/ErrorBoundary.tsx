@@ -1,7 +1,6 @@
 import { Alert, Box, Button } from '@mui/material';
 import { Component, ErrorInfo, ReactNode, useCallback } from 'react';
-import { useDispatch } from 'react-redux';
-import { resetSiteData } from 'src/state/actions';
+import { useThemeStore } from 'src/state/themeStore';
 
 interface Props {
   children: ReactNode;
@@ -63,11 +62,11 @@ class ErrorBoundary extends Component<Props, State> {
 export default ErrorBoundary;
 
 function ClearStorageButton() {
-  const dispatch = useDispatch();
+  const resetSiteData = useThemeStore((s) => s.resetSiteData);
   const handleClick = useCallback(() => {
-    dispatch(resetSiteData());
+    resetSiteData();
     window.location.reload();
-  }, [dispatch]);
+  }, [resetSiteData]);
 
   return (
     <Button variant="contained" color="primary" size="large" onClick={handleClick}>

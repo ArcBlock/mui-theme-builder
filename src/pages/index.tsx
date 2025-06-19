@@ -1,51 +1,40 @@
 import { Box } from '@mui/material';
+import Editor from 'src/components/Editor/Editor';
 import ErrorBoundary from 'src/components/ErrorBoundary';
 import Header from 'src/components/Header';
 import Layout from 'src/components/Layout';
 import MainWindow from 'src/components/MainWindow';
-import ThemeConfigDrawer from 'src/components/ThemeConfigDrawer';
 
 function IndexPage() {
   return (
     <Layout>
-      <Box
-        sx={{
-          display: 'flex',
-          height: '100%',
-        }}>
-        <ErrorBoundary>
-          {/* 左侧编辑区 */}
-          <ThemeConfigDrawer />
-          {/* 右侧预览区 */}
+      <ErrorBoundary>
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            height: '100%',
+          }}>
+          <Header />
           <Box
             sx={{
-              flex: 1,
               display: 'flex',
-              flexDirection: 'column',
-              minWidth: 0,
+              flexGrow: 1,
+              minHeight: 0,
+              overflow: 'hidden',
+              backgroundColor: 'background.default',
             }}>
-            <Header />
-            <Box
-              sx={{
-                flex: 1,
-                display: 'flex',
-                minHeight: 0,
-              }}>
-              <Box
-                component="main"
-                sx={{
-                  minWidth: 0,
-                  minHeight: 0,
-                  flex: 1,
-                  display: 'flex',
-                  flexDirection: 'column',
-                }}>
-                <MainWindow />
-              </Box>
+            {/* 编辑区 */}
+            <Box sx={{ flex: 1, overflowY: 'auto', overflowX: 'hidden' }}>
+              <Editor />
+            </Box>
+            {/* 预览区 */}
+            <Box sx={{ flex: 1, overflowY: 'auto', overflowX: 'hidden' }}>
+              <MainWindow />
             </Box>
           </Box>
-        </ErrorBoundary>
-      </Box>
+        </Box>
+      </ErrorBoundary>
     </Layout>
   );
 }

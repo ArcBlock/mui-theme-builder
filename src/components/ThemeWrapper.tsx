@@ -1,9 +1,8 @@
 import { ThemeProvider } from '@arcblock/ux/lib/Theme';
 import Paper, { PaperProps } from '@mui/material/Paper';
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useThemeStore } from 'src/state/themeStore';
 import useScrollbarStyle from 'src/hooks/use-scrollbar-style';
-import { RootState } from 'src/state/types';
 
 interface ThemeWrapperProps {
   children: React.ReactNode;
@@ -15,7 +14,7 @@ interface ThemeWrapperProps {
  * set by the theme editor sidebar
  */
 function ThemeWrapper({ children }: ThemeWrapperProps) {
-  const themeObject = useSelector((state: RootState) => state.themeObject);
+  const themeObject = useThemeStore((s) => s.themeObject);
 
   return (
     <ThemeProvider theme={themeObject} darkSchemeClass="dark-color-scheme" injectFirst>
