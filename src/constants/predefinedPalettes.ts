@@ -1,0 +1,78 @@
+export const predefinedPalettes = [
+  {
+    name: 'Oceanic Blue',
+    light: {
+      primary: '#0077B6',
+      secondary: '#00B4D8',
+      success: '#4CAF50',
+      error: '#F44336',
+      info: '#2196F3',
+      warning: '#FF9800',
+    },
+    dark: {
+      primary: '#90E0EF',
+      secondary: '#CAF0F8',
+      success: '#81C784',
+      error: '#E57373',
+      info: '#64B5F6',
+      warning: '#FFB74D',
+    },
+  },
+  {
+    name: 'Sunset Grove',
+    light: {
+      primary: '#E67E22',
+      secondary: '#D35400',
+      success: '#27AE60',
+      error: '#C0392B',
+      info: '#2980B9',
+      warning: '#F1C40F',
+    },
+    dark: {
+      primary: '#F39C12',
+      secondary: '#E67E22',
+      success: '#2ECC71',
+      error: '#E74C3C',
+      info: '#3498DB',
+      warning: '#F39C12',
+    },
+  },
+  {
+    name: 'Royal Garden',
+    light: {
+      primary: '#8E44AD',
+      secondary: '#9B59B6',
+      success: '#2ECC71',
+      error: '#E74C3C',
+      info: '#3498DB',
+      warning: '#F1C40F',
+    },
+    dark: {
+      primary: '#BB86FC',
+      secondary: '#03DAC6',
+      success: '#A5D6A7',
+      error: '#EF9A9A',
+      info: '#9FA8DA',
+      warning: '#FFE082',
+    },
+  },
+  {
+    name: 'Forest Whisper',
+    light: {
+      primary: '#2D6A4F',
+      secondary: '#40916C',
+      success: '#52B788',
+      error: '#D90429',
+      info: '#00A8E8',
+      warning: '#FFC300',
+    },
+    dark: {
+      primary: '#B7E4C7',
+      secondary: '#D8F3DC',
+      success: '#95D5B2',
+      error: '#EF476F',
+      info: '#00B4D8',
+      warning: '#FFD60A',
+    },
+  },
+]; 

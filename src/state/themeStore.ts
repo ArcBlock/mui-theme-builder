@@ -1,4 +1,6 @@
+import { PaletteColor } from '@mui/material/styles';
 import { nanoid } from 'nanoid';
+import { predefinedPalettes } from 'src/constants/predefinedPalettes';
 import { defaultThemeOptions } from 'src/siteTheme';
 import type { Concept, EditorState, ThemeStoreState } from 'src/types/theme';
 import { getCurrentThemeOptions, loadFonts, removeByPath, setByPath } from 'src/utils';
@@ -202,6 +204,49 @@ export const useThemeStore = create(
             },
           },
         })),
+      shuffleColors: () =>
+        set((state) => {
+          const lockedColors = state.editor.colors;
+          const { mode, concepts, currentConceptId, themeObject } = state;
+          const currentConcept = concepts.find((c) => c.id === currentConceptId);
+
+          if (!currentConcept) return {};
+
+          const randomIndex = Math.floor(Math.random() * predefinedPalettes.length);
+          const selectedPalette = predefinedPalettes[randomIndex][mode];
+
+          const updates: { path: string; value: any }[] = [];
+
+          Object.keys(selectedPalette).forEach((key) => {
+            const colorKey = key as keyof typeof selectedPalette;
+            if (!lockedColors[colorKey]?.isLocked) {
+              const newMainColor = selectedPalette[colorKey];
+              const augmentedColor = themeObject.palette.augmentColor({ color: { main: newMainColor } });
+
+              Object.keys(augmentedColor).forEach((subKey) => {
+                updates.push({
+                  path: `palette.${colorKey}.${subKey}`,
+                  value: augmentedColor[subKey as keyof PaletteColor],
+                });
+              });
+            }
+          });
+
+          if (updates.length === 0) {
+            return {};
+          }
+
+          const newThemeOptions = { ...currentConcept.themeOptions };
+          updates.forEach(({ path, value }) => {
+            setByPath(newThemeOptions[mode], path, value);
+          });
+
+          const newConcepts = concepts.map((c) =>
+            c.id === currentConceptId ? { ...c, themeOptions: newThemeOptions } : c,
+          );
+
+          return { concepts: newConcepts };
+        }),
 
       // Fonts 编辑
       addFonts: async (fonts) => {

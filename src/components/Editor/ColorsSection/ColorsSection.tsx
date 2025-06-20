@@ -31,6 +31,7 @@ function ColorsSection() {
   const { t } = useLocaleContext();
   const mode = useThemeStore((s) => s.mode);
   const setThemeMode = useThemeStore((s) => s.setThemeMode);
+  const shuffleColors = useThemeStore((s) => s.shuffleColors);
   const [selectedColor, setSelectedColor] = useState<ColorType | null>(null);
 
   const handleColorClick = (colorType: ColorType) => {
@@ -38,7 +39,7 @@ function ColorsSection() {
   };
 
   const handleShuffle = () => {
-    // TODO: 实现 shuffle 逻辑，只改变未锁定的颜色
+    shuffleColors();
   };
 
   const handleModeChange = (newMode: 'light' | 'dark') => {

@@ -25,9 +25,10 @@ function StylesSection() {
     <Box sx={{ mt: 3 }}>
       <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ mb: 2 }}>
         <Typography variant="h5">{t('editor.styles')}</Typography>
-        <Box sx={{ display: 'flex', gap: 1, justifyContent: 'flex-end', alignItems: 'center' }}>
+        {/* 目前 Styles 的 Shuffle 没有太大意义 */}
+        {/* <Box sx={{ display: 'flex', gap: 1, justifyContent: 'flex-end', alignItems: 'center' }}>
           <ButtonShuffle />
-        </Box>
+        </Box> */}
       </Stack>
 
       <Stack spacing={3}>
