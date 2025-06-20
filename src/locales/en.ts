@@ -71,4 +71,43 @@ export default {
     customStyles: 'Custom Styles',
     customStylesPlaceholder: 'Enter custom CSS styles...',
   },
+  samples: {
+    title: 'Samples',
+    website: {
+      hero: {
+        title: 'Build Better Teams with',
+        subtitle:
+          'The ultimate collaboration platform for modern IT teams. Streamline your workflow, enhance communication, and deliver projects faster.',
+        cta: {
+          start: 'Get Started Free',
+          demo: 'Watch Demo',
+        },
+      },
+      features: {
+        title: 'Why Teams Choose TeamSpace',
+        subtitle: 'Powerful features designed for modern development teams',
+        collaboration: {
+          title: 'Team Collaboration',
+          description: 'Real-time collaboration tools that keep your team in sync',
+        },
+        performance: {
+          title: 'Fast Performance',
+          description: 'Lightning-fast performance that scales with your team',
+        },
+        security: {
+          title: 'Enterprise Security',
+          description: 'Bank-grade security to protect your sensitive data',
+        },
+        access: {
+          title: 'Global Access',
+          description: 'Access your workspace from anywhere in the world',
+        },
+      },
+      finalCta: {
+        title: 'Ready to Transform Your Team?',
+        subtitle: 'Join thousands of teams already using TeamSpace to build better products.',
+        cta: 'Start Your Free Trial',
+      },
+    },
+  },
 };

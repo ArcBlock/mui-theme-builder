@@ -71,4 +71,42 @@ export default {
     customStyles: '自定义样式',
     customStylesPlaceholder: '输入自定义 CSS 样式...',
   },
+  samples: {
+    title: '示例',
+    website: {
+      hero: {
+        title: '构建更强大的团队',
+        subtitle: '为现代 IT 团队打造的终极协作平台。简化您的工作流程，加强沟通，更快地交付项目。',
+        cta: {
+          start: '免费开始',
+          demo: '观看演示',
+        },
+      },
+      features: {
+        title: '为什么选择 TeamSpace',
+        subtitle: '为现代开发团队设计的强大功能',
+        collaboration: {
+          title: '团队协作',
+          description: '实时的协作工具，让您的团队保持同步',
+        },
+        performance: {
+          title: '快速性能',
+          description: '闪电般的性能，可随您的团队扩展',
+        },
+        security: {
+          title: '企业级安全',
+          description: '银行级的安全保护，确保您的敏感数据安全',
+        },
+        access: {
+          title: '全球访问',
+          description: '从世界任何地方访问您的工作区',
+        },
+      },
+      finalCta: {
+        title: '准备好改变您的团队了吗？',
+        subtitle: '加入数千个已经在使用 TeamSpace 构建更好产品的团队。',
+        cta: '开始免费试用',
+      },
+    },
+  },
 };
