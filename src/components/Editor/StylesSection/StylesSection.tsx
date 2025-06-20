@@ -82,21 +82,6 @@ function StylesSection() {
           </Select>
         </FormControl>
       </Box>
-
-      {/* 可以添加更多样式设置 */}
-      <Box>
-        <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
-          {t('editor.customStyles')}
-        </Typography>
-        <TextField
-          fullWidth
-          multiline
-          rows={4}
-          placeholder={t('editor.customStylesPlaceholder')}
-          size="small"
-          variant="outlined"
-        />
-      </Box>
     </Box>
   );
 }
