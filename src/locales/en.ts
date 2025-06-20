@@ -20,7 +20,7 @@ export default {
     colors: 'Colors',
     typography: 'Typography',
     styles: 'Styles',
-    neutral: 'Neutral',
+    neutral: 'Neutrals',
     primary: 'Primary',
     secondary: 'Secondary',
     success: 'Success',

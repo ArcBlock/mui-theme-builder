@@ -4,7 +4,11 @@ import { useEffect, useState } from 'react';
 // import { parentTheme } from './.cache/constant';
 
 export default function useParentTheme() {
-  const [theme, setTheme] = useState<ThemeOptions>({});
+  const [theme, setTheme] = useState<ThemeOptions>({
+    shape: {
+      borderRadius: 8,
+    },
+  });
   const [loading, setLoading] = useState(true);
 
   // 从父页面拉取 theme

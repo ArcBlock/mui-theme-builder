@@ -1,61 +1,61 @@
-import { Box, Paper, Typography } from '@mui/material';
-import { useTheme } from '@mui/material/styles';
+import { useLocaleContext } from '@arcblock/ux/lib/Locale/context';
+import { Box, Paper, PaperProps, Typography } from '@mui/material';
+import { useThemeStore } from 'src/state/themeStore';
 
-interface NeutralColorBlockProps {
+interface NeutralColorBlockProps extends PaperProps {
   onClick?: () => void;
 }
 
-function NeutralColorBlock({ onClick }: NeutralColorBlockProps) {
-  const theme = useTheme();
+function NeutralColorBlock({ onClick, sx, ...props }: NeutralColorBlockProps) {
+  const themeObject = useThemeStore((s) => s.themeObject);
+  const { t } = useLocaleContext();
+  const { palette } = themeObject;
   const neutralColors = [
-    { key: '50', value: theme.palette.grey[50] },
-    { key: '100', value: theme.palette.grey[100] },
-    { key: '200', value: theme.palette.grey[200] },
-    { key: '300', value: theme.palette.grey[300] },
-    { key: '400', value: theme.palette.grey[400] },
-    { key: '500', value: theme.palette.grey[500] },
-    { key: '600', value: theme.palette.grey[600] },
-    { key: '700', value: theme.palette.grey[700] },
-    { key: '800', value: theme.palette.grey[800] },
-    { key: '900', value: theme.palette.grey[900] },
+    { key: 'background.default', value: palette.background.default },
+    { key: 'background.paper', value: palette.background.paper },
+    { key: 'divider', value: palette.divider },
+    { key: 'text.hint', value: palette.text.hint },
+    { key: 'text.disabled', value: palette.text.disabled },
+    { key: 'text.secondary', value: palette.text.secondary },
+    { key: 'text.primary', value: palette.text.primary },
   ];
 
   return (
     <Paper
       variant="outlined"
       sx={{
-        p: 2,
         height: '100%',
         cursor: 'pointer',
+        borderRadius: 1.5,
+        overflow: 'hidden',
         '&:hover': {
           borderColor: 'primary.main',
         },
+        ...sx,
       }}
-      onClick={onClick}
-    >
-      <Typography variant="subtitle1" sx={{ mb: 2 }}>
-        Neutrals
+      {...props}
+      onClick={onClick}>
+      <Typography variant="subtitle1" sx={{ py: 1.5, px: 1 }}>
+        {t('editor.neutral')}
       </Typography>
-      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5 }}>
+      <Box sx={{ display: 'flex', flexDirection: 'column' }}>
         {neutralColors.map(({ key, value }) => (
           <Box
             key={key}
             sx={{
-              height: 24,
+              height: 36,
               backgroundColor: value,
-              borderRadius: 0.5,
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'space-between',
               px: 1,
               '& > *': {
-                color: theme.palette.getContrastText(value),
+                color: themeObject.palette.getContrastText(value),
                 fontSize: '0.75rem',
               },
-            }}
-          >
-            <Typography>{key}</Typography>
+            }}>
             <Typography>{value}</Typography>
+            <Typography>{key.split('.').pop()}</Typography>
           </Box>
         ))}
       </Box>
@@ -63,4 +63,4 @@ function NeutralColorBlock({ onClick }: NeutralColorBlockProps) {
   );
 }
 
-export default NeutralColorBlock; 
+export default NeutralColorBlock;

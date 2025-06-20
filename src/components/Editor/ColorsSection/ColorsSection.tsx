@@ -1,11 +1,11 @@
 import { useLocaleContext } from '@arcblock/ux/lib/Locale/context';
 import Brightness2OutlinedIcon from '@mui/icons-material/Brightness2Outlined';
 import LightModeOutlinedIcon from '@mui/icons-material/LightModeOutlined';
-import ShuffleIcon from '@mui/icons-material/Shuffle';
 import { Box, Button, Grid, Stack, Typography, styled } from '@mui/material';
 import { useState } from 'react';
 import { useThemeStore } from 'src/state/themeStore';
 
+import ButtonShuffle from '../Common/ButtonShuffle';
 import ColorBlock from './ColorBlock';
 import ColorEditDialog from './ColorEditDialog';
 import NeutralColorBlock from './NeutralColorBlock';
@@ -51,7 +51,7 @@ function ColorsSection() {
     <Box>
       <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ mb: 2 }}>
         {/* 标题 */}
-        <Typography variant="h5">Colors</Typography>
+        <Typography variant="h5">{t('editor.colors')}</Typography>
         {/* 工具栏 */}
         <Box sx={{ display: 'flex', gap: 1, justifyContent: 'flex-end', alignItems: 'center' }}>
           {/* 模式切换 */}
@@ -60,7 +60,7 @@ function ColorsSection() {
               display: 'flex',
               alignItems: 'center',
               backgroundColor: 'grey.100',
-              borderRadius: 1.5,
+              borderRadius: 1,
               gap: '2px',
               p: '2px',
             }}>
@@ -72,31 +72,22 @@ function ColorsSection() {
             </ToggleButton>
           </Box>
           {/* Shuffle 按钮 */}
-          <Button
-            variant="outlined"
-            color="inherit"
-            startIcon={<ShuffleIcon style={{ color: '#6248ff' }} />}
-            size="small"
-            sx={{ textTransform: 'none', borderColor: 'divider' }}
-            onClick={handleShuffle}>
-            {t('editor.shuffle')}
-          </Button>
+          <ButtonShuffle onClick={handleShuffle} />
         </Box>
       </Stack>
       {/* 颜色块网格 */}
-      <Grid container spacing={2} sx={{ mb: 3 }}>
+      <Stack direction="row" alignItems="stretch">
         {/* Neutrals 色块 */}
-        <Grid item xs={12}>
-          <NeutralColorBlock onClick={() => handleColorClick('neutral')} />
-        </Grid>
-
+        <NeutralColorBlock sx={{ width: '25%', flexShrink: 0 }} onClick={() => handleColorClick('neutral')} />
         {/* 其他颜色块 */}
-        {colorTypes.map((colorType) => (
-          <Grid item xs={12} sm={6} key={colorType}>
-            <ColorBlock colorType={colorType} onClick={() => handleColorClick(colorType)} />
-          </Grid>
-        ))}
-      </Grid>
+        <Stack direction="row" sx={{ flexGrow: 1, flexWrap: 'wrap', mt: -1 }}>
+          {colorTypes.map((colorType) => (
+            <Box key={colorType} sx={{ width: '33.33%', pl: 1, pt: 1, flexShrink: 0 }}>
+              <ColorBlock colorType={colorType} onClick={() => handleColorClick(colorType)} />
+            </Box>
+          ))}
+        </Stack>
+      </Stack>
 
       {/* 颜色编辑弹窗 */}
       {selectedColor && (

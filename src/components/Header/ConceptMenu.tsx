@@ -59,7 +59,7 @@ function ConceptMenu() {
           cursor: 'pointer',
           py: 1,
           px: 1.5,
-          borderRadius: 2,
+          borderRadius: 1,
           ':hover': {
             backgroundColor: 'action.hover',
           },
