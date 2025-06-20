@@ -18,6 +18,7 @@ export default {
   },
   editor: {
     colors: '颜色',
+    shades: '色阶',
     typography: '字体',
     styles: '样式',
     neutral: '中性色',

@@ -18,6 +18,7 @@ export default {
   },
   editor: {
     colors: 'Colors',
+    shades: 'Shades',
     typography: 'Typography',
     styles: 'Styles',
     neutral: 'Neutrals',

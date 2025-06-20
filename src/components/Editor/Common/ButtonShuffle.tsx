@@ -11,7 +11,7 @@ export default function ButtonShuffle({
   color = 'inherit',
   sx,
   ...props
-}: { onClick: () => void } & ButtonProps) {
+}: { onClick?: () => void } & ButtonProps) {
   const { t } = useLocaleContext();
 
   return (

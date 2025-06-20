@@ -7,7 +7,7 @@ import { useThemeStore } from 'src/state/themeStore';
 
 import ButtonShuffle from '../Common/ButtonShuffle';
 import ColorBlock from './ColorBlock';
-import ColorEditDialog from './ColorEditDialog';
+import ColorEditDrawer from './ColorEditDrawer';
 import NeutralColorBlock from './NeutralColorBlock';
 
 const colorTypes = ['primary', 'secondary', 'success', 'error', 'info', 'warning'] as const;
@@ -32,11 +32,9 @@ function ColorsSection() {
   const mode = useThemeStore((s) => s.mode);
   const setThemeMode = useThemeStore((s) => s.setThemeMode);
   const [selectedColor, setSelectedColor] = useState<ColorType | null>(null);
-  const [editDialogOpen, setEditDialogOpen] = useState(false);
 
   const handleColorClick = (colorType: ColorType) => {
     setSelectedColor(colorType);
-    setEditDialogOpen(true);
   };
 
   const handleShuffle = () => {
@@ -90,15 +88,8 @@ function ColorsSection() {
       </Stack>
 
       {/* 颜色编辑弹窗 */}
-      {selectedColor && (
-        <ColorEditDialog
-          open={editDialogOpen}
-          colorType={selectedColor}
-          onClose={() => {
-            setEditDialogOpen(false);
-            setSelectedColor(null);
-          }}
-        />
+      {selectedColor !== 'neutral' && (
+        <ColorEditDrawer open={!!selectedColor} colorType={selectedColor} onClose={() => setSelectedColor(null)} />
       )}
     </Box>
   );
