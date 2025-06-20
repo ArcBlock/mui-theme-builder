@@ -3,13 +3,15 @@ import { Theme } from '@mui/material/styles';
 
 export type Mode = 'light' | 'dark';
 
+export type ThemePrefer = 'light' | 'dark' | 'system';
+
 export interface Concept {
   id: string;
   name: string;
   themeOptions: {
     light: ThemeOptions;
     dark: ThemeOptions;
-    prefer: string;
+    prefer: ThemePrefer
   };
 }
 
@@ -57,7 +59,7 @@ export interface ThemeStoreState {
   setThemeOptions: (configs: { path: string; value: any }[]) => void;
   removeThemeOption: (path: string) => void;
   removeThemeOptions: (configs: { path: string }[]) => void;
-  setThemePrefer: (prefer: string) => void;
+  setThemePrefer: (prefer: ThemePrefer) => void;
   setThemeMode: (mode: Mode) => void;
   updateThemeOptions: (themeOptions: Concept['themeOptions']) => void;
   resetStore: () => void;

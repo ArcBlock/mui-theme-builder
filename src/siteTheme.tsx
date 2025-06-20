@@ -1,5 +1,6 @@
 import { BLOCKLET_THEME_DARK, BLOCKLET_THEME_LIGHT } from '@blocklet/theme';
 import { Theme, ThemeOptions, createTheme } from '@mui/material';
+import { ThemePrefer } from './types/theme';
 
 // 默认浅色主题
 export const defaultLightTheme: Theme = createTheme(BLOCKLET_THEME_LIGHT);
@@ -11,7 +12,7 @@ export const defaultDarkTheme = createTheme(BLOCKLET_THEME_DARK);
 export const defaultThemeOptions = {
   light: BLOCKLET_THEME_LIGHT,
   dark: BLOCKLET_THEME_DARK,
-  prefer: 'light',
+  prefer: 'light' as ThemePrefer,
 };
 
 // 创建编辑器主题

@@ -1,87 +1,50 @@
 import { useLocaleContext } from '@arcblock/ux/lib/Locale/context';
-import { Box, FormControl, InputLabel, MenuItem, Select, Slider, TextField, Typography } from '@mui/material';
+import { Box, Stack, Typography } from '@mui/material';
 import { useThemeStore } from 'src/state/themeStore';
+
+import ButtonShuffle from '../Common/ButtonShuffle';
+import BorderRadiusSelector from './BorderRadiusSelector';
+import ThemeModeSelector from './ThemeModeSelector';
 
 function StylesSection() {
   const { t } = useLocaleContext();
-  const currentConcept = useThemeStore((s) => {
-    const { concepts } = s;
-    const { currentConceptId } = s;
-    return concepts.find((c) => c.id === currentConceptId);
-  });
-  const mode = useThemeStore((s) => s.mode);
-  const updateThemeOptions = useThemeStore((s) => s.updateThemeOptions);
+  const borderRadius = useThemeStore((s) => s.themeObject.shape.borderRadius) as number;
+  const concept = useThemeStore((s) => s.concepts.find((c) => c.id === s.currentConceptId));
+  const setThemeOption = useThemeStore((s) => s.setThemeOption);
+  const setThemePrefer = useThemeStore((s) => s.setThemePrefer);
 
-  // 获取当前样式设置
-  const getCurrentStyles = () => {
-    if (!currentConcept) return {};
-
-    const themeOptions = currentConcept.themeOptions[mode];
-    return {
-      borderRadius: themeOptions?.shape?.borderRadius || 4,
-      // 可以添加更多样式设置
-    };
+  const handleBorderRadiusChange = (value: number) => {
+    setThemeOption('shape.borderRadius', value);
   };
 
-  const currentStyles = getCurrentStyles();
-
-  const handleBorderRadiusChange = (value: number | number[]) => {
-    if (!currentConcept) return;
-
-    const newThemeOptions = { ...currentConcept.themeOptions };
-    if (!newThemeOptions[mode]) {
-      newThemeOptions[mode] = {};
-    }
-    if (!newThemeOptions[mode].shape) {
-      newThemeOptions[mode].shape = {};
-    }
-
-    newThemeOptions[mode].shape.borderRadius = Array.isArray(value) ? value[0] : value;
-    updateThemeOptions(newThemeOptions);
+  const handleModeChange = (prefer: 'light' | 'dark' | 'system') => {
+    setThemePrefer(prefer);
   };
 
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
-      {/* 圆角设置 */}
-      <Box>
-        <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
-          {t('editor.borderRadius')}
-        </Typography>
-        <Slider
-          value={currentStyles.borderRadius}
-          onChange={(e, value) => handleBorderRadiusChange(value)}
-          min={0}
-          max={24}
-          step={1}
-          marks
-          valueLabelDisplay="auto"
-          size="small"
-        />
-        <Typography variant="caption" color="text.secondary">
-          {currentStyles.borderRadius}px
-        </Typography>
-      </Box>
+    <Box sx={{ mt: 3 }}>
+      <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ mb: 2 }}>
+        <Typography variant="h5">{t('editor.styles')}</Typography>
+        <Box sx={{ display: 'flex', gap: 1, justifyContent: 'flex-end', alignItems: 'center' }}>
+          <ButtonShuffle />
+        </Box>
+      </Stack>
 
-      {/* 主题偏好设置 */}
-      <Box>
-        <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
-          {t('editor.themePrefer')}
-        </Typography>
-        <FormControl fullWidth size="small">
-          <InputLabel>{t('editor.themePrefer')}</InputLabel>
-          <Select
-            value={mode}
-            label={t('editor.themePrefer')}
-            onChange={(e) => {
-              // 这里可以添加主题偏好切换逻辑
-              console.log('Theme preference changed:', e.target.value);
-            }}>
-            <MenuItem value="light">{t('editor.lightMode')}</MenuItem>
-            <MenuItem value="dark">{t('editor.darkMode')}</MenuItem>
-            <MenuItem value="system">{t('editor.systemPrefer')}</MenuItem>
-          </Select>
-        </FormControl>
-      </Box>
+      <Stack spacing={3}>
+        <Stack spacing={1}>
+          <Typography variant="body2" color="text.secondary">
+            {t('editor.borderRadius')}
+          </Typography>
+          <BorderRadiusSelector value={borderRadius} onChange={handleBorderRadiusChange} />
+        </Stack>
+
+        <Stack spacing={1}>
+          <Typography variant="body2" color="text.secondary">
+            {t('editor.themePrefer')}
+          </Typography>
+          <ThemeModeSelector value={concept?.themeOptions.prefer} onChange={handleModeChange} />
+        </Stack>
+      </Stack>
     </Box>
   );
 }

@@ -6,6 +6,7 @@ import JSON5 from 'json5';
 
 import { defaultThemeOptions } from './siteTheme';
 import { PreviewSize } from './state/types';
+import { ThemeStoreState } from './types/theme';
 
 export const isDev = process.env.NODE_ENV === 'development';
 
@@ -256,4 +257,11 @@ export function createPreviewMuiTheme(themeOptions: ThemeOptions, previewSize: P
   if (!previewSize) return createTheme(currentThemeOptions);
 
   return createTheme(deepmerge(currentThemeOptions, { breakpoints: { values: spoofedBreakpoints[previewSize] } }));
+}
+
+// 获取当前主题配置的辅助函数
+export function getCurrentThemeOptions(state: ThemeStoreState) {
+  const current = state.concepts.find((c) => c.id === state.currentConceptId);
+  if (!current) return defaultThemeOptions[state.mode];
+  return current.themeOptions[state.mode];
 }

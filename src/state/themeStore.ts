@@ -1,18 +1,11 @@
 import { nanoid } from 'nanoid';
 import { defaultThemeOptions } from 'src/siteTheme';
 import type { Concept, EditorState, ThemeStoreState } from 'src/types/theme';
-import { loadFonts, removeByPath, setByPath } from 'src/utils';
+import { getCurrentThemeOptions, loadFonts, removeByPath, setByPath } from 'src/utils';
 import { createPreviewMuiTheme } from 'src/utils';
 import { create } from 'zustand';
 import { subscribeWithSelector } from 'zustand/middleware';
 import { shallow } from 'zustand/shallow';
-
-// 获取当前主题配置的辅助函数
-function getCurrentThemeOptions(state: ThemeStoreState) {
-  const current = state.concepts.find((c) => c.id === state.currentConceptId);
-  if (!current) return defaultThemeOptions[state.mode];
-  return current.themeOptions[state.mode];
-}
 
 const initialEditorState: EditorState = {
   colors: {},
