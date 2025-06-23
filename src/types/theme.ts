@@ -15,6 +15,7 @@ export interface Concept {
     dark: ThemeOptions;
     common: ThemeOptions;
   };
+  editor: EditorState;
 }
 
 export type PreviewSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | false;
@@ -44,8 +45,8 @@ export interface ThemeStoreState {
   loadedFonts: Set<string>;
   previewSize: PreviewSize;
   selectedComponentId: string;
-  editor: EditorState;
   themeObject: Theme;
+  lastShuffledPaletteIndex: number;
 
   // Concepts 管理
   addConcept: (name: string, baseThemeOptions?: Concept['themeConfig']) => void;

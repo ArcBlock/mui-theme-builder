@@ -10,12 +10,6 @@ import { create } from 'zustand';
 import { subscribeWithSelector } from 'zustand/middleware';
 import { shallow } from 'zustand/shallow';
 
-const initialEditorState: EditorState = {
-  colors: {},
-  typography: {},
-  styles: {},
-};
-
 export const DEFAULT_CONCEPT_ID = 'EdNkoyjQDQFY7f1gzwdat';
 export const DEFAULT_CONCEPT_NAME = 'Concept 1';
 export const MODE_SPECIFIC_FIELDS = ['palette', 'components', 'shadows']; // 需要区分 light/dark 的主题配置
@@ -26,6 +20,12 @@ const getThemeFieldName = (path: string, mode: Mode): keyof Concept['themeConfig
   return MODE_SPECIFIC_FIELDS.includes(field) ? mode : 'common';
 };
 
+const getDefaultEditorState = (): EditorState => ({
+  colors: {},
+  typography: {},
+  styles: {},
+});
+
 const getDefaultState = () => ({
   concepts: [
     {
@@ -34,6 +34,7 @@ const getDefaultState = () => ({
       mode: 'light' as Mode,
       prefer: 'system' as ThemePrefer,
       themeConfig: getDefaultThemeConfig(),
+      editor: getDefaultEditorState(),
     },
   ],
   currentConceptId: DEFAULT_CONCEPT_ID,
@@ -41,7 +42,7 @@ const getDefaultState = () => ({
   loadedFonts: new Set(['Roboto']),
   previewSize: false as PreviewSize,
   selectedComponentId: 'Website',
-  editor: initialEditorState,
+  lastShuffledPaletteIndex: -1,
 });
 
 export const useThemeStore = create(
@@ -49,7 +50,9 @@ export const useThemeStore = create(
     // # 初始状态
     ...getDefaultState(),
     themeObject: createPreviewMuiTheme(deepmerge({ palette: { mode: 'light' } }, getDefaultThemeConfig().light), false),
-
+    // 添加一个状态来跟踪上次选择的调色板索引
+    lastShuffledPaletteIndex: -1,
+    
     // # Concepts 管理
     addConcept: (name, sourceThemeConfig) => {
       const newConcept: Concept = {
@@ -58,6 +61,7 @@ export const useThemeStore = create(
         mode: 'light',
         prefer: 'system',
         themeConfig: sourceThemeConfig ? { ...sourceThemeConfig } : getDefaultThemeConfig(),
+        editor: getDefaultEditorState(),
       };
       set((state) => ({
         concepts: [...state.concepts, newConcept],
@@ -86,6 +90,7 @@ export const useThemeStore = create(
           mode: concept.mode,
           prefer: concept.prefer,
           themeConfig: JSON.parse(JSON.stringify(concept.themeConfig)),
+          editor: JSON.parse(JSON.stringify(concept.editor)),
         };
         set((state) => ({
           concepts: [...state.concepts, newConcept],
@@ -237,59 +242,69 @@ export const useThemeStore = create(
     // # Colors 编辑
     setColorLock: (colorKey: string, isLocked: boolean) =>
       set((state) => ({
-        editor: {
-          ...state.editor,
-          colors: {
-            ...state.editor.colors,
-            [colorKey]: {
-              ...state.editor.colors[colorKey],
-              isLocked: isLocked,
-            },
-          },
-        },
+        concepts: state.concepts.map((c) =>
+          c.id === state.currentConceptId
+            ? {
+                ...c,
+                editor: { ...c.editor, colors: { ...c.editor.colors, [colorKey]: { isLocked } } },
+              }
+            : c,
+        ),
       })),
     shuffleColors: () =>
       set((state) => {
-        const lockedColors = state.editor.colors;
-        const { mode, concepts, currentConceptId, themeObject } = state;
-        const currentConcept = concepts.find((c) => c.id === currentConceptId);
-
+        const currentConcept = state.getCurrentConcept();
         if (!currentConcept) return {};
 
-        const randomIndex = Math.floor(Math.random() * predefinedPalettes.length);
-        const selectedPalette = predefinedPalettes[randomIndex][mode];
+        const { editor } = currentConcept;
+        const { themeObject, lastShuffledPaletteIndex } = state;
+        const lockedColors = editor.colors;
+
+        // 避免重复选择相同的调色板
+        let randomIndex: number;
+        do {
+          randomIndex = Math.floor(Math.random() * predefinedPalettes.length);
+        } while (randomIndex === lastShuffledPaletteIndex && predefinedPalettes.length > 1);
+
+        const selectedPalette = predefinedPalettes[randomIndex];
 
         const updates: { path: string; value: any }[] = [];
 
-        Object.keys(selectedPalette).forEach((key) => {
-          const colorKey = key as keyof typeof selectedPalette;
-          if (!lockedColors[colorKey]?.isLocked) {
-            const newMainColor = selectedPalette[colorKey];
-            const augmentedColor = themeObject.palette.augmentColor({ color: { main: newMainColor } });
+        // 同时处理 light 和 dark 模式
+        (['light', 'dark'] as const).forEach((mode) => {
+          const modePalette = selectedPalette[mode];
+          
+          Object.keys(modePalette).forEach((key) => {
+            const colorKey = key as keyof typeof modePalette;
+            if (!lockedColors[colorKey]?.isLocked) {
+              const newMainColor = modePalette[colorKey];
+              const augmentedColor = themeObject.palette.augmentColor({ color: { main: newMainColor } });
 
-            Object.keys(augmentedColor).forEach((subKey) => {
-              updates.push({
-                path: `palette.${colorKey}.${subKey}`,
-                value: augmentedColor[subKey as keyof PaletteColor],
+              Object.keys(augmentedColor).forEach((subKey) => {
+                updates.push({
+                  path: `${mode}.palette.${colorKey}.${String(subKey)}`,
+                  value: augmentedColor[subKey as keyof PaletteColor],
+                });
               });
-            });
-          }
+            }
+          });
         });
 
         if (updates.length === 0) {
           return {};
         }
 
-        const newThemeOptions = { ...currentConcept.themeConfig };
+        let newThemeConfig = { ...currentConcept.themeConfig };
         updates.forEach(({ path, value }) => {
-          setByPath(newThemeOptions[mode], path, value);
+          newThemeConfig = setByPath(newThemeConfig, path, value);
         });
 
-        const newConcepts = concepts.map((c) =>
-          c.id === currentConceptId ? { ...c, themeConfig: newThemeOptions } : c,
-        );
-
-        return { concepts: newConcepts };
+        return {
+          concepts: state.concepts.map((c) =>
+            c.id === state.currentConceptId ? { ...c, themeConfig: newThemeConfig } : c,
+          ),
+          lastShuffledPaletteIndex: randomIndex,
+        };
       }),
 
     // # Fonts 编辑

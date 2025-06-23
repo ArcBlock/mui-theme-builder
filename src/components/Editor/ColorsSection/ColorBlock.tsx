@@ -12,7 +12,7 @@ interface ColorBlockProps {
 
 function ColorBlock({ colorType, onClick }: ColorBlockProps) {
   const themeObject = useThemeStore((s) => s.themeObject);
-  const isLocked = useThemeStore((s) => s.editor.colors[colorType]?.isLocked ?? false);
+  const isLocked = useThemeStore((s) => s.getCurrentConcept().editor.colors[colorType]?.isLocked ?? false);
   const setColorLock = useThemeStore((s) => s.setColorLock);
 
   const color = themeObject.palette[colorType as keyof typeof themeObject.palette] as PaletteColor;
