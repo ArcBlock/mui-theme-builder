@@ -1,15 +1,13 @@
-import { deepmerge } from '@arcblock/ux/lib/Theme';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { useThemeStore } from 'src/state/themeStore';
-import { defaultThemeOptions } from 'src/siteTheme';
+import { DEFAULT_CONCEPT_ID, DEFAULT_CONCEPT_NAME, useThemeStore } from 'src/state/themeStore';
 import { getAuthHeaders, isDev } from 'src/utils';
 
 import useSchemaKey from './use-schema-key';
 
 export default function useRemoteThemeSync() {
   const [loading, setLoading] = useState(!isDev);
-  const updateThemeOptions = useThemeStore((s) => s.updateThemeOptions);
+  const syncRemoteData = useThemeStore((s) => s.syncRemoteData);
   const schemaKey = useSchemaKey();
 
   useEffect(() => {
@@ -22,26 +20,48 @@ export default function useRemoteThemeSync() {
         headers: getAuthHeaders(),
       })
       .then((res) => {
-        const { light = {}, dark = {}, common = {}, prefer = 'light' } = res.data || {};
+        const {
+          // 旧数据
+          light = {},
+          dark = {},
+          common = {},
+          prefer = 'light',
+          // 新数据
+          concepts,
+          currentConceptId,
+        } = res.data || {};
 
-        updateThemeOptions(
-          deepmerge(defaultThemeOptions, {
-            light: deepmerge(common, light),
-            dark: deepmerge(common, dark),
-            prefer,
-          })
-        );
+        let _concepts = concepts;
+
+        // 兼容旧数据（单主题）
+        if (!_concepts) {
+          syncRemoteData({
+            concepts: [
+              {
+                id: DEFAULT_CONCEPT_ID,
+                name: DEFAULT_CONCEPT_NAME,
+                themeConfig: {
+                  light,
+                  dark,
+                  common,
+                  prefer,
+                },
+              },
+            ],
+            currentConceptId: DEFAULT_CONCEPT_ID,
+          });
+          return;
+        }
+
+        syncRemoteData({
+          concepts,
+          currentConceptId,
+        });
       })
       .finally(() => {
         setLoading(false);
       });
-  }, [updateThemeOptions, schemaKey]);
+  }, [syncRemoteData, schemaKey]);
 
   return loading;
 }
-
-// const x = { items: ['a', 'b'] };
-// const y = { items: ['c'] };
-
-// const merged = deepmerge(x, y);
-// console.log(merged); // { items: ['c'] }

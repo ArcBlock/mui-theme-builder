@@ -1,12 +1,11 @@
 import { deepmerge } from '@arcblock/ux/lib/Theme';
+import { BLOCKLET_THEME_DARK, BLOCKLET_THEME_LIGHT } from '@blocklet/theme';
 import { ThemeOptions, createTheme } from '@mui/material';
 import { TypographyOptions } from '@mui/material/styles/createTypography';
 import dotProp from 'dot-prop-immutable';
 import JSON5 from 'json5';
 
-import { defaultThemeOptions } from './siteTheme';
 import { PreviewSize } from './state/types';
-import { ThemeStoreState } from './types/theme';
 
 export const isDev = process.env.NODE_ENV === 'development';
 
@@ -24,6 +23,8 @@ export const getByPath = (object: object | null, path: string, defaultValue?: an
 export const removeByPath: any = (object: any, path: string) => {
   const prunedObject = dotProp.delete(object, path);
   const pathArray = path.split('.');
+
+  // 删除 path 后，若出现了空对象（根对象除外），则一并删除空对象
   if (pathArray.length > 1) {
     const parentPath = pathArray.slice(0, pathArray.length - 1).join('.');
     const parentObject = getByPath(prunedObject, parentPath);
@@ -39,7 +40,7 @@ export const setByPath = (object: any, path: string, value: any) => dotProp.set(
 
 /**
  * Generate an id for a saved theme, ensuring that it does not collide with
- * one already in the store
+ * one already in the store $FixMe remove
  */
 export const generateThemeId = (lastId: string) => {
   // generate a long string of characters
@@ -249,19 +250,12 @@ export function createPreviewMuiTheme(themeOptions: ThemeOptions, previewSize: P
     xl: { xs: 0, sm: 1, md: 2, lg: 3, xl: 4 },
   };
 
-  const currentThemeOptions = deepmerge(
-    themeOptions.palette?.mode === 'light' ? defaultThemeOptions.light : defaultThemeOptions.dark,
+  const _themeOptions = deepmerge(
+    themeOptions.palette?.mode === 'dark' ? BLOCKLET_THEME_DARK : BLOCKLET_THEME_LIGHT,
     themeOptions,
   );
 
-  if (!previewSize) return createTheme(currentThemeOptions);
+  if (!previewSize) return createTheme(_themeOptions);
 
-  return createTheme(deepmerge(currentThemeOptions, { breakpoints: { values: spoofedBreakpoints[previewSize] } }));
-}
-
-// 获取当前主题配置的辅助函数
-export function getCurrentThemeOptions(state: ThemeStoreState) {
-  const current = state.concepts.find((c) => c.id === state.currentConceptId);
-  if (!current) return defaultThemeOptions[state.mode];
-  return current.themeOptions[state.mode];
+  return createTheme(deepmerge(_themeOptions, { breakpoints: { values: spoofedBreakpoints[previewSize] } }));
 }

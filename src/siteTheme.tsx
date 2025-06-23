@@ -1,6 +1,7 @@
 import { BLOCKLET_THEME_DARK, BLOCKLET_THEME_LIGHT } from '@blocklet/theme';
 import { Theme, ThemeOptions, createTheme } from '@mui/material';
-import { ThemePrefer } from './types/theme';
+
+import { Concept, ThemePrefer } from './types/theme';
 
 // 默认浅色主题
 export const defaultLightTheme: Theme = createTheme(BLOCKLET_THEME_LIGHT);
@@ -8,12 +9,19 @@ export const defaultLightTheme: Theme = createTheme(BLOCKLET_THEME_LIGHT);
 // 默认深色主题
 export const defaultDarkTheme = createTheme(BLOCKLET_THEME_DARK);
 
-// 默认 theme 配置
+// 默认主题配置 $FixMe 需要删除
 export const defaultThemeOptions = {
   light: BLOCKLET_THEME_LIGHT,
   dark: BLOCKLET_THEME_DARK,
   prefer: 'light' as ThemePrefer,
 };
+
+// 获取默认 theme 配置
+export const getDefaultThemeConfig = (): Concept['themeConfig'] => ({
+  light: {},
+  dark: {},
+  common: {},
+});
 
 // 创建编辑器主题
 export const createSiteThemeOptions = ({ palette }: ThemeOptions): ThemeOptions => {

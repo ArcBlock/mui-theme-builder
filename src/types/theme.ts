@@ -8,10 +8,12 @@ export type ThemePrefer = 'light' | 'dark' | 'system';
 export interface Concept {
   id: string;
   name: string;
-  themeOptions: {
+  mode: Mode;
+  prefer: ThemePrefer;
+  themeConfig: {
     light: ThemeOptions;
     dark: ThemeOptions;
-    prefer: ThemePrefer
+    common: ThemeOptions;
   };
 }
 
@@ -38,20 +40,19 @@ export interface EditorState {
 export interface ThemeStoreState {
   concepts: Concept[];
   currentConceptId: string;
-  mode: Mode;
   fonts: string[];
   loadedFonts: Set<string>;
   previewSize: PreviewSize;
-  themeConfigOpen: boolean;
   selectedComponentId: string;
   editor: EditorState;
   themeObject: Theme;
 
   // Concepts 管理
-  addConcept: (name: string, baseThemeOptions?: Concept['themeOptions']) => void;
+  addConcept: (name: string, baseThemeOptions?: Concept['themeConfig']) => void;
   deleteConcept: (id: string) => void;
   duplicateConcept: (id: string, name?: string) => void;
   setCurrentConcept: (id: string) => void;
+  getCurrentConcept: () => Concept;
   renameConcept: (id: string, name: string) => void;
 
   // ThemeOption 编辑
@@ -61,9 +62,13 @@ export interface ThemeStoreState {
   removeThemeOptions: (configs: { path: string }[]) => void;
   setThemePrefer: (prefer: ThemePrefer) => void;
   setThemeMode: (mode: Mode) => void;
-  updateThemeOptions: (themeOptions: Concept['themeOptions']) => void;
+  updateThemeConfig: (themeConfig: Concept['themeConfig']) => void;
+  getCurrentThemeOptions: () => ThemeOptions;
+
+  // 整体设置
   resetStore: () => void;
   resetSiteData: () => void;
+  syncRemoteData: (data: { concepts: Concept[]; currentConceptId: string }) => void;
 
   // Colors 编辑
   setColorLock: (colorKey: string, isLocked: boolean) => void;
