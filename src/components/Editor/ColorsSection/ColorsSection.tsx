@@ -49,7 +49,7 @@ function ColorsSection() {
     <Box>
       <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ mb: 2 }}>
         {/* 标题 */}
-        <Typography variant="h5">{t('editor.colors')}</Typography>
+        <Typography variant="h5">{t('editor.colorSection.title')}</Typography>
         {/* 工具栏 */}
         <Box sx={{ display: 'flex', gap: 1, justifyContent: 'flex-end', alignItems: 'center' }}>
           {/* 模式切换 */}

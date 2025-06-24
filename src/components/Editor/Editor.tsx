@@ -19,10 +19,10 @@ export default function Editor() {
   const [tab, setTab] = useState<'concepts' | 'colors' | 'fonts' | 'styles'>('colors');
 
   const TABS = [
-    { key: 'concepts', label: t('editor.concepts'), icon: <MoreVertIcon /> },
-    { key: 'colors', label: t('editor.colors'), icon: <PaletteIcon /> },
-    { key: 'fonts', label: t('editor.typography'), icon: <TextFieldsIcon /> },
-    { key: 'styles', label: t('editor.styles'), icon: <TuneIcon /> },
+    { key: 'concepts', label: t('editor.concept.name'), icon: <MoreVertIcon /> },
+    { key: 'colors', label: t('editor.colorSection.title'), icon: <PaletteIcon /> },
+    { key: 'fonts', label: t('editor.typographySection.title'), icon: <TextFieldsIcon /> },
+    { key: 'styles', label: t('editor.stylesSection.title'), icon: <TuneIcon /> },
   ];
 
   if (isMobile) {

@@ -3,7 +3,7 @@ import Editor from 'src/components/Editor/Editor';
 import ErrorBoundary from 'src/components/ErrorBoundary';
 import Header from 'src/components/Header';
 import Layout from 'src/components/Layout';
-import MainWindow from 'src/components/MainWindow';
+import PreviewWindow from 'src/components/Preview/PreviewWindow';
 
 function IndexPage() {
   return (
@@ -30,7 +30,7 @@ function IndexPage() {
             </Box>
             {/* 预览区 */}
             <Box sx={{ flex: '1 0', overflowY: 'auto', overflowX: 'hidden' }}>
-              <MainWindow />
+              <PreviewWindow />
             </Box>
           </Box>
         </Box>

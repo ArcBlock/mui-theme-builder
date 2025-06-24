@@ -1,9 +1,7 @@
-import AddIcon from '@mui/icons-material/Add';
+import { useLocaleContext } from '@arcblock/ux/lib/Locale/context';
 import CheckIcon from '@mui/icons-material/Check';
-import ContentCopyIcon from '@mui/icons-material/ContentCopy';
-import DeleteIcon from '@mui/icons-material/Delete';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import { Box, Button, Divider, ListItemIcon, Menu, MenuItem, Typography, styled, useTheme } from '@mui/material';
+import { Box, Divider, Menu, MenuItem, Typography, styled, useTheme } from '@mui/material';
 import { useCallback, useState } from 'react';
 import { useThemeStore } from 'src/state/themeStore';
 
@@ -21,8 +19,9 @@ const ConceptItem = styled(MenuItem)(({ theme }) => ({
   gap: 1,
 }));
 
-function ConceptMenu() {
+export function ConceptMenu() {
   const theme = useTheme();
+  const { t } = useLocaleContext();
   const concepts = useThemeStore((s) => s.concepts);
   const currentConceptId = useThemeStore((s) => s.currentConceptId);
   const setCurrentConcept = useThemeStore((s) => s.setCurrentConcept);
@@ -48,7 +47,7 @@ function ConceptMenu() {
   const open = Boolean(anchorEl);
 
   return (
-    <>
+    <Box sx={{ display: 'flex', alignItems: 'center' }}>
       <Box
         className={open ? 'is-open' : ''}
         sx={{
@@ -99,14 +98,14 @@ function ConceptMenu() {
             addConcept(genConceptName());
             setAnchorEl(null);
           }}>
-          New Concept
+          {t('editor.concept.add')}
         </ConceptItem>
         <ConceptItem
           onClick={() => {
             duplicateConcept(currentConceptId, genConceptName());
             setAnchorEl(null);
           }}>
-          Duplicate Concept
+          {t('editor.concept.duplicate')}
         </ConceptItem>
         <ConceptItem
           onClick={() => {
@@ -114,11 +113,9 @@ function ConceptMenu() {
             setAnchorEl(null);
           }}
           disabled={concepts.length === 1}>
-          Delete Concept
+          {t('editor.concept.delete')}
         </ConceptItem>
       </Menu>
-    </>
+    </Box>
   );
 }
-
-export default ConceptMenu;

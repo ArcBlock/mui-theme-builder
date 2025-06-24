@@ -40,7 +40,7 @@ function TypographySection() {
       {/* 标题 */}
       <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ mb: 2 }}>
         {/* 标题 */}
-        <Typography variant="h5">{t('editor.typography')}</Typography>
+        <Typography variant="h5">{t('editor.typographySection.title')}</Typography>
         {/* 工具栏 */}
         <Box sx={{ display: 'flex', gap: 1, justifyContent: 'flex-end', alignItems: 'center' }}>
           {/* Shuffle 按钮 */}

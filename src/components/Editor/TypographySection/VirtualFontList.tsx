@@ -75,7 +75,7 @@ export default function VirtualFontList({
           mt: 1,
           textAlign: 'center',
         }}>
-        {t('editor.noFontsFound')}
+        {t('editor.typographySection.noFontsFound')}
       </Typography>
     );
   }

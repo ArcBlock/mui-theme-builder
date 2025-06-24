@@ -16,13 +16,13 @@ function StylesSection() {
   return (
     <Box sx={{ mt: 3 }}>
       <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ mb: 2 }}>
-        <Typography variant="h5">{t('editor.styles')}</Typography>
+        <Typography variant="h5">{t('editor.stylesSection.title')}</Typography>
       </Stack>
 
       <Stack spacing={3}>
         <Stack spacing={1}>
           <Typography variant="body2" color="text.secondary">
-            {t('editor.borderRadius')}
+            {t('editor.stylesSection.borderRadius')}
           </Typography>
           <BorderRadiusSelector value={borderRadius} onChange={handleBorderRadiusChange} />
         </Stack>

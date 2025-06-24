@@ -1,10 +1,10 @@
 import { Box } from '@mui/material';
 import { useThemeStore } from 'src/state/themeStore';
 
-import PreviewWrapper from './PreviewWindow/PreviewWrapper';
-import { getSampleComponent } from './Samples';
+import PreviewWrapper from './PreviewWrapper';
+import { getSampleComponent } from '../Samples';
 
-function MainWindow() {
+function PreviewWindow() {
   const selectedComponentId = useThemeStore((s) => s.selectedComponentId);
   const previewComponent = getSampleComponent(selectedComponentId);
 
@@ -17,4 +17,4 @@ function MainWindow() {
   );
 }
 
-export default MainWindow;
+export default PreviewWindow;

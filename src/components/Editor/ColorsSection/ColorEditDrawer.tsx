@@ -108,7 +108,7 @@ export function ColorEditDrawer({ open, colorType, onClose }: ColorEditDrawerPro
   const drawerContent = (
     <Stack sx={{ p: 2, width: isMobile ? 'auto' : 320 }} spacing={2}>
       <Stack direction="row" justifyContent="space-between" alignItems="center">
-        <Typography variant="h6">{t('editor.colors')}</Typography>
+        <Typography variant="h6">{t('editor.colorSection.title')}</Typography>
         <IconButton onClick={onClose}>
           <Close />
         </IconButton>
@@ -125,14 +125,14 @@ export function ColorEditDrawer({ open, colorType, onClose }: ColorEditDrawerPro
             onReset={(p) => removeThemeOption(p)}
           />
           <Typography variant="subtitle1" sx={{ mt: 2 }}>
-            {t('editor.shades')}
+            {t('editor.colorSection.shades')}
           </Typography>
           <Stack spacing={1}>
-            <ShadeLabel>Light</ShadeLabel>
+            <ShadeLabel>{t('editor.colorSection.light')}</ShadeLabel>
             <ShadeItem colorValue={mainColor.light} />
-            <ShadeLabel>Dark</ShadeLabel>
+            <ShadeLabel>{t('editor.colorSection.dark')}</ShadeLabel>
             <ShadeItem colorValue={mainColor.dark} />
-            <ShadeLabel>Contrast Text</ShadeLabel>
+            <ShadeLabel>{t('editor.colorSection.contrastText')}</ShadeLabel>
             <ShadeItem colorValue={mainColor.contrastText} />
           </Stack>
         </>

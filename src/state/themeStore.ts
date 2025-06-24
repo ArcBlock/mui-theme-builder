@@ -271,7 +271,7 @@ export const useThemeStore = create(
           c.id === state.currentConceptId
             ? {
                 ...c,
-                editor: { ...c.editor, colors: { ...c.editor.colors, [colorKey]: { isLocked } } },
+                editor: { ...c.editor, colors: { ...c.editor.colorSection.title, [colorKey]: { isLocked } } },
               }
             : c,
         ),
@@ -283,7 +283,7 @@ export const useThemeStore = create(
 
         const { editor } = currentConcept;
         const { themeObject, lastShuffledPaletteIndex } = state;
-        const lockedColors = editor.colors;
+        const lockedColors = editor.colorSection.title;
 
         // 避免重复选择相同的调色板
         let randomIndex: number;

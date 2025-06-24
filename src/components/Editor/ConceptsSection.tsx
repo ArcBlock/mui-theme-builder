@@ -1,5 +1,4 @@
-import React from 'react';
-import ConceptMenu from '../Header/ConceptMenu';
+import { ConceptMenu } from '../Header/ConceptMenu';
 
 // 作为 Section 包装，便于在 Editor 中复用
 export default function ConceptsSection() {
@@ -8,4 +7,4 @@ export default function ConceptsSection() {
       <ConceptMenu />
     </div>
   );
-} 
+}

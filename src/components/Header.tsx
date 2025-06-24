@@ -3,8 +3,9 @@ import { AppBar, AppBarProps, Box, Button, IconButton, Toolbar, useMediaQuery, u
 import Samples from 'src/components/Samples';
 import { useThemeStore } from 'src/state/themeStore';
 
-import ConceptMenu from './Header/ConceptMenu';
-import PreviewSizeControls from './PreviewWindow/PreviewSizeControls';
+import { ConceptMenu } from './Header/ConceptMenu';
+import PreviewSizeControls from './Header/PreviewSizeControls';
+import { HeaderActions } from './Header/HeaderActions';
 
 export interface HeaderProps extends AppBarProps {}
 
@@ -44,7 +45,8 @@ export default function Header({ sx, ...props }: HeaderProps) {
         <Box sx={{ mr: 2 }}>
           <ConceptMenu />
         </Box>
-
+        {/* 菜单按钮 */}
+        <HeaderActions />
         {/* 切换配置 Drawer */}
         {isMobile && (
           <IconButton

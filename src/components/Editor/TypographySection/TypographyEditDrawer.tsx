@@ -25,22 +25,22 @@ import useGoogleFonts from './hooks/useGoogleFonts';
 const FONT_CATEGORIES = [
   {
     value: 'Sans Serif',
-    labelKey: 'editor.sansSerif',
+    labelKey: 'editor.typographySection.sansSerif',
     fontFamily: 'Arial, Helvetica, sans-serif',
   },
   {
     value: 'Serif',
-    labelKey: 'editor.serif',
+    labelKey: 'editor.typographySection.serif',
     fontFamily: 'Times New Roman, Times, serif',
   },
   {
     value: 'Display',
-    labelKey: 'editor.display',
+    labelKey: 'editor.typographySection.display',
     fontFamily: 'Impact, Chalkduster, fantasy, cursive',
   },
   {
     value: 'Monospace',
-    labelKey: 'editor.monospace',
+    labelKey: 'editor.typographySection.monospace',
     fontFamily: 'Fira Mono, Consolas, monospace',
   },
 ];
@@ -112,7 +112,7 @@ function TypographyEditDrawer({ open, variant, onClose }: TypographyEditDrawerPr
       {/* 标题栏 */}
       <Stack direction="row" justifyContent="space-between" alignItems="center" mb={1}>
         <Typography variant="h6" sx={{ textTransform: 'capitalize' }}>
-          {variant === 'heading' ? t('editor.heading') : t('editor.body')}
+          {variant === 'heading' ? t('editor.typographySection.heading') : t('editor.typographySection.body')}
         </Typography>
         <IconButton onClick={onClose}>
           <Close />
@@ -121,7 +121,7 @@ function TypographyEditDrawer({ open, variant, onClose }: TypographyEditDrawerPr
 
       {/* 字体搜索 */}
       <TextField
-        placeholder={t('editor.searchFonts')}
+        placeholder={t('editor.typographySection.searchFonts')}
         value={searchQuery}
         size="small"
         sx={{ mb: 1 }}
@@ -188,7 +188,7 @@ function TypographyEditDrawer({ open, variant, onClose }: TypographyEditDrawerPr
 
       {/* 字体总数显示 */}
       <Typography variant="body2" sx={{ mb: 1, color: 'text.secondary' }}>
-        {t('editor.results', { count: totalCount })}
+        {t('editor.typographySection.results', { count: totalCount })}
       </Typography>
 
       {/* 虚拟滚动字体列表 */}
@@ -197,7 +197,7 @@ function TypographyEditDrawer({ open, variant, onClose }: TypographyEditDrawerPr
           fonts={fonts}
           loading={loading}
           onFontSelect={handleFontSelect}
-          previewText={t('editor.fontPreviewText')}
+          previewText={t('editor.typographySection.fontPreviewText')}
           onLoadMore={loadMore}
           hasMore={hasMore}
         />
@@ -208,7 +208,7 @@ function TypographyEditDrawer({ open, variant, onClose }: TypographyEditDrawerPr
       {/* 当前使用的字体 */}
       <Box>
         <Typography variant="body2" color="text.secondary" align="center" sx={{ mt: 1 }}>
-          {t('editor.activeFont')}
+          {t('editor.typographySection.activeFont')}
           <Link href={`https://fonts.google.com/specimen/${activeFont}`} target="_blank" sx={{ ml: 1 }}>
             {activeFont}
           </Link>
