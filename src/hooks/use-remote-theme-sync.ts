@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { DEFAULT_CONCEPT_ID, DEFAULT_CONCEPT_NAME, useThemeStore } from 'src/state/themeStore';
+import { Concept } from 'src/types/theme';
 import { getAuthHeaders, isDev } from 'src/utils';
 
 import useSchemaKey from './use-schema-key';
@@ -25,37 +26,40 @@ export default function useRemoteThemeSync() {
           light = {},
           dark = {},
           common = {},
-          prefer = 'light',
+          prefer = 'system',
           // 新数据
           concepts,
           currentConceptId,
         } = res.data || {};
 
-        let _concepts = concepts;
+        let _concepts = concepts as Concept[];
+        let _currentConceptId = currentConceptId as string;
 
         // 兼容旧数据（单主题）
         if (!_concepts) {
-          syncRemoteData({
-            concepts: [
-              {
-                id: DEFAULT_CONCEPT_ID,
-                name: DEFAULT_CONCEPT_NAME,
-                themeConfig: {
-                  light,
-                  dark,
-                  common,
-                  prefer,
-                },
+          _concepts = [
+            {
+              id: DEFAULT_CONCEPT_ID,
+              name: DEFAULT_CONCEPT_NAME,
+              mode: 'light',
+              prefer,
+              themeConfig: {
+                light,
+                dark,
+                common,
               },
-            ],
-            currentConceptId: DEFAULT_CONCEPT_ID,
-          });
-          return;
+              editor: {
+                colors: {},
+                typography: {},
+                styles: {},
+              },
+            },
+          ];
+          _currentConceptId = DEFAULT_CONCEPT_ID;
         }
-
         syncRemoteData({
-          concepts,
-          currentConceptId,
+          concepts: _concepts,
+          currentConceptId: _currentConceptId,
         });
       })
       .finally(() => {

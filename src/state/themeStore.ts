@@ -6,7 +6,7 @@ import { nanoid } from 'nanoid';
 import { predefinedPalettes } from 'src/constants/predefinedPalettes';
 import { getDefaultThemeConfig } from 'src/siteTheme';
 import type { Concept, EditorState, Mode, PreviewSize, ThemePrefer, ThemeStoreState } from 'src/types/theme';
-import { loadFonts, removeByPath, setByPath } from 'src/utils';
+import { loadFontsIfRequired, removeByPath, setByPath } from 'src/utils';
 import { createPreviewMuiTheme } from 'src/utils';
 import { create } from 'zustand';
 import { subscribeWithSelector } from 'zustand/middleware';
@@ -43,6 +43,7 @@ const getDefaultState = () => ({
       prefer: 'system' as ThemePrefer,
       themeConfig: getDefaultThemeConfig(),
       editor: getDefaultEditorState(),
+      fonts: [],
     },
   ],
   currentConceptId: DEFAULT_CONCEPT_ID,
@@ -131,12 +132,12 @@ export const useThemeStore = create(
         const { mode } = current;
 
         const fieldName = getThemeFieldName(path, mode);
-        const updated = setByPath(current.themeConfig[fieldName], path, value);
-        const newThemeOptions = { ...current.themeConfig, [fieldName]: updated };
+        const themeOptions = setByPath(current.themeConfig[fieldName], path, value);
+        const newThemeConfig = { ...current.themeConfig, [fieldName]: themeOptions };
 
         return {
           concepts: state.concepts.map((c) =>
-            c.id === state.currentConceptId ? { ...c, themeConfig: newThemeOptions } : c,
+            c.id === state.currentConceptId ? { ...c, themeConfig: newThemeConfig } : c,
           ),
         };
       });
@@ -168,12 +169,12 @@ export const useThemeStore = create(
         const { mode } = current;
 
         const fieldName = getThemeFieldName(path, mode);
-        const updated = removeByPath(current.themeConfig[fieldName], path);
-        const newThemeOptions = { ...current.themeConfig, [fieldName]: updated };
+        const themeOptions = removeByPath(current.themeConfig[fieldName], path);
+        const newThemeConfig = { ...current.themeConfig, [fieldName]: themeOptions };
 
         return {
           concepts: state.concepts.map((c) =>
-            c.id === state.currentConceptId ? { ...c, themeConfig: newThemeOptions } : c,
+            c.id === state.currentConceptId ? { ...c, themeConfig: newThemeConfig } : c,
           ),
         };
       });
@@ -243,6 +244,21 @@ export const useThemeStore = create(
         if (concepts && currentConceptId) {
           updates.concepts = concepts;
           updates.currentConceptId = currentConceptId;
+
+          // 预加载字体
+          const newFonts = concepts.reduce<string[]>((acc, c) => {
+            const { typography } = c.themeConfig.common;
+
+            if (typography && typeof typography === 'object') {
+              if (typography.fontFamily) acc.push(typography.fontFamily);
+              if (typography.h1?.fontFamily) acc.push(typography.h1.fontFamily);
+            }
+
+            return acc;
+          }, []);
+          const loadedFonts = loadFontsIfRequired(newFonts, new Set());
+
+          updates.loadedFonts = loadedFonts;
         }
 
         return updates;
@@ -326,27 +342,19 @@ export const useThemeStore = create(
       }),
 
     // # Fonts 编辑
-    addFonts: async (fonts) => {
-      const loaded = await loadFonts(fonts);
-      if (loaded) {
-        set((state) => ({
-          loadedFonts: new Set([...state.loadedFonts, ...fonts]),
-          fonts: Array.from(new Set([...state.fonts, ...fonts])),
-        }));
-      }
-    },
     setFontOptions: (fontMap) => {
-      const { addFonts, setThemeOptions, themeObject } = get();
+      const { setThemeOptions, themeObject, loadedFonts } = get();
       const { heading, body } = fontMap;
+      const newFonts = [];
       let updates: { path: string; value: any }[] = [];
 
-      // addFonts([fontFamily]);
       if (body) {
         // body 字体本质上是 base 字体
         updates.push({
           path: 'typography.fontFamily',
           value: `"${body.fontFamily}", ${DEFAULT_FONT_STRING}`,
         });
+        newFonts.push(body.fontFamily);
       }
 
       if (heading) {
@@ -356,6 +364,7 @@ export const useThemeStore = create(
             value: `"${heading.fontFamily}", ${DEFAULT_FONT_STRING}`,
           })),
         );
+        newFonts.push(heading.fontFamily);
       } else if (body) {
         // 单独修改 body 时，不能影响 Heading 字体
         const headingFontFamily = themeObject.typography.h1.fontFamily ?? DEFAULT_FONT_STRING;
@@ -370,6 +379,14 @@ export const useThemeStore = create(
         }
       }
 
+      // 本地加载新字体文件
+      if (newFonts.length > 0) {
+        const _loadedFonts = loadFontsIfRequired(newFonts, loadedFonts);
+        set(() => ({
+          loadedFonts: _loadedFonts,
+        }));
+      }
+
       setThemeOptions(updates);
     },
 
@@ -379,7 +396,7 @@ export const useThemeStore = create(
   })),
 );
 
-// 自动同步 themeObject
+// 自动同步 themeObject、concept.fonts
 useThemeStore.subscribe(
   (state) => [state.concepts, state.currentConceptId, state.previewSize],
   () => {

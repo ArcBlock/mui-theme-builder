@@ -41,7 +41,6 @@ export interface EditorState {
 export interface ThemeStoreState {
   concepts: Concept[];
   currentConceptId: string;
-  fonts: string[];
   loadedFonts: Set<string>;
   previewSize: PreviewSize;
   selectedComponentId: string;
@@ -77,7 +76,6 @@ export interface ThemeStoreState {
   shuffleColors: (colorKeys?: string | string[]) => void;
 
   // Fonts 编辑
-  addFonts: (fonts: string[]) => Promise<void>;
   setFontOptions: (fontMap: Partial<Record<TextVariant, { fontFamily: string }>>) => void;
 
   // Preview 查看
