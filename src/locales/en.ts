@@ -77,6 +77,12 @@ export default {
     body: 'Body',
     concepts: 'Concepts',
     fontPreviewText: 'The five boxing wizards jump quickly together',
+    sansSerif: 'Sans Serif',
+    serif: 'Serif',
+    display: 'Display',
+    monospace: 'Monospace',
+    results: '{count} results',
+    noFontsFound: 'No matching fonts found',
   },
   samples: {
     title: 'Samples',

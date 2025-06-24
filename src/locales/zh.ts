@@ -77,6 +77,12 @@ export default {
     body: '正文',
     concepts: '概念',
     fontPreviewText: '快速跳动的棕色狐狸跳过懒狗',
+    sansSerif: '无衬线',
+    serif: '衬线',
+    display: '装饰',
+    monospace: '等宽',
+    results: '{count} 结果',
+    noFontsFound: '没有找到匹配的字体',
   },
   samples: {
     title: '示例',

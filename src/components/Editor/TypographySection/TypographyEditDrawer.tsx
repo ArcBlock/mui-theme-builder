@@ -1,9 +1,10 @@
 import { useLocaleContext } from '@arcblock/ux/lib/Locale/context';
 import { DEFAULT_FONTS } from '@blocklet/theme';
-import { Close, Search, ExpandMore } from '@mui/icons-material';
+import { Close, Search } from '@mui/icons-material';
 import {
   Box,
   Drawer,
+  Grid,
   IconButton,
   InputAdornment,
   Link,
@@ -11,20 +12,15 @@ import {
   TextField,
   Typography,
   useMediaQuery,
-  Select,
-  MenuItem,
-  FormControl,
-  InputLabel,
-  Chip,
 } from '@mui/material';
-import { useMemo, useState, useCallback, useRef, useEffect } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useThemeStore } from 'src/state/themeStore';
-import { TextVariant } from 'src/types/theme';
 import { FontFilter } from 'src/types/fonts';
+import { TextVariant } from 'src/types/theme';
 
 import { ButtonShuffle } from '../Common/ButtonShuffle';
-import useGoogleFonts from './hooks/useGoogleFonts';
 import VirtualFontList from './VirtualFontList';
+import useGoogleFonts from './hooks/useGoogleFonts';
 
 const headingVariants = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'subtitle1', 'subtitle2', 'overline'] as const;
 
@@ -37,6 +33,30 @@ const formatFontFamily = (fontName: string): string => {
 
 const DEFAULT_FONT_STRING = DEFAULT_FONTS.map(formatFontFamily).join(', ');
 
+// 字体分类配置
+const FONT_CATEGORIES = [
+  {
+    value: 'Sans Serif',
+    labelKey: 'editor.sansSerif',
+    fontFamily: 'Arial, Helvetica, sans-serif',
+  },
+  {
+    value: 'Serif',
+    labelKey: 'editor.serif',
+    fontFamily: 'Times New Roman, Times, serif',
+  },
+  {
+    value: 'Display',
+    labelKey: 'editor.display',
+    fontFamily: 'Impact, Chalkduster, fantasy, cursive',
+  },
+  {
+    value: 'Monospace',
+    labelKey: 'editor.monospace',
+    fontFamily: 'Fira Mono, Consolas, monospace',
+  },
+];
+
 interface TypographyEditDrawerProps {
   open: boolean;
   variant: TextVariant | null;
@@ -47,20 +67,20 @@ function TypographyEditDrawer({ open, variant, onClose }: TypographyEditDrawerPr
   const { t } = useLocaleContext();
   const themeObject = useThemeStore((s) => s.themeObject);
   const isMobile = useMediaQuery(themeObject.breakpoints.down('md'));
-  
+
   // 状态管理
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
   const [filter, setFilter] = useState<FontFilter>({ category: 'All', searchQuery: '' });
-  
+
   // 字体数据
   const { fonts, loading, totalCount, hasMore, loadMore, categories } = useGoogleFonts(filter);
   const addFonts = useThemeStore((s) => s.addFonts);
   const setThemeOptions = useThemeStore((s) => s.setThemeOptions);
 
-  // 获取分类列表
-  const categoryOptions = useMemo(() => {
-    return ['All', ...categories];
+  // 获取可用的分类选项（不含 All）
+  const availableCategories = useMemo(() => {
+    return FONT_CATEGORIES.filter((cat) => categories.includes(cat.value));
   }, [categories]);
 
   // 当前使用的字体
@@ -76,7 +96,7 @@ function TypographyEditDrawer({ open, variant, onClose }: TypographyEditDrawerPr
 
   // 更新过滤条件
   const updateFilter = useCallback((newFilter: Partial<FontFilter>) => {
-    setFilter(prev => ({ ...prev, ...newFilter }));
+    setFilter((prev) => ({ ...prev, ...newFilter }));
   }, []);
 
   // 处理搜索
@@ -128,18 +148,10 @@ function TypographyEditDrawer({ open, variant, onClose }: TypographyEditDrawerPr
     onClose();
   };
 
-  // 计算列表高度
-  const listHeight = useMemo(() => {
-    const drawerHeight = isMobile ? '80vh' : '100%';
-    const headerHeight = 120; // 标题、搜索、分类、总数显示的高度
-    const footerHeight = 120; // 随机按钮和当前字体信息的高度
-    return `calc(${drawerHeight} - ${headerHeight + footerHeight}px)`;
-  }, [isMobile]);
-
   const drawerContent = (
     <Stack sx={{ p: 2, width: isMobile ? 'auto' : 320, height: '100%' }}>
       {/* 标题栏 */}
-      <Stack direction="row" justifyContent="space-between" alignItems="center" mb={2}>
+      <Stack direction="row" justifyContent="space-between" alignItems="center" mb={1}>
         <Typography variant="h6" sx={{ textTransform: 'capitalize' }}>
           {variant === 'Heading' ? t('editor.heading') : t('editor.body')}
         </Typography>
@@ -148,29 +160,12 @@ function TypographyEditDrawer({ open, variant, onClose }: TypographyEditDrawerPr
         </IconButton>
       </Stack>
 
-      {/* 分类选择 */}
-      <FormControl fullWidth size="small" sx={{ mb: 2 }}>
-        <InputLabel>字体分类</InputLabel>
-        <Select
-          value={selectedCategory}
-          label="字体分类"
-          onChange={(e) => handleCategoryChange(e.target.value)}
-          endAdornment={<ExpandMore />}
-        >
-          {categoryOptions.map((category) => (
-            <MenuItem key={category} value={category}>
-              {category === 'All' ? '所有分类' : category}
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
-
       {/* 字体搜索 */}
       <TextField
         placeholder={t('editor.searchFonts')}
         value={searchQuery}
         size="small"
-        sx={{ mb: 2 }}
+        sx={{ mb: 1 }}
         InputProps={{
           startAdornment: (
             <InputAdornment position="start">
@@ -186,21 +181,56 @@ function TypographyEditDrawer({ open, variant, onClose }: TypographyEditDrawerPr
         onChange={(e) => handleSearchChange(e.target.value)}
       />
 
+      {/* 字体分类卡片选择 */}
+      <Grid container spacing={1} sx={{ mb: 1 }}>
+        {availableCategories.map((cat) => {
+          const selected = selectedCategory === cat.value;
+          return (
+            <Grid
+              item
+              xs={12}
+              md={6}
+              key={cat.value}
+              onClick={() => (selected ? handleCategoryChange('All') : handleCategoryChange(cat.value))}>
+              <Box
+                sx={{
+                  cursor: 'pointer',
+                  p: 1,
+                  border: '1px solid',
+                  borderColor: selected ? 'primary.main' : 'divider',
+                  borderRadius: 1,
+                  transition: 'all 0.15s',
+                  '&:hover': {
+                    backgroundColor: 'action.hover',
+                  },
+                }}>
+                <Stack alignItems="center" sx={{ color: selected ? 'primary.main' : 'text.primary' }}>
+                  <Typography
+                    sx={{
+                      fontWeight: 700,
+                      fontSize: 18,
+                      fontFamily: cat.fontFamily,
+                    }}>
+                    Aa
+                  </Typography>
+                  <Typography
+                    sx={{
+                      fontWeight: 500,
+                      fontSize: 12,
+                    }}>
+                    {t(cat.labelKey)}
+                  </Typography>
+                </Stack>
+              </Box>
+            </Grid>
+          );
+        })}
+      </Grid>
+
       {/* 字体总数显示 */}
-      <Box sx={{ mb: 1, display: 'flex', alignItems: 'center', gap: 1 }}>
-        <Typography variant="body2" color="text.secondary">
-          共找到
-        </Typography>
-        <Chip 
-          label={totalCount} 
-          size="small" 
-          color="primary" 
-          variant="outlined"
-        />
-        <Typography variant="body2" color="text.secondary">
-          个字体
-        </Typography>
-      </Box>
+      <Typography variant="body2" sx={{ mb: 1, color: 'text.secondary' }}>
+        {t('editor.results', { count: totalCount })}
+      </Typography>
 
       {/* 虚拟滚动字体列表 */}
       <Box sx={{ flex: 1, minHeight: 0 }}>
@@ -208,7 +238,6 @@ function TypographyEditDrawer({ open, variant, onClose }: TypographyEditDrawerPr
           fonts={fonts}
           loading={loading}
           onFontSelect={handleFontSelect}
-          height={listHeight}
           previewText={t('editor.fontPreviewText')}
           onLoadMore={loadMore}
           hasMore={hasMore}
@@ -216,10 +245,7 @@ function TypographyEditDrawer({ open, variant, onClose }: TypographyEditDrawerPr
       </Box>
 
       {/* 随机字体 */}
-      <Box sx={{ mt: 2 }}>
-        <ButtonShuffle />
-      </Box>
-
+      <ButtonShuffle sx={{ mt: 1 }} />
       {/* 当前使用的字体 */}
       <Box>
         <Typography variant="body2" color="text.secondary" align="center" sx={{ mt: 1 }}>

@@ -1,7 +1,7 @@
-import { useEffect, useState, useMemo } from 'react';
-import { GoogleFont, GoogleFontsData, FontFilter } from 'src/types/fonts';
+import { useEffect, useMemo, useState } from 'react';
+import { FontFilter, GoogleFont, GoogleFontsData } from 'src/types/fonts';
 
-const FONTS_PER_PAGE = 50; // 每页显示的字体数量
+const FONTS_PER_PAGE = 40; // 每页显示的字体数量
 
 // 异步加载字体数据
 let fontsDataCache: GoogleFontsData | null = null;
@@ -11,25 +11,25 @@ const loadFontsData = async (): Promise<GoogleFontsData> => {
   if (fontsDataCache) {
     return fontsDataCache;
   }
-  
+
   if (fontsDataPromise) {
     return fontsDataPromise;
   }
-  
+
   fontsDataPromise = import('src/data/google-fonts.json').then((data) => {
     fontsDataCache = data.default as GoogleFontsData;
     return fontsDataCache;
   });
-  
+
   return fontsDataPromise;
 };
 
 const useGoogleFonts = (filter: FontFilter) => {
-  const [fonts, setFonts] = useState<GoogleFont[]>([]);
-  const [loading, setLoading] = useState(false);
-  const [currentPage, setCurrentPage] = useState(0);
   const [fontsData, setFontsData] = useState<GoogleFontsData | null>(null);
   const [dataLoading, setDataLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [fonts, setFonts] = useState<GoogleFont[]>([]);
 
   // 异步加载字体数据
   useEffect(() => {
@@ -54,18 +54,21 @@ const useGoogleFonts = (filter: FontFilter) => {
       return { categories: [], fontsByCategory: {} };
     }
 
-    const categories = Array.from(new Set(fontsData.all.map(font => font.c))).sort();
-    const fontsByCategory = fontsData.all.reduce((acc, font) => {
-      const category = font.c || 'Other';
-      if (!acc[category]) {
-        acc[category] = [];
-      }
-      acc[category].push(font);
-      return acc;
-    }, {} as Record<string, GoogleFont[]>);
+    const categories = Array.from(new Set(fontsData.all.map((font) => font.c))).sort();
+    const fontsByCategory = fontsData.all.reduce(
+      (acc, font) => {
+        const category = font.c || 'Other';
+        if (!acc[category]) {
+          acc[category] = [];
+        }
+        acc[category].push(font);
+        return acc;
+      },
+      {} as Record<string, GoogleFont[]>,
+    );
 
     // 在每个分类内按 popularity 排序
-    Object.keys(fontsByCategory).forEach(category => {
+    Object.keys(fontsByCategory).forEach((category) => {
       fontsByCategory[category].sort((a, b) => b.p - a.p);
     });
 
@@ -89,24 +92,17 @@ const useGoogleFonts = (filter: FontFilter) => {
     // 按搜索关键词过滤
     if (filter.searchQuery) {
       const query = filter.searchQuery.toLowerCase();
-      result = result.filter(font => 
-        font.f.toLowerCase().includes(query)
-      );
+      result = result.filter((font) => font.f.toLowerCase().includes(query));
     }
 
     return result;
   }, [fontsData, fontsByCategory, filter.category, filter.searchQuery]);
 
-  // 分页处理
-  const paginatedFonts = useMemo(() => {
-    const startIndex = currentPage * FONTS_PER_PAGE;
-    return filteredFonts.slice(startIndex, startIndex + FONTS_PER_PAGE);
-  }, [filteredFonts, currentPage]);
-
   // 加载更多字体
   const loadMore = () => {
+    if (loading) return; // 防止 loading 时重复触发
     if (currentPage * FONTS_PER_PAGE < filteredFonts.length) {
-      setCurrentPage(prev => prev + 1);
+      setCurrentPage((prev) => prev + 1);
     }
   };
 
@@ -123,15 +119,19 @@ const useGoogleFonts = (filter: FontFilter) => {
   // 模拟异步加载
   useEffect(() => {
     if (!fontsData) return;
-    
+
     setLoading(true);
     const timer = setTimeout(() => {
-      setFonts(paginatedFonts);
+      // 累加模式：每次都显示前 N 页所有数据
+      const newFonts = filteredFonts.slice(0, (currentPage + 1) * FONTS_PER_PAGE);
+      setFonts(newFonts);
       setLoading(false);
     }, 100);
 
     return () => clearTimeout(timer);
-  }, [paginatedFonts, fontsData]);
+  }, [filteredFonts, currentPage, fontsData]);
+
+  console.log('currentPage', currentPage), 'haseMore', (currentPage + 1) * FONTS_PER_PAGE < filteredFonts.length;
 
   return {
     fonts,
