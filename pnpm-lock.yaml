@@ -50,6 +50,9 @@ importers:
       '@mui/styles':
         specifier: ^5.17.1
         version: 5.17.1(@types/react@19.0.12)(react@18.2.0)
+      '@tanstack/react-virtual':
+        specifier: ^3.13.11
+        version: 3.13.11(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       '@types/recharts':
         specifier: ^1.8.29
         version: 1.8.29
@@ -1517,6 +1520,15 @@ packages:
 
   '@tanem/svg-injector@10.1.68':
     resolution: {integrity: sha512-UkJajeR44u73ujtr5GVSbIlELDWD/mzjqWe54YMK61ljKxFcJoPd9RBSaO7xj02ISCWUqJW99GjrS+sVF0UnrA==}
+
+  '@tanstack/react-virtual@3.13.11':
+    resolution: {integrity: sha512-u5EaOSJOq08T9NXFuDopMdxZBNDFuEMohIFFU45fBYDXXh9SjYdbpNq1OLFSOpQnDRPjqgmY96ipZTkzom9t9Q==}
+    peerDependencies:
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
+      react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
+
+  '@tanstack/virtual-core@3.13.11':
+    resolution: {integrity: sha512-ORL6UyuZJ0D9X33LDR4TcgcM+K2YiS2j4xbvH1vnhhObwR1Z4dKwPTL/c0kj2Yeb4Yp2lBv1wpyVaqlohk8zpg==}
 
   '@testing-library/dom@9.3.4':
     resolution: {integrity: sha512-FlS4ZWlp97iiNWig0Muq8p+3rVDjRiYE+YKGbAqXOu9nwJFFOdL00kFpz42M+4huzYi86vAK1sOOfyOG45muIQ==}
@@ -9005,6 +9017,14 @@ snapshots:
       '@babel/runtime': 7.27.1
       content-type: 1.0.5
       tslib: 2.8.1
+
+  '@tanstack/react-virtual@3.13.11(react-dom@18.2.0(react@18.2.0))(react@18.2.0)':
+    dependencies:
+      '@tanstack/virtual-core': 3.13.11
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+
+  '@tanstack/virtual-core@3.13.11': {}
 
   '@testing-library/dom@9.3.4':
     dependencies:

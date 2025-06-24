@@ -70,6 +70,7 @@
     "@mui/lab": "5.0.0-alpha.176",
     "@mui/material": "^5.17.1",
     "@mui/styles": "^5.17.1",
+    "@tanstack/react-virtual": "^3.13.11",
     "@types/recharts": "^1.8.29",
     "ahooks": "^3.8.5",
     "axios": "^1.9.0",

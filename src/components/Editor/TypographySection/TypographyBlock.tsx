@@ -34,7 +34,7 @@ function TypographyBlock({ variant, onClick }: TypographyBlockProps) {
         },
       }}>
       <Stack spacing={1}>
-        <Typography variant="caption" color="text.primary" sx={{ textTransform: 'capitalize' }}>
+        <Typography variant="subtitle1" color="text.primary" sx={{ textTransform: 'capitalize' }}>
           {variant === 'Heading' ? t('editor.heading') : t('editor.body')}
         </Typography>
         <Typography variant={variant as any} sx={{ fontSize: '2em' }}>
