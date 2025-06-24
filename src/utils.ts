@@ -259,3 +259,14 @@ export function createPreviewMuiTheme(themeOptions: ThemeOptions, previewSize: P
 
   return createTheme(deepmerge(_themeOptions, { breakpoints: { values: spoofedBreakpoints[previewSize] } }));
 }
+
+export function topN<T>(arr: T[] = [], n = 30) {
+  return arr.length > n ? arr.slice(0, n) : arr;
+}
+
+export function pickRandom<T>(arr: T[], exclude?: T) {
+  let pool = arr;
+  if (exclude && arr.length > 1) pool = arr.filter((f) => f !== exclude);
+
+  return pool[Math.floor(Math.random() * pool.length)];
+}

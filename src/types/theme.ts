@@ -3,7 +3,7 @@ import { Theme } from '@mui/material/styles';
 
 export type Mode = 'light' | 'dark';
 export type ThemePrefer = 'light' | 'dark' | 'system';
-export type TextVariant = 'Heading' | 'Body';
+export type TextVariant = 'heading' | 'body';
 
 export interface Concept {
   id: string;
@@ -47,6 +47,7 @@ export interface ThemeStoreState {
   selectedComponentId: string;
   themeObject: Theme;
   lastShuffledPaletteIndex: number;
+  lastShuffleResult: { headingFont?: string; bodyFont?: string };
 
   // Concepts 管理
   addConcept: (name: string, baseThemeOptions?: Concept['themeConfig']) => void;
@@ -77,6 +78,7 @@ export interface ThemeStoreState {
 
   // Fonts 编辑
   addFonts: (fonts: string[]) => Promise<void>;
+  setFontOptions: (fontMap: Partial<Record<TextVariant, { fontFamily: string }>>) => void;
 
   // Preview 查看
   setPreviewSize: (size: PreviewSize) => void;

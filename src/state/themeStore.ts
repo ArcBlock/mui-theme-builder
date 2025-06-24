@@ -1,5 +1,6 @@
 import { deepmerge } from '@arcblock/ux/lib/Theme';
 import { deepmergeAll } from '@arcblock/ux/lib/Util';
+import { DEFAULT_FONTS } from '@blocklet/theme';
 import { PaletteColor, Theme } from '@mui/material/styles';
 import { nanoid } from 'nanoid';
 import { predefinedPalettes } from 'src/constants/predefinedPalettes';
@@ -14,6 +15,12 @@ import { shallow } from 'zustand/shallow';
 export const DEFAULT_CONCEPT_ID = 'EdNkoyjQDQFY7f1gzwdat';
 export const DEFAULT_CONCEPT_NAME = 'Concept 1';
 export const MODE_SPECIFIC_FIELDS = ['palette', 'components', 'shadows']; // 需要区分 light/dark 的主题配置
+export const HEADING_VARIANTS = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'subtitle1', 'subtitle2', 'overline'] as const;
+export const DEFAULT_FONT_STRING = DEFAULT_FONTS.map((s) => {
+  // 检查是否包含空格或特殊字符（除了连字符和数字）
+  const needsQuotes = /[^\w-]/.test(s);
+  return needsQuotes ? `"${s}"` : s;
+}).join(', ');
 
 // 获取主题配置字段名称
 const getThemeFieldName = (path: string, mode: Mode): keyof Concept['themeConfig'] => {
@@ -44,6 +51,7 @@ const getDefaultState = () => ({
   previewSize: false as PreviewSize,
   selectedComponentId: 'Website',
   lastShuffledPaletteIndex: -1,
+  lastShuffleResult: { headingFont: '', bodyFont: '' },
 });
 
 export const useThemeStore = create(
@@ -326,6 +334,43 @@ export const useThemeStore = create(
           fonts: Array.from(new Set([...state.fonts, ...fonts])),
         }));
       }
+    },
+    setFontOptions: (fontMap) => {
+      const { addFonts, setThemeOptions, themeObject } = get();
+      const { heading, body } = fontMap;
+      let updates: { path: string; value: any }[] = [];
+
+      // addFonts([fontFamily]);
+      if (body) {
+        // body 字体本质上是 base 字体
+        updates.push({
+          path: 'typography.fontFamily',
+          value: `"${body.fontFamily}", ${DEFAULT_FONT_STRING}`,
+        });
+      }
+
+      if (heading) {
+        updates.push(
+          ...HEADING_VARIANTS.map((v) => ({
+            path: `typography.${v}.fontFamily`,
+            value: `"${heading.fontFamily}", ${DEFAULT_FONT_STRING}`,
+          })),
+        );
+      } else if (body) {
+        // 单独修改 body 时，不能影响 Heading 字体
+        const headingFontFamily = themeObject.typography.h1.fontFamily ?? DEFAULT_FONT_STRING;
+
+        if (headingFontFamily !== body.fontFamily) {
+          updates.push(
+            ...HEADING_VARIANTS.map((v) => ({
+              path: `typography.${v}.fontFamily`,
+              value: headingFontFamily,
+            })),
+          );
+        }
+      }
+
+      setThemeOptions(updates);
     },
 
     // # Preview 查看

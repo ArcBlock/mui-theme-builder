@@ -1,5 +1,4 @@
 import { useLocaleContext } from '@arcblock/ux/lib/Locale/context';
-import { DEFAULT_FONTS } from '@blocklet/theme';
 import { Close, Search } from '@mui/icons-material';
 import {
   Box,
@@ -13,25 +12,14 @@ import {
   Typography,
   useMediaQuery,
 } from '@mui/material';
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { useThemeStore } from 'src/state/themeStore';
-import { FontFilter } from 'src/types/fonts';
+import { useMemo, useState } from 'react';
+import { DEFAULT_FONT_STRING, useThemeStore } from 'src/state/themeStore';
+import { GoogleFont } from 'src/types/fonts';
 import { TextVariant } from 'src/types/theme';
 
 import { ButtonShuffle } from '../Common/ButtonShuffle';
 import VirtualFontList from './VirtualFontList';
 import useGoogleFonts from './hooks/useGoogleFonts';
-
-const headingVariants = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'subtitle1', 'subtitle2', 'overline'] as const;
-
-// 优化字体字符串处理函数
-const formatFontFamily = (fontName: string): string => {
-  // 检查是否包含空格或特殊字符（除了连字符和数字）
-  const needsQuotes = /[^\w-]/.test(fontName);
-  return needsQuotes ? `"${fontName}"` : fontName;
-};
-
-const DEFAULT_FONT_STRING = DEFAULT_FONTS.map(formatFontFamily).join(', ');
 
 // 字体分类配置
 const FONT_CATEGORIES = [
@@ -59,24 +47,23 @@ const FONT_CATEGORIES = [
 
 interface TypographyEditDrawerProps {
   open: boolean;
-  variant: TextVariant | null;
+  variant: TextVariant;
   onClose: () => void;
 }
 
 function TypographyEditDrawer({ open, variant, onClose }: TypographyEditDrawerProps) {
   const { t } = useLocaleContext();
+  const setFontOptions = useThemeStore((s) => s.setFontOptions);
   const themeObject = useThemeStore((s) => s.themeObject);
   const isMobile = useMediaQuery(themeObject.breakpoints.down('md'));
 
   // 状态管理
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
-  const [filter, setFilter] = useState<FontFilter>({ category: 'All', searchQuery: '' });
+  const filter = useMemo(() => ({ category: selectedCategory, searchQuery }), [selectedCategory, searchQuery]);
 
   // 字体数据
-  const { fonts, loading, totalCount, hasMore, loadMore, categories } = useGoogleFonts(filter);
-  const addFonts = useThemeStore((s) => s.addFonts);
-  const setThemeOptions = useThemeStore((s) => s.setThemeOptions);
+  const { fonts, loading, totalCount, hasMore, loadMore, categories, shuffleFonts } = useGoogleFonts(filter);
 
   // 获取可用的分类选项（不含 All）
   const availableCategories = useMemo(() => {
@@ -87,65 +74,37 @@ function TypographyEditDrawer({ open, variant, onClose }: TypographyEditDrawerPr
   const activeFont = useMemo(() => {
     let fontFamily = themeObject.typography.fontFamily ?? DEFAULT_FONT_STRING;
 
-    if (variant === 'Heading') {
+    if (variant === 'heading') {
       fontFamily = themeObject.typography.h1.fontFamily ?? DEFAULT_FONT_STRING;
     }
 
     return fontFamily.split(',')[0].replace(/"/g, '');
   }, [variant, themeObject]);
 
-  // 更新过滤条件
-  const updateFilter = useCallback((newFilter: Partial<FontFilter>) => {
-    setFilter((prev) => ({ ...prev, ...newFilter }));
-  }, []);
-
   // 处理搜索
   const handleSearchChange = (value: string) => {
     setSearchQuery(value);
-    updateFilter({ searchQuery: value });
   };
 
   // 处理分类选择
   const handleCategoryChange = (category: string) => {
     setSelectedCategory(category);
-    updateFilter({ category: category === 'All' ? undefined : category });
   };
 
   // 修改字体
-  const handleFontSelect = (font: any) => {
-    if (variant) {
-      addFonts([font.f]);
-
-      if (variant === 'Heading') {
-        const configs = headingVariants.map((v) => ({
-          path: `typography.${v}.fontFamily`,
-          value: `"${font.f}", ${DEFAULT_FONT_STRING}`,
-        }));
-        setThemeOptions(configs);
-      } else {
-        const bodyFontFamily = `"${font.f}", ${DEFAULT_FONT_STRING}`;
-        // body 字体本质上是 base 字体
-        const updates = [
-          {
-            path: 'typography.fontFamily',
-            value: bodyFontFamily,
-          },
-        ];
-        const headingFontFamily = themeObject.typography.h1.fontFamily ?? DEFAULT_FONT_STRING;
-
-        // 不能影响 Heading 字体
-        if (headingFontFamily !== bodyFontFamily) {
-          headingVariants.map((v) => ({
-            path: `typography.${v}.fontFamily`,
-            value: headingFontFamily,
-          }));
-        }
-
-        setThemeOptions(updates);
-      }
-    }
-
+  const handleFontSelect = (font: GoogleFont) => {
+    setFontOptions({ [variant]: { fontFamily: font.f } });
+    // clear filter
+    setSearchQuery('');
+    setSelectedCategory('All');
     onClose();
+  };
+
+  // 随机字体
+  const handleShuffleFonts = () => {
+    const result = shuffleFonts(variant);
+
+    setFontOptions({ [variant]: { fontFamily: result[variant]!.f } });
   };
 
   const drawerContent = (
@@ -153,7 +112,7 @@ function TypographyEditDrawer({ open, variant, onClose }: TypographyEditDrawerPr
       {/* 标题栏 */}
       <Stack direction="row" justifyContent="space-between" alignItems="center" mb={1}>
         <Typography variant="h6" sx={{ textTransform: 'capitalize' }}>
-          {variant === 'Heading' ? t('editor.heading') : t('editor.body')}
+          {variant === 'heading' ? t('editor.heading') : t('editor.body')}
         </Typography>
         <IconButton onClick={onClose}>
           <Close />
@@ -245,7 +204,7 @@ function TypographyEditDrawer({ open, variant, onClose }: TypographyEditDrawerPr
       </Box>
 
       {/* 随机字体 */}
-      <ButtonShuffle sx={{ mt: 1 }} />
+      <ButtonShuffle sx={{ mt: 1 }} onClick={handleShuffleFonts} />
       {/* 当前使用的字体 */}
       <Box>
         <Typography variant="body2" color="text.secondary" align="center" sx={{ mt: 1 }}>

@@ -13,7 +13,7 @@ function TypographyBlock({ variant, onClick }: TypographyBlockProps) {
   const { t } = useLocaleContext();
   const themeObject = useThemeStore((s) => s.themeObject);
   const fontFamily = useMemo(() => {
-    if (variant === 'Heading') {
+    if (variant === 'heading') {
       return themeObject.typography.h1.fontFamily;
     }
 
@@ -35,7 +35,7 @@ function TypographyBlock({ variant, onClick }: TypographyBlockProps) {
       }}>
       <Stack spacing={1}>
         <Typography variant="subtitle1" color="text.primary" sx={{ textTransform: 'capitalize' }}>
-          {variant === 'Heading' ? t('editor.heading') : t('editor.body')}
+          {variant === 'heading' ? t('editor.heading') : t('editor.body')}
         </Typography>
         <Typography variant={variant as any} sx={{ fontSize: '2em' }}>
           {fontFamily?.split(',')[0].replace(/"/g, '')}

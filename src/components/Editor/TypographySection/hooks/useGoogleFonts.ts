@@ -1,5 +1,8 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { FontFilter, GoogleFont, GoogleFontsData } from 'src/types/fonts';
+import { TextVariant } from 'src/types/theme';
+import { pickRandom } from 'src/utils';
+import { topN } from 'src/utils';
 
 const FONTS_PER_PAGE = 40; // 每页显示的字体数量
 
@@ -30,6 +33,7 @@ const useGoogleFonts = (filter: FontFilter) => {
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(0);
   const [fonts, setFonts] = useState<GoogleFont[]>([]);
+  const lastRandomPick = useRef<{ heading: GoogleFont | null; body: GoogleFont | null }>({ heading: null, body: null });
 
   // 异步加载字体数据
   useEffect(() => {
@@ -111,6 +115,58 @@ const useGoogleFonts = (filter: FontFilter) => {
     setCurrentPage(0);
   };
 
+  // 随机挑选字体
+  const headingPool = useMemo(() => {
+    if (filter.category && filter.category !== 'All') {
+      return topN(fontsByCategory[filter.category] || []);
+    }
+    return [
+      ...topN(fontsByCategory['Display']),
+      ...topN(fontsByCategory['Serif']),
+      ...topN(fontsByCategory['Sans Serif']),
+    ];
+  }, [fontsByCategory, filter.category]);
+
+  const bodyPool = useMemo(() => {
+    if (filter.category && filter.category !== 'All') {
+      return topN(fontsByCategory[filter.category] || []);
+    }
+    return [
+      ...topN(fontsByCategory['Monospace']),
+      ...topN(fontsByCategory['Serif']),
+      ...topN(fontsByCategory['Sans Serif']),
+    ];
+  }, [fontsByCategory, filter.category]);
+
+  const shuffleFonts = useCallback(
+    (textVariant?: TextVariant) => {
+      let heading: GoogleFont | null = null;
+      let body: GoogleFont | null = null;
+
+      if (!textVariant) {
+        heading = pickRandom(headingPool, lastRandomPick.current.heading);
+        body = pickRandom(bodyPool, lastRandomPick.current.body);
+      }
+      if (textVariant === 'heading') {
+        heading = pickRandom(headingPool, lastRandomPick.current.heading);
+      }
+      if (textVariant === 'body') {
+        body = pickRandom(bodyPool, lastRandomPick.current.body);
+      }
+
+      lastRandomPick.current = {
+        heading,
+        body,
+      };
+
+      return {
+        heading,
+        body,
+      };
+    },
+    [headingPool, bodyPool],
+  );
+
   // 当过滤条件改变时重置分页
   useEffect(() => {
     resetPagination();
@@ -141,6 +197,8 @@ const useGoogleFonts = (filter: FontFilter) => {
     loadMore,
     resetPagination,
     categories,
+    allFonts: fontsData?.all || [],
+    shuffleFonts,
   };
 };
 

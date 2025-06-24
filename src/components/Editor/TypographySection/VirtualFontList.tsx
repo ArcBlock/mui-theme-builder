@@ -143,7 +143,6 @@ export default function VirtualFontList({
                       textOverflow: 'ellipsis',
                       whiteSpace: 'nowrap',
                     }}>
-                    {virtualItem.index}
                     {font.f}
                   </Typography>
                 </Box>
