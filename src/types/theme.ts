@@ -2,8 +2,8 @@ import type { ThemeOptions } from '@mui/material/styles';
 import { Theme } from '@mui/material/styles';
 
 export type Mode = 'light' | 'dark';
-
 export type ThemePrefer = 'light' | 'dark' | 'system';
+export type TextVariant = 'Heading' | 'Body';
 
 export interface Concept {
   id: string;

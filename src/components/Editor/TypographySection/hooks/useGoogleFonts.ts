@@ -1,11 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 // This is a simplified list. In a real application, you would fetch this from the Google Fonts API
 // and likely need an API key for production use.
 const popularFonts = [
   'Roboto',
-  'Pacifico',
-  'Caveat',
   'Bai Jamjuree',
   'Open Sans',
   'Lato',
@@ -16,6 +14,8 @@ const popularFonts = [
   'Poppins',
   'Nunito Sans',
   'Merriweather',
+  'Pacifico',
+  'Caveat',
 ];
 
 interface GoogleFont {
@@ -56,4 +56,4 @@ const useGoogleFonts = (searchQuery: string) => {
   return { fonts, loading };
 };
 
-export default useGoogleFonts; 
+export default useGoogleFonts;

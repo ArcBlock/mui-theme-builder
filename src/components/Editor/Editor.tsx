@@ -3,6 +3,7 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import PaletteIcon from '@mui/icons-material/Palette';
 import TextFieldsIcon from '@mui/icons-material/TextFields';
 import TuneIcon from '@mui/icons-material/Tune';
+import { useLocaleContext } from '@arcblock/ux/lib/Locale/context';
 import { Box } from '@mui/material';
 import { useState } from 'react';
 
@@ -12,16 +13,17 @@ import ConceptsSection from './ConceptsSection';
 import StylesSection from './StylesSection';
 import TypographySection from './TypographySection';
 
-const TABS = [
-  { key: 'concepts', label: 'Concepts', icon: <MoreVertIcon /> },
-  { key: 'colors', label: 'Colors', icon: <PaletteIcon /> },
-  { key: 'fonts', label: 'Fonts', icon: <TextFieldsIcon /> },
-  { key: 'styles', label: 'Styles', icon: <TuneIcon /> },
-];
-
 export default function Editor() {
+  const { t } = useLocaleContext();
   const isMobile = useIsMobile();
   const [tab, setTab] = useState<'concepts' | 'colors' | 'fonts' | 'styles'>('colors');
+
+  const TABS = [
+    { key: 'concepts', label: t('editor.concepts'), icon: <MoreVertIcon /> },
+    { key: 'colors', label: t('editor.colors'), icon: <PaletteIcon /> },
+    { key: 'fonts', label: t('editor.typography'), icon: <TextFieldsIcon /> },
+    { key: 'styles', label: t('editor.styles'), icon: <TuneIcon /> },
+  ];
 
   if (isMobile) {
     return (

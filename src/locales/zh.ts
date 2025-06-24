@@ -71,6 +71,12 @@ export default {
     customStyles: '自定义样式',
     customStylesPlaceholder: '输入自定义 CSS 样式...',
     copied: '已复制！',
+    searchFonts: '搜索字体...',
+    activeFont: '当前字体',
+    heading: '标题',
+    body: '正文',
+    concepts: '概念',
+    fontPreviewText: '快速跳动的棕色狐狸跳过懒狗',
   },
   samples: {
     title: '示例',

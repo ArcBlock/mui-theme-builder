@@ -1,4 +1,5 @@
 import { deepmerge } from '@arcblock/ux/lib/Theme';
+import { deepmergeAll } from '@arcblock/ux/lib/Util';
 import { PaletteColor, Theme } from '@mui/material/styles';
 import { nanoid } from 'nanoid';
 import { predefinedPalettes } from 'src/constants/predefinedPalettes';
@@ -344,7 +345,11 @@ useThemeStore.subscribe(
 
     if (concept) {
       themeObject = createPreviewMuiTheme(
-        deepmerge({ palette: { mode: concept.mode } }, concept.themeConfig[concept.mode]),
+        deepmergeAll([
+          { palette: { mode: concept.mode } },
+          concept.themeConfig.common,
+          concept.themeConfig[concept.mode],
+        ]),
         state.previewSize,
       );
     } else {

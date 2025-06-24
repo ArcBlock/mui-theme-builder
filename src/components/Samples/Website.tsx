@@ -51,7 +51,7 @@ export default function LandingPage() {
                 TeamSpace
               </Typography>
             </Typography>
-            <Typography variant="h6" color="text.secondary" sx={{ maxWidth: 'md', mx: 'auto' }}>
+            <Typography variant="body1" color="text.secondary" sx={{ maxWidth: 'md', mx: 'auto' }}>
               {t('samples.website.hero.subtitle')}
             </Typography>
             <Stack direction="row" spacing={2} justifyContent="center" sx={{ mt: 4 }}>

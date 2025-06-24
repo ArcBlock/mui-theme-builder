@@ -70,7 +70,13 @@ export default {
     systemPrefer: 'Follow System',
     customStyles: 'Custom Styles',
     customStylesPlaceholder: 'Enter custom CSS styles...',
-    copied: 'Copied!'
+    copied: 'Copied!',
+    searchFonts: 'Search fonts...',
+    activeFont: 'Active font',
+    heading: 'Heading',
+    body: 'Body',
+    concepts: 'Concepts',
+    fontPreviewText: 'The five boxing wizards jump quickly together',
   },
   samples: {
     title: 'Samples',

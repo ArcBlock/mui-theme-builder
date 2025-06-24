@@ -1,4 +1,5 @@
 import { useLocaleContext } from '@arcblock/ux/lib/Locale/context';
+import { DEFAULT_FONTS } from '@blocklet/theme';
 import { Close, Search } from '@mui/icons-material';
 import GoogleIcon from '@mui/icons-material/Google';
 import {
@@ -7,21 +8,34 @@ import {
   Drawer,
   IconButton,
   InputAdornment,
+  Link,
   Paper,
   Stack,
   TextField,
   Typography,
   useMediaQuery,
 } from '@mui/material';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useThemeStore } from 'src/state/themeStore';
+import { TextVariant } from 'src/types/theme';
 
 import { ButtonShuffle } from '../Common/ButtonShuffle';
 import useGoogleFonts from './hooks/useGoogleFonts';
 
+const headingVariants = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'subtitle1', 'subtitle2', 'overline'] as const;
+
+// 优化字体字符串处理函数
+const formatFontFamily = (fontName: string): string => {
+  // 检查是否包含空格或特殊字符（除了连字符和数字）
+  const needsQuotes = /[^\w-]/.test(fontName);
+  return needsQuotes ? `"${fontName}"` : fontName;
+};
+
+const DEFAULT_FONT_STRING = DEFAULT_FONTS.map(formatFontFamily).join(', ');
+
 interface TypographyEditDrawerProps {
   open: boolean;
-  variant: string | null;
+  variant: TextVariant | null;
   onClose: () => void;
 }
 
@@ -32,21 +46,50 @@ function TypographyEditDrawer({ open, variant, onClose }: TypographyEditDrawerPr
   const [searchQuery, setSearchQuery] = useState('');
   const { fonts, loading } = useGoogleFonts(searchQuery);
   const addFonts = useThemeStore((s) => s.addFonts);
-  const setThemeOption = useThemeStore((s) => s.setThemeOption);
-  const activeFont =
-    // @ts-ignore $FixMe
-    variant === 'base' ? themeObject.typography.fontFamily : (themeObject.typography as any)[variant]?.fontFamily;
+  const setThemeOptions = useThemeStore((s) => s.setThemeOptions);
 
+  // 当前使用的字体
+  const activeFont = useMemo(() => {
+    let fontFamily = themeObject.typography.fontFamily ?? DEFAULT_FONT_STRING;
+
+    if (variant === 'Heading') {
+      fontFamily = themeObject.typography.h1.fontFamily ?? DEFAULT_FONT_STRING;
+    }
+
+    return fontFamily.split(',')[0].replace(/"/g, '');
+  }, [variant, themeObject]);
+
+  // 修改字体
   const handleFontSelect = (fontFamily: string) => {
     if (variant) {
       addFonts([fontFamily]);
-      if (variant === 'base') {
-        setThemeOption(`typography.fontFamily`, `"${fontFamily}", "Roboto", "Helvetica", "Arial", sans-serif`);
+
+      if (variant === 'Heading') {
+        const configs = headingVariants.map((v) => ({
+          path: `typography.${v}.fontFamily`,
+          value: `"${fontFamily}", ${DEFAULT_FONT_STRING}`,
+        }));
+        setThemeOptions(configs);
       } else {
-        setThemeOption(
-          `typography.${variant}.fontFamily`,
-          `"${fontFamily}", "Roboto", "Helvetica", "Arial", sans-serif`,
-        );
+        const bodyFontFamily = `"${fontFamily}", ${DEFAULT_FONT_STRING}`;
+        // body 字体本质上是 base 字体
+        const updates = [
+          {
+            path: 'typography.fontFamily',
+            value: bodyFontFamily,
+          },
+        ];
+        const headingFontFamily = themeObject.typography.h1.fontFamily ?? DEFAULT_FONT_STRING;
+
+        // 不能影响 Heading 字体
+        if (headingFontFamily !== bodyFontFamily) {
+          headingVariants.map((v) => ({
+            path: `typography.${v}.fontFamily`,
+            value: headingFontFamily,
+          }));
+        }
+
+        setThemeOptions(updates);
       }
     }
 
@@ -55,19 +98,18 @@ function TypographyEditDrawer({ open, variant, onClose }: TypographyEditDrawerPr
 
   const drawerContent = (
     <Stack sx={{ p: 2, width: isMobile ? 'auto' : 320, height: '100%' }}>
-      <Stack direction="row" justifyContent="space-between" alignItems="center">
+      <Stack direction="row" justifyContent="space-between" alignItems="center" mb={1}>
         <Typography variant="h6" sx={{ textTransform: 'capitalize' }}>
-          {variant}
+          {variant === 'Heading' ? t('editor.heading') : t('editor.body')}
         </Typography>
         <IconButton onClick={onClose}>
           <Close />
         </IconButton>
       </Stack>
-
+      {/* 字体搜索 */}
       <TextField
-        placeholder="Search..."
+        placeholder={t('editor.searchFonts')}
         value={searchQuery}
-        onChange={(e) => setSearchQuery(e.target.value)}
         size="small"
         InputProps={{
           startAdornment: (
@@ -81,12 +123,9 @@ function TypographyEditDrawer({ open, variant, onClose }: TypographyEditDrawerPr
             </IconButton>
           ) : null,
         }}
+        onChange={(e) => setSearchQuery(e.target.value)}
       />
-
-      {/* <Typography variant="body2" color="text.secondary">
-        {fonts.length} results
-      </Typography> */}
-
+      {/* 字体列表 */}
       <Stack spacing={1} sx={{ flex: 1, overflowY: 'auto', mt: 2, mb: 2 }}>
         {loading ? (
           <CircularProgress sx={{ alignSelf: 'center' }} />
@@ -108,28 +147,26 @@ function TypographyEditDrawer({ open, variant, onClose }: TypographyEditDrawerPr
               }}>
               <Box>
                 <Typography sx={{ fontFamily: font.family, fontSize: '1.2rem' }}>
-                  The five boxing wizards jump quickly together
+                  {t('editor.fontPreviewText')}
                 </Typography>
                 <Stack direction="row" alignItems="center" spacing={1} sx={{ mt: 1 }}>
                   <GoogleIcon sx={{ fontSize: '14px', color: 'text.secondary' }} />
                   <Typography sx={{ fontSize: '14px', color: 'text.secondary' }}>{font.family}</Typography>
-                  <Typography sx={{ fontSize: '14px', color: 'text.secondary' }}>
-                    {font.family.split(',')[1]}
-                  </Typography>
                 </Stack>
               </Box>
-              {/* <IconButton size="small">
-                <ThumbUpOutlined />
-              </IconButton> */}
             </Paper>
           ))
         )}
       </Stack>
-
+      {/* 随机字体 */}
+      <ButtonShuffle />
+      {/* 当前使用的字体 */}
       <Box>
-        <ButtonShuffle />
         <Typography variant="body2" color="text.secondary" align="center" sx={{ mt: 1 }}>
-          Active font: {activeFont?.split(',')[0].replace(/"/g, '')}
+          {t('editor.activeFont')}
+          <Link href={`https://fonts.google.com/specimen/${activeFont}`} target="_blank" sx={{ ml: 1 }}>
+            {activeFont}
+          </Link>
         </Typography>
       </Box>
     </Stack>
