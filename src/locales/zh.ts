@@ -70,6 +70,7 @@ export default {
     systemPrefer: '跟随系统',
     customStyles: '自定义样式',
     customStylesPlaceholder: '输入自定义 CSS 样式...',
+    copied: '已复制！',
   },
   samples: {
     title: '示例',

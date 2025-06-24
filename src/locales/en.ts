@@ -70,6 +70,7 @@ export default {
     systemPrefer: 'Follow System',
     customStyles: 'Custom Styles',
     customStylesPlaceholder: 'Enter custom CSS styles...',
+    copied: 'Copied!'
   },
   samples: {
     title: 'Samples',

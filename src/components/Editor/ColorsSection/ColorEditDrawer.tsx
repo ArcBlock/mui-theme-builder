@@ -8,6 +8,7 @@ import { HexColorPicker } from 'react-colorful';
 import { useThemeStore } from 'src/state/themeStore';
 import { getByPath } from 'src/utils';
 
+import { HexColorField } from './HexColorField';
 import type { NeutralColorType } from './NeutralColorBlock';
 
 const ColorPickerWrapper = styled(Box)(() => ({
@@ -65,6 +66,7 @@ export function ColorEditDrawer({ open, colorType, onClose }: ColorEditDrawerPro
   const themeObject = useThemeStore((s) => s.themeObject);
   const isMobile = useMediaQuery(themeObject.breakpoints.down('md'));
   const setThemeOptions = useThemeStore((s) => s.setThemeOptions);
+  const removeThemeOption = useThemeStore((s) => s.removeThemeOption);
 
   const mainColor = useMemo(() => {
     if (isMainColor(colorType)) {
@@ -117,16 +119,11 @@ export function ColorEditDrawer({ open, colorType, onClose }: ColorEditDrawerPro
           <ColorPickerWrapper>
             <HexColorPicker color={mainColor.main} style={{ width: '100%' }} onChange={handleMainColorChange} />
           </ColorPickerWrapper>
-          <TextField
-            label="Hex"
-            value={mainColor.main}
-            size="small"
-            // InputProps={{
-            //   endAdornment: <Button size="small">Copy</Button>,
-            // }}
-            onChange={(e) => handleMainColorChange(e.target.value)}
+          <HexColorField
+            path={`palette.${colorType}.main`}
+            onChange={(v) => handleMainColorChange(v)}
+            onReset={(p) => removeThemeOption(p)}
           />
-          {/* <TextField label="Name" value={colorType} size="small" disabled /> */}
           <Typography variant="subtitle1" sx={{ mt: 2 }}>
             {t('editor.shades')}
           </Typography>
@@ -149,9 +146,6 @@ export function ColorEditDrawer({ open, colorType, onClose }: ColorEditDrawerPro
             label="Hex"
             value={neutralColor}
             size="small"
-            // InputProps={{
-            //   endAdornment: <Button size="small">Copy</Button>,
-            // }}
             onChange={(e) => handleMainColorChange(e.target.value)}
           />
         </>
