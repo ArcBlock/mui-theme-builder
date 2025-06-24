@@ -1,105 +1,24 @@
 import { useLocaleContext } from '@arcblock/ux/lib/Locale/context';
 import { Close } from '@mui/icons-material';
-import { Box, Button, Drawer, IconButton, Stack, TextField, Typography, useMediaQuery, useTheme } from '@mui/material';
-import { PaletteColor, darken, lighten, styled } from '@mui/material/styles';
+import { Box, Drawer, IconButton, Stack, TextField, Typography, useMediaQuery, useTheme } from '@mui/material';
+import { PaletteColor, styled } from '@mui/material/styles';
 import { get } from 'lodash';
 import { useMemo } from 'react';
 import { HexColorPicker } from 'react-colorful';
 import { useThemeStore } from 'src/state/themeStore';
+import { getByPath } from 'src/utils';
 
-import ButtonShuffle from '../Common/ButtonShuffle';
+import type { NeutralColorType } from './NeutralColorBlock';
 
-interface ColorEditDrawerProps {
-  open: boolean;
-  colorType: 'primary' | 'secondary' | 'success' | 'error' | 'info' | 'warning' | null;
-  onClose: () => void;
-}
-
-function ColorEditDrawer({ open, colorType, onClose }: ColorEditDrawerProps) {
-  const { t } = useLocaleContext();
-  const themeObject = useThemeStore((s) => s.themeObject);
-  const isMobile = useMediaQuery(themeObject.breakpoints.down('md'));
-  const setThemeOptions = useThemeStore((s) => s.setThemeOptions);
-
-  const color = useMemo(() => {
-    if (!colorType) return {} as PaletteColor;
-    const palette = get(themeObject.palette, colorType);
-
-    return palette;
-  }, [colorType, themeObject]);
-
-  const handleMainColorChange = (newColor: string) => {
-    if (!colorType) return;
-
-    const augmentedColor = themeObject.palette.augmentColor({ color: { main: newColor } } as any);
-
-    setThemeOptions([
-      { path: `palette.${colorType}.main`, value: newColor },
-      { path: `palette.${colorType}.light`, value: augmentedColor.light },
-      { path: `palette.${colorType}.dark`, value: augmentedColor.dark },
-      { path: `palette.${colorType}.contrastText`, value: augmentedColor.contrastText },
-    ]);
-  };
-
-  const drawerContent = (
-    <Stack sx={{ p: 2, width: isMobile ? 'auto' : 320 }} spacing={2}>
-      <Stack direction="row" justifyContent="space-between" alignItems="center">
-        <Typography variant="h6">{t('editor.colors')}</Typography>
-        <IconButton onClick={onClose}>
-          <Close />
-        </IconButton>
-      </Stack>
-
-      {colorType && (
-        <>
-          <Box
-            sx={{
-              borderRadius: 2,
-              bgcolor: color.main,
-              '& .react-colorful__hue': {
-                height: '12px',
-              },
-              '& .react-colorful__pointer': {
-                width: '14px',
-                height: '14px',
-              },
-            }}>
-            <HexColorPicker color={color.main} style={{ width: '100%' }} onChange={handleMainColorChange} />
-          </Box>
-          <TextField
-            label="Hex"
-            value={color.main}
-            size="small"
-            // InputProps={{
-            //   endAdornment: <Button size="small">Copy</Button>,
-            // }}
-            onChange={(e) => handleMainColorChange(e.target.value)}
-          />
-          {/* <TextField label="Name" value={colorType} size="small" disabled /> */}
-          <Typography variant="subtitle1" sx={{ mt: 2 }}>
-            {t('editor.shades')}
-          </Typography>
-          <Stack spacing={1}>
-            <ShadeLabel>Light</ShadeLabel>
-            <ShadeItem colorValue={color.light} />
-            <ShadeLabel>Dark</ShadeLabel>
-            <ShadeItem colorValue={color.dark} />
-            <ShadeLabel>Contrast Text</ShadeLabel>
-            <ShadeItem colorValue={color.contrastText} />
-          </Stack>
-        </>
-      )}
-
-      <ButtonShuffle />
-    </Stack>
-  );
-
-  return (
-    <Drawer anchor={isMobile ? 'bottom' : 'left'} open={open} onClose={onClose}>
-      {drawerContent}
-    </Drawer>
-  );
-}
+const ColorPickerWrapper = styled(Box)(() => ({
+  '& .react-colorful__hue': {
+    height: '12px',
+  },
+  '& .react-colorful__pointer': {
+    width: '14px',
+    height: '14px',
+  },
+}));
 
 const ShadeLabel = styled(Typography)(({ theme }) => ({
   fontSize: theme.typography.body2.fontSize,
@@ -127,4 +46,122 @@ function ShadeItem({ colorValue }: { colorValue: string }) {
   );
 }
 
-export default ColorEditDrawer;
+export const colorTypes = ['primary', 'secondary', 'success', 'error', 'info', 'warning'] as const;
+export type MainColorType = (typeof colorTypes)[number];
+export type ColorType = MainColorType | NeutralColorType;
+
+function isMainColor(colorType: ColorType | null): colorType is MainColorType {
+  return !!colorType && colorTypes.includes(colorType as MainColorType);
+}
+
+export interface ColorEditDrawerProps {
+  open: boolean;
+  colorType: ColorType | null;
+  onClose: () => void;
+}
+
+export function ColorEditDrawer({ open, colorType, onClose }: ColorEditDrawerProps) {
+  const { t } = useLocaleContext();
+  const themeObject = useThemeStore((s) => s.themeObject);
+  const isMobile = useMediaQuery(themeObject.breakpoints.down('md'));
+  const setThemeOptions = useThemeStore((s) => s.setThemeOptions);
+
+  const mainColor = useMemo(() => {
+    if (isMainColor(colorType)) {
+      const palette = get(themeObject.palette, colorType);
+
+      return palette;
+    }
+    return null;
+  }, [colorType, themeObject]);
+
+  const handleMainColorChange = (newColor: string) => {
+    if (!colorType) return;
+
+    const augmentedColor = themeObject.palette.augmentColor({ color: { main: newColor } } as any);
+
+    setThemeOptions([
+      { path: `palette.${colorType}.main`, value: newColor },
+      { path: `palette.${colorType}.light`, value: augmentedColor.light },
+      { path: `palette.${colorType}.dark`, value: augmentedColor.dark },
+      { path: `palette.${colorType}.contrastText`, value: augmentedColor.contrastText },
+    ]);
+  };
+
+  const neutralColor = useMemo<string | null>(() => {
+    if (colorType && !isMainColor(colorType)) {
+      const value = getByPath(themeObject.palette, colorType);
+
+      return value;
+    }
+    return null;
+  }, [colorType, mainColor, themeObject]);
+
+  const handleNeutralColorChange = (newColor: string) => {
+    if (!colorType) return;
+
+    setThemeOptions([{ path: `palette.${colorType}`, value: newColor }]);
+  };
+
+  const drawerContent = (
+    <Stack sx={{ p: 2, width: isMobile ? 'auto' : 320 }} spacing={2}>
+      <Stack direction="row" justifyContent="space-between" alignItems="center">
+        <Typography variant="h6">{t('editor.colors')}</Typography>
+        <IconButton onClick={onClose}>
+          <Close />
+        </IconButton>
+      </Stack>
+
+      {mainColor && (
+        <>
+          <ColorPickerWrapper>
+            <HexColorPicker color={mainColor.main} style={{ width: '100%' }} onChange={handleMainColorChange} />
+          </ColorPickerWrapper>
+          <TextField
+            label="Hex"
+            value={mainColor.main}
+            size="small"
+            // InputProps={{
+            //   endAdornment: <Button size="small">Copy</Button>,
+            // }}
+            onChange={(e) => handleMainColorChange(e.target.value)}
+          />
+          {/* <TextField label="Name" value={colorType} size="small" disabled /> */}
+          <Typography variant="subtitle1" sx={{ mt: 2 }}>
+            {t('editor.shades')}
+          </Typography>
+          <Stack spacing={1}>
+            <ShadeLabel>Light</ShadeLabel>
+            <ShadeItem colorValue={mainColor.light} />
+            <ShadeLabel>Dark</ShadeLabel>
+            <ShadeItem colorValue={mainColor.dark} />
+            <ShadeLabel>Contrast Text</ShadeLabel>
+            <ShadeItem colorValue={mainColor.contrastText} />
+          </Stack>
+        </>
+      )}
+      {neutralColor && (
+        <>
+          <ColorPickerWrapper>
+            <HexColorPicker color={neutralColor} style={{ width: '100%' }} onChange={handleNeutralColorChange} />
+          </ColorPickerWrapper>
+          <TextField
+            label="Hex"
+            value={neutralColor}
+            size="small"
+            // InputProps={{
+            //   endAdornment: <Button size="small">Copy</Button>,
+            // }}
+            onChange={(e) => handleMainColorChange(e.target.value)}
+          />
+        </>
+      )}
+    </Stack>
+  );
+
+  return (
+    <Drawer anchor={isMobile ? 'bottom' : 'left'} open={open} onClose={onClose}>
+      {drawerContent}
+    </Drawer>
+  );
+}

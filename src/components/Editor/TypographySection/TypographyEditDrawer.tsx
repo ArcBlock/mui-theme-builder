@@ -16,7 +16,7 @@ import {
 import { useState } from 'react';
 import { useThemeStore } from 'src/state/themeStore';
 
-import ButtonShuffle from '../Common/ButtonShuffle';
+import { ButtonShuffle } from '../Common/ButtonShuffle';
 import useGoogleFonts from './hooks/useGoogleFonts';
 
 interface TypographyEditDrawerProps {

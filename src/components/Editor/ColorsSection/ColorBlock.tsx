@@ -5,12 +5,12 @@ import { PaletteColor } from '@mui/material/styles';
 import { useCallback } from 'react';
 import { useThemeStore } from 'src/state/themeStore';
 
-interface ColorBlockProps {
+export interface ColorBlockProps {
   colorType: string;
   onClick?: () => void;
 }
 
-function ColorBlock({ colorType, onClick }: ColorBlockProps) {
+export function ColorBlock({ colorType, onClick }: ColorBlockProps) {
   const themeObject = useThemeStore((s) => s.themeObject);
   const isLocked = useThemeStore((s) => s.getCurrentConcept().editor.colors[colorType]?.isLocked ?? false);
   const setColorLock = useThemeStore((s) => s.setColorLock);
@@ -85,5 +85,3 @@ function ColorBlock({ colorType, onClick }: ColorBlockProps) {
     </Paper>
   );
 }
-
-export default ColorBlock;

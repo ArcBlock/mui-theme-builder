@@ -2,7 +2,7 @@ import { useLocaleContext } from '@arcblock/ux/lib/Locale/context';
 import { Box, Grid, Stack, Typography } from '@mui/material';
 import { useState } from 'react';
 
-import ButtonShuffle from '../Common/ButtonShuffle';
+import { ButtonShuffle } from '../Common/ButtonShuffle';
 import TypographyBlock from './TypographyBlock';
 import TypographyEditDrawer from './TypographyEditDrawer';
 

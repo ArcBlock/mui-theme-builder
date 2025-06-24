@@ -73,7 +73,7 @@ export interface ThemeStoreState {
 
   // Colors 编辑
   setColorLock: (colorKey: string, isLocked: boolean) => void;
-  shuffleColors: () => void;
+  shuffleColors: (colorKeys?: string | string[]) => void;
 
   // Fonts 编辑
   addFonts: (fonts: string[]) => Promise<void>;

@@ -4,7 +4,7 @@ import { Button, ButtonProps } from '@mui/material';
 
 const noop = () => {};
 
-export default function ButtonShuffle({
+export function ButtonShuffle({
   onClick = noop,
   size = 'small',
   variant = 'outlined',

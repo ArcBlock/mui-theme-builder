@@ -1,40 +1,44 @@
 import { useLocaleContext } from '@arcblock/ux/lib/Locale/context';
 import { Box, Paper, PaperProps, Typography } from '@mui/material';
+import { useMemo } from 'react';
 import { useThemeStore } from 'src/state/themeStore';
+import { getByPath } from 'src/utils';
 
-interface NeutralColorBlockProps extends PaperProps {
-  onClick?: () => void;
+export const neutralColorTypes = [
+  'background.default',
+  'background.paper',
+  'divider',
+  'text.hint',
+  'text.disabled',
+  'text.secondary',
+  'text.primary',
+] as const;
+
+export type NeutralColorType = (typeof neutralColorTypes)[number];
+
+export interface NeutralColorBlockProps extends Omit<PaperProps, 'onClick'> {
+  onClick?: (key: NeutralColorType) => void;
 }
 
-function NeutralColorBlock({ onClick, sx, ...props }: NeutralColorBlockProps) {
-  const themeObject = useThemeStore((s) => s.themeObject);
+export function NeutralColorBlock({ onClick, sx, ...props }: NeutralColorBlockProps) {
   const { t } = useLocaleContext();
-  const { palette } = themeObject;
-  const neutralColors = [
-    { key: 'background.default', value: palette.background.default },
-    { key: 'background.paper', value: palette.background.paper },
-    { key: 'divider', value: palette.divider },
-    { key: 'text.hint', value: palette.text.hint },
-    { key: 'text.disabled', value: palette.text.disabled },
-    { key: 'text.secondary', value: palette.text.secondary },
-    { key: 'text.primary', value: palette.text.primary },
-  ];
+  const themeObject = useThemeStore((s) => s.themeObject);
+  const neutralColors = useMemo(() => {
+    const { palette } = themeObject;
+
+    return neutralColorTypes.map((key) => ({ key, value: getByPath(palette, key) }));
+  }, [themeObject]);
 
   return (
     <Paper
       variant="outlined"
       sx={{
         height: '100%',
-        cursor: 'pointer',
         borderRadius: 1.5,
         overflow: 'hidden',
-        '&:hover': {
-          borderColor: 'primary.main',
-        },
         ...sx,
       }}
-      {...props}
-      onClick={onClick}>
+      {...props}>
       <Typography variant="subtitle1" sx={{ py: 1.5, px: 1 }}>
         {t('editor.neutral')}
       </Typography>
@@ -53,7 +57,14 @@ function NeutralColorBlock({ onClick, sx, ...props }: NeutralColorBlockProps) {
                 color: themeObject.palette.getContrastText(value),
                 fontSize: '0.75rem',
               },
-            }}>
+              cursor: 'pointer',
+              border: '1px solid',
+              borderColor: 'transparent',
+              '&:hover': {
+                borderColor: 'primary.main',
+              },
+            }}
+            onClick={() => onClick?.(key)}>
             <Typography>{value}</Typography>
             <Typography>{key.split('.').pop()}</Typography>
           </Box>
@@ -62,5 +73,3 @@ function NeutralColorBlock({ onClick, sx, ...props }: NeutralColorBlockProps) {
     </Paper>
   );
 }
-
-export default NeutralColorBlock;

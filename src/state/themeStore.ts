@@ -52,7 +52,7 @@ export const useThemeStore = create(
     themeObject: createPreviewMuiTheme(deepmerge({ palette: { mode: 'light' } }, getDefaultThemeConfig().light), false),
     // 添加一个状态来跟踪上次选择的调色板索引
     lastShuffledPaletteIndex: -1,
-    
+
     // # Concepts 管理
     addConcept: (name, sourceThemeConfig) => {
       const newConcept: Concept = {
@@ -251,7 +251,7 @@ export const useThemeStore = create(
             : c,
         ),
       })),
-    shuffleColors: () =>
+    shuffleColors: (colorKeys) =>
       set((state) => {
         const currentConcept = state.getCurrentConcept();
         if (!currentConcept) return {};
@@ -273,8 +273,17 @@ export const useThemeStore = create(
         // 同时处理 light 和 dark 模式
         (['light', 'dark'] as const).forEach((mode) => {
           const modePalette = selectedPalette[mode];
-          
-          Object.keys(modePalette).forEach((key) => {
+          let _colorKeys = [];
+
+          if (Array.isArray(colorKeys)) {
+            _colorKeys = colorKeys;
+          } else if (colorKeys && typeof colorKeys === 'string') {
+            _colorKeys = [colorKeys];
+          } else {
+            _colorKeys = Object.keys(modePalette);
+          }
+
+          _colorKeys.forEach((key) => {
             const colorKey = key as keyof typeof modePalette;
             if (!lockedColors[colorKey]?.isLocked) {
               const newMainColor = modePalette[colorKey];

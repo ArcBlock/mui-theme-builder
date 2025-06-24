@@ -1,17 +1,16 @@
 import { useLocaleContext } from '@arcblock/ux/lib/Locale/context';
 import Brightness2OutlinedIcon from '@mui/icons-material/Brightness2Outlined';
 import LightModeOutlinedIcon from '@mui/icons-material/LightModeOutlined';
-import { Box, Button, Grid, Stack, Typography, styled } from '@mui/material';
+import { Box, Stack, Typography, styled } from '@mui/material';
 import { useState } from 'react';
 import { useThemeStore } from 'src/state/themeStore';
 
-import ButtonShuffle from '../Common/ButtonShuffle';
-import ColorBlock from './ColorBlock';
-import ColorEditDrawer from './ColorEditDrawer';
-import NeutralColorBlock from './NeutralColorBlock';
+import { ButtonShuffle } from '../Common/ButtonShuffle';
+import { ColorBlock } from './ColorBlock';
+import { ColorEditDrawer, colorTypes } from './ColorEditDrawer';
+import { NeutralColorBlock, type NeutralColorType } from './NeutralColorBlock';
 
-const colorTypes = ['primary', 'secondary', 'success', 'error', 'info', 'warning'] as const;
-type ColorType = (typeof colorTypes)[number] | 'neutral';
+type ColorType = (typeof colorTypes)[number] | NeutralColorType;
 
 const ToggleButton = styled(Box)(({ theme }) => ({
   display: 'flex',
@@ -77,7 +76,7 @@ function ColorsSection() {
       {/* 颜色块网格 */}
       <Stack direction="row" alignItems="stretch">
         {/* Neutrals 色块 */}
-        <NeutralColorBlock sx={{ width: '25%', flexShrink: 0 }} onClick={() => handleColorClick('neutral')} />
+        <NeutralColorBlock sx={{ width: '25%', flexShrink: 0 }} onClick={(key) => handleColorClick(key)} />
         {/* 其他颜色块 */}
         <Stack direction="row" sx={{ flexGrow: 1, flexWrap: 'wrap', mt: -1 }}>
           {colorTypes.map((colorType) => (
@@ -89,9 +88,7 @@ function ColorsSection() {
       </Stack>
 
       {/* 颜色编辑弹窗 */}
-      {selectedColor !== 'neutral' && (
-        <ColorEditDrawer open={!!selectedColor} colorType={selectedColor} onClose={() => setSelectedColor(null)} />
-      )}
+      <ColorEditDrawer open={!!selectedColor} colorType={selectedColor} onClose={() => setSelectedColor(null)} />
     </Box>
   );
 }
