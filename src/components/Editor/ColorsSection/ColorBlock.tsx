@@ -43,7 +43,7 @@ export function ColorBlock({ colorType, onClick }: ColorBlockProps) {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          borderRadius: 1,
+          borderRadius: 64,
           color: themeObject.palette.getContrastText(mainColor),
           '&:hover': {
             backgroundColor: 'action.hover',

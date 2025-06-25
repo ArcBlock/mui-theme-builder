@@ -9,6 +9,7 @@ export default {
     save: '保存',
     cancel: '取消',
     reset: '重置',
+    copy: '复制',
     copied: '已复制！',
     shuffle: '随机生成',
     concept: {

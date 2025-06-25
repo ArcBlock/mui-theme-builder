@@ -4,7 +4,7 @@ import { TextVariant } from 'src/types/theme';
 import { pickRandom } from 'src/utils';
 import { topN } from 'src/utils';
 
-const FONTS_PER_PAGE = 40; // 每页显示的字体数量
+const FONTS_PER_PAGE = 10; // 每页显示的字体数量
 
 // 异步加载字体数据
 let fontsDataCache: GoogleFontsData | null = null;

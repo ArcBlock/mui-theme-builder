@@ -1,7 +1,7 @@
 import { useLocaleContext } from '@arcblock/ux/lib/Locale/context';
 import Toast from '@arcblock/ux/lib/Toast';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
-import ReplayOutlinedIcon from '@mui/icons-material/ReplayOutlined';
+import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import { IconButton, OutlinedTextFieldProps, TextField } from '@mui/material';
 import { useMemo } from 'react';
 import { defaultDarkTheme, defaultLightTheme } from 'src/siteTheme';
@@ -42,11 +42,11 @@ export function HexColorField({ path, label = 'Hex', size = 'small', onChange, o
         endAdornment: (
           <>
             {value !== defaultValue && (
-              <IconButton onClick={() => onReset?.(path)}>
-                <ReplayOutlinedIcon sx={{ fontSize: 16 }} />
+              <IconButton title={t('editor.reset')} onClick={() => onReset?.(path)}>
+                <RestartAltIcon sx={{ fontSize: 20 }} />
               </IconButton>
             )}
-            <IconButton onClick={handleCopy}>
+            <IconButton title={t('editor.copy')} onClick={handleCopy}>
               <ContentCopyIcon sx={{ fontSize: 16 }} />
             </IconButton>
           </>

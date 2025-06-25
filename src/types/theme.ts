@@ -49,7 +49,7 @@ export interface ThemeStoreState {
   lastShuffleResult: { headingFont?: string; bodyFont?: string };
 }
 
-export interface ThemeStoreModel extends ThemeStoreState{
+export interface ThemeStoreModel extends ThemeStoreState {
   // 整体设置
   resetStore: () => void;
   resetSiteData: () => void;
@@ -67,7 +67,7 @@ export interface ThemeStoreModel extends ThemeStoreState{
   setThemeOption: (path: string, value: any) => void;
   setThemeOptions: (configs: { path: string; value: any }[]) => void;
   removeThemeOption: (path: string) => void;
-  removeThemeOptions: (configs: { path: string }[]) => void;
+  removeThemeOptions: (paths: string[]) => void;
   setThemePrefer: (prefer: ThemePrefer) => void;
   setThemeMode: (mode: Mode) => void;
   updateThemeConfig: (themeConfig: Concept['themeConfig']) => void;

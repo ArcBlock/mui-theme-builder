@@ -108,14 +108,14 @@ function TypographyEditDrawer({ open, variant, onClose }: TypographyEditDrawerPr
   };
 
   const drawerContent = (
-    <Stack sx={{ p: 2, width: isMobile ? 'auto' : 320, height: '100%' }}>
+    <Stack sx={{ p: 1.5, width: isMobile ? 'auto' : 320, height: '100%' }}>
       {/* 标题栏 */}
       <Stack direction="row" justifyContent="space-between" alignItems="center" mb={1}>
-        <Typography variant="h6" sx={{ textTransform: 'capitalize' }}>
+        <Typography sx={{ fontSize: 18, fontWeight: 500, textTransform: 'capitalize' }}>
           {variant === 'heading' ? t('editor.typographySection.heading') : t('editor.typographySection.body')}
         </Typography>
         <IconButton onClick={onClose}>
-          <Close />
+          <Close sx={{ fontSize: 20 }} />
         </IconButton>
       </Stack>
 
@@ -124,16 +124,16 @@ function TypographyEditDrawer({ open, variant, onClose }: TypographyEditDrawerPr
         placeholder={t('editor.typographySection.searchFonts')}
         value={searchQuery}
         size="small"
-        sx={{ mb: 1 }}
+        sx={{ mb: 1, '& .MuiInputBase-input': { fontSize: 14 } }}
         InputProps={{
           startAdornment: (
             <InputAdornment position="start">
-              <Search />
+              <Search sx={{ fontSize: 20 }} />
             </InputAdornment>
           ),
           endAdornment: searchQuery ? (
             <IconButton size="small" onClick={() => handleSearchChange('')}>
-              <Close />
+              <Close sx={{ fontSize: 16 }} />
             </IconButton>
           ) : null,
         }}
@@ -147,14 +147,13 @@ function TypographyEditDrawer({ open, variant, onClose }: TypographyEditDrawerPr
           return (
             <Grid
               item
-              xs={12}
-              md={6}
+              xs={3}
               key={cat.value}
               onClick={() => (selected ? handleCategoryChange('All') : handleCategoryChange(cat.value))}>
               <Box
                 sx={{
                   cursor: 'pointer',
-                  p: 1,
+                  p: '6px',
                   border: '1px solid',
                   borderColor: selected ? 'primary.main' : 'divider',
                   borderRadius: 1,
@@ -167,7 +166,8 @@ function TypographyEditDrawer({ open, variant, onClose }: TypographyEditDrawerPr
                   <Typography
                     sx={{
                       fontWeight: 700,
-                      fontSize: 18,
+                      fontSize: 16,
+                      lineHeight: '20px',
                       fontFamily: cat.fontFamily,
                     }}>
                     Aa

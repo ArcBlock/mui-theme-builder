@@ -9,6 +9,7 @@ export default {
     save: 'Save',
     cancel: 'Cancel',
     reset: 'Reset',
+    copy: 'Copy',
     copied: 'Copied!',
     shuffle: 'Shuffle',
     concept: {
@@ -49,10 +50,10 @@ export default {
       noFontsFound: 'No matching fonts found',
       fontPreviewText: 'The five boxing wizards jump quickly together',
       searchFonts: 'Search fonts...',
-      sansSerif: 'Sans Serif',
+      sansSerif: 'Sans',
       serif: 'Serif',
       display: 'Display',
-      monospace: 'Monospace',
+      monospace: 'Mono',
     },
     stylesSection: {
       title: 'Styles',

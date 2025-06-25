@@ -83,6 +83,7 @@ export default function VirtualFontList({
   return (
     <Box
       ref={parentRef}
+      className="hide-scrollbar"
       sx={{
         height: '100%',
         overflow: 'auto',

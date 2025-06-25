@@ -163,7 +163,7 @@ export const useThemeStore = create(
             // .map(x => ) // strip out quotes and split by comma
             // .flat() // flatten the array if any font families had multiple specified
             .map((x) => x.trim()); // trim off any white space
-          
+
           const loadedFonts = loadFontsIfRequired(newFonts, new Set());
 
           updates.loadedFonts = loadedFonts;
@@ -227,16 +227,16 @@ export const useThemeStore = create(
         };
       });
     },
-    removeThemeOptions: (configs) => {
+    removeThemeOptions: (paths) => {
       set((state) => {
         const current = state.concepts.find((c) => c.id === state.currentConceptId);
         if (!current) return {};
         const { mode } = current;
 
         let newThemeOptions = { ...current.themeConfig };
-        configs.forEach(({ path }) => {
-          const fieldName = getThemeFieldName(path, mode);
-          newThemeOptions = removeByPath(newThemeOptions, `${fieldName}.${path}`);
+        paths.forEach((p) => {
+          const fieldName = getThemeFieldName(p, mode);
+          newThemeOptions = removeByPath(newThemeOptions, `${fieldName}.${p}`);
         });
 
         return {
