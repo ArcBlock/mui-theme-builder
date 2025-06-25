@@ -1,8 +1,8 @@
 import { useLocaleContext } from '@arcblock/ux/lib/Locale/context';
 import GoogleIcon from '@mui/icons-material/Google';
-import { Box, CircularProgress, Paper, Typography, useTheme } from '@mui/material';
+import { Box, CircularProgress, Paper, Skeleton, Typography, useTheme } from '@mui/material';
 import { VirtualItem, useVirtualizer } from '@tanstack/react-virtual';
-import { useEffect, useMemo, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { GoogleFont } from 'src/types/fonts';
 
 interface VirtualFontListProps {

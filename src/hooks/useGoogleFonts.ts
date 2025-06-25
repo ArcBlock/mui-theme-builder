@@ -1,7 +1,9 @@
+import { useAsyncEffect } from 'ahooks';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { PREVIEW_TEXT } from 'src/constants';
 import { FontFilter, GoogleFont, GoogleFontsData } from 'src/types/fonts';
 import { TextVariant } from 'src/types/theme';
-import { pickRandom } from 'src/utils';
+import { loadFontsIfRequired, pickRandom } from 'src/utils';
 import { topN } from 'src/utils';
 
 const FONTS_PER_PAGE = 10; // 每页显示的字体数量
@@ -9,6 +11,7 @@ const FONTS_PER_PAGE = 10; // 每页显示的字体数量
 // 异步加载字体数据
 let fontsDataCache: GoogleFontsData | null = null;
 let fontsDataPromise: Promise<GoogleFontsData> | null = null;
+let loadedFonts = new Set<string>();
 
 const loadFontsData = async (): Promise<GoogleFontsData> => {
   if (fontsDataCache) {
@@ -73,7 +76,7 @@ const useGoogleFonts = (filter: FontFilter) => {
 
     // 在每个分类内按 popularity 排序
     Object.keys(fontsByCategory).forEach((category) => {
-      fontsByCategory[category].sort((a, b) => b.p - a.p);
+      fontsByCategory[category].sort((a, b) => a.p - b.p);
     });
 
     return { categories, fontsByCategory };
@@ -173,18 +176,20 @@ const useGoogleFonts = (filter: FontFilter) => {
   }, [filter.category, filter.searchQuery]);
 
   // 模拟异步加载
-  useEffect(() => {
+  useAsyncEffect(async () => {
     if (!fontsData) return;
 
     setLoading(true);
-    const timer = setTimeout(() => {
-      // 累加模式：每次都显示前 N 页所有数据
-      const newFonts = filteredFonts.slice(0, (currentPage + 1) * FONTS_PER_PAGE);
-      setFonts(newFonts);
-      setLoading(false);
-    }, 100);
-
-    return () => clearTimeout(timer);
+    // 累加模式：每次都显示前 N 页所有数据
+    const newFonts = filteredFonts.slice(0, (currentPage + 1) * FONTS_PER_PAGE);
+    setFonts(newFonts);
+    // 预加载字体
+    loadedFonts = await loadFontsIfRequired(
+      newFonts.map((f) => f.f),
+      loadedFonts,
+      { text: PREVIEW_TEXT },
+    );
+    setLoading(false);
   }, [filteredFonts, currentPage, fontsData]);
 
   return {

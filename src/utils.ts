@@ -203,16 +203,43 @@ export function diffJSON(source: any, target: any): any {
 /**
  * loads a set of passed fonts and resolves a promise
  * when the fonts load, or fail to load
- * @param fonts
+ * @param fonts - 字体名称数组
+ * @param options - 加载选项
  */
-export function loadFonts(fonts: string[]) {
+export function loadFonts(
+  fonts: string[], 
+  options: {
+    text?: string; // 字符子集，只下载包含这些字符的字体
+    subsets?: string[]; // 语言子集，如 ['latin', 'chinese-simplified']
+    weights?: string[]; // 字体权重，如 ['300', '400', '700']
+  } = {}
+) {
   return new Promise<boolean>((resolve) => {
     import('webfontloader')
       .then((WebFontModule) => {
         const WebFont = WebFontModule.default || WebFontModule;
+        
+        // 处理字体名称，添加权重和子集信息
+        const processedFonts = fonts.map(font => {
+          let processedFont = font;
+          
+          // 如果指定了权重，添加到字体名称中
+          if (options.weights && options.weights.length > 0) {
+            processedFont += `:${options.weights.join(',')}`;
+          }
+          
+          // 如果指定了语言子集，添加到字体名称中
+          if (options.subsets && options.subsets.length > 0) {
+            processedFont += `:${options.subsets.join(',')}`;
+          }
+          
+          return processedFont;
+        });
+
         WebFont.load({
           google: {
-            families: fonts,
+            families: processedFonts,
+            ...(options.text && { text: options.text }), // 字符子集化
           },
           active: () => {
             verbose('state/actions -> loadFonts: webfonts loaded', fonts);
@@ -230,12 +257,20 @@ export function loadFonts(fonts: string[]) {
   });
 }
 
-export function loadFontsIfRequired(fonts: string[], loadedFonts: Set<string>) {
+export function loadFontsIfRequired(
+  fonts: string[], 
+  loadedFonts: Set<string>,
+  options?: {
+    text?: string;
+    subsets?: string[];
+    weights?: string[];
+  }
+) {
   const fontsToLoad = fonts.filter((x) => !loadedFonts.has(x));
 
   if (!fontsToLoad.length) return loadedFonts;
 
-  loadFonts(fontsToLoad);
+  loadFonts(fontsToLoad, options || {});
 
   return new Set([...loadedFonts, ...fontsToLoad].sort());
 }

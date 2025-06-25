@@ -47,7 +47,6 @@ export default {
       activeFont: '当前字体',
       results: '{count} 结果',
       noFontsFound: '没有找到匹配的字体',
-      fontPreviewText: '快速跳动的棕色狐狸跳过懒狗',
       searchFonts: '搜索字体...',
       sansSerif: '无衬线',
       serif: '衬线',

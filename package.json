@@ -28,6 +28,7 @@
     "build": "./extractMuiVersion.sh && vite build && node publish.js",
     "prepare": "npx simple-git-hooks",
     "bump-version": "zx --quiet scripts/bump-version.mjs",
+    "fetch-fonts": "node scripts/fetch-google-fonts.mjs",
     "update:deps": "taze -r -w && pnpm install && pnpm dedupe && pnpm build",
     "test": "vitest run",
     "test:watch": "vitest",

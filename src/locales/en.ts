@@ -48,7 +48,6 @@ export default {
       activeFont: 'Active font',
       results: '{count} results',
       noFontsFound: 'No matching fonts found',
-      fontPreviewText: 'The five boxing wizards jump quickly together',
       searchFonts: 'Search fonts...',
       sansSerif: 'Sans',
       serif: 'Serif',

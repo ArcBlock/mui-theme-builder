@@ -13,6 +13,7 @@ import {
   useMediaQuery,
 } from '@mui/material';
 import { useMemo, useState } from 'react';
+import { PREVIEW_TEXT } from 'src/constants';
 import useGoogleFonts from 'src/hooks/useGoogleFonts';
 import { DEFAULT_FONT_STRING, useThemeStore } from 'src/state/themeStore';
 import { GoogleFont } from 'src/types/fonts';
@@ -197,7 +198,7 @@ function TypographyEditDrawer({ open, variant, onClose }: TypographyEditDrawerPr
           fonts={fonts}
           loading={loading}
           onFontSelect={handleFontSelect}
-          previewText={t('editor.typographySection.fontPreviewText')}
+          previewText={PREVIEW_TEXT}
           onLoadMore={loadMore}
           hasMore={hasMore}
         />

@@ -3,7 +3,7 @@ import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import { IconButton, Paper, Stack, Typography } from '@mui/material';
 import { useMemo } from 'react';
 import { defaultDarkTheme, defaultLightTheme } from 'src/siteTheme';
-import { HEADING_VARIANTS, useThemeStore } from 'src/state/themeStore';
+import { DEFAULT_FONT_STRING, HEADING_VARIANTS, useThemeStore } from 'src/state/themeStore';
 import { TextVariant } from 'src/types/theme';
 
 interface TypographyBlockProps {
@@ -16,37 +16,43 @@ function TypographyBlock({ variant, onClick }: TypographyBlockProps) {
   const themeObject = useThemeStore((s) => s.themeObject);
   const removeThemeOption = useThemeStore((s) => s.removeThemeOption);
   const removeThemeOptions = useThemeStore((s) => s.removeThemeOptions);
+  const setFontOptions = useThemeStore((s) => s.setFontOptions);
 
-  // 当前值
-  const fontFamily = useMemo(() => {
+  const actions = useMemo(() => {
+    const isDark = themeObject.palette.mode === 'dark';
+
     if (variant === 'heading') {
-      return themeObject.typography.h1.fontFamily;
+      return {
+        getFontFamily: () => themeObject.typography.h1.fontFamily,
+        getDefaultFontFamily: () =>
+          isDark ? defaultDarkTheme.typography.h1.fontFamily : defaultLightTheme.typography.h1.fontFamily,
+        resetFontFamily: () => {
+          if (themeObject.typography.fontFamily === DEFAULT_FONT_STRING) {
+            removeThemeOptions(HEADING_VARIANTS.map((v) => `typography.${v}.fontFamily`));
+          } else {
+            setFontOptions({ heading: { fontFamily: DEFAULT_FONT_STRING } });
+          }
+        },
+        getLabel: () => t('editor.typographySection.heading'),
+      };
     }
 
-    // Body
-    return themeObject.typography.fontFamily;
-  }, [variant, themeObject]);
+    // body
+    return {
+      getFontFamily: () => themeObject.typography.fontFamily,
+      getDefaultFontFamily: () =>
+        isDark ? defaultDarkTheme.typography.fontFamily : defaultLightTheme.typography.fontFamily,
+      resetFontFamily: () => removeThemeOption('typography.fontFamily'),
+      getLabel: () => t('editor.typographySection.body'),
+    };
+  }, [variant, themeObject, removeThemeOption, removeThemeOptions, t]);
 
-  // 默认值
-  const defaultFontFamily = useMemo(() => {
-    if (variant === 'heading') {
-      return themeObject.mode === 'dark'
-        ? defaultDarkTheme.typography.h1.fontFamily
-        : defaultLightTheme.typography.h1.fontFamily;
-    }
-    return themeObject.mode === 'dark'
-      ? defaultDarkTheme.typography.fontFamily
-      : defaultLightTheme.typography.fontFamily;
-  }, [variant, themeObject]);
+  const fontFamily = actions.getFontFamily();
+  const defaultFontFamily = actions.getDefaultFontFamily();
 
   const handleReset = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
-
-    if (variant === 'heading') {
-      removeThemeOptions(HEADING_VARIANTS.map((v) => `typography.${v}.fontFamily`));
-    } else {
-      removeThemeOption('typography.fontFamily');
-    }
+    actions.resetFontFamily();
   };
 
   return (
@@ -69,7 +75,7 @@ function TypographyBlock({ variant, onClick }: TypographyBlockProps) {
       )}
       <Stack spacing={1}>
         <Typography variant="subtitle1" color="text.primary" sx={{ textTransform: 'capitalize' }}>
-          {variant === 'heading' ? t('editor.typographySection.heading') : t('editor.typographySection.body')}
+          {actions.getLabel()}
         </Typography>
         <Typography variant={variant as any} sx={{ fontSize: '2em' }}>
           {fontFamily?.split(',')[0].replace(/"/g, '')}

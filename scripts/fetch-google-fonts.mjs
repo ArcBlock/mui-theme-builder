@@ -45,7 +45,7 @@ async function fetchGoogleFonts() {
       }));
     
     // 按 popularity 排序
-    const sortedFonts = processedFonts.sort((a, b) => b.p - a.p);
+    const sortedFonts = processedFonts.sort((a, b) => a.p - b.p);
     
     // 创建最终的数据结构，只保留 all 数组
     const finalData = {
