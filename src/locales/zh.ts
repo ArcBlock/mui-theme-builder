@@ -60,6 +60,48 @@ export default {
   },
   samples: {
     title: '示例',
+    dashboard: {
+      nav1: '仪表盘',
+      nav2: 'DID Connect',
+      group1: '网站',
+      group2: '管理',
+      group1_1: '概览',
+      group1_2: '成员',
+      group1_3: '护照',
+      group1_4: '域名',
+      group2_1: '操作',
+      group2_2: '集成',
+      group2_3: '开发者',
+      group2_4: '设置',
+      content: {
+        tabs: {
+          overview: '概览',
+          blocklets: 'Blocklets',
+        },
+        overview: {
+          blocklets: 'Blocklets',
+          running: '运行中',
+          members: '成员',
+          active: '活跃',
+          passports: '通行证',
+          domains: '域名',
+          customDomain: '自定义域名',
+          uptime: '运行时长',
+          createdAt: '创建于',
+          lastBackup: '上次备份时间',
+        },
+        basicInfo: {
+          title: '基本信息',
+          appDid: '应用 DID',
+          permanentDid: '永久性 DID',
+          owner: '所有者',
+          installedAt: '安装时间',
+          walletType: '钱包类型',
+          serverDid: '服务器 DID',
+          serverVersion: '服务器版本',
+        },
+      },
+    },
     website: {
       hero: {
         title: '构建更强大的团队',

@@ -61,6 +61,48 @@ export default {
   },
   samples: {
     title: 'Samples',
+    dashboard: {
+      nav1: 'Dashboard',
+      nav2: 'DID Connect',
+      group1: 'Website',
+      group2: 'Admin',
+      group1_1: 'Overview',
+      group1_2: 'Members',
+      group1_3: 'Passports',
+      group1_4: 'Domains',
+      group2_1: 'Operations',
+      group2_2: 'Integrations',
+      group2_3: 'Developers',
+      group2_4: 'Settings',
+      content: {
+        tabs: {
+          overview: 'Overview',
+          blocklets: 'Blocklets',
+        },
+        overview: {
+          blocklets: 'Blocklets',
+          running: 'running',
+          members: 'Members',
+          active: 'Active',
+          passports: 'Passports',
+          domains: 'Domains',
+          customDomain: 'Custom domain',
+          uptime: 'Uptime',
+          createdAt: 'Created At',
+          lastBackup: 'Last Backup Time',
+        },
+        basicInfo: {
+          title: 'Basic Information',
+          appDid: 'App DID',
+          permanentDid: 'Permanent DID',
+          owner: 'Owner',
+          installedAt: 'Installed At',
+          walletType: 'Wallet Type',
+          serverDid: 'Server DID',
+          serverVersion: 'Server Version',
+        },
+      },
+    },
     website: {
       hero: {
         title: 'Build Better Teams with',
