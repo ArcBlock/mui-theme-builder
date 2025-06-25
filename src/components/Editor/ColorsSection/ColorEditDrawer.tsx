@@ -1,7 +1,7 @@
 import { useLocaleContext } from '@arcblock/ux/lib/Locale/context';
 import { Close } from '@mui/icons-material';
-import { Box, Drawer, IconButton, Stack, TextField, Typography, useMediaQuery, useTheme } from '@mui/material';
-import { PaletteColor, styled } from '@mui/material/styles';
+import { Box, Drawer, IconButton, Stack, TextField, Typography, useMediaQuery } from '@mui/material';
+import { styled } from '@mui/material/styles';
 import { get } from 'lodash';
 import { useMemo } from 'react';
 import { HexColorPicker } from 'react-colorful';
