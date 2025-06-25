@@ -1,13 +1,13 @@
 // 替换为 MUI Icons
+import { useLocaleContext } from '@arcblock/ux/lib/Locale/context';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import PaletteIcon from '@mui/icons-material/Palette';
 import TextFieldsIcon from '@mui/icons-material/TextFields';
 import TuneIcon from '@mui/icons-material/Tune';
-import { useLocaleContext } from '@arcblock/ux/lib/Locale/context';
 import { Box } from '@mui/material';
 import { useState } from 'react';
+import useMobile from 'src/hooks/useMobile';
 
-import useIsMobile from '../../hooks/useIsMobile';
 import ColorsSection from './ColorsSection';
 import ConceptsSection from './ConceptsSection';
 import StylesSection from './StylesSection';
@@ -15,7 +15,7 @@ import TypographySection from './TypographySection';
 
 export default function Editor() {
   const { t } = useLocaleContext();
-  const isMobile = useIsMobile();
+  const isMobile = useMobile();
   const [tab, setTab] = useState<'concepts' | 'colors' | 'fonts' | 'styles'>('colors');
 
   const TABS = [

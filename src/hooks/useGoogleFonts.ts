@@ -187,8 +187,6 @@ const useGoogleFonts = (filter: FontFilter) => {
     return () => clearTimeout(timer);
   }, [filteredFonts, currentPage, fontsData]);
 
-  console.log('currentPage', currentPage), 'haseMore', (currentPage + 1) * FONTS_PER_PAGE < filteredFonts.length;
-
   return {
     fonts,
     loading: loading || dataLoading,

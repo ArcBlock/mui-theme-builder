@@ -4,7 +4,7 @@ import * as monaco from 'monaco-editor';
 import { useCallback, useEffect } from 'react';
 // custom theme config
 import { useDispatch, useSelector } from 'react-redux';
-import useSchemaKey from 'src/hooks/use-schema-key';
+import useSchemaKey from 'src/hooks/useSchemaKey';
 import { defaultThemeOptions } from 'src/siteTheme';
 import { saveEditorToTheme, updateEditorState } from 'src/state/editor/actions';
 import { parseEditorOutput } from 'src/state/editor/parser';

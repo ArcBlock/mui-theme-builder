@@ -19,10 +19,6 @@ import useSave from './hooks/useSave';
 import useUndoRedo from './hooks/useUndoRedo';
 import { MutableCodeEditor } from './types';
 
-interface EditorControlsProps extends BoxProps {
-  codeEditor: MutableCodeEditor;
-}
-
 export function CopyButton() {
   const themeInput = useSelector((state: RootState) => state.editor.themeInput);
   const outputTypescript = useSelector((state: RootState) => state.editor.outputTypescript);
@@ -115,6 +111,10 @@ export function ResetButton({ codeEditor }: { codeEditor: MutableCodeEditor }) {
       </Confirm>
     </>
   );
+}
+
+export interface EditorControlsProps extends BoxProps {
+  codeEditor: MutableCodeEditor;
 }
 
 export default function EditorControls({ codeEditor, sx, ...rest }: EditorControlsProps) {

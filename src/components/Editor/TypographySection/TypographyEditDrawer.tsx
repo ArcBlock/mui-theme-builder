@@ -13,13 +13,13 @@ import {
   useMediaQuery,
 } from '@mui/material';
 import { useMemo, useState } from 'react';
+import useGoogleFonts from 'src/hooks/useGoogleFonts';
 import { DEFAULT_FONT_STRING, useThemeStore } from 'src/state/themeStore';
 import { GoogleFont } from 'src/types/fonts';
 import { TextVariant } from 'src/types/theme';
 
 import { ButtonShuffle } from '../Common/ButtonShuffle';
 import VirtualFontList from './VirtualFontList';
-import useGoogleFonts from './hooks/useGoogleFonts';
 
 // 字体分类配置
 const FONT_CATEGORIES = [

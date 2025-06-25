@@ -47,14 +47,21 @@ export interface ThemeStoreState {
   themeObject: Theme;
   lastShuffledPaletteIndex: number;
   lastShuffleResult: { headingFont?: string; bodyFont?: string };
+}
+
+export interface ThemeStoreModel extends ThemeStoreState{
+  // 整体设置
+  resetStore: () => void;
+  resetSiteData: () => void;
 
   // Concepts 管理
+  setCurrentConcept: (id: string) => void;
+  getCurrentConcept: () => Concept;
   addConcept: (name: string, baseThemeOptions?: Concept['themeConfig']) => void;
   deleteConcept: (id: string) => void;
   duplicateConcept: (id: string, name?: string) => void;
-  setCurrentConcept: (id: string) => void;
-  getCurrentConcept: () => Concept;
   renameConcept: (id: string, name: string) => void;
+  setConcepts: (data: { concepts: Concept[]; currentConceptId: string }) => void;
 
   // ThemeOption 编辑
   setThemeOption: (path: string, value: any) => void;
@@ -65,11 +72,6 @@ export interface ThemeStoreState {
   setThemeMode: (mode: Mode) => void;
   updateThemeConfig: (themeConfig: Concept['themeConfig']) => void;
   getCurrentThemeOptions: () => ThemeOptions;
-
-  // 整体设置
-  resetStore: () => void;
-  resetSiteData: () => void;
-  syncRemoteData: (data: { concepts: Concept[]; currentConceptId: string }) => void;
 
   // Colors 编辑
   setColorLock: (colorKey: string, isLocked: boolean) => void;

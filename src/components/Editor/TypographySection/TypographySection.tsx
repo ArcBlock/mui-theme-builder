@@ -1,13 +1,13 @@
 import { useLocaleContext } from '@arcblock/ux/lib/Locale/context';
 import { Box, Grid, Stack, Typography } from '@mui/material';
 import { useState } from 'react';
+import useGoogleFonts from 'src/hooks/useGoogleFonts';
 import { useThemeStore } from 'src/state/themeStore';
 import { TextVariant } from 'src/types/theme';
 
 import { ButtonShuffle } from '../Common/ButtonShuffle';
 import TypographyBlock from './TypographyBlock';
 import TypographyEditDrawer from './TypographyEditDrawer';
-import useGoogleFonts from './hooks/useGoogleFonts';
 
 function TypographySection() {
   const { t } = useLocaleContext();

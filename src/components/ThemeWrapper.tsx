@@ -2,7 +2,7 @@ import { ThemeProvider } from '@arcblock/ux/lib/Theme';
 import Paper, { PaperProps } from '@mui/material/Paper';
 import React from 'react';
 import { useThemeStore } from 'src/state/themeStore';
-import useScrollbarStyle from 'src/hooks/use-scrollbar-style';
+import useScrollbarStyle from 'src/hooks/useScrollbarStyle';
 
 interface ThemeWrapperProps {
   children: React.ReactNode;

@@ -4,11 +4,11 @@ import { DEFAULT_CONCEPT_ID, DEFAULT_CONCEPT_NAME, useThemeStore } from 'src/sta
 import { Concept } from 'src/types/theme';
 import { getAuthHeaders, isDev } from 'src/utils';
 
-import useSchemaKey from './use-schema-key';
+import useSchemaKey from './useSchemaKey';
 
 export default function useRemoteThemeSync() {
   const [loading, setLoading] = useState(!isDev);
-  const syncRemoteData = useThemeStore((s) => s.syncRemoteData);
+  const setConcepts = useThemeStore((s) => s.setConcepts);
   const schemaKey = useSchemaKey();
 
   useEffect(() => {
@@ -57,7 +57,7 @@ export default function useRemoteThemeSync() {
           ];
           _currentConceptId = DEFAULT_CONCEPT_ID;
         }
-        syncRemoteData({
+        setConcepts({
           concepts: _concepts,
           currentConceptId: _currentConceptId,
         });
@@ -65,7 +65,7 @@ export default function useRemoteThemeSync() {
       .finally(() => {
         setLoading(false);
       });
-  }, [syncRemoteData, schemaKey]);
+  }, [setConcepts, schemaKey]);
 
   return loading;
 }

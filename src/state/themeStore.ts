@@ -5,7 +5,15 @@ import { PaletteColor, Theme } from '@mui/material/styles';
 import { nanoid } from 'nanoid';
 import { predefinedPalettes } from 'src/constants/predefinedPalettes';
 import { getDefaultThemeConfig } from 'src/siteTheme';
-import type { Concept, EditorState, Mode, PreviewSize, ThemePrefer, ThemeStoreState } from 'src/types/theme';
+import type {
+  Concept,
+  EditorState,
+  Mode,
+  PreviewSize,
+  ThemePrefer,
+  ThemeStoreModel,
+  ThemeStoreState,
+} from 'src/types/theme';
 import { loadFontsIfRequired, removeByPath, setByPath } from 'src/utils';
 import { createPreviewMuiTheme } from 'src/utils';
 import { create } from 'zustand';
@@ -51,17 +59,24 @@ const getDefaultState = () => ({
   loadedFonts: new Set(['Roboto']),
   previewSize: false as PreviewSize,
   selectedComponentId: 'Website',
+  themeObject: createPreviewMuiTheme(deepmerge({ palette: { mode: 'light' } }, getDefaultThemeConfig().light), false),
   lastShuffledPaletteIndex: -1,
   lastShuffleResult: { headingFont: '', bodyFont: '' },
 });
 
 export const useThemeStore = create(
-  subscribeWithSelector<ThemeStoreState>((set, get) => ({
+  subscribeWithSelector<ThemeStoreModel>((set, get) => ({
     // # 初始状态
     ...getDefaultState(),
-    themeObject: createPreviewMuiTheme(deepmerge({ palette: { mode: 'light' } }, getDefaultThemeConfig().light), false),
     // 添加一个状态来跟踪上次选择的调色板索引
     lastShuffledPaletteIndex: -1,
+
+    // # 修改整体数据
+    resetStore: () => set(() => getDefaultState()),
+    resetSiteData: () =>
+      set(() => ({
+        // 可根据实际需求重置部分状态
+      })),
 
     // # Concepts 管理
     addConcept: (name, sourceThemeConfig) => {
@@ -108,6 +123,11 @@ export const useThemeStore = create(
         }));
       }
     },
+    renameConcept: (id, name) => {
+      set((state) => ({
+        concepts: state.concepts.map((c) => (c.id === id ? { ...c, name } : c)),
+      }));
+    },
     setCurrentConcept: (id) => set({ currentConceptId: id }),
     getCurrentConcept: () => {
       let result = get().concepts.find((c) => c.id === get().currentConceptId);
@@ -118,11 +138,32 @@ export const useThemeStore = create(
 
       return result;
     },
-    renameConcept: (id, name) => {
-      set((state) => ({
-        concepts: state.concepts.map((c) => (c.id === id ? { ...c, name } : c)),
-      }));
-    },
+    setConcepts: ({ concepts, currentConceptId }) =>
+      set(() => {
+        let updates: Partial<ThemeStoreState> = {};
+
+        if (concepts && currentConceptId) {
+          updates.concepts = concepts;
+          updates.currentConceptId = currentConceptId;
+
+          // 预加载字体
+          const newFonts = concepts.reduce<string[]>((acc, c) => {
+            const { typography } = c.themeConfig.common;
+
+            if (typography && typeof typography === 'object') {
+              if (typography.fontFamily) acc.push(typography.fontFamily);
+              if (typography.h1?.fontFamily) acc.push(typography.h1.fontFamily);
+            }
+
+            return acc;
+          }, []);
+          const loadedFonts = loadFontsIfRequired(newFonts, new Set());
+
+          updates.loadedFonts = loadedFonts;
+        }
+
+        return updates;
+      }),
 
     // # ThemeOptions 编辑
     setThemeOption: (path, value) => {
@@ -230,39 +271,6 @@ export const useThemeStore = create(
       const concept = get().getCurrentConcept();
       return concept.themeConfig[concept.mode];
     },
-
-    // # 修改整体数据
-    resetStore: () => set(() => getDefaultState()),
-    resetSiteData: () =>
-      set(() => ({
-        // 可根据实际需求重置部分状态
-      })),
-    syncRemoteData: ({ concepts, currentConceptId }) =>
-      set(() => {
-        let updates: Partial<ThemeStoreState> = {};
-
-        if (concepts && currentConceptId) {
-          updates.concepts = concepts;
-          updates.currentConceptId = currentConceptId;
-
-          // 预加载字体
-          const newFonts = concepts.reduce<string[]>((acc, c) => {
-            const { typography } = c.themeConfig.common;
-
-            if (typography && typeof typography === 'object') {
-              if (typography.fontFamily) acc.push(typography.fontFamily);
-              if (typography.h1?.fontFamily) acc.push(typography.h1.fontFamily);
-            }
-
-            return acc;
-          }, []);
-          const loadedFonts = loadFontsIfRequired(newFonts, new Set());
-
-          updates.loadedFonts = loadedFonts;
-        }
-
-        return updates;
-      }),
 
     // # Colors 编辑
     setColorLock: (colorKey: string, isLocked: boolean) =>
