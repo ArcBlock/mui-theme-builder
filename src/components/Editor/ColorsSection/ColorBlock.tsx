@@ -73,6 +73,7 @@ export function ColorBlock({ colorType, onClick }: ColorBlockProps) {
       <Box
         sx={{
           display: 'flex',
+          flexWrap: 'wrap',
           justifyContent: 'space-between',
           alignItems: 'center',
           color: themeObject.palette.getContrastText(mainColor),

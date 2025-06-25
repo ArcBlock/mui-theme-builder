@@ -147,16 +147,23 @@ export const useThemeStore = create(
           updates.currentConceptId = currentConceptId;
 
           // 预加载字体
-          const newFonts = concepts.reduce<string[]>((acc, c) => {
-            const { typography } = c.themeConfig.common;
+          const newFonts = concepts
+            .reduce<string[]>((acc, c) => {
+              const { typography } = c.themeConfig.common;
 
-            if (typography && typeof typography === 'object') {
-              if (typography.fontFamily) acc.push(typography.fontFamily);
-              if (typography.h1?.fontFamily) acc.push(typography.h1.fontFamily);
-            }
+              if (typography && typeof typography === 'object') {
+                if (typography.fontFamily) acc.push(typography.fontFamily);
+                if (typography.h1?.fontFamily) acc.push(typography.h1.fontFamily);
+              }
 
-            return acc;
-          }, []);
+              return acc;
+            }, [])
+            .flatMap((x) => (x == null ? [] : x?.replace(/"/g, '').split(',')))
+            // .filter((x): x is string => !!x) // remove nulls and undefined items
+            // .map(x => ) // strip out quotes and split by comma
+            // .flat() // flatten the array if any font families had multiple specified
+            .map((x) => x.trim()); // trim off any white space
+          
           const loadedFonts = loadFontsIfRequired(newFonts, new Set());
 
           updates.loadedFonts = loadedFonts;
