@@ -1,10 +1,10 @@
 import { deepmerge } from '@arcblock/ux/lib/Theme';
+import { BLOCKLET_THEME_DARK, BLOCKLET_THEME_LIGHT } from '@blocklet/theme';
 import { ThemeOptions, createTheme } from '@mui/material';
 import { TypographyOptions } from '@mui/material/styles/createTypography';
 import dotProp from 'dot-prop-immutable';
 import JSON5 from 'json5';
 
-import { defaultThemeOptions } from './siteTheme';
 import { PreviewSize } from './state/types';
 
 export const isDev = process.env.NODE_ENV === 'development';
@@ -23,6 +23,8 @@ export const getByPath = (object: object | null, path: string, defaultValue?: an
 export const removeByPath: any = (object: any, path: string) => {
   const prunedObject = dotProp.delete(object, path);
   const pathArray = path.split('.');
+
+  // 删除 path 后，若出现了空对象（根对象除外），则一并删除空对象
   if (pathArray.length > 1) {
     const parentPath = pathArray.slice(0, pathArray.length - 1).join('.');
     const parentObject = getByPath(prunedObject, parentPath);
@@ -38,7 +40,7 @@ export const setByPath = (object: any, path: string, value: any) => dotProp.set(
 
 /**
  * Generate an id for a saved theme, ensuring that it does not collide with
- * one already in the store
+ * one already in the store $FixMe remove
  */
 export const generateThemeId = (lastId: string) => {
   // generate a long string of characters
@@ -201,16 +203,43 @@ export function diffJSON(source: any, target: any): any {
 /**
  * loads a set of passed fonts and resolves a promise
  * when the fonts load, or fail to load
- * @param fonts
+ * @param fonts - 字体名称数组
+ * @param options - 加载选项
  */
-export function loadFonts(fonts: string[]) {
+export function loadFonts(
+  fonts: string[], 
+  options: {
+    text?: string; // 字符子集，只下载包含这些字符的字体
+    subsets?: string[]; // 语言子集，如 ['latin', 'chinese-simplified']
+    weights?: string[]; // 字体权重，如 ['300', '400', '700']
+  } = {}
+) {
   return new Promise<boolean>((resolve) => {
     import('webfontloader')
       .then((WebFontModule) => {
         const WebFont = WebFontModule.default || WebFontModule;
+        
+        // 处理字体名称，添加权重和子集信息
+        const processedFonts = fonts.map(font => {
+          let processedFont = font;
+          
+          // 如果指定了权重，添加到字体名称中
+          if (options.weights && options.weights.length > 0) {
+            processedFont += `:${options.weights.join(',')}`;
+          }
+          
+          // 如果指定了语言子集，添加到字体名称中
+          if (options.subsets && options.subsets.length > 0) {
+            processedFont += `:${options.subsets.join(',')}`;
+          }
+          
+          return processedFont;
+        });
+
         WebFont.load({
           google: {
-            families: fonts,
+            families: processedFonts,
+            ...(options.text && { text: options.text }), // 字符子集化
           },
           active: () => {
             verbose('state/actions -> loadFonts: webfonts loaded', fonts);
@@ -228,12 +257,20 @@ export function loadFonts(fonts: string[]) {
   });
 }
 
-export function loadFontsIfRequired(fonts: string[], loadedFonts: Set<string>) {
+export function loadFontsIfRequired(
+  fonts: string[], 
+  loadedFonts: Set<string>,
+  options?: {
+    text?: string;
+    subsets?: string[];
+    weights?: string[];
+  }
+) {
   const fontsToLoad = fonts.filter((x) => !loadedFonts.has(x));
 
   if (!fontsToLoad.length) return loadedFonts;
 
-  loadFonts(fontsToLoad);
+  loadFonts(fontsToLoad, options || {});
 
   return new Set([...loadedFonts, ...fontsToLoad].sort());
 }
@@ -248,12 +285,23 @@ export function createPreviewMuiTheme(themeOptions: ThemeOptions, previewSize: P
     xl: { xs: 0, sm: 1, md: 2, lg: 3, xl: 4 },
   };
 
-  const currentThemeOptions = deepmerge(
-    themeOptions.palette?.mode === 'light' ? defaultThemeOptions.light : defaultThemeOptions.dark,
+  const _themeOptions = deepmerge(
+    themeOptions.palette?.mode === 'dark' ? BLOCKLET_THEME_DARK : BLOCKLET_THEME_LIGHT,
     themeOptions,
   );
 
-  if (!previewSize) return createTheme(currentThemeOptions);
+  if (!previewSize) return createTheme(_themeOptions);
 
-  return createTheme(deepmerge(currentThemeOptions, { breakpoints: { values: spoofedBreakpoints[previewSize] } }));
+  return createTheme(deepmerge(_themeOptions, { breakpoints: { values: spoofedBreakpoints[previewSize] } }));
+}
+
+export function topN<T>(arr: T[] = [], n = 30) {
+  return arr.length > n ? arr.slice(0, n) : arr;
+}
+
+export function pickRandom<T>(arr: T[], exclude?: T) {
+  let pool = arr;
+  if (exclude && arr.length > 1) pool = arr.filter((f) => f !== exclude);
+
+  return pool[Math.floor(Math.random() * pool.length)];
 }

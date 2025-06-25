@@ -1,3 +1,7 @@
+## 0.2.0 (2025-6-25)
+
+- refactor: brand new ui/ux
+
 ## 0.1.23 (2025-6-13)
 
 - fix: remote font settings not applied

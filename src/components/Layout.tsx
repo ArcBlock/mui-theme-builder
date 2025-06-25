@@ -1,14 +1,14 @@
+import { useLocaleContext } from '@arcblock/ux/lib/Locale/context';
 import { ThemeProvider, deepmerge } from '@arcblock/ux/lib/Theme';
 import { ToastProvider } from '@arcblock/ux/lib/Toast';
 import { Alert, Box, CircularProgress, Theme, createTheme } from '@mui/material';
 import React, { useEffect, useMemo } from 'react';
-import useParentTheme from 'src/hooks/use-parent-theme';
-import useRemoteThemeSync from 'src/hooks/use-remote-theme-sync';
-import useSchemaKey from 'src/hooks/use-schema-key';
+import useParentLocale from 'src/hooks/useParentLocale';
+import useParentTheme from 'src/hooks/useParentTheme';
+import useRemoteThemeSync from 'src/hooks/useRemoteThemeSync';
+import useSchemaKey from 'src/hooks/useSchemaKey';
 import { createSiteThemeOptions } from 'src/siteTheme';
 import { isDev } from 'src/utils';
-
-import './layout.css';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -33,6 +33,8 @@ function Layout({ children }: LayoutProps) {
   const schemaKey = useSchemaKey();
   const syncLoading = useRemoteThemeSync();
   const { data: parentTheme, loading: parentThemeLoading } = useParentTheme();
+  const { locale } = useParentLocale();
+  const { changeLocale } = useLocaleContext();
   const loading = syncLoading || parentThemeLoading;
   const siteTheme = useMemo(() => {
     if (parentThemeLoading) return {} as Theme;
@@ -46,6 +48,11 @@ function Layout({ children }: LayoutProps) {
       window.parent?.postMessage({ type: 'THEME_BUILDER_LOADED' }, window.location.origin);
     }
   }, [loading]);
+
+  // 跟随父页面 locale 变化
+  useEffect(() => {
+    changeLocale(locale);
+  }, [locale]);
 
   if (!schemaKey && !isDev) {
     return (

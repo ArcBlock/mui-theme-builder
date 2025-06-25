@@ -1,85 +1,118 @@
-import { Box, Button, Stack, Typography } from '@mui/material';
+import { useLocaleContext } from '@arcblock/ux/lib/Locale/context';
+import {
+  DevicesOther as DevicesOtherIcon,
+  Group as GroupIcon,
+  Language as LanguageIcon,
+  Security as SecurityIcon,
+  Speed as SpeedIcon,
+} from '@mui/icons-material';
+import { Avatar, Box, Button, Container, Grid, Paper, Stack, Typography } from '@mui/material';
 
 import BlockletWrapper from './Share/BlockletWrapper';
 import Footer from './Share/Footer';
 import Header from './Share/Header';
 
 export default function LandingPage() {
+  const { t } = useLocaleContext();
+
+  const features = [
+    {
+      icon: <GroupIcon fontSize="large" color="primary" />,
+      title: t('samples.website.features.collaboration.title'),
+      description: t('samples.website.features.collaboration.description'),
+    },
+    {
+      icon: <SpeedIcon fontSize="large" color="primary" />,
+      title: t('samples.website.features.performance.title'),
+      description: t('samples.website.features.performance.description'),
+    },
+    {
+      icon: <SecurityIcon fontSize="large" color="primary" />,
+      title: t('samples.website.features.security.title'),
+      description: t('samples.website.features.security.description'),
+    },
+    {
+      icon: <LanguageIcon fontSize="large" color="primary" />,
+      title: t('samples.website.features.access.title'),
+      description: t('samples.website.features.access.description'),
+    },
+  ];
+
   return (
     <BlockletWrapper>
-      <Stack>
+      <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
         <Header />
-        <Box
-          sx={{
-            flexGrow: 1,
-            padding: { xs: 2, md: 4 },
-            minHeight: 300,
-            backgroundColor: 'background.default',
-          }}>
-          {/* Heading Hierarchy */}
-          <Box sx={{ mb: 3 }}>
-            <Typography variant="h1">Main Page Title (h1)</Typography>
-            <Typography variant="h2">Major Section Headers (h2)</Typography>
-            <Typography variant="h3">Subsection Headers (h3)</Typography>
-            <Typography variant="h4">Group Titles (h4)</Typography>
-            <Typography variant="h5">Minor Headings (h5)</Typography>
-            <Typography variant="h6">Small Section Labels (h6)</Typography>
-          </Box>
-
-          {/* Text Styles */}
-          <Box sx={{ mb: 3 }}>
-            <Typography variant="h4" sx={{ mb: 3 }}>
-              Text Styles
-            </Typography>
-            <Typography variant="body1" sx={{ mb: 2 }}>
-              This is Body 1 text style, typically used for main paragraph content.
-            </Typography>
-            <Typography variant="body2" sx={{ mb: 2 }}>
-              This is Body 2 text style, commonly used for secondary information or supplementary notes.
-            </Typography>
-            <Box sx={{ mb: 2 }}>
-              <Typography variant="subtitle1">Subtitle 1: Used for important subheadings</Typography>
-              <Typography variant="subtitle2">Subtitle 2: Used for secondary subheadings</Typography>
-            </Box>
-          </Box>
-
-          {/* Special Text Styles */}
-          <Box sx={{ mb: 3 }}>
-            <Typography variant="h4" sx={{ mb: 3 }}>
-              Special Text Styles
-            </Typography>
-            <Stack spacing={2}>
-              <Typography variant="caption">Caption: Used for image captions or small hints</Typography>
-              <Typography variant="overline">OVERLINE: Used for small uppercase labels</Typography>
-              <Typography variant="button" component="div">
-                BUTTON TEXT: Button text style
+        <Container component="main" sx={{ flexGrow: 1, py: { xs: 4, md: 8 } }}>
+          {/* Hero Section */}
+          <Box sx={{ textAlign: 'center', mb: 8 }}>
+            <Typography variant="h2" component="h1" fontWeight="bold" gutterBottom>
+              {t('samples.website.hero.title')} <br />
+              <Typography component="span" variant="h2" color="primary" fontWeight="bold">
+                TeamSpace
               </Typography>
+            </Typography>
+            <Typography variant="body1" color="text.secondary" sx={{ maxWidth: 'md', mx: 'auto' }}>
+              {t('samples.website.hero.subtitle')}
+            </Typography>
+            <Stack direction="row" spacing={2} justifyContent="center" sx={{ mt: 4 }}>
+              <Button variant="contained" size="large">
+                {t('samples.website.hero.cta.start')}
+              </Button>
+              <Button variant="outlined" size="large">
+                {t('samples.website.hero.cta.demo')}
+              </Button>
             </Stack>
           </Box>
 
-          {/* Interactive Elements */}
-          <Box>
-            <Typography variant="h4" sx={{ mb: 3 }}>
-              Interactive Elements
+          {/* Features Section */}
+          <Box sx={{ textAlign: 'center', mb: 8 }}>
+            <Typography variant="h4" fontWeight="bold" gutterBottom>
+              {t('samples.website.features.title')}
             </Typography>
-            <Stack direction="row" spacing={2} sx={{ mb: 2 }}>
-              <Button variant="contained" color="primary">
-                Primary Button
-              </Button>
-              <Button variant="contained" color="secondary">
-                Secondary Button
-              </Button>
-              <Button variant="outlined" color="primary">
-                Outlined Button
-              </Button>
-              <Button variant="text" color="primary">
-                Text Button
-              </Button>
-            </Stack>
+            <Typography variant="body1" color="text.secondary" sx={{ mb: 4 }}>
+              {t('samples.website.features.subtitle')}
+            </Typography>
+            <Grid container spacing={4}>
+              {features.map((feature) => (
+                <Grid item xs={12} sm={6} md={3} key={feature.title}>
+                  <Paper
+                    variant="outlined"
+                    sx={{
+                      p: 4,
+                      height: '100%',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignItems: 'center',
+                      textAlign: 'center',
+                    }}>
+                    <Avatar sx={{ bgcolor: 'primary.light', mb: 2, width: 64, height: 64 }}>{feature.icon}</Avatar>
+                    <Typography variant="h6" fontWeight="bold" gutterBottom>
+                      {feature.title}
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                      {feature.description}
+                    </Typography>
+                  </Paper>
+                </Grid>
+              ))}
+            </Grid>
           </Box>
-        </Box>
+
+          {/* Final CTA Section */}
+          <Box sx={{ textAlign: 'center' }}>
+            <Typography variant="h4" fontWeight="bold" gutterBottom>
+              {t('samples.website.finalCta.title')}
+            </Typography>
+            <Typography variant="body1" color="text.secondary" sx={{ mb: 4 }}>
+              {t('samples.website.finalCta.subtitle')}
+            </Typography>
+            <Button variant="contained" size="large" color="secondary">
+              {t('samples.website.finalCta.cta')}
+            </Button>
+          </Box>
+        </Container>
         <Footer />
-      </Stack>
+      </Box>
     </BlockletWrapper>
   );
 }

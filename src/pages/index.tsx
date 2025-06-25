@@ -1,49 +1,49 @@
 import { Box } from '@mui/material';
+import Editor from 'src/components/Editor/Editor';
 import ErrorBoundary from 'src/components/ErrorBoundary';
 import Header from 'src/components/Header';
 import Layout from 'src/components/Layout';
-import MainWindow from 'src/components/MainWindow';
-import ThemeConfigDrawer from 'src/components/ThemeConfigDrawer';
+import PreviewWindow from 'src/components/Preview/PreviewWindow';
+import useMobile from 'src/hooks/useMobile';
 
 function IndexPage() {
+  const isMobile = useMobile();
+
   return (
     <Layout>
-      <Box
-        sx={{
-          display: 'flex',
-          height: '100%',
-        }}>
-        <ErrorBoundary>
-          <ThemeConfigDrawer />
+      <ErrorBoundary>
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            height: '100%',
+          }}>
+          <Header />
           <Box
             sx={{
-              flex: 1,
               display: 'flex',
-              flexDirection: 'column',
-              minWidth: 0,
+              flexGrow: 1,
+              minHeight: 0,
+              overflow: 'hidden',
+              backgroundColor: 'background.default',
+              pb: isMobile ? '48px' : 0,
+              position: isMobile ? 'relative' : 'static',
             }}>
-            <Header />
-            <Box
-              sx={{
-                flex: 1,
-                display: 'flex',
-                minHeight: 0,
-              }}>
-              <Box
-                component="main"
-                sx={{
-                  minWidth: 0,
-                  minHeight: 0,
-                  flex: 1,
-                  display: 'flex',
-                  flexDirection: 'column',
-                }}>
-                <MainWindow />
+            {!isMobile && (
+              <Box className="hide-scrollbar" sx={{ flex: '1 0', overflowY: 'auto', overflowX: 'hidden' }}>
+                {/* 编辑区 */}
+                <Editor />
               </Box>
+            )}
+            <Box className="hide-scrollbar" sx={{ flex: '1 0', overflowY: 'auto', overflowX: 'hidden' }}>
+              {/* 预览区 */}
+              <PreviewWindow />
             </Box>
           </Box>
-        </ErrorBoundary>
-      </Box>
+          {/* 编辑区 */}
+          {isMobile && <Editor />}
+        </Box>
+      </ErrorBoundary>
     </Layout>
   );
 }

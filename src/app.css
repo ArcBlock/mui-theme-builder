@@ -1,0 +1,30 @@
+/* Set body height to view port height, let child elements handle scroll */
+html,
+body {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+#app {
+  height: 100%;
+  width: 100%;
+}
+
+code {
+  font-size: 1rem;
+  background-color: #f0f0f0;
+  padding: 2px 4px;
+  color: #1f1f1f;
+}
+
+.hide-scrollbar {
+  /* Firefox */
+  scrollbar-width: none;
+  /* IE */
+  -ms-overflow-style: none;
+}
+/* Webkit 浏览器 (Chrome, Safari, Edge) */
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
