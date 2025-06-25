@@ -12,22 +12,22 @@ importers:
         specifier: ^1.16.44
         version: 1.16.44
       '@arcblock/did-connect':
-        specifier: ^2.13.66
+        specifier: ^2.13.70
         version: 2.13.70(78ed03557a21356a7c31a345341b5581)
       '@arcblock/icons':
-        specifier: ^2.13.66
+        specifier: ^2.13.70
         version: 2.13.70(react@18.2.0)
       '@arcblock/ux':
-        specifier: ^2.13.66
+        specifier: ^2.13.70
         version: 2.13.70(f40e6e390a8855944cee647b10bfb13f)
       '@babel/eslint-parser':
         specifier: ^7.27.5
         version: 7.27.5(@babel/core@7.27.4)(eslint@8.57.1)
       '@blocklet/theme':
-        specifier: ^2.13.66
+        specifier: ^2.13.70
         version: 2.13.70(@emotion/react@11.14.0(@types/react@19.1.8)(react@18.2.0))(@emotion/styled@11.14.0(@emotion/react@11.14.0(@types/react@19.1.8)(react@18.2.0))(@types/react@19.1.8)(react@18.2.0))(@mui/material@5.17.1(@emotion/react@11.14.0(@types/react@19.1.8)(react@18.2.0))(@emotion/styled@11.14.0(@emotion/react@11.14.0(@types/react@19.1.8)(react@18.2.0))(@types/react@19.1.8)(react@18.2.0))(@types/react@19.1.8)(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(@types/react@19.1.8)(react@18.2.0)
       '@blocklet/ui-react':
-        specifier: ^2.13.66
+        specifier: ^2.13.70
         version: 2.13.70(d1cc77963159fd942e5737835c0a2540)
       '@emotion/react':
         specifier: ^11.14.0
@@ -60,7 +60,7 @@ importers:
         specifier: ^3.8.5
         version: 3.8.5(react@18.2.0)
       axios:
-        specifier: ^1.9.0
+        specifier: ^1.10.0
         version: 1.10.0
       dot-prop-immutable:
         specifier: ^2.1.1
@@ -96,7 +96,7 @@ importers:
         specifier: ^7.6.2
         version: 7.6.2(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       recharts:
-        specifier: ^2.15.3
+        specifier: ^2.15.4
         version: 2.15.4(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       ufo:
         specifier: ^1.6.1
@@ -133,7 +133,7 @@ importers:
         specifier: ^1.2.32
         version: 1.2.32
       '@types/lodash':
-        specifier: ^4.17.17
+        specifier: ^4.17.18
         version: 4.17.18
       '@types/webfontloader':
         specifier: ^1.6.38
@@ -145,7 +145,7 @@ importers:
         specifier: ~7.16.1
         version: 7.16.1(eslint@8.57.1)(typescript@5.5.4)
       '@vitejs/plugin-react':
-        specifier: ^4.5.2
+        specifier: ^4.6.0
         version: 4.6.0(vite@5.4.19(@types/node@24.0.4))
       '@vitest/coverage-v8':
         specifier: ^0.34.6
@@ -166,7 +166,7 @@ importers:
         specifier: ^15.5.2
         version: 15.5.2
       prettier:
-        specifier: ^3.5.3
+        specifier: ^3.6.1
         version: 3.6.1
       rimraf:
         specifier: ^5.0.10
@@ -196,7 +196,7 @@ importers:
         specifier: ^0.34.6
         version: 0.34.6(@vitest/ui@0.34.7)(jsdom@22.1.0)
       zx:
-        specifier: ^8.5.5
+        specifier: ^8.6.0
         version: 8.6.0
 
 packages:
@@ -7088,7 +7088,7 @@ snapshots:
 
   '@babel/generator@7.17.7':
     dependencies:
-      '@babel/types': 7.17.0
+      '@babel/types': 7.27.6
       jsesc: 2.5.2
       source-map: 0.5.7
 
@@ -7458,11 +7458,11 @@ snapshots:
 
   '@did-connect/authenticator@2.2.8':
     dependencies:
-      '@arcblock/did': 1.20.13
-      '@arcblock/jwt': 1.20.13
+      '@arcblock/did': 1.20.14
+      '@arcblock/jwt': 1.20.14
       '@did-connect/types': 2.2.8
-      '@ocap/util': 1.20.13
-      '@ocap/wallet': 1.20.13
+      '@ocap/util': 1.20.14
+      '@ocap/wallet': 1.20.14
       debug: 4.4.1
       lodash: 4.17.21
     transitivePeerDependencies:
@@ -7470,14 +7470,14 @@ snapshots:
 
   '@did-connect/handler@2.2.8(debug@4.4.1)':
     dependencies:
-      '@arcblock/did': 1.20.13
-      '@arcblock/jwt': 1.20.13
-      '@arcblock/ws': 1.20.13
+      '@arcblock/did': 1.20.14
+      '@arcblock/jwt': 1.20.14
+      '@arcblock/ws': 1.20.14
       '@did-connect/authenticator': 2.2.8
       '@did-connect/storage': 2.2.8
       '@did-connect/types': 2.2.8
-      '@ocap/mcrypto': 1.20.13
-      '@ocap/util': 1.20.13
+      '@ocap/mcrypto': 1.20.14
+      '@ocap/util': 1.20.14
       axios: 1.10.0(debug@4.4.1)
       lodash: 4.17.21
       object-hash: 3.0.0
@@ -7498,7 +7498,7 @@ snapshots:
   '@did-connect/types@2.2.8':
     dependencies:
       '@arcblock/validator': 1.20.14
-      '@ocap/mcrypto': 1.20.13
+      '@ocap/mcrypto': 1.20.14
       joi: 17.13.3
     transitivePeerDependencies:
       - supports-color
@@ -8781,7 +8781,7 @@ snapshots:
 
   '@types/sax@1.2.7':
     dependencies:
-      '@types/node': 17.0.45
+      '@types/node': 24.0.4
 
   '@types/tern@0.23.9':
     dependencies:
@@ -9809,7 +9809,7 @@ snapshots:
     dependencies:
       cipher-base: 1.0.6
       inherits: 2.0.4
-      ripemd160: 2.0.1
+      ripemd160: 2.0.2
       sha.js: 2.4.11
 
   create-hash@1.2.0:
