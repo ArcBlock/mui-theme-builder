@@ -4,6 +4,7 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { Box, Divider, Menu, MenuItem, Typography, styled, useTheme } from '@mui/material';
 import { useCallback, useState } from 'react';
 import { useThemeStore } from 'src/state/themeStore';
+import { Concept } from 'src/types/theme';
 
 const ConceptItem = styled(MenuItem)(({ theme }) => ({
   minWidth: 254,
@@ -28,6 +29,8 @@ export function ConceptMenu() {
   const addConcept = useThemeStore((s) => s.addConcept);
   const duplicateConcept = useThemeStore((s) => s.duplicateConcept);
   const deleteConcept = useThemeStore((s) => s.deleteConcept);
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const open = Boolean(anchorEl);
 
   const currentConcept = concepts.find((c) => c.id === currentConceptId);
   const genConceptName = useCallback(() => {
@@ -43,8 +46,13 @@ export function ConceptMenu() {
     return `${name} ${maxNum + 1}`;
   }, [concepts]);
 
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const open = Boolean(anchorEl);
+  const handleSelectConcept = useCallback(
+    (concept: Concept) => () => {
+      setCurrentConcept(concept.id);
+      setAnchorEl(null);
+    },
+    [setCurrentConcept],
+  );
 
   return (
     <Box sx={{ display: 'flex', alignItems: 'center' }}>
@@ -82,10 +90,7 @@ export function ConceptMenu() {
           <ConceptItem
             key={concept.id}
             selected={concept.id === currentConceptId}
-            onClick={() => {
-              setCurrentConcept(concept.id);
-              setAnchorEl(null);
-            }}>
+            onClick={handleSelectConcept(concept)}>
             {concept.name}
             {concept.id === currentConceptId && (
               <CheckIcon style={{ position: 'absolute', right: theme.spacing(1.5), fontSize: 14 }} />
@@ -94,6 +99,7 @@ export function ConceptMenu() {
         ))}
         <Divider />
         <ConceptItem
+          disabled={concepts.length >= 8}
           onClick={() => {
             addConcept(genConceptName());
             setAnchorEl(null);
@@ -101,6 +107,7 @@ export function ConceptMenu() {
           {t('editor.concept.add')}
         </ConceptItem>
         <ConceptItem
+          disabled={concepts.length >= 8}
           onClick={() => {
             duplicateConcept(currentConceptId, genConceptName());
             setAnchorEl(null);

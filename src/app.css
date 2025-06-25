@@ -17,3 +17,14 @@ code {
   padding: 2px 4px;
   color: #1f1f1f;
 }
+
+.hide-scrollbar {
+  /* Firefox */
+  scrollbar-width: none;
+  /* IE */
+  -ms-overflow-style: none;
+}
+/* Webkit 浏览器 (Chrome, Safari, Edge) */
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}

@@ -1,15 +1,15 @@
 import { Box } from '@mui/material';
 import { useThemeStore } from 'src/state/themeStore';
 
-import PreviewWrapper from './PreviewWrapper';
 import { getSampleComponent } from '../Samples';
+import PreviewWrapper from './PreviewWrapper';
 
 function PreviewWindow() {
   const selectedComponentId = useThemeStore((s) => s.selectedComponentId);
   const previewComponent = getSampleComponent(selectedComponentId);
 
   return (
-    <Box sx={{ overflowY: 'auto', height: 1, padding: 2, position: 'relative' }}>
+    <Box sx={{ height: 1, padding: 2, position: 'relative' }}>
       <Box sx={{ bgcolor: 'background.default' }}>
         <PreviewWrapper>{previewComponent || null}</PreviewWrapper>
       </Box>

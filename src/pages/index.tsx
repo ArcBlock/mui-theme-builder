@@ -25,11 +25,11 @@ function IndexPage() {
               backgroundColor: 'background.default',
             }}>
             {/* 编辑区 */}
-            <Box sx={{ flex: '1 0', overflowY: 'auto', overflowX: 'hidden' }}>
+            <Box className="hide-scrollbar" sx={{ flex: '1 0', overflowY: 'auto', overflowX: 'hidden' }}>
               <Editor />
             </Box>
             {/* 预览区 */}
-            <Box sx={{ flex: '1 0', overflowY: 'auto', overflowX: 'hidden' }}>
+            <Box className="hide-scrollbar" sx={{ flex: '1 0', overflowY: 'auto', overflowX: 'hidden' }}>
               <PreviewWindow />
             </Box>
           </Box>
