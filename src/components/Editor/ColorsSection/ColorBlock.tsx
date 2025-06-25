@@ -3,6 +3,7 @@ import LockOpenIcon from '@mui/icons-material/LockOpen';
 import { Box, Paper, Stack, Typography } from '@mui/material';
 import { PaletteColor } from '@mui/material/styles';
 import { useCallback } from 'react';
+import useMobile from 'src/hooks/useMobile';
 import { useThemeStore } from 'src/state/themeStore';
 
 export interface ColorBlockProps {
@@ -11,6 +12,7 @@ export interface ColorBlockProps {
 }
 
 export function ColorBlock({ colorType, onClick }: ColorBlockProps) {
+  const isMobile = useMobile();
   const themeObject = useThemeStore((s) => s.themeObject);
   const isLocked = useThemeStore((s) => s.getCurrentConcept().editor.colors[colorType]?.isLocked ?? false);
   const setColorLock = useThemeStore((s) => s.setColorLock);
@@ -65,7 +67,7 @@ export function ColorBlock({ colorType, onClick }: ColorBlockProps) {
         {/* Color Name */}
         <Typography variant="subtitle1"></Typography>
         {/* Lock Icon */}
-        <Box className={`lock ${isLocked ? '' : 'lock-open'}`} onClick={toggleLock}>
+        <Box className={`lock ${isLocked || isMobile ? '' : 'lock-open'}`} onClick={toggleLock}>
           {isLocked ? <LockIcon style={{ fontSize: 14 }} /> : <LockOpenIcon style={{ fontSize: 14 }} />}
         </Box>
       </Stack>

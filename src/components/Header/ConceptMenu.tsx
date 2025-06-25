@@ -66,12 +66,13 @@ export function ConceptMenu() {
           cursor: 'pointer',
           py: 1,
           px: 1.5,
+          border: '1px solid',
+          borderColor: 'transparent',
           borderRadius: 1,
           ':hover': {
             backgroundColor: 'action.hover',
           },
           '&.is-open': {
-            border: '1px solid',
             borderColor: 'divider',
           },
         }}
