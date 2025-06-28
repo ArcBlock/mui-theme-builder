@@ -191,8 +191,8 @@ function UserCenter() {
   });
 
   return (
-    <Box display="flex" flexDirection={isMobile ? 'column' : 'row'}>
-      <Box flex="1" className="user-center-tabs" order={isMobile ? 2 : 'unset'}>
+    <Box className="user-center" display="flex" flexDirection={isMobile ? 'column' : 'row'}>
+      <Box className="user-center-tabs" flex="1" order={isMobile ? 2 : 'unset'}>
         <Box
           display="flex"
           flexDirection="column"
@@ -260,7 +260,7 @@ export default function UserCenterSample() {
   return (
     <BlockletWrapper>
       <Header />
-      <Box sx={{ display: 'flex', maxWidth: '1600px', margin: '0 auto', padding: '0 16px' }}>
+      <Box sx={{ margin: '0 auto', padding: '0 16px' }}>
         <UserCenter />
       </Box>
       <Footer />

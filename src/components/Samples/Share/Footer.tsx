@@ -94,5 +94,8 @@ export default function Footer() {
     ];
   }, [locale]);
 
-  return <BlockletFooter className="custom-footer" meta={{ ...baseMeta, ...brand }} />;
+  return (
+    // @ts-ignore
+    <BlockletFooter className="custom-footer" meta={{ ...baseMeta, ...brand }} />
+  );
 }
