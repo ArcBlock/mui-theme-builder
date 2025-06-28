@@ -75,6 +75,7 @@
     "@types/recharts": "^1.8.29",
     "ahooks": "^3.8.5",
     "axios": "^1.10.0",
+    "date-fns": "^4.1.0",
     "dot-prop-immutable": "^2.1.1",
     "flat": "^5.0.2",
     "is-url": "^1.2.4",

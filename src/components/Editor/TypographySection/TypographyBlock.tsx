@@ -69,7 +69,10 @@ function TypographyBlock({ variant, onClick }: TypographyBlockProps) {
         },
       }}>
       {fontFamily !== defaultFontFamily && (
-        <IconButton sx={{ position: 'absolute', top: 2, right: 2 }} onClick={handleReset}>
+        <IconButton
+          title={t('editor.reset')}
+          sx={{ position: 'absolute', top: 2, right: 2 }}
+          onClick={handleReset}>
           <RestartAltIcon sx={{ fontSize: 20 }} />
         </IconButton>
       )}

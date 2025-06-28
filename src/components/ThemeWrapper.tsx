@@ -1,8 +1,8 @@
 import { ThemeProvider } from '@arcblock/ux/lib/Theme';
-import Paper, { PaperProps } from '@mui/material/Paper';
+import { Box, BoxProps } from '@mui/material';
 import React from 'react';
-import { useThemeStore } from 'src/state/themeStore';
 import useScrollbarStyle from 'src/hooks/useScrollbarStyle';
+import { useThemeStore } from 'src/state/themeStore';
 
 interface ThemeWrapperProps {
   children: React.ReactNode;
@@ -26,22 +26,17 @@ function ThemeWrapper({ children }: ThemeWrapperProps) {
 /**
  * CssBaseline
  */
-function ThemeContainer({ children, ...rest }: PaperProps) {
+function ThemeContainer({ children, ...rest }: BoxProps) {
   const scrollbarStyle = useScrollbarStyle();
 
   return (
-    <Paper
+    <Box
       {...rest}
       sx={{
-        bgcolor: 'background.default',
-        width: '100%',
-        height: '100%',
         ...scrollbarStyle,
-      }}
-      elevation={0}
-      square>
+      }}>
       {children}
-    </Paper>
+    </Box>
   );
 }
 

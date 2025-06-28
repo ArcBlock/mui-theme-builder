@@ -1,10 +1,10 @@
-import DesktopWindowsIcon from '@mui/icons-material/DesktopWindows';
+import LaptopMacIcon from '@mui/icons-material/LaptopMac';
 import SmartphoneIcon from '@mui/icons-material/Smartphone';
 import TabletMacIcon from '@mui/icons-material/TabletMac';
 import { BottomNavigation, BottomNavigationAction, useMediaQuery, useTheme } from '@mui/material';
 import { useCallback, useEffect } from 'react';
 import { useThemeStore } from 'src/state/themeStore';
-import type { PreviewSize } from 'src/state/types';
+import { PreviewSize } from 'src/types/theme';
 
 export const previewSizeControlsId = 'preview-size-controls';
 
@@ -42,7 +42,7 @@ function PreviewSizeControls() {
       showLabels>
       <BottomNavigationAction sx={{ p: 1, minWidth: '32px' }} value="xs" icon={<SmartphoneIcon />} />
       <BottomNavigationAction sx={{ p: 1, minWidth: '32px' }} value="sm" icon={<TabletMacIcon />} />
-      <BottomNavigationAction sx={{ p: 1, minWidth: '32px' }} value={false} icon={<DesktopWindowsIcon />} />
+      <BottomNavigationAction sx={{ p: 1, minWidth: '32px' }} value={false} icon={<LaptopMacIcon />} />
     </BottomNavigation>
   );
 }

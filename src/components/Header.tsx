@@ -10,7 +10,7 @@ export interface HeaderProps extends AppBarProps {}
 export default function Header({ sx, ...props }: HeaderProps) {
   return (
     <AppBar
-      position="static"
+      position="sticky"
       color="default"
       sx={{
         backgroundColor: 'background.default',
@@ -24,6 +24,7 @@ export default function Header({ sx, ...props }: HeaderProps) {
       <Toolbar
         sx={{
           display: 'flex',
+          px: (theme) => `${theme.spacing(2)} !important`,
           minHeight: {
             xs: '48px',
             sm: '48px',
@@ -31,7 +32,9 @@ export default function Header({ sx, ...props }: HeaderProps) {
           overflowX: 'auto',
         }}>
         {/* 主题管理菜单 */}
-        <ConceptMenu />
+        <Box sx={{ marginLeft: -1 }}>
+          <ConceptMenu />
+        </Box>
         {/* 菜单按钮 */}
         <HeaderActions />
         <Box sx={{ flexGrow: 1 }} />

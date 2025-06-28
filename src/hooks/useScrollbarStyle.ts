@@ -2,14 +2,14 @@ import { useTheme } from '@arcblock/ux/lib/Theme';
 import { useMemo } from 'react';
 
 /**
- * 在 light mode 下给滚动条应用浅色样式。dark mode 下返回空对象。
+ * 在 light mode 下给滚动条应用浅色样式。dark mode 下返回空。
  */
 export default function useScrollbarStyle() {
   const theme = useTheme();
 
   return useMemo(() => {
     if (theme.palette.mode === 'dark') {
-      return {};
+      return null;
     }
 
     const trackColor = '#fafafa';
@@ -42,6 +42,6 @@ export default function useScrollbarStyle() {
           scrollbarColor: `${thumbColor} ${trackColor}`,
         },
       },
-    } as const;
+    };
   }, [theme]);
 }

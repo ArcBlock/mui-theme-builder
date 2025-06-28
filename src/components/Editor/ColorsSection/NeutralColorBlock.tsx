@@ -40,7 +40,7 @@ export function NeutralColorBlock({ onClick, sx, ...props }: NeutralColorBlockPr
       }}
       {...props}>
       <Typography variant="subtitle1" sx={{ py: 1.5, px: 1 }}>
-        {t('editor.colorSection.title')}
+        {t('editor.colorSection.neutral.title')}
       </Typography>
       <Box sx={{ display: 'flex', flexDirection: 'column' }}>
         {neutralColors.map(({ key, value }) => (
@@ -66,7 +66,7 @@ export function NeutralColorBlock({ onClick, sx, ...props }: NeutralColorBlockPr
             }}
             onClick={() => onClick?.(key)}>
             <Typography>{value}</Typography>
-            <Typography>{key.split('.').pop()}</Typography>
+            <Typography>{t(`editor.colorSection.neutral.${key.split('.').pop()}`)}</Typography>
           </Box>
         ))}
       </Box>

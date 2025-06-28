@@ -21,7 +21,7 @@ import { subscribeWithSelector } from 'zustand/middleware';
 import { shallow } from 'zustand/shallow';
 
 export const DEFAULT_CONCEPT_ID = 'EdNkoyjQDQFY7f1gzwdat';
-export const DEFAULT_CONCEPT_NAME = 'Concept 1';
+export const DEFAULT_CONCEPT_NAME = 'Blocklet Standard';
 export const MODE_SPECIFIC_FIELDS = ['palette', 'components', 'shadows']; // 需要区分 light/dark 的主题配置
 export const HEADING_VARIANTS = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'subtitle1', 'subtitle2', 'overline'] as const;
 export const DEFAULT_FONT_STRING = DEFAULT_FONTS.map((s) => {
@@ -251,12 +251,19 @@ export const useThemeStore = create(
         const current = state.concepts.find((c) => c.id === state.currentConceptId);
         if (!current) return {};
 
-        const newThemeOptions = { ...current.themeConfig, prefer };
+        let newMode = current.mode;
+
+        // 自动切换逻辑：如果禁用的模式是当前模式，则切换到另一个模式
+        if (prefer === 'light' && current.mode === 'dark') {
+          // 禁用 dark 模式，但当前是 dark，切换到 light
+          newMode = 'light';
+        } else if (prefer === 'dark' && current.mode === 'light') {
+          // 禁用 light 模式，但当前是 light，切换到 dark
+          newMode = 'dark';
+        }
 
         return {
-          concepts: state.concepts.map((c) =>
-            c.id === state.currentConceptId ? { ...c, themeConfig: newThemeOptions } : c,
-          ),
+          concepts: state.concepts.map((c) => (c.id === state.currentConceptId ? { ...c, prefer, mode: newMode } : c)),
         };
       });
     },

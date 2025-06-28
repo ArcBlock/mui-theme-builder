@@ -22,6 +22,10 @@ const mockSession = {
     did: 'z1exXZY2A7G4JuYv3AMzjCmioyQGQ4y3wtu',
     fullName: 'Foo',
     role: 'owner',
+    lastLoginAt: new Date(Date.now() - 60 * 1000).toISOString(),
+    lastLoginIp: '192.168.1.100',
+    createdAt: new Date(Date.now() - 2 * 30 * 24 * 60 * 60 * 1000).toISOString(),
+    sourceProvider: 'wallet', // wallet, auth0, email, apple, github, google, nft, passkey
     login: noop,
     logout: noop,
     refresh: noop,

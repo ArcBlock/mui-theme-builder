@@ -17,22 +17,22 @@ export default function LandingPage() {
 
   const features = [
     {
-      icon: <GroupIcon fontSize="large" color="primary" />,
+      icon: <GroupIcon fontSize="large" color="primary" sx={{ color: 'text.primary' }} />,
       title: t('samples.website.features.collaboration.title'),
       description: t('samples.website.features.collaboration.description'),
     },
     {
-      icon: <SpeedIcon fontSize="large" color="primary" />,
+      icon: <SpeedIcon fontSize="large" color="primary" sx={{ color: 'text.primary' }} />,
       title: t('samples.website.features.performance.title'),
       description: t('samples.website.features.performance.description'),
     },
     {
-      icon: <SecurityIcon fontSize="large" color="primary" />,
+      icon: <SecurityIcon fontSize="large" color="primary" sx={{ color: 'text.primary' }} />,
       title: t('samples.website.features.security.title'),
       description: t('samples.website.features.security.description'),
     },
     {
-      icon: <LanguageIcon fontSize="large" color="primary" />,
+      icon: <LanguageIcon fontSize="large" color="primary" sx={{ color: 'text.primary' }} />,
       title: t('samples.website.features.access.title'),
       description: t('samples.website.features.access.description'),
     },
@@ -84,6 +84,7 @@ export default function LandingPage() {
                       flexDirection: 'column',
                       alignItems: 'center',
                       textAlign: 'center',
+                      backgroundColor: 'background.paper',
                     }}>
                     <Avatar sx={{ bgcolor: 'primary.light', mb: 2, width: 64, height: 64 }}>{feature.icon}</Avatar>
                     <Typography variant="h6" fontWeight="bold" gutterBottom>

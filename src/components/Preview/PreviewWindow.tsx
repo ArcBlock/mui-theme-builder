@@ -9,10 +9,8 @@ function PreviewWindow() {
   const previewComponent = getSampleComponent(selectedComponentId);
 
   return (
-    <Box sx={{ height: 1, padding: 2, position: 'relative' }}>
-      <Box sx={{ bgcolor: 'background.default' }}>
-        <PreviewWrapper>{previewComponent || null}</PreviewWrapper>
-      </Box>
+    <Box className="preview-window" sx={{ padding: 2, position: 'relative' }}>
+      <PreviewWrapper>{previewComponent || null}</PreviewWrapper>
     </Box>
   );
 }

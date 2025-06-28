@@ -29,6 +29,13 @@ export const createSiteThemeOptions = ({ palette }: ThemeOptions): ThemeOptions 
 
   return {
     components: {
+      MuiButton: {
+        styleOverrides: {
+          root: {
+            textTransform: 'none',
+          },
+        },
+      },
       MuiAccordion: {
         defaultProps: {
           square: true,
