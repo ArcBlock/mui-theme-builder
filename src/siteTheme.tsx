@@ -28,6 +28,9 @@ export const createSiteThemeOptions = ({ palette }: ThemeOptions): ThemeOptions 
   const backgroundColor = palette?.background?.default ?? '#fff';
 
   return {
+    shape: {
+      borderRadius: 8, // 编辑器固定圆角大小
+    },
     components: {
       MuiButton: {
         styleOverrides: {
