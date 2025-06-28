@@ -1,18 +1,18 @@
-import { Box, Paper, useTheme } from '@mui/material';
+import { Box, BoxProps, Paper, useTheme } from '@mui/material';
 import React from 'react';
 import ThemeWrapper from 'src/components/ThemeWrapper';
 import { useThemeStore } from 'src/state/themeStore';
 
-interface PreviewWrapperProps {
+interface PreviewWrapperProps extends BoxProps {
   children: React.ReactNode;
 }
 
 /**
  * Wraps children in ThemeWrapper and creates a letterbox around the component
  */
-function PreviewWrapper({ children }: PreviewWrapperProps) {
+function PreviewWrapper({ children, ...props }: PreviewWrapperProps) {
   return (
-    <Box className="preview-wrapper" sx={{ height: 1 }}>
+    <Box className="preview-wrapper" {...props}>
       <ThemeWrapper>
         <PreviewBackground>{children}</PreviewBackground>
       </ThemeWrapper>

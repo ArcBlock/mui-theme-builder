@@ -380,6 +380,6 @@ export default function DashboardSample() {
 
 const StyledDashboard = styled(Dashboard)({
   '&.dashboard': {
-    height: '80vh',
+    minHeight: '80vh',
   },
 });

@@ -260,7 +260,7 @@ export default function UserCenterSample() {
   return (
     <BlockletWrapper>
       <Header />
-      <Box sx={{ margin: '0 auto', padding: '0 16px' }}>
+      <Box sx={{ margin: '0 auto', padding: '0 32px', minHeight: 768 }}>
         <UserCenter />
       </Box>
       <Footer />
