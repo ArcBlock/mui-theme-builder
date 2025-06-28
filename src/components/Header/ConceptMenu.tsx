@@ -144,7 +144,7 @@ export function ConceptMenu() {
           <ConceptItem
             key={concept.id}
             selected={concept.id === currentConceptId}
-            onClick={!isMobile ? handleSelectConcept(concept) : undefined}
+            onClick={handleSelectConcept(concept)}
             onMouseDown={(e) => e.stopPropagation()}>
             <Box sx={{ flex: 1, display: 'flex', alignItems: 'center' }}>
               <Typography variant="body2" noWrap sx={{ flex: 1 }}>
