@@ -1,6 +1,5 @@
 import { useLocaleContext } from '@arcblock/ux/lib/Locale/context';
 import {
-  DevicesOther as DevicesOtherIcon,
   Group as GroupIcon,
   Language as LanguageIcon,
   Security as SecurityIcon,

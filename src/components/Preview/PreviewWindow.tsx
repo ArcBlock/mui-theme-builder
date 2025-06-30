@@ -18,7 +18,7 @@ function PreviewWindow() {
   useEffect(() => {
     const updateWidth = () => {
       if (containerRef.current) {
-        setContainerWidth(containerRef.current.offsetWidth - parseInt(theme.spacing(2)));
+        setContainerWidth(containerRef.current.offsetWidth - parseInt(theme.spacing(2), 10));
       }
     };
 

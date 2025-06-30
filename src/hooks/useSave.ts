@@ -14,7 +14,7 @@ export default function useSave() {
         concepts,
         currentConceptId,
       };
-      console.log('themeData', themeData);
+
       // 后端保存
       if (!isDev) {
         await axios.post(

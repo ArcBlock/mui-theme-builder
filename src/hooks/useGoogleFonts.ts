@@ -3,28 +3,21 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { PREVIEW_TEXT } from 'src/constants';
 import { FontFilter, GoogleFont, GoogleFontsData } from 'src/types/fonts';
 import { TextVariant } from 'src/types/theme';
-import { loadFontsIfRequired, pickRandom } from 'src/utils';
-import { topN } from 'src/utils';
+import { loadFontsIfRequired, pickRandom, topN } from 'src/utils';
 
 const FONTS_PER_PAGE = 10; // 每页显示的字体数量
 
 // 异步加载字体数据
-let fontsDataCache: GoogleFontsData | null = null;
 let fontsDataPromise: Promise<GoogleFontsData> | null = null;
 let loadedFonts = new Set<string>();
 
-const loadFontsData = async (): Promise<GoogleFontsData> => {
-  if (fontsDataCache) {
-    return fontsDataCache;
-  }
-
+const loadFontsData = (): Promise<GoogleFontsData> => {
   if (fontsDataPromise) {
     return fontsDataPromise;
   }
 
   fontsDataPromise = import('src/data/google-fonts.json').then((data) => {
-    fontsDataCache = data.default as GoogleFontsData;
-    return fontsDataCache;
+    return data.default as GoogleFontsData;
   });
 
   return fontsDataPromise;
@@ -61,8 +54,8 @@ const useGoogleFonts = (filter: FontFilter) => {
       return { categories: [], fontsByCategory: {} };
     }
 
-    const categories = Array.from(new Set(fontsData.all.map((font) => font.c))).sort();
-    const fontsByCategory = fontsData.all.reduce(
+    const cats = Array.from(new Set(fontsData.all.map((font) => font.c))).sort();
+    const fontsByCat = fontsData.all.reduce(
       (acc, font) => {
         const category = font.c || 'Other';
         if (!acc[category]) {
@@ -75,11 +68,11 @@ const useGoogleFonts = (filter: FontFilter) => {
     );
 
     // 在每个分类内按 popularity 排序
-    Object.keys(fontsByCategory).forEach((category) => {
-      fontsByCategory[category].sort((a, b) => a.p - b.p);
+    Object.keys(fontsByCat).forEach((category) => {
+      fontsByCat[category].sort((a, b) => a.p - b.p);
     });
 
-    return { categories, fontsByCategory };
+    return { categories: cats, fontsByCategory: fontsByCat };
   }, [fontsData]);
 
   // 过滤字体

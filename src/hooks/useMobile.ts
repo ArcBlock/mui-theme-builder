@@ -1,4 +1,4 @@
-import { Breakpoint, useTheme, useMediaQuery } from '@mui/material';
+import { Breakpoint, useMediaQuery, useTheme } from '@mui/material';
 
 export default function useMobile({ key = 'md' }: { key?: number | Breakpoint } = {}) {
   const theme = useTheme();

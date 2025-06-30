@@ -1,6 +1,6 @@
 import { useLocaleContext } from '@arcblock/ux/lib/Locale/context';
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
-import { Box, Button, Divider, Menu, MenuItem, Typography, styled } from '@mui/material';
+import { Box, Button, Divider, Menu, MenuItem, Typography } from '@mui/material';
 import { useState } from 'react';
 import { useThemeStore } from 'src/state/themeStore';
 import type { ThemePrefer } from 'src/types/theme';

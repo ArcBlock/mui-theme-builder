@@ -318,16 +318,15 @@ export function ensureUniqueName(list: string[], name: string): string {
     // 原始名称被占用了
     if (item === name) {
       occupied = true;
-      continue;
-    }
+    } else {
+      // "name #n" 模式匹配
+      const prefix = `${name} `;
+      if (item.startsWith(prefix)) {
+        const suffix = item.slice(prefix.length).trim();
 
-    // "name #n" 模式匹配
-    const prefix = `${name} `;
-    if (item.startsWith(prefix)) {
-      const suffix = item.slice(prefix.length).trim();
-
-      if (rPositiveInteger.test(suffix)) {
-        usedNumbers.add(parseInt(suffix, 10));
+        if (rPositiveInteger.test(suffix)) {
+          usedNumbers.add(parseInt(suffix, 10));
+        }
       }
     }
   }

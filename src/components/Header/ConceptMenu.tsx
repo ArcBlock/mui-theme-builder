@@ -40,7 +40,7 @@ const ConceptItem = styled(MenuItem)(({ theme }) => ({
   },
 }));
 
-const ConceptButton = styled(Box)(({ theme }) => ({
+const ConceptButton = styled(Box)(() => ({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
@@ -188,7 +188,7 @@ export function ConceptMenu() {
           <>
             <ConceptItem
               onClick={() => {
-                const c = concepts.find((c) => c.id === currentConceptId);
+                const c = concepts.find((v) => v.id === currentConceptId);
                 if (c) openRenameDrawer(c);
                 setAnchorEl(null);
               }}>

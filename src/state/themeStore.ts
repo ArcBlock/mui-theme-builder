@@ -14,8 +14,7 @@ import type {
   ThemeStoreModel,
   ThemeStoreState,
 } from 'src/types/theme';
-import { ensureUniqueName, loadFontsIfRequired, removeByPath, setByPath } from 'src/utils';
-import { createPreviewMuiTheme } from 'src/utils';
+import { createPreviewMuiTheme, ensureUniqueName, loadFontsIfRequired, removeByPath, setByPath } from 'src/utils';
 import { create } from 'zustand';
 import { subscribeWithSelector } from 'zustand/middleware';
 import { shallow } from 'zustand/shallow';
@@ -176,14 +175,14 @@ export const useThemeStore = create(
       let result = concepts.find((c) => c.id === currentConceptId);
 
       if (!result) {
-        result = getDefaultState().concepts[0];
+        [result] = getDefaultState().concepts;
       }
 
       return result;
     },
     setConcepts: ({ concepts, currentConceptId }) =>
       set(() => {
-        let updates: Partial<ThemeStoreState> = {};
+        const updates: Partial<ThemeStoreState> = {};
 
         if (concepts && currentConceptId) {
           updates.concepts = concepts;
@@ -446,7 +445,7 @@ export const useThemeStore = create(
       const { setThemeOptions, themeObject, loadedFonts } = get();
       const { heading, body } = fontMap;
       const newFonts = [];
-      let updates: { path: string; value: any }[] = [];
+      const updates: { path: string; value: any }[] = [];
 
       if (body) {
         // body 字体本质上是 base 字体

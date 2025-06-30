@@ -92,12 +92,13 @@ export function ColorEditDrawer({ open, colorType, onClose }: ColorEditDrawerPro
 
   const neutralColor = useMemo<string | null>(() => {
     if (colorType && !isMainColor(colorType)) {
+      // 比如 background.default
       const value = getByPath(themeObject.palette, colorType);
 
       return value;
     }
     return null;
-  }, [colorType, mainColor, themeObject]);
+  }, [colorType, themeObject]);
 
   const handleNeutralColorChange = (newColor: string) => {
     if (!colorType) return;

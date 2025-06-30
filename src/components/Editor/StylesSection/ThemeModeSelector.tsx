@@ -46,7 +46,10 @@ function ThemeModeSelector({ value = 'light', onChange }: ThemeModeSelectorProps
           <Typography variant="body2">{t('editor.darkMode')}</Typography>
         </Stack>
       </OptionPaper>
-      <OptionPaper elevation={0} className={value === 'system' ? 'Mui-selected' : ''} onClick={() => onChange('system')}>
+      <OptionPaper
+        elevation={0}
+        className={value === 'system' ? 'Mui-selected' : ''}
+        onClick={() => onChange('system')}>
         <Stack spacing={1} direction="row" alignItems="center">
           <Box
             sx={{

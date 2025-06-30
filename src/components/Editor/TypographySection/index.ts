@@ -1,1 +1,3 @@
-export { default } from './TypographySection';
+import TypographySection from './TypographySection';
+
+export default TypographySection;
