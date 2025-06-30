@@ -1,11 +1,8 @@
 ## 0.2.1 (2025-6-28)
 
-- fix: limit editor width on ultra-wide screens
-- fix: unify Preview icon style
-- feat: support forced light/dark mode
-- feat: improve theme editor with inline actions
-- feat: update user center demo layout
-- feat: make header sticky
+- feat: show the name of the built-in theme
+- feat: supports disabling Dark/Light mode
+- feat: preview window supports scale 
 
 ## 0.2.0 (2025-6-25)
 
