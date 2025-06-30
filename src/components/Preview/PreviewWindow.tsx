@@ -41,10 +41,6 @@ function PreviewWindow() {
   const shouldScale = containerWidth > 0 && containerWidth < PC_PREVIEW_WINDOW_MIN_WIDTH && previewSize === false;
   const scale = shouldScale ? containerWidth / PC_PREVIEW_WINDOW_MIN_WIDTH : 1;
 
-  console.log(
-    `containerWidth: ${containerWidth}, shouldScale: ${shouldScale}, scale: ${scale}, previewSize: ${previewSize}`,
-  );
-
   return (
     <Box
       ref={containerRef}

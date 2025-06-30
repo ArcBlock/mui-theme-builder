@@ -29,6 +29,7 @@ export default {
     colorSection: {
       title: 'Colors',
       shades: 'Shades',
+      reset: 'Reset all colors',
       neutral: {
         title: 'Neutrals',
         default: 'background',

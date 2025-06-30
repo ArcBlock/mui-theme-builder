@@ -5,7 +5,7 @@ import { TypographyOptions } from '@mui/material/styles/createTypography';
 import dotProp from 'dot-prop-immutable';
 import JSON5 from 'json5';
 
-import { PreviewSize } from './state/types';
+import { PreviewSize } from './types/theme';
 
 export const isDev = process.env.NODE_ENV === 'development';
 
@@ -207,32 +207,32 @@ export function diffJSON(source: any, target: any): any {
  * @param options - 加载选项
  */
 export function loadFonts(
-  fonts: string[], 
+  fonts: string[],
   options: {
     text?: string; // 字符子集，只下载包含这些字符的字体
     subsets?: string[]; // 语言子集，如 ['latin', 'chinese-simplified']
     weights?: string[]; // 字体权重，如 ['300', '400', '700']
-  } = {}
+  } = {},
 ) {
   return new Promise<boolean>((resolve) => {
     import('webfontloader')
       .then((WebFontModule) => {
         const WebFont = WebFontModule.default || WebFontModule;
-        
+
         // 处理字体名称，添加权重和子集信息
-        const processedFonts = fonts.map(font => {
+        const processedFonts = fonts.map((font) => {
           let processedFont = font;
-          
+
           // 如果指定了权重，添加到字体名称中
           if (options.weights && options.weights.length > 0) {
             processedFont += `:${options.weights.join(',')}`;
           }
-          
+
           // 如果指定了语言子集，添加到字体名称中
           if (options.subsets && options.subsets.length > 0) {
             processedFont += `:${options.subsets.join(',')}`;
           }
-          
+
           return processedFont;
         });
 
@@ -258,13 +258,13 @@ export function loadFonts(
 }
 
 export function loadFontsIfRequired(
-  fonts: string[], 
+  fonts: string[],
   loadedFonts: Set<string>,
   options?: {
     text?: string;
     subsets?: string[];
     weights?: string[];
-  }
+  },
 ) {
   const fontsToLoad = fonts.filter((x) => !loadedFonts.has(x));
 
@@ -304,4 +304,43 @@ export function pickRandom<T>(arr: T[], exclude?: T) {
   if (exclude && arr.length > 1) pool = arr.filter((f) => f !== exclude);
 
   return pool[Math.floor(Math.random() * pool.length)];
+}
+
+// 如果必要的话，生成名称 name #n，确保 name 在 list 中不重复
+const rPositiveInteger = /^\d+$/;
+export function ensureUniqueName(list: string[], name: string): string {
+  // 使用 Set 存储已使用的数字，提供 O(1) 查找性能
+  const usedNumbers = new Set<number>();
+  let occupied = false;
+
+  // 单次遍历，同时收集匹配项和检查是否存在原始名称
+  for (const item of list) {
+    // 原始名称被占用了
+    if (item === name) {
+      occupied = true;
+      continue;
+    }
+
+    // "name #n" 模式匹配
+    const prefix = `${name} `;
+    if (item.startsWith(prefix)) {
+      const suffix = item.slice(prefix.length).trim();
+
+      if (rPositiveInteger.test(suffix)) {
+        usedNumbers.add(parseInt(suffix, 10));
+      }
+    }
+  }
+
+  if (!occupied) {
+    return name;
+  }
+
+  // 生成不重复的后缀 #n
+  let nextNumber = 1;
+  while (usedNumbers.has(nextNumber)) {
+    nextNumber++;
+  }
+
+  return `${name} ${nextNumber}`;
 }

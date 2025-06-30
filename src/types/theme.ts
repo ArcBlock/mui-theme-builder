@@ -4,10 +4,13 @@ import { Theme } from '@mui/material/styles';
 export type Mode = 'light' | 'dark';
 export type ThemePrefer = 'light' | 'dark' | 'system';
 export type TextVariant = 'heading' | 'body';
+export type PreviewSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | false;
+export type MainColors = 'primary' | 'secondary' | 'success' | 'error' | 'info' | 'warning';
 
 export interface Concept {
   id: string;
-  name: string;
+  name: string; // 主题名称
+  template: string; // 预制模版名称
   mode: Mode;
   prefer: ThemePrefer;
   themeConfig: {
@@ -18,7 +21,11 @@ export interface Concept {
   editor: EditorState;
 }
 
-export type PreviewSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | false;
+export interface PredefinedTheme {
+  name: string;
+  light: Record<MainColors, string>;
+  dark: Record<MainColors, string>;
+}
 
 export interface EditorState {
   colors: {
@@ -45,8 +52,6 @@ export interface ThemeStoreState {
   previewSize: PreviewSize;
   selectedComponentId: string;
   themeObject: Theme;
-  lastShuffledPaletteIndex: number;
-  lastShuffleResult: { headingFont?: string; bodyFont?: string };
 }
 
 export interface ThemeStoreModel extends ThemeStoreState {
@@ -57,11 +62,13 @@ export interface ThemeStoreModel extends ThemeStoreState {
   // Concepts 管理
   setCurrentConcept: (id: string) => void;
   getCurrentConcept: () => Concept;
-  addConcept: (name: string, baseThemeOptions?: Concept['themeConfig']) => void;
+  addConcept: (options?: { name?: string; themeConfig?: Concept['themeConfig'] }) => void;
   deleteConcept: (id: string) => void;
-  duplicateConcept: (id: string, name?: string) => void;
+  duplicateConcept: (id: string) => void;
   renameConcept: (id: string, name: string) => void;
   setConcepts: (data: { concepts: Concept[]; currentConceptId: string }) => void;
+  applyPredefinedTheme: (concept: Concept, theme: PredefinedTheme, colorKeys?: string | string[]) => Concept;
+  isPredefinedTheme: (concept: Concept) => boolean;
 
   // ThemeOption 编辑
   setThemeOption: (path: string, value: any) => void;
@@ -76,6 +83,7 @@ export interface ThemeStoreModel extends ThemeStoreState {
   // Colors 编辑
   setColorLock: (colorKey: string, isLocked: boolean) => void;
   shuffleColors: (colorKeys?: string | string[]) => void;
+  resetColors: () => void;
 
   // Fonts 编辑
   setFontOptions: (fontMap: Partial<Record<TextVariant, { fontFamily: string }>>) => void;

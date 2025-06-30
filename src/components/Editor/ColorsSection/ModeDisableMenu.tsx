@@ -1,6 +1,6 @@
 import { useLocaleContext } from '@arcblock/ux/lib/Locale/context';
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
-import { Box, Button, Menu, MenuItem, styled, Typography } from '@mui/material';
+import { Box, Button, Divider, Menu, MenuItem, Typography, styled } from '@mui/material';
 import { useState } from 'react';
 import { useThemeStore } from 'src/state/themeStore';
 import type { ThemePrefer } from 'src/types/theme';
@@ -9,6 +9,7 @@ function ModeDisableMenu() {
   const { t } = useLocaleContext();
   const prefer = useThemeStore((s) => s.getCurrentConcept().prefer);
   const setThemePrefer = useThemeStore((s) => s.setThemePrefer);
+  const resetColors = useThemeStore((s) => s.resetColors);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -21,6 +22,11 @@ function ModeDisableMenu() {
 
   const handleOptionSelect = (value: ThemePrefer) => {
     setThemePrefer(value);
+    handleClose();
+  };
+
+  const handleResetColors = () => {
+    resetColors();
     handleClose();
   };
 
@@ -63,6 +69,10 @@ function ModeDisableMenu() {
         </MenuItem>
         <MenuItem onClick={() => handleOptionSelect('dark')} selected={prefer === 'dark'}>
           <Typography variant="body2">{t('editor.colorSection.modeDisable.light')}</Typography>
+        </MenuItem>
+        <Divider />
+        <MenuItem onClick={handleResetColors}>
+          <Typography variant="body2">{t('editor.colorSection.reset')}</Typography>
         </MenuItem>
       </Menu>
     </Box>

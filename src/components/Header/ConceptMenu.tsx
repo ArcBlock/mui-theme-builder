@@ -5,13 +5,13 @@ import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import { Box, Button, Divider, Menu, MenuItem, Typography, styled, useTheme } from '@mui/material';
+import { Box, Button, Divider, Menu, MenuItem, Typography, styled } from '@mui/material';
 import Drawer from '@mui/material/Drawer';
 import IconButton from '@mui/material/IconButton';
 import TextField from '@mui/material/TextField';
 import { useCallback, useState } from 'react';
 import useMobile from 'src/hooks/useMobile';
-import { DEFAULT_CONCEPT_NAME, useThemeStore } from 'src/state/themeStore';
+import { useThemeStore } from 'src/state/themeStore';
 import { Concept } from 'src/types/theme';
 
 const ConceptItem = styled(MenuItem)(({ theme }) => ({
@@ -69,19 +69,6 @@ export function ConceptMenu() {
   const [renameValue, setRenameValue] = useState('');
 
   const currentConcept = concepts.find((c) => c.id === currentConceptId);
-  const genConceptName = useCallback(() => {
-    const name = DEFAULT_CONCEPT_NAME;
-    const lst = concepts.at(-1);
-    const match = lst?.name.match(new RegExp(`^${name}\\s+(\\d+)$`));
-    let maxNum = 0;
-
-    if (match) {
-      maxNum = parseInt(match[1], 10);
-    }
-
-    return `${name} ${maxNum + 1}`;
-  }, [concepts]);
-
   const handleSelectConcept = useCallback(
     (concept: Concept) => () => {
       setCurrentConcept(concept.id);
@@ -166,7 +153,7 @@ export function ConceptMenu() {
                     title={t('editor.concept.duplicate')}
                     onClick={(e) => {
                       e.stopPropagation();
-                      duplicateConcept(concept.id, genConceptName());
+                      duplicateConcept(concept.id);
                       setAnchorEl(null);
                     }}>
                     <ContentCopyIcon sx={{ fontSize: 16 }} />
@@ -191,7 +178,7 @@ export function ConceptMenu() {
         <ConceptItem
           disabled={concepts.length >= 8}
           onClick={() => {
-            addConcept(genConceptName());
+            addConcept();
             setAnchorEl(null);
           }}>
           <AddCircleOutlineOutlinedIcon sx={{ mr: 1, fontSize: 18 }} />
@@ -211,7 +198,7 @@ export function ConceptMenu() {
             <ConceptItem
               disabled={concepts.length >= 8}
               onClick={() => {
-                duplicateConcept(currentConceptId, genConceptName());
+                duplicateConcept(currentConceptId);
                 setAnchorEl(null);
               }}>
               <ContentCopyIcon sx={{ mr: 1, fontSize: 18 }} />
@@ -229,7 +216,7 @@ export function ConceptMenu() {
           </>
         )}
       </Menu>
-      {/* Drawer for renaming concept */}
+      {/* Drawer for editing concept */}
       <Drawer anchor={isMobile ? 'bottom' : 'left'} open={renameDrawerOpen} onClose={closeRenameDrawer}>
         <Box sx={{ p: 2, width: isMobile ? 'auto' : 320 }}>
           <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 2 }}>

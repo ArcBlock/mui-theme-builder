@@ -28,6 +28,7 @@ export default {
     colorSection: {
       title: '颜色',
       shades: '色阶',
+      reset: '重置所有颜色',
       neutral: {
         title: '中性色',
         default: '背景',

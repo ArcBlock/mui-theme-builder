@@ -1,0 +1,2225 @@
+[
+  {
+    "name": "Oceanic Blue",
+    "light": {
+      "primary": "#0077B6",
+      "secondary": "#00B4D8",
+      "success": "#4CAF50",
+      "error": "#F44336",
+      "info": "#2196F3",
+      "warning": "#FF9800"
+    },
+    "dark": {
+      "primary": "#90E0EF",
+      "secondary": "#CAF0F8",
+      "success": "#81C784",
+      "error": "#E57373",
+      "info": "#64B5F6",
+      "warning": "#FFB74D"
+    }
+  },
+  {
+    "name": "Sunset Grove",
+    "light": {
+      "primary": "#E67E22",
+      "secondary": "#D35400",
+      "success": "#27AE60",
+      "error": "#C0392B",
+      "info": "#2980B9",
+      "warning": "#F1C40F"
+    },
+    "dark": {
+      "primary": "#F39C12",
+      "secondary": "#E67E22",
+      "success": "#2ECC71",
+      "error": "#E74C3C",
+      "info": "#3498DB",
+      "warning": "#F39C12"
+    }
+  },
+  {
+    "name": "Royal Garden",
+    "light": {
+      "primary": "#8E44AD",
+      "secondary": "#9B59B6",
+      "success": "#2ECC71",
+      "error": "#E74C3C",
+      "info": "#3498DB",
+      "warning": "#F1C40F"
+    },
+    "dark": {
+      "primary": "#BB86FC",
+      "secondary": "#03DAC6",
+      "success": "#A5D6A7",
+      "error": "#EF9A9A",
+      "info": "#9FA8DA",
+      "warning": "#FFE082"
+    }
+  },
+  {
+    "name": "Forest Whisper",
+    "light": {
+      "primary": "#2D6A4F",
+      "secondary": "#40916C",
+      "success": "#52B788",
+      "error": "#D90429",
+      "info": "#00A8E8",
+      "warning": "#FFC300"
+    },
+    "dark": {
+      "primary": "#B7E4C7",
+      "secondary": "#D8F3DC",
+      "success": "#95D5B2",
+      "error": "#EF476F",
+      "info": "#00B4D8",
+      "warning": "#FFD60A"
+    }
+  },
+  {
+    "name": "Midnight Elegance",
+    "light": {
+      "primary": "#2C3E50",
+      "secondary": "#34495E",
+      "success": "#27AE60",
+      "error": "#E74C3C",
+      "info": "#3498DB",
+      "warning": "#F39C12"
+    },
+    "dark": {
+      "primary": "#ECF0F1",
+      "secondary": "#BDC3C7",
+      "success": "#2ECC71",
+      "error": "#E74C3C",
+      "info": "#3498DB",
+      "warning": "#F1C40F"
+    }
+  },
+  {
+    "name": "Coral Reef",
+    "light": {
+      "primary": "#FF6B6B",
+      "secondary": "#FF8E8E",
+      "success": "#51CF66",
+      "error": "#FF5252",
+      "info": "#4ECDC4",
+      "warning": "#FFA726"
+    },
+    "dark": {
+      "primary": "#FF8A80",
+      "secondary": "#FFCDD2",
+      "success": "#81C784",
+      "error": "#EF5350",
+      "info": "#80CBC4",
+      "warning": "#FFCC02"
+    }
+  },
+  {
+    "name": "Lavender Dreams",
+    "light": {
+      "primary": "#9C27B0",
+      "secondary": "#BA68C8",
+      "success": "#4CAF50",
+      "error": "#F44336",
+      "info": "#2196F3",
+      "warning": "#FF9800"
+    },
+    "dark": {
+      "primary": "#CE93D8",
+      "secondary": "#E1BEE7",
+      "success": "#81C784",
+      "error": "#E57373",
+      "info": "#64B5F6",
+      "warning": "#FFB74D"
+    }
+  },
+  {
+    "name": "Emerald City",
+    "light": {
+      "primary": "#00BCD4",
+      "secondary": "#26C6DA",
+      "success": "#4CAF50",
+      "error": "#F44336",
+      "info": "#2196F3",
+      "warning": "#FF9800"
+    },
+    "dark": {
+      "primary": "#4DD0E1",
+      "secondary": "#80DEEA",
+      "success": "#81C784",
+      "error": "#E57373",
+      "info": "#64B5F6",
+      "warning": "#FFB74D"
+    }
+  },
+  {
+    "name": "Golden Hour",
+    "light": {
+      "primary": "#FF9800",
+      "secondary": "#FFB74D",
+      "success": "#4CAF50",
+      "error": "#F44336",
+      "info": "#2196F3",
+      "warning": "#FF5722"
+    },
+    "dark": {
+      "primary": "#FFB74D",
+      "secondary": "#FFCC02",
+      "success": "#81C784",
+      "error": "#E57373",
+      "info": "#64B5F6",
+      "warning": "#FF8A65"
+    }
+  },
+  {
+    "name": "Rose Garden",
+    "light": {
+      "primary": "#E91E63",
+      "secondary": "#F06292",
+      "success": "#4CAF50",
+      "error": "#F44336",
+      "info": "#2196F3",
+      "warning": "#FF9800"
+    },
+    "dark": {
+      "primary": "#F48FB1",
+      "secondary": "#F8BBD9",
+      "success": "#81C784",
+      "error": "#E57373",
+      "info": "#64B5F6",
+      "warning": "#FFB74D"
+    }
+  },
+  {
+    "name": "Sage Wisdom",
+    "light": {
+      "primary": "#795548",
+      "secondary": "#8D6E63",
+      "success": "#4CAF50",
+      "error": "#F44336",
+      "info": "#2196F3",
+      "warning": "#FF9800"
+    },
+    "dark": {
+      "primary": "#A1887F",
+      "secondary": "#BCAAA4",
+      "success": "#81C784",
+      "error": "#E57373",
+      "info": "#64B5F6",
+      "warning": "#FFB74D"
+    }
+  },
+  {
+    "name": "Azure Sky",
+    "light": {
+      "primary": "#2196F3",
+      "secondary": "#42A5F5",
+      "success": "#4CAF50",
+      "error": "#F44336",
+      "info": "#00BCD4",
+      "warning": "#FF9800"
+    },
+    "dark": {
+      "primary": "#64B5F6",
+      "secondary": "#90CAF9",
+      "success": "#81C784",
+      "error": "#E57373",
+      "info": "#4DD0E1",
+      "warning": "#FFB74D"
+    }
+  },
+  {
+    "name": "Cherry Blossom",
+    "light": {
+      "primary": "#F06292",
+      "secondary": "#F8BBD9",
+      "success": "#4CAF50",
+      "error": "#F44336",
+      "info": "#2196F3",
+      "warning": "#FF9800"
+    },
+    "dark": {
+      "primary": "#F48FB1",
+      "secondary": "#FCE4EC",
+      "success": "#81C784",
+      "error": "#E57373",
+      "info": "#64B5F6",
+      "warning": "#FFB74D"
+    }
+  },
+  {
+    "name": "Mint Fresh",
+    "light": {
+      "primary": "#4CAF50",
+      "secondary": "#66BB6A",
+      "success": "#2E7D32",
+      "error": "#F44336",
+      "info": "#2196F3",
+      "warning": "#FF9800"
+    },
+    "dark": {
+      "primary": "#81C784",
+      "secondary": "#A5D6A7",
+      "success": "#4CAF50",
+      "error": "#E57373",
+      "info": "#64B5F6",
+      "warning": "#FFB74D"
+    }
+  },
+  {
+    "name": "Amber Glow",
+    "light": {
+      "primary": "#FF9800",
+      "secondary": "#FFB74D",
+      "success": "#4CAF50",
+      "error": "#F44336",
+      "info": "#2196F3",
+      "warning": "#FF5722"
+    },
+    "dark": {
+      "primary": "#FFB74D",
+      "secondary": "#FFCC02",
+      "success": "#81C784",
+      "error": "#E57373",
+      "info": "#64B5F6",
+      "warning": "#FF8A65"
+    }
+  },
+  {
+    "name": "Indigo Night",
+    "light": {
+      "primary": "#3F51B5",
+      "secondary": "#5C6BC0",
+      "success": "#4CAF50",
+      "error": "#F44336",
+      "info": "#2196F3",
+      "warning": "#FF9800"
+    },
+    "dark": {
+      "primary": "#7986CB",
+      "secondary": "#9FA8DA",
+      "success": "#81C784",
+      "error": "#E57373",
+      "info": "#64B5F6",
+      "warning": "#FFB74D"
+    }
+  },
+  {
+    "name": "Teal Ocean",
+    "light": {
+      "primary": "#009688",
+      "secondary": "#26A69A",
+      "success": "#4CAF50",
+      "error": "#F44336",
+      "info": "#2196F3",
+      "warning": "#FF9800"
+    },
+    "dark": {
+      "primary": "#4DB6AC",
+      "secondary": "#80CBC4",
+      "success": "#81C784",
+      "error": "#E57373",
+      "info": "#64B5F6",
+      "warning": "#FFB74D"
+    }
+  },
+  {
+    "name": "Ruby Red",
+    "light": {
+      "primary": "#F44336",
+      "secondary": "#EF5350",
+      "success": "#4CAF50",
+      "error": "#D32F2F",
+      "info": "#2196F3",
+      "warning": "#FF9800"
+    },
+    "dark": {
+      "primary": "#E57373",
+      "secondary": "#EF9A9A",
+      "success": "#81C784",
+      "error": "#F44336",
+      "info": "#64B5F6",
+      "warning": "#FFB74D"
+    }
+  },
+  {
+    "name": "Lime Zest",
+    "light": {
+      "primary": "#CDDC39",
+      "secondary": "#D4E157",
+      "success": "#4CAF50",
+      "error": "#F44336",
+      "info": "#2196F3",
+      "warning": "#FF9800"
+    },
+    "dark": {
+      "primary": "#DCE775",
+      "secondary": "#E6EE9C",
+      "success": "#81C784",
+      "error": "#E57373",
+      "info": "#64B5F6",
+      "warning": "#FFB74D"
+    }
+  },
+  {
+    "name": "Deep Purple",
+    "light": {
+      "primary": "#673AB7",
+      "secondary": "#7E57C2",
+      "success": "#4CAF50",
+      "error": "#F44336",
+      "info": "#2196F3",
+      "warning": "#FF9800"
+    },
+    "dark": {
+      "primary": "#9575CD",
+      "secondary": "#B39DDB",
+      "success": "#81C784",
+      "error": "#E57373",
+      "info": "#64B5F6",
+      "warning": "#FFB74D"
+    }
+  },
+  {
+    "name": "Orange Sunset",
+    "light": {
+      "primary": "#FF5722",
+      "secondary": "#FF7043",
+      "success": "#4CAF50",
+      "error": "#F44336",
+      "info": "#2196F3",
+      "warning": "#FF9800"
+    },
+    "dark": {
+      "primary": "#FF8A65",
+      "secondary": "#FFAB91",
+      "success": "#81C784",
+      "error": "#E57373",
+      "info": "#64B5F6",
+      "warning": "#FFB74D"
+    }
+  },
+  {
+    "name": "Cyan Wave",
+    "light": {
+      "primary": "#00BCD4",
+      "secondary": "#26C6DA",
+      "success": "#4CAF50",
+      "error": "#F44336",
+      "info": "#2196F3",
+      "warning": "#FF9800"
+    },
+    "dark": {
+      "primary": "#4DD0E1",
+      "secondary": "#80DEEA",
+      "success": "#81C784",
+      "error": "#E57373",
+      "info": "#64B5F6",
+      "warning": "#FFB74D"
+    }
+  },
+  {
+    "name": "Pink Flamingo",
+    "light": {
+      "primary": "#E91E63",
+      "secondary": "#EC407A",
+      "success": "#4CAF50",
+      "error": "#F44336",
+      "info": "#2196F3",
+      "warning": "#FF9800"
+    },
+    "dark": {
+      "primary": "#F48FB1",
+      "secondary": "#F8BBD9",
+      "success": "#81C784",
+      "error": "#E57373",
+      "info": "#64B5F6",
+      "warning": "#FFB74D"
+    }
+  },
+  {
+    "name": "Brown Earth",
+    "light": {
+      "primary": "#795548",
+      "secondary": "#8D6E63",
+      "success": "#4CAF50",
+      "error": "#F44336",
+      "info": "#2196F3",
+      "warning": "#FF9800"
+    },
+    "dark": {
+      "primary": "#A1887F",
+      "secondary": "#BCAAA4",
+      "success": "#81C784",
+      "error": "#E57373",
+      "info": "#64B5F6",
+      "warning": "#FFB74D"
+    }
+  },
+  {
+    "name": "Blue Lagoon",
+    "light": {
+      "primary": "#1976D2",
+      "secondary": "#42A5F5",
+      "success": "#4CAF50",
+      "error": "#F44336",
+      "info": "#2196F3",
+      "warning": "#FF9800"
+    },
+    "dark": {
+      "primary": "#42A5F5",
+      "secondary": "#90CAF9",
+      "success": "#81C784",
+      "error": "#E57373",
+      "info": "#64B5F6",
+      "warning": "#FFB74D"
+    }
+  },
+  {
+    "name": "Green Forest",
+    "light": {
+      "primary": "#388E3C",
+      "secondary": "#4CAF50",
+      "success": "#2E7D32",
+      "error": "#F44336",
+      "info": "#2196F3",
+      "warning": "#FF9800"
+    },
+    "dark": {
+      "primary": "#66BB6A",
+      "secondary": "#81C784",
+      "success": "#4CAF50",
+      "error": "#E57373",
+      "info": "#64B5F6",
+      "warning": "#FFB74D"
+    }
+  },
+  {
+    "name": "Purple Haze",
+    "light": {
+      "primary": "#7B1FA2",
+      "secondary": "#9C27B0",
+      "success": "#4CAF50",
+      "error": "#F44336",
+      "info": "#2196F3",
+      "warning": "#FF9800"
+    },
+    "dark": {
+      "primary": "#BA68C8",
+      "secondary": "#CE93D8",
+      "success": "#81C784",
+      "error": "#E57373",
+      "info": "#64B5F6",
+      "warning": "#FFB74D"
+    }
+  },
+  {
+    "name": "Red Velvet",
+    "light": {
+      "primary": "#D32F2F",
+      "secondary": "#F44336",
+      "success": "#4CAF50",
+      "error": "#C62828",
+      "info": "#2196F3",
+      "warning": "#FF9800"
+    },
+    "dark": {
+      "primary": "#EF5350",
+      "secondary": "#E57373",
+      "success": "#81C784",
+      "error": "#F44336",
+      "info": "#64B5F6",
+      "warning": "#FFB74D"
+    }
+  },
+  {
+    "name": "Yellow Sunshine",
+    "light": {
+      "primary": "#FBC02D",
+      "secondary": "#FDD835",
+      "success": "#4CAF50",
+      "error": "#F44336",
+      "info": "#2196F3",
+      "warning": "#FF9800"
+    },
+    "dark": {
+      "primary": "#FFF176",
+      "secondary": "#FFF59D",
+      "success": "#81C784",
+      "error": "#E57373",
+      "info": "#64B5F6",
+      "warning": "#FFB74D"
+    }
+  },
+  {
+    "name": "Grey Steel",
+    "light": {
+      "primary": "#616161",
+      "secondary": "#757575",
+      "success": "#4CAF50",
+      "error": "#F44336",
+      "info": "#2196F3",
+      "warning": "#FF9800"
+    },
+    "dark": {
+      "primary": "#9E9E9E",
+      "secondary": "#BDBDBD",
+      "success": "#81C784",
+      "error": "#E57373",
+      "info": "#64B5F6",
+      "warning": "#FFB74D"
+    }
+  },
+  {
+    "name": "Turquoise Sea",
+    "light": {
+      "primary": "#00695C",
+      "secondary": "#00838F",
+      "success": "#4CAF50",
+      "error": "#F44336",
+      "info": "#2196F3",
+      "warning": "#FF9800"
+    },
+    "dark": {
+      "primary": "#26A69A",
+      "secondary": "#4DB6AC",
+      "success": "#81C784",
+      "error": "#E57373",
+      "info": "#64B5F6",
+      "warning": "#FFB74D"
+    }
+  },
+  {
+    "name": "Violet Storm",
+    "light": {
+      "primary": "#512DA8",
+      "secondary": "#673AB7",
+      "success": "#4CAF50",
+      "error": "#F44336",
+      "info": "#2196F3",
+      "warning": "#FF9800"
+    },
+    "dark": {
+      "primary": "#7E57C2",
+      "secondary": "#9575CD",
+      "success": "#81C784",
+      "error": "#E57373",
+      "info": "#64B5F6",
+      "warning": "#FFB74D"
+    }
+  },
+  {
+    "name": "Copper Rust",
+    "light": {
+      "primary": "#BF360C",
+      "secondary": "#D84315",
+      "success": "#4CAF50",
+      "error": "#F44336",
+      "info": "#2196F3",
+      "warning": "#FF9800"
+    },
+    "dark": {
+      "primary": "#FF7043",
+      "secondary": "#FF8A65",
+      "success": "#81C784",
+      "error": "#E57373",
+      "info": "#64B5F6",
+      "warning": "#FFB74D"
+    }
+  },
+  {
+    "name": "Neon Pink",
+    "light": {
+      "primary": "#C2185B",
+      "secondary": "#E91E63",
+      "success": "#4CAF50",
+      "error": "#F44336",
+      "info": "#2196F3",
+      "warning": "#FF9800"
+    },
+    "dark": {
+      "primary": "#EC407A",
+      "secondary": "#F48FB1",
+      "success": "#81C784",
+      "error": "#E57373",
+      "info": "#64B5F6",
+      "warning": "#FFB74D"
+    }
+  },
+  {
+    "name": "Electric Blue",
+    "light": {
+      "primary": "#0277BD",
+      "secondary": "#0288D1",
+      "success": "#4CAF50",
+      "error": "#F44336",
+      "info": "#2196F3",
+      "warning": "#FF9800"
+    },
+    "dark": {
+      "primary": "#29B6F6",
+      "secondary": "#4FC3F7",
+      "success": "#81C784",
+      "error": "#E57373",
+      "info": "#64B5F6",
+      "warning": "#FFB74D"
+    }
+  },
+  {
+    "name": "Lime Fresh",
+    "light": {
+      "primary": "#827717",
+      "secondary": "#9E9D24",
+      "success": "#4CAF50",
+      "error": "#F44336",
+      "info": "#2196F3",
+      "warning": "#FF9800"
+    },
+    "dark": {
+      "primary": "#CDDC39",
+      "secondary": "#D4E157",
+      "success": "#81C784",
+      "error": "#E57373",
+      "info": "#64B5F6",
+      "warning": "#FFB74D"
+    }
+  },
+  {
+    "name": "Cyberpunk Neon",
+    "light": {
+      "primary": "#FF00C8",
+      "secondary": "#00FFF7",
+      "success": "#39FF14",
+      "error": "#FF3131",
+      "info": "#00BFFF",
+      "warning": "#FFD600"
+    },
+    "dark": {
+      "primary": "#FF00C8",
+      "secondary": "#00FFF7",
+      "success": "#39FF14",
+      "error": "#FF3131",
+      "info": "#00BFFF",
+      "warning": "#FFD600"
+    }
+  },
+  {
+    "name": "Tropical Punch",
+    "light": {
+      "primary": "#FF6F00",
+      "secondary": "#FFB300",
+      "success": "#00E676",
+      "error": "#D50000",
+      "info": "#00B8D4",
+      "warning": "#FFD600"
+    },
+    "dark": {
+      "primary": "#FF9100",
+      "secondary": "#FFD600",
+      "success": "#00E676",
+      "error": "#FF1744",
+      "info": "#00B8D4",
+      "warning": "#FF9800"
+    }
+  },
+  {
+    "name": "Acid Dreams",
+    "light": {
+      "primary": "#B2FF59",
+      "secondary": "#76FF03",
+      "success": "#00E676",
+      "error": "#FF1744",
+      "info": "#00B8D4",
+      "warning": "#FFD600"
+    },
+    "dark": {
+      "primary": "#64DD17",
+      "secondary": "#AEEA00",
+      "success": "#00E676",
+      "error": "#FF1744",
+      "info": "#00B8D4",
+      "warning": "#FFEA00"
+    }
+  },
+  {
+    "name": "Candy Pop",
+    "light": {
+      "primary": "#FF80AB",
+      "secondary": "#FF4081",
+      "success": "#69F0AE",
+      "error": "#FF1744",
+      "info": "#40C4FF",
+      "warning": "#FFD740"
+    },
+    "dark": {
+      "primary": "#F50057",
+      "secondary": "#FF80AB",
+      "success": "#00E676",
+      "error": "#FF1744",
+      "info": "#18FFFF",
+      "warning": "#FFD740"
+    }
+  },
+  {
+    "name": "Deep Space",
+    "light": {
+      "primary": "#212121",
+      "secondary": "#00B8D4",
+      "success": "#00E676",
+      "error": "#FF1744",
+      "info": "#536DFE",
+      "warning": "#FFD600"
+    },
+    "dark": {
+      "primary": "#0D133D",
+      "secondary": "#00B8D4",
+      "success": "#00E676",
+      "error": "#FF1744",
+      "info": "#536DFE",
+      "warning": "#FFD600"
+    }
+  },
+  {
+    "name": "Lava Flow",
+    "light": {
+      "primary": "#FF3D00",
+      "secondary": "#FF9100",
+      "success": "#00E676",
+      "error": "#D50000",
+      "info": "#2979FF",
+      "warning": "#FFD600"
+    },
+    "dark": {
+      "primary": "#DD2C00",
+      "secondary": "#FF6D00",
+      "success": "#00E676",
+      "error": "#FF1744",
+      "info": "#2979FF",
+      "warning": "#FFEA00"
+    }
+  },
+  {
+    "name": "Frozen Lake",
+    "light": {
+      "primary": "#00B8D4",
+      "secondary": "#B3E5FC",
+      "success": "#00E676",
+      "error": "#FF1744",
+      "info": "#536DFE",
+      "warning": "#FFD600"
+    },
+    "dark": {
+      "primary": "#0097A7",
+      "secondary": "#00B8D4",
+      "success": "#00E676",
+      "error": "#FF1744",
+      "info": "#536DFE",
+      "warning": "#FFD600"
+    }
+  },
+  {
+    "name": "Peach Blossom",
+    "light": {
+      "primary": "#FFB6B9",
+      "secondary": "#FAE3D9",
+      "success": "#BBDED6",
+      "error": "#FF1744",
+      "info": "#8AC6D1",
+      "warning": "#FFD600"
+    },
+    "dark": {
+      "primary": "#FF6F91",
+      "secondary": "#FFB6B9",
+      "success": "#BBDED6",
+      "error": "#FF1744",
+      "info": "#8AC6D1",
+      "warning": "#FFD600"
+    }
+  },
+  {
+    "name": "Royal Cyber",
+    "light": {
+      "primary": "#6A1B9A",
+      "secondary": "#00B8D4",
+      "success": "#00E676",
+      "error": "#FF1744",
+      "info": "#FFD600",
+      "warning": "#FFEA00"
+    },
+    "dark": {
+      "primary": "#311B92",
+      "secondary": "#00B8D4",
+      "success": "#00E676",
+      "error": "#FF1744",
+      "info": "#FFD600",
+      "warning": "#FFEA00"
+    }
+  },
+  {
+    "name": "Jungle Beat",
+    "light": {
+      "primary": "#388E3C",
+      "secondary": "#C6FF00",
+      "success": "#00E676",
+      "error": "#FF1744",
+      "info": "#00B8D4",
+      "warning": "#FFD600"
+    },
+    "dark": {
+      "primary": "#1B5E20",
+      "secondary": "#C6FF00",
+      "success": "#00E676",
+      "error": "#FF1744",
+      "info": "#00B8D4",
+      "warning": "#FFD600"
+    }
+  },
+  {
+    "name": "Aurora Borealis",
+    "light": {
+      "primary": "#7DF9FF",
+      "secondary": "#B967FF",
+      "success": "#39FF14",
+      "error": "#FF2052",
+      "info": "#00BFFF",
+      "warning": "#FFD700"
+    },
+    "dark": {
+      "primary": "#00FFC6",
+      "secondary": "#8F00FF",
+      "success": "#00FFAB",
+      "error": "#FF2052",
+      "info": "#00BFFF",
+      "warning": "#FFD700"
+    }
+  },
+  {
+    "name": "Desert Mirage",
+    "light": {
+      "primary": "#FFB300",
+      "secondary": "#FF6F00",
+      "success": "#AEEA00",
+      "error": "#D7263D",
+      "info": "#00B8D4",
+      "warning": "#FFD600"
+    },
+    "dark": {
+      "primary": "#FF9100",
+      "secondary": "#FF6F00",
+      "success": "#C6FF00",
+      "error": "#D7263D",
+      "info": "#00B8D4",
+      "warning": "#FFEA00"
+    }
+  },
+  {
+    "name": "Bubblegum Pop",
+    "light": {
+      "primary": "#FF6F91",
+      "secondary": "#FFC1FA",
+      "success": "#B2FF59",
+      "error": "#FF1744",
+      "info": "#8AC6D1",
+      "warning": "#FFD740"
+    },
+    "dark": {
+      "primary": "#F50057",
+      "secondary": "#FF80AB",
+      "success": "#00E676",
+      "error": "#FF1744",
+      "info": "#18FFFF",
+      "warning": "#FFD740"
+    }
+  },
+  {
+    "name": "Galaxy Dream",
+    "light": {
+      "primary": "#6A0572",
+      "secondary": "#AB83A1",
+      "success": "#00FFAB",
+      "error": "#FF2052",
+      "info": "#00BFFF",
+      "warning": "#FFD700"
+    },
+    "dark": {
+      "primary": "#2D033B",
+      "secondary": "#810CA8",
+      "success": "#00FFAB",
+      "error": "#FF2052",
+      "info": "#00BFFF",
+      "warning": "#FFD700"
+    }
+  },
+  {
+    "name": "Toxic Lemon",
+    "light": {
+      "primary": "#D4FF00",
+      "secondary": "#FFFB00",
+      "success": "#00E676",
+      "error": "#FF1744",
+      "info": "#00B8D4",
+      "warning": "#FFD600"
+    },
+    "dark": {
+      "primary": "#C6FF00",
+      "secondary": "#FFD600",
+      "success": "#00E676",
+      "error": "#FF1744",
+      "info": "#00B8D4",
+      "warning": "#FFEA00"
+    }
+  },
+  {
+    "name": "Fire & Ice",
+    "light": {
+      "primary": "#FF1744",
+      "secondary": "#00B8D4",
+      "success": "#00E676",
+      "error": "#FF3D00",
+      "info": "#2979FF",
+      "warning": "#FFD600"
+    },
+    "dark": {
+      "primary": "#D50000",
+      "secondary": "#00B8D4",
+      "success": "#00E676",
+      "error": "#FF1744",
+      "info": "#2979FF",
+      "warning": "#FFEA00"
+    }
+  },
+  {
+    "name": "Pixel Art",
+    "light": {
+      "primary": "#FFB300",
+      "secondary": "#00B8D4",
+      "success": "#00E676",
+      "error": "#FF1744",
+      "info": "#536DFE",
+      "warning": "#FFD600"
+    },
+    "dark": {
+      "primary": "#FF9100",
+      "secondary": "#00B8D4",
+      "success": "#00E676",
+      "error": "#FF1744",
+      "info": "#536DFE",
+      "warning": "#FFD600"
+    }
+  },
+  {
+    "name": "Sunset Boulevard",
+    "light": {
+      "primary": "#FF5E62",
+      "secondary": "#FF9966",
+      "success": "#00E676",
+      "error": "#FF1744",
+      "info": "#00B8D4",
+      "warning": "#FFD600"
+    },
+    "dark": {
+      "primary": "#FF512F",
+      "secondary": "#DD2476",
+      "success": "#00E676",
+      "error": "#FF1744",
+      "info": "#00B8D4",
+      "warning": "#FFD600"
+    }
+  },
+  {
+    "name": "Taro Milk",
+    "light": {
+      "primary": "#B39DDB",
+      "secondary": "#CE93D8",
+      "success": "#00E676",
+      "error": "#FF1744",
+      "info": "#8AC6D1",
+      "warning": "#FFD740"
+    },
+    "dark": {
+      "primary": "#9575CD",
+      "secondary": "#BA68C8",
+      "success": "#00E676",
+      "error": "#FF1744",
+      "info": "#8AC6D1",
+      "warning": "#FFD740"
+    }
+  },
+  {
+    "name": "Tropical Forest",
+    "light": {
+      "primary": "#00C853",
+      "secondary": "#B2FF59",
+      "success": "#00E676",
+      "error": "#FF1744",
+      "info": "#00B8D4",
+      "warning": "#FFD600"
+    },
+    "dark": {
+      "primary": "#009624",
+      "secondary": "#B2FF59",
+      "success": "#00E676",
+      "error": "#FF1744",
+      "info": "#00B8D4",
+      "warning": "#FFD600"
+    }
+  },
+  {
+    "name": "Vaporwave Dreams",
+    "light": {
+      "primary": "#FF71CE",
+      "secondary": "#01CDFE",
+      "success": "#05FFA1",
+      "error": "#FFFB96",
+      "info": "#B967FF",
+      "warning": "#FF61A6"
+    },
+    "dark": {
+      "primary": "#7F00FF",
+      "secondary": "#00C3FF",
+      "success": "#F5F7FA",
+      "error": "#FF61A6",
+      "info": "#B967FF",
+      "warning": "#FFFB96"
+    }
+  },
+  {
+    "name": "Toxic Jungle Dreams",
+    "light": {
+      "primary": "#39FF14",
+      "secondary": "#B2FF59",
+      "success": "#FF00C8",
+      "error": "#FF3131",
+      "info": "#00BFFF",
+      "warning": "#F9FF21"
+    },
+    "dark": {
+      "primary": "#00FFAB",
+      "secondary": "#AEEA00",
+      "success": "#FF00C8",
+      "error": "#FF3131",
+      "info": "#00BFFF",
+      "warning": "#F9FF21"
+    }
+  },
+  {
+    "name": "Retro Arcade Dreams",
+    "light": {
+      "primary": "#FFB300",
+      "secondary": "#00E5FF",
+      "success": "#FF1744",
+      "error": "#00FFAB",
+      "info": "#FF61A6",
+      "warning": "#FFFB96"
+    },
+    "dark": {
+      "primary": "#FF9100",
+      "secondary": "#00B8D4",
+      "success": "#FF1744",
+      "error": "#00FFAB",
+      "info": "#FF61A6",
+      "warning": "#FFFB96"
+    }
+  },
+  {
+    "name": "Bubble Energy Dreams",
+    "light": {
+      "primary": "#F50057",
+      "secondary": "#00E676",
+      "success": "#FFD600",
+      "error": "#2979FF",
+      "info": "#FF80AB",
+      "warning": "#00B8D4"
+    },
+    "dark": {
+      "primary": "#C51162",
+      "secondary": "#00C853",
+      "success": "#FFD600",
+      "error": "#2979FF",
+      "info": "#FF80AB",
+      "warning": "#00B8D4"
+    }
+  },
+  {
+    "name": "Sunset Acid Dreams",
+    "light": {
+      "primary": "#FF6F00",
+      "secondary": "#FF61A6",
+      "success": "#00FFAB",
+      "error": "#FF3131",
+      "info": "#B967FF",
+      "warning": "#F9FF21"
+    },
+    "dark": {
+      "primary": "#FF9100",
+      "secondary": "#FF61A6",
+      "success": "#00FFAB",
+      "error": "#FF3131",
+      "info": "#B967FF",
+      "warning": "#F9FF21"
+    }
+  },
+  {
+    "name": "Electric Citrus Dreams",
+    "light": {
+      "primary": "#FFD600",
+      "secondary": "#FFB300",
+      "success": "#01CDFE",
+      "error": "#FF71CE",
+      "info": "#39FF14",
+      "warning": "#FF3131"
+    },
+    "dark": {
+      "primary": "#FFEA00",
+      "secondary": "#FF9100",
+      "success": "#01CDFE",
+      "error": "#FF71CE",
+      "info": "#39FF14",
+      "warning": "#FF3131"
+    }
+  },
+  {
+    "name": "Neon Forest Dreams",
+    "light": {
+      "primary": "#00FFAB",
+      "secondary": "#B2FF59",
+      "success": "#FFFB96",
+      "error": "#FF00C8",
+      "info": "#01CDFE",
+      "warning": "#FFB300"
+    },
+    "dark": {
+      "primary": "#00C853",
+      "secondary": "#AEEA00",
+      "success": "#FFFB96",
+      "error": "#FF00C8",
+      "info": "#01CDFE",
+      "warning": "#FFB300"
+    }
+  },
+  {
+    "name": "Funky Soda Dreams",
+    "light": {
+      "primary": "#00E5FF",
+      "secondary": "#FF80AB",
+      "success": "#FFB300",
+      "error": "#00FFAB",
+      "info": "#F50057",
+      "warning": "#B967FF"
+    },
+    "dark": {
+      "primary": "#00B8D4",
+      "secondary": "#FF80AB",
+      "success": "#FFB300",
+      "error": "#00FFAB",
+      "info": "#F50057",
+      "warning": "#B967FF"
+    }
+  },
+  {
+    "name": "Laser Lemonade Dreams",
+    "light": {
+      "primary": "#F9FF21",
+      "secondary": "#FFFB96",
+      "success": "#FF00C8",
+      "error": "#01CDFE",
+      "info": "#FFB300",
+      "warning": "#00FFAB"
+    },
+    "dark": {
+      "primary": "#F9FF21",
+      "secondary": "#FFFB96",
+      "success": "#FF00C8",
+      "error": "#01CDFE",
+      "info": "#FFB300",
+      "warning": "#00FFAB"
+    }
+  },
+  {
+    "name": "Popcorn Night Dreams",
+    "light": {
+      "primary": "#FFFB96",
+      "secondary": "#FFD600",
+      "success": "#00E676",
+      "error": "#FF3131",
+      "info": "#B967FF",
+      "warning": "#01CDFE"
+    },
+    "dark": {
+      "primary": "#FFFB96",
+      "secondary": "#FFD600",
+      "success": "#00E676",
+      "error": "#FF3131",
+      "info": "#B967FF",
+      "warning": "#01CDFE"
+    }
+  },
+  {
+    "name": "Miami Pop",
+    "light": {
+      "primary": "#00F2F2",
+      "secondary": "#FF6F91",
+      "success": "#FFB300",
+      "error": "#FF61A6",
+      "info": "#00FFAB",
+      "warning": "#FFFB96"
+    },
+    "dark": {
+      "primary": "#00C3FF",
+      "secondary": "#FF80AB",
+      "success": "#FFD600",
+      "error": "#FF61A6",
+      "info": "#00FFAB",
+      "warning": "#FFFB96"
+    }
+  },
+  {
+    "name": "Lime Shock",
+    "light": {
+      "primary": "#C6FF00",
+      "secondary": "#B2FF59",
+      "success": "#FF00C8",
+      "error": "#2979FF",
+      "info": "#F9FF21",
+      "warning": "#FF3131"
+    },
+    "dark": {
+      "primary": "#AEEA00",
+      "secondary": "#B2FF59",
+      "success": "#FF00C8",
+      "error": "#2979FF",
+      "info": "#F9FF21",
+      "warning": "#FF3131"
+    }
+  },
+  {
+    "name": "Cotton Candy",
+    "light": {
+      "primary": "#FFB6B9",
+      "secondary": "#FF80AB",
+      "success": "#01CDFE",
+      "error": "#FF1744",
+      "info": "#B967FF",
+      "warning": "#FFD740"
+    },
+    "dark": {
+      "primary": "#FF6F91",
+      "secondary": "#FF80AB",
+      "success": "#01CDFE",
+      "error": "#FF1744",
+      "info": "#B967FF",
+      "warning": "#FFD740"
+    }
+  },
+  {
+    "name": "Blueberry Jam",
+    "light": {
+      "primary": "#536DFE",
+      "secondary": "#00B8D4",
+      "success": "#FFFB96",
+      "error": "#FF00C8",
+      "info": "#FFB300",
+      "warning": "#00FFAB"
+    },
+    "dark": {
+      "primary": "#2979FF",
+      "secondary": "#00B8D4",
+      "success": "#FFFB96",
+      "error": "#FF00C8",
+      "info": "#FFB300",
+      "warning": "#00FFAB"
+    }
+  },
+  {
+    "name": "Tangerine Rush",
+    "light": {
+      "primary": "#FF9100",
+      "secondary": "#FFD600",
+      "success": "#00FFAB",
+      "error": "#FF3131",
+      "info": "#01CDFE",
+      "warning": "#B967FF"
+    },
+    "dark": {
+      "primary": "#FF6F00",
+      "secondary": "#FFD600",
+      "success": "#00FFAB",
+      "error": "#FF3131",
+      "info": "#01CDFE",
+      "warning": "#B967FF"
+    }
+  },
+  {
+    "name": "Grape Fizz",
+    "light": {
+      "primary": "#B967FF",
+      "secondary": "#FF80AB",
+      "success": "#00E676",
+      "error": "#FF3131",
+      "info": "#01CDFE",
+      "warning": "#FFD600"
+    },
+    "dark": {
+      "primary": "#7F00FF",
+      "secondary": "#FF80AB",
+      "success": "#00E676",
+      "error": "#FF3131",
+      "info": "#01CDFE",
+      "warning": "#FFD600"
+    }
+  },
+  {
+    "name": "Lemonade Stand",
+    "light": {
+      "primary": "#FFF700",
+      "secondary": "#FFD600",
+      "success": "#00B8D4",
+      "error": "#FF61A6",
+      "info": "#B967FF",
+      "warning": "#00FFAB"
+    },
+    "dark": {
+      "primary": "#FFEA00",
+      "secondary": "#FFD600",
+      "success": "#00B8D4",
+      "error": "#FF61A6",
+      "info": "#B967FF",
+      "warning": "#00FFAB"
+    }
+  },
+  {
+    "name": "Cherry Bomb",
+    "light": {
+      "primary": "#FF1744",
+      "secondary": "#FF80AB",
+      "success": "#F9FF21",
+      "error": "#00B8D4",
+      "info": "#FFB300",
+      "warning": "#B967FF"
+    },
+    "dark": {
+      "primary": "#D50000",
+      "secondary": "#FF80AB",
+      "success": "#F9FF21",
+      "error": "#00B8D4",
+      "info": "#FFB300",
+      "warning": "#B967FF"
+    }
+  },
+  {
+    "name": "Minty Fresh",
+    "light": {
+      "primary": "#00FFAB",
+      "secondary": "#B2FF59",
+      "success": "#FFB300",
+      "error": "#FF3131",
+      "info": "#01CDFE",
+      "warning": "#FFFB96"
+    },
+    "dark": {
+      "primary": "#00C853",
+      "secondary": "#B2FF59",
+      "success": "#FFB300",
+      "error": "#FF3131",
+      "info": "#01CDFE",
+      "warning": "#FFFB96"
+    }
+  },
+  {
+    "name": "Peach Soda",
+    "light": {
+      "primary": "#FFB6B9",
+      "secondary": "#FFD740",
+      "success": "#00FFAB",
+      "error": "#FF61A6",
+      "info": "#B967FF",
+      "warning": "#01CDFE"
+    },
+    "dark": {
+      "primary": "#FF6F91",
+      "secondary": "#FFD740",
+      "success": "#00FFAB",
+      "error": "#FF61A6",
+      "info": "#B967FF",
+      "warning": "#01CDFE"
+    }
+  },
+  {
+    "name": "Pixel Lemonade",
+    "light": {
+      "primary": "#F9FF21",
+      "secondary": "#FFB300",
+      "success": "#00FFAB",
+      "error": "#FF1744",
+      "info": "#01CDFE",
+      "warning": "#B967FF"
+    },
+    "dark": {
+      "primary": "#F9FF21",
+      "secondary": "#FFB300",
+      "success": "#00FFAB",
+      "error": "#FF1744",
+      "info": "#01CDFE",
+      "warning": "#B967FF"
+    }
+  },
+  {
+    "name": "Neon Coral",
+    "light": {
+      "primary": "#FF6F91",
+      "secondary": "#FFB6B9",
+      "success": "#00E676",
+      "error": "#FF3131",
+      "info": "#B967FF",
+      "warning": "#FFD740"
+    },
+    "dark": {
+      "primary": "#FF61A6",
+      "secondary": "#FFB6B9",
+      "success": "#00E676",
+      "error": "#FF3131",
+      "info": "#B967FF",
+      "warning": "#FFD740"
+    }
+  },
+  {
+    "name": "Tropical Candy",
+    "light": {
+      "primary": "#00FFAB",
+      "secondary": "#B2FF59",
+      "success": "#FFB300",
+      "error": "#FF61A6",
+      "info": "#01CDFE",
+      "warning": "#FFFB96"
+    },
+    "dark": {
+      "primary": "#00C853",
+      "secondary": "#B2FF59",
+      "success": "#FFB300",
+      "error": "#FF61A6",
+      "info": "#01CDFE",
+      "warning": "#FFFB96"
+    }
+  },
+  {
+    "name": "Electric Plum",
+    "light": {
+      "primary": "#B967FF",
+      "secondary": "#7F00FF",
+      "success": "#00B8D4",
+      "error": "#FF3131",
+      "info": "#FFB300",
+      "warning": "#00FFAB"
+    },
+    "dark": {
+      "primary": "#B967FF",
+      "secondary": "#7F00FF",
+      "success": "#00B8D4",
+      "error": "#FF3131",
+      "info": "#FFB300",
+      "warning": "#00FFAB"
+    }
+  },
+  {
+    "name": "Sunrise Splash",
+    "light": {
+      "primary": "#FFB300",
+      "secondary": "#FFD600",
+      "success": "#00FFAB",
+      "error": "#FF1744",
+      "info": "#01CDFE",
+      "warning": "#B967FF"
+    },
+    "dark": {
+      "primary": "#FF9100",
+      "secondary": "#FFD600",
+      "success": "#00FFAB",
+      "error": "#FF1744",
+      "info": "#01CDFE",
+      "warning": "#B967FF"
+    }
+  },
+  {
+    "name": "Bubble Mint",
+    "light": {
+      "primary": "#00FFAB",
+      "secondary": "#B2FF59",
+      "success": "#FFB300",
+      "error": "#FF3131",
+      "info": "#01CDFE",
+      "warning": "#FFFB96"
+    },
+    "dark": {
+      "primary": "#00C853",
+      "secondary": "#B2FF59",
+      "success": "#FFB300",
+      "error": "#FF3131",
+      "info": "#01CDFE",
+      "warning": "#FFFB96"
+    }
+  },
+  {
+    "name": "Candy Sky",
+    "light": {
+      "primary": "#01CDFE",
+      "secondary": "#FFB6B9",
+      "success": "#B967FF",
+      "error": "#FF61A6",
+      "info": "#00FFAB",
+      "warning": "#FFD740"
+    },
+    "dark": {
+      "primary": "#01CDFE",
+      "secondary": "#FFB6B9",
+      "success": "#B967FF",
+      "error": "#FF61A6",
+      "info": "#00FFAB",
+      "warning": "#FFD740"
+    }
+  },
+  {
+    "name": "Limeade",
+    "light": {
+      "primary": "#B2FF59",
+      "secondary": "#C6FF00",
+      "success": "#FF00C8",
+      "error": "#2979FF",
+      "info": "#F9FF21",
+      "warning": "#FF3131"
+    },
+    "dark": {
+      "primary": "#AEEA00",
+      "secondary": "#B2FF59",
+      "success": "#FF00C8",
+      "error": "#2979FF",
+      "info": "#F9FF21",
+      "warning": "#FF3131"
+    }
+  },
+  {
+    "name": "Berry Punch",
+    "light": {
+      "primary": "#FF61A6",
+      "secondary": "#B967FF",
+      "success": "#00E676",
+      "error": "#FF3131",
+      "info": "#01CDFE",
+      "warning": "#FFD740"
+    },
+    "dark": {
+      "primary": "#FF61A6",
+      "secondary": "#B967FF",
+      "success": "#00E676",
+      "error": "#FF3131",
+      "info": "#01CDFE",
+      "warning": "#FFD740"
+    }
+  },
+  {
+    "name": "Sunset Mojito",
+    "light": {
+      "primary": "#FFB300",
+      "secondary": "#00FFAB",
+      "success": "#B967FF",
+      "error": "#FF61A6",
+      "info": "#01CDFE",
+      "warning": "#FFD740"
+    },
+    "dark": {
+      "primary": "#FF9100",
+      "secondary": "#00FFAB",
+      "success": "#B967FF",
+      "error": "#FF61A6",
+      "info": "#01CDFE",
+      "warning": "#FFD740"
+    }
+  },
+  {
+    "name": "Dragon Fruit",
+    "light": {
+      "primary": "#FF61A6",
+      "secondary": "#B2FF59",
+      "success": "#00FFAB",
+      "error": "#FF1744",
+      "info": "#01CDFE",
+      "warning": "#FFD740"
+    },
+    "dark": {
+      "primary": "#FF61A6",
+      "secondary": "#B2FF59",
+      "success": "#00FFAB",
+      "error": "#FF1744",
+      "info": "#01CDFE",
+      "warning": "#FFD740"
+    }
+  },
+  {
+    "name": "Aqua Pop",
+    "light": {
+      "primary": "#01CDFE",
+      "secondary": "#00FFAB",
+      "success": "#B967FF",
+      "error": "#FF3131",
+      "info": "#FFB300",
+      "warning": "#F9FF21"
+    },
+    "dark": {
+      "primary": "#01CDFE",
+      "secondary": "#00FFAB",
+      "success": "#B967FF",
+      "error": "#FF3131",
+      "info": "#FFB300",
+      "warning": "#F9FF21"
+    }
+  },
+  {
+    "name": "Sunset Fizz",
+    "light": {
+      "primary": "#FFB300",
+      "secondary": "#FF61A6",
+      "success": "#00E676",
+      "error": "#FF3131",
+      "info": "#B967FF",
+      "warning": "#FFD740"
+    },
+    "dark": {
+      "primary": "#FF9100",
+      "secondary": "#FF61A6",
+      "success": "#00E676",
+      "error": "#FF3131",
+      "info": "#B967FF",
+      "warning": "#FFD740"
+    }
+  },
+  {
+    "name": "Lime Pop",
+    "light": {
+      "primary": "#B2FF59",
+      "secondary": "#C6FF00",
+      "success": "#FF00C8",
+      "error": "#2979FF",
+      "info": "#F9FF21",
+      "warning": "#FF3131"
+    },
+    "dark": {
+      "primary": "#AEEA00",
+      "secondary": "#B2FF59",
+      "success": "#FF00C8",
+      "error": "#2979FF",
+      "info": "#F9FF21",
+      "warning": "#FF3131"
+    }
+  },
+  {
+    "name": "Berry Breeze",
+    "light": {
+      "primary": "#FF61A6",
+      "secondary": "#B967FF",
+      "success": "#00E676",
+      "error": "#FF3131",
+      "info": "#01CDFE",
+      "warning": "#FFD740"
+    },
+    "dark": {
+      "primary": "#FF61A6",
+      "secondary": "#B967FF",
+      "success": "#00E676",
+      "error": "#FF3131",
+      "info": "#01CDFE",
+      "warning": "#FFD740"
+    }
+  },
+  {
+    "name": "Mango Splash",
+    "light": {
+      "primary": "#FFD740",
+      "secondary": "#FFB300",
+      "success": "#00FFAB",
+      "error": "#FF61A6",
+      "info": "#B967FF",
+      "warning": "#01CDFE"
+    },
+    "dark": {
+      "primary": "#FFD740",
+      "secondary": "#FFB300",
+      "success": "#00FFAB",
+      "error": "#FF61A6",
+      "info": "#B967FF",
+      "warning": "#01CDFE"
+    }
+  },
+  {
+    "name": "Grape Soda",
+    "light": {
+      "primary": "#B967FF",
+      "secondary": "#FF80AB",
+      "success": "#00E676",
+      "error": "#FF3131",
+      "info": "#01CDFE",
+      "warning": "#FFD600"
+    },
+    "dark": {
+      "primary": "#7F00FF",
+      "secondary": "#FF80AB",
+      "success": "#00E676",
+      "error": "#FF3131",
+      "info": "#01CDFE",
+      "warning": "#FFD600"
+    }
+  },
+  {
+    "name": "Peachy Keen",
+    "light": {
+      "primary": "#FFB6B9",
+      "secondary": "#FFD740",
+      "success": "#00FFAB",
+      "error": "#FF61A6",
+      "info": "#B967FF",
+      "warning": "#01CDFE"
+    },
+    "dark": {
+      "primary": "#FF6F91",
+      "secondary": "#FFD740",
+      "success": "#00FFAB",
+      "error": "#FF61A6",
+      "info": "#B967FF",
+      "warning": "#01CDFE"
+    }
+  },
+  {
+    "name": "Lemon Pop",
+    "light": {
+      "primary": "#FFF700",
+      "secondary": "#FFD600",
+      "success": "#00B8D4",
+      "error": "#FF61A6",
+      "info": "#B967FF",
+      "warning": "#00FFAB"
+    },
+    "dark": {
+      "primary": "#FFEA00",
+      "secondary": "#FFD600",
+      "success": "#00B8D4",
+      "error": "#FF61A6",
+      "info": "#B967FF",
+      "warning": "#00FFAB"
+    }
+  },
+  {
+    "name": "Cherry Splash",
+    "light": {
+      "primary": "#FF1744",
+      "secondary": "#FF80AB",
+      "success": "#F9FF21",
+      "error": "#00B8D4",
+      "info": "#FFB300",
+      "warning": "#B967FF"
+    },
+    "dark": {
+      "primary": "#D50000",
+      "secondary": "#FF80AB",
+      "success": "#F9FF21",
+      "error": "#00B8D4",
+      "info": "#FFB300",
+      "warning": "#B967FF"
+    }
+  },
+  {
+    "name": "Tropical Storm",
+    "light": {
+      "primary": "#00FFAB",
+      "secondary": "#B2FF59",
+      "success": "#FFB300",
+      "error": "#FF61A6",
+      "info": "#01CDFE",
+      "warning": "#FFFB96"
+    },
+    "dark": {
+      "primary": "#00C853",
+      "secondary": "#B2FF59",
+      "success": "#FFB300",
+      "error": "#FF61A6",
+      "info": "#01CDFE",
+      "warning": "#FFFB96"
+    }
+  },
+  {
+    "name": "Neon Dreams",
+    "light": {
+      "primary": "#FF00C8",
+      "secondary": "#00FFF7",
+      "success": "#39FF14",
+      "error": "#FF3131",
+      "info": "#00BFFF",
+      "warning": "#FFD600"
+    },
+    "dark": {
+      "primary": "#FF00C8",
+      "secondary": "#00FFF7",
+      "success": "#39FF14",
+      "error": "#FF3131",
+      "info": "#00BFFF",
+      "warning": "#FFD600"
+    }
+  },
+  {
+    "name": "Candy Crush",
+    "light": {
+      "primary": "#FF6F91",
+      "secondary": "#FFC1FA",
+      "success": "#B2FF59",
+      "error": "#FF1744",
+      "info": "#8AC6D1",
+      "warning": "#FFD740"
+    },
+    "dark": {
+      "primary": "#F50057",
+      "secondary": "#FF80AB",
+      "success": "#00E676",
+      "error": "#FF1744",
+      "info": "#18FFFF",
+      "warning": "#FFD740"
+    }
+  },
+  {
+    "name": "Electric Dreams",
+    "light": {
+      "primary": "#01CDFE",
+      "secondary": "#FFB6B9",
+      "success": "#B967FF",
+      "error": "#FF61A6",
+      "info": "#00FFAB",
+      "warning": "#FFD740"
+    },
+    "dark": {
+      "primary": "#01CDFE",
+      "secondary": "#FFB6B9",
+      "success": "#B967FF",
+      "error": "#FF61A6",
+      "info": "#00FFAB",
+      "warning": "#FFD740"
+    }
+  },
+  {
+    "name": "Sunset Vibes",
+    "light": {
+      "primary": "#FFB300",
+      "secondary": "#FFD600",
+      "success": "#00FFAB",
+      "error": "#FF1744",
+      "info": "#01CDFE",
+      "warning": "#B967FF"
+    },
+    "dark": {
+      "primary": "#FF9100",
+      "secondary": "#FFD600",
+      "success": "#00FFAB",
+      "error": "#FF1744",
+      "info": "#01CDFE",
+      "warning": "#B967FF"
+    }
+  },
+  {
+    "name": "Berry Blast",
+    "light": {
+      "primary": "#FF61A6",
+      "secondary": "#B967FF",
+      "success": "#00E676",
+      "error": "#FF3131",
+      "info": "#01CDFE",
+      "warning": "#FFD740"
+    },
+    "dark": {
+      "primary": "#FF61A6",
+      "secondary": "#B967FF",
+      "success": "#00E676",
+      "error": "#FF3131",
+      "info": "#01CDFE",
+      "warning": "#FFD740"
+    }
+  },
+  {
+    "name": "Lime Lightning",
+    "light": {
+      "primary": "#B2FF59",
+      "secondary": "#C6FF00",
+      "success": "#FF00C8",
+      "error": "#2979FF",
+      "info": "#F9FF21",
+      "warning": "#FF3131"
+    },
+    "dark": {
+      "primary": "#AEEA00",
+      "secondary": "#B2FF59",
+      "success": "#FF00C8",
+      "error": "#2979FF",
+      "info": "#F9FF21",
+      "warning": "#FF3131"
+    }
+  },
+  {
+    "name": "Ocean Breeze",
+    "light": {
+      "primary": "#00B8D4",
+      "secondary": "#B3E5FC",
+      "success": "#00E676",
+      "error": "#FF1744",
+      "info": "#536DFE",
+      "warning": "#FFD600"
+    },
+    "dark": {
+      "primary": "#0097A7",
+      "secondary": "#00B8D4",
+      "success": "#00E676",
+      "error": "#FF1744",
+      "info": "#536DFE",
+      "warning": "#FFD600"
+    }
+  },
+  {
+    "name": "Cherry Blast",
+    "light": {
+      "primary": "#FF1744",
+      "secondary": "#FF80AB",
+      "success": "#F9FF21",
+      "error": "#00B8D4",
+      "info": "#FFB300",
+      "warning": "#B967FF"
+    },
+    "dark": {
+      "primary": "#D50000",
+      "secondary": "#FF80AB",
+      "success": "#F9FF21",
+      "error": "#00B8D4",
+      "info": "#FFB300",
+      "warning": "#B967FF"
+    }
+  },
+  {
+    "name": "Mint Dreams",
+    "light": {
+      "primary": "#00FFAB",
+      "secondary": "#B2FF59",
+      "success": "#FFB300",
+      "error": "#FF3131",
+      "info": "#01CDFE",
+      "warning": "#FFFB96"
+    },
+    "dark": {
+      "primary": "#00C853",
+      "secondary": "#B2FF59",
+      "success": "#FFB300",
+      "error": "#FF3131",
+      "info": "#01CDFE",
+      "warning": "#FFFB96"
+    }
+  },
+  {
+    "name": "Cyberpunk Sunset",
+    "light": {
+      "primary": "#FF6F00",
+      "secondary": "#FF61A6",
+      "success": "#00FFAB",
+      "error": "#FF3131",
+      "info": "#B967FF",
+      "warning": "#F9FF21"
+    },
+    "dark": {
+      "primary": "#FF9100",
+      "secondary": "#FF61A6",
+      "success": "#00FFAB",
+      "error": "#FF3131",
+      "info": "#B967FF",
+      "warning": "#F9FF21"
+    }
+  },
+  {
+    "name": "Aurora Dreams",
+    "light": {
+      "primary": "#7DF9FF",
+      "secondary": "#B967FF",
+      "success": "#39FF14",
+      "error": "#FF2052",
+      "info": "#00BFFF",
+      "warning": "#FFD700"
+    },
+    "dark": {
+      "primary": "#00FFC6",
+      "secondary": "#8F00FF",
+      "success": "#00FFAB",
+      "error": "#FF2052",
+      "info": "#00BFFF",
+      "warning": "#FFD700"
+    }
+  },
+  {
+    "name": "Desert Dreams",
+    "light": {
+      "primary": "#FFB300",
+      "secondary": "#FF6F00",
+      "success": "#AEEA00",
+      "error": "#D7263D",
+      "info": "#00B8D4",
+      "warning": "#FFD600"
+    },
+    "dark": {
+      "primary": "#FF9100",
+      "secondary": "#FF6F00",
+      "success": "#C6FF00",
+      "error": "#D7263D",
+      "info": "#00B8D4",
+      "warning": "#FFEA00"
+    }
+  },
+  {
+    "name": "Bubblegum Dreams",
+    "light": {
+      "primary": "#FF6F91",
+      "secondary": "#FFC1FA",
+      "success": "#B2FF59",
+      "error": "#FF1744",
+      "info": "#8AC6D1",
+      "warning": "#FFD740"
+    },
+    "dark": {
+      "primary": "#F50057",
+      "secondary": "#FF80AB",
+      "success": "#00E676",
+      "error": "#FF1744",
+      "info": "#18FFFF",
+      "warning": "#FFD740"
+    }
+  },
+  {
+    "name": "Galaxy Dreams",
+    "light": {
+      "primary": "#6A0572",
+      "secondary": "#AB83A1",
+      "success": "#00FFAB",
+      "error": "#FF2052",
+      "info": "#00BFFF",
+      "warning": "#FFD700"
+    },
+    "dark": {
+      "primary": "#2D033B",
+      "secondary": "#810CA8",
+      "success": "#00FFAB",
+      "error": "#FF2052",
+      "info": "#00BFFF",
+      "warning": "#FFD700"
+    }
+  },
+  {
+    "name": "Toxic Dreams",
+    "light": {
+      "primary": "#D4FF00",
+      "secondary": "#FFFB00",
+      "success": "#00E676",
+      "error": "#FF1744",
+      "info": "#00B8D4",
+      "warning": "#FFD600"
+    },
+    "dark": {
+      "primary": "#C6FF00",
+      "secondary": "#FFD600",
+      "success": "#00E676",
+      "error": "#FF1744",
+      "info": "#00B8D4",
+      "warning": "#FFEA00"
+    }
+  },
+  {
+    "name": "Fire Dreams",
+    "light": {
+      "primary": "#FF1744",
+      "secondary": "#00B8D4",
+      "success": "#00E676",
+      "error": "#FF3D00",
+      "info": "#2979FF",
+      "warning": "#FFD600"
+    },
+    "dark": {
+      "primary": "#D50000",
+      "secondary": "#00B8D4",
+      "success": "#00E676",
+      "error": "#FF1744",
+      "info": "#2979FF",
+      "warning": "#FFEA00"
+    }
+  },
+  {
+    "name": "Pixel Dreams",
+    "light": {
+      "primary": "#FFB300",
+      "secondary": "#00B8D4",
+      "success": "#00E676",
+      "error": "#FF1744",
+      "info": "#536DFE",
+      "warning": "#FFD600"
+    },
+    "dark": {
+      "primary": "#FF9100",
+      "secondary": "#00B8D4",
+      "success": "#00E676",
+      "error": "#FF1744",
+      "info": "#536DFE",
+      "warning": "#FFD600"
+    }
+  },
+  {
+    "name": "Sunset Dreams",
+    "light": {
+      "primary": "#FF5E62",
+      "secondary": "#FF9966",
+      "success": "#00E676",
+      "error": "#FF1744",
+      "info": "#00B8D4",
+      "warning": "#FFD600"
+    },
+    "dark": {
+      "primary": "#FF512F",
+      "secondary": "#DD2476",
+      "success": "#00E676",
+      "error": "#FF1744",
+      "info": "#00B8D4",
+      "warning": "#FFD600"
+    }
+  },
+  {
+    "name": "Taro Dreams",
+    "light": {
+      "primary": "#B39DDB",
+      "secondary": "#CE93D8",
+      "success": "#00E676",
+      "error": "#FF1744",
+      "info": "#8AC6D1",
+      "warning": "#FFD740"
+    },
+    "dark": {
+      "primary": "#9575CD",
+      "secondary": "#BA68C8",
+      "success": "#00E676",
+      "error": "#FF1744",
+      "info": "#8AC6D1",
+      "warning": "#FFD740"
+    }
+  },
+  {
+    "name": "Tropical Dreams",
+    "light": {
+      "primary": "#00C853",
+      "secondary": "#B2FF59",
+      "success": "#00E676",
+      "error": "#FF1744",
+      "info": "#00B8D4",
+      "warning": "#FFD600"
+    },
+    "dark": {
+      "primary": "#009624",
+      "secondary": "#B2FF59",
+      "success": "#00E676",
+      "error": "#FF1744",
+      "info": "#00B8D4",
+      "warning": "#FFD600"
+    }
+  }
+]
