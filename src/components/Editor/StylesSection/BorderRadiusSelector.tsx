@@ -2,17 +2,19 @@ import { Box, Paper, Stack, styled } from '@mui/material';
 
 const radiusOptions = [0, 4, 8, 32];
 
-const CornerIcon = ({ radius }: { radius: number }) => (
-  <Box
-    sx={{
-      width: 20,
-      height: 20,
-      borderTop: '2px solid currentColor',
-      borderLeft: '2px solid currentColor',
-      borderTopLeftRadius: radius,
-    }}
-  />
-);
+function CornerIcon({ radius }: { radius: number }) {
+  return (
+    <Box
+      sx={{
+        width: 20,
+        height: 20,
+        borderTop: '2px solid currentColor',
+        borderLeft: '2px solid currentColor',
+        borderTopLeftRadius: radius,
+      }}
+    />
+  );
+}
 
 const OptionButton = styled(Paper)(({ theme }) => ({
   display: 'flex',

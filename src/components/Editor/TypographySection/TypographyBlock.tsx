@@ -45,7 +45,7 @@ function TypographyBlock({ variant, onClick }: TypographyBlockProps) {
       resetFontFamily: () => removeThemeOption('typography.fontFamily'),
       getLabel: () => t('editor.typographySection.body'),
     };
-  }, [variant, themeObject, removeThemeOption, removeThemeOptions, t]);
+  }, [variant, themeObject, removeThemeOption, removeThemeOptions, setFontOptions, t]);
 
   const fontFamily = actions.getFontFamily();
   const defaultFontFamily = actions.getDefaultFontFamily();
@@ -69,7 +69,7 @@ function TypographyBlock({ variant, onClick }: TypographyBlockProps) {
         },
       }}>
       {fontFamily !== defaultFontFamily && (
-        <IconButton sx={{ position: 'absolute', top: 2, right: 2 }} onClick={handleReset}>
+        <IconButton title={t('editor.reset')} sx={{ position: 'absolute', top: 2, right: 2 }} onClick={handleReset}>
           <RestartAltIcon sx={{ fontSize: 20 }} />
         </IconButton>
       )}

@@ -1,3 +1,9 @@
+## 0.2.1 (2025-6-28)
+
+- feat: show the name of the built-in theme
+- feat: supports disabling Dark/Light mode
+- feat: preview window supports scale 
+
 ## 0.2.0 (2025-6-25)
 
 - refactor: brand new ui/ux

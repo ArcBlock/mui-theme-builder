@@ -1,5 +1,4 @@
 import BlockletFooter from '@blocklet/ui-react/lib/Footer';
-import { useTheme } from '@mui/material';
 import { useMemo } from 'react';
 
 const baseMeta = {
@@ -16,6 +15,7 @@ const brand = {
     'Redefine Software Architect and Ecosystem \n A total solution for building decentralized applications.',
 };
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const socialMedia = [
   { icon: 'fa6-brands:github', link: 'https://github.com/arcblock', section: 'social' },
   { icon: 'fa6-brands:x-twitter', link: 'https://twitter.com/ArcBlock_io', section: 'social' },
@@ -25,8 +25,8 @@ const socialMedia = [
 ];
 
 export default function Footer() {
-  const theme = useTheme();
   const locale = 'en';
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const links = useMemo(() => {
     return [
       { title: 'Terms of Service', link: `https://www.arcblock.io/${locale}/termsofuse`, section: 'bottom' },
@@ -35,6 +35,7 @@ export default function Footer() {
       { title: 'Site Map', link: 'https://www.arcblock.io/sitemap.xml', section: 'bottom' },
     ];
   }, [locale]);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const navs = useMemo(() => {
     return [
       {
@@ -94,5 +95,8 @@ export default function Footer() {
     ];
   }, [locale]);
 
-  return <BlockletFooter className="custom-footer" meta={{ ...baseMeta, ...brand }} />;
+  return (
+    // @ts-ignore
+    <BlockletFooter className="custom-footer" meta={{ ...baseMeta, ...brand }} />
+  );
 }

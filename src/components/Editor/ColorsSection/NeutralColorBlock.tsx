@@ -40,7 +40,7 @@ export function NeutralColorBlock({ onClick, sx, ...props }: NeutralColorBlockPr
       }}
       {...props}>
       <Typography variant="subtitle1" sx={{ py: 1.5, px: 1 }}>
-        {t('editor.colorSection.title')}
+        {t('editor.colorSection.neutral.title')}
       </Typography>
       <Box sx={{ display: 'flex', flexDirection: 'column' }}>
         {neutralColors.map(({ key, value }) => (
@@ -55,7 +55,6 @@ export function NeutralColorBlock({ onClick, sx, ...props }: NeutralColorBlockPr
               px: 1,
               '& > *': {
                 color: themeObject.palette.getContrastText(value),
-                fontSize: '0.75rem',
               },
               cursor: 'pointer',
               border: '1px solid',
@@ -65,8 +64,10 @@ export function NeutralColorBlock({ onClick, sx, ...props }: NeutralColorBlockPr
               },
             }}
             onClick={() => onClick?.(key)}>
-            <Typography>{value}</Typography>
-            <Typography>{key.split('.').pop()}</Typography>
+            <Typography sx={{ fontSize: '14px' }}>{value}</Typography>
+            <Typography sx={{ fontSize: '14px' }}>
+              {t(`editor.colorSection.neutral.${key.split('.').pop()}`)}
+            </Typography>
           </Box>
         ))}
       </Box>

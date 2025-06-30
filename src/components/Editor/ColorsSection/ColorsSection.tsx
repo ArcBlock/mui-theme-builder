@@ -1,7 +1,8 @@
 import { useLocaleContext } from '@arcblock/ux/lib/Locale/context';
+import BlockIcon from '@mui/icons-material/Block';
 import Brightness2OutlinedIcon from '@mui/icons-material/Brightness2Outlined';
 import LightModeOutlinedIcon from '@mui/icons-material/LightModeOutlined';
-import { Box, Grid, Stack, Typography, styled } from '@mui/material';
+import { Box, Grid, Stack, Typography, styled, useTheme } from '@mui/material';
 import { useState } from 'react';
 import useMobile from 'src/hooks/useMobile';
 import { useThemeStore } from 'src/state/themeStore';
@@ -9,6 +10,7 @@ import { useThemeStore } from 'src/state/themeStore';
 import { ButtonShuffle } from '../Common/ButtonShuffle';
 import { ColorBlock } from './ColorBlock';
 import { ColorEditDrawer, colorTypes } from './ColorEditDrawer';
+import ModeDisableMenu from './ModeDisableMenu';
 import { NeutralColorBlock, type NeutralColorType } from './NeutralColorBlock';
 
 type ColorType = (typeof colorTypes)[number] | NeutralColorType;
@@ -19,17 +21,27 @@ const ToggleButton = styled(Box)(({ theme }) => ({
   cursor: 'pointer',
   borderRadius: theme.shape.borderRadius,
   padding: `${theme.spacing(0.5)} ${theme.spacing(1.4)}`,
+  position: 'relative',
   '&:hover': {
     backgroundColor: theme.palette.action.hover,
   },
   '&.is-active': {
     backgroundColor: theme.palette.background.default,
   },
+  '&.is-disabled': {
+    cursor: 'not-allowed',
+    opacity: 0.6,
+    '&:hover': {
+      backgroundColor: 'transparent',
+    },
+  },
 }));
 
 function ColorsSection() {
   const { t } = useLocaleContext();
-  const mode = useThemeStore((s) => s.getCurrentConcept().mode);
+  const theme = useTheme();
+  const concept = useThemeStore((s) => s.getCurrentConcept());
+  const { mode, prefer } = concept;
   const isMobile = useMobile();
   const setThemeMode = useThemeStore((s) => s.setThemeMode);
   const shuffleColors = useThemeStore((s) => s.shuffleColors);
@@ -44,8 +56,19 @@ function ColorsSection() {
   };
 
   const handleModeChange = (newMode: 'light' | 'dark') => {
+    // 检查是否被禁用
+    if (prefer === 'light' && newMode === 'dark') {
+      return; // dark 模式被禁用
+    }
+    if (prefer === 'dark' && newMode === 'light') {
+      return; // light 模式被禁用
+    }
     setThemeMode(newMode);
   };
+
+  // 检查模式是否被禁用
+  const isLightDisabled = prefer === 'dark';
+  const isDarkDisabled = prefer === 'light';
 
   return (
     <Box>
@@ -64,13 +87,29 @@ function ColorsSection() {
               gap: '2px',
               p: '2px',
             }}>
-            <ToggleButton className={mode === 'light' ? 'is-active' : ''} onClick={() => handleModeChange('light')}>
-              <LightModeOutlinedIcon style={{ fontSize: 18 }} />
+            <ToggleButton
+              title={t('editor.colorSection.lightMode')}
+              className={`${mode === 'light' ? 'is-active' : ''} ${isLightDisabled ? 'is-disabled' : ''}`}
+              onClick={() => handleModeChange('light')}>
+              {isLightDisabled ? (
+                <BlockIcon style={{ fontSize: 18, color: theme.palette.error.main }} />
+              ) : (
+                <LightModeOutlinedIcon style={{ fontSize: 18 }} />
+              )}
             </ToggleButton>
-            <ToggleButton className={mode === 'dark' ? 'is-active' : ''} onClick={() => handleModeChange('dark')}>
-              <Brightness2OutlinedIcon style={{ fontSize: 18 }} />
+            <ToggleButton
+              title={t('editor.colorSection.darkMode')}
+              className={`${mode === 'dark' ? 'is-active' : ''} ${isDarkDisabled ? 'is-disabled' : ''}`}
+              onClick={() => handleModeChange('dark')}>
+              {isDarkDisabled ? (
+                <BlockIcon style={{ fontSize: 18, color: theme.palette.error.main }} />
+              ) : (
+                <Brightness2OutlinedIcon style={{ fontSize: 18 }} />
+              )}
             </ToggleButton>
           </Box>
+          {/* 模式禁用设置 */}
+          <ModeDisableMenu />
           {/* Shuffle 按钮 */}
           <ButtonShuffle onClick={handleShuffle} />
         </Box>

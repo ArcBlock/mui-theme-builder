@@ -1,6 +1,6 @@
 import { useLocaleContext } from '@arcblock/ux/lib/Locale/context';
 import GoogleIcon from '@mui/icons-material/Google';
-import { Box, CircularProgress, Paper, Skeleton, Typography, useTheme } from '@mui/material';
+import { Box, CircularProgress, Paper, Typography, useTheme } from '@mui/material';
 import { VirtualItem, useVirtualizer } from '@tanstack/react-virtual';
 import { useEffect, useRef } from 'react';
 import { GoogleFont } from 'src/types/fonts';
@@ -38,7 +38,7 @@ export default function VirtualFontList({
   // 滚动触底自动加载
   useEffect(() => {
     const scrollElement = parentRef.current;
-    if (!scrollElement || !onLoadMore || !hasMore) return;
+    if (!scrollElement || !onLoadMore || !hasMore) return () => {};
 
     const handleScroll = () => {
       const { scrollTop, scrollHeight, clientHeight } = scrollElement;
@@ -49,7 +49,9 @@ export default function VirtualFontList({
     };
 
     scrollElement.addEventListener('scroll', handleScroll);
-    return () => scrollElement.removeEventListener('scroll', handleScroll);
+    return () => {
+      scrollElement.removeEventListener('scroll', handleScroll);
+    };
   }, [onLoadMore, hasMore]);
 
   if (loading && fonts.length === 0) {

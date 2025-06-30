@@ -65,7 +65,7 @@ export function ColorBlock({ colorType, onClick }: ColorBlockProps) {
       onClick={onClick}>
       <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ mb: 1 }}>
         {/* Color Name */}
-        <Typography variant="subtitle1"></Typography>
+        <Typography variant="subtitle1" />
         {/* Lock Icon */}
         <Box className={`lock ${isLocked || isMobile ? '' : 'lock-open'}`} onClick={toggleLock}>
           {isLocked ? <LockIcon style={{ fontSize: 14 }} /> : <LockOpenIcon style={{ fontSize: 14 }} />}

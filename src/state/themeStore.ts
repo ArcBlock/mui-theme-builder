@@ -3,7 +3,7 @@ import { deepmergeAll } from '@arcblock/ux/lib/Util';
 import { DEFAULT_FONTS } from '@blocklet/theme';
 import { PaletteColor, Theme } from '@mui/material/styles';
 import { nanoid } from 'nanoid';
-import { predefinedPalettes } from 'src/constants/predefinedPalettes';
+import predefinedThemes from 'src/data/predefined-themes.json';
 import { getDefaultThemeConfig } from 'src/siteTheme';
 import type {
   Concept,
@@ -14,16 +14,17 @@ import type {
   ThemeStoreModel,
   ThemeStoreState,
 } from 'src/types/theme';
-import { loadFontsIfRequired, removeByPath, setByPath } from 'src/utils';
-import { createPreviewMuiTheme } from 'src/utils';
+import { createPreviewMuiTheme, ensureUniqueName, loadFontsIfRequired, removeByPath, setByPath } from 'src/utils';
 import { create } from 'zustand';
 import { subscribeWithSelector } from 'zustand/middleware';
 import { shallow } from 'zustand/shallow';
 
 export const DEFAULT_CONCEPT_ID = 'EdNkoyjQDQFY7f1gzwdat';
-export const DEFAULT_CONCEPT_NAME = 'Concept 1';
+export const DEFAULT_CONCEPT_NAME = 'Default';
 export const MODE_SPECIFIC_FIELDS = ['palette', 'components', 'shadows']; // 需要区分 light/dark 的主题配置
 export const HEADING_VARIANTS = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'subtitle1', 'subtitle2', 'overline'] as const;
+
+// 默认的 font-family 字符串
 export const DEFAULT_FONT_STRING = DEFAULT_FONTS.map((s) => {
   // 检查是否包含空格或特殊字符（除了连字符和数字）
   const needsQuotes = /[^\w-]/.test(s);
@@ -36,17 +37,37 @@ const getThemeFieldName = (path: string, mode: Mode): keyof Concept['themeConfig
   return MODE_SPECIFIC_FIELDS.includes(field) ? mode : 'common';
 };
 
+// 获取默认的 editor 配置
 const getDefaultEditorState = (): EditorState => ({
   colors: {},
   typography: {},
   styles: {},
 });
 
+// 随机挑选一个预定义主题
+const pickRandomTheme = (...exclude: Array<string | undefined | null>) => {
+  const _exclude = exclude.filter(Boolean) as string[];
+
+  if (_exclude.length === 0) {
+    return predefinedThemes[Math.floor(Math.random() * predefinedThemes.length)];
+  }
+
+  const excludeSet = new Set(_exclude);
+  const candidates = predefinedThemes.filter((p) => !excludeSet.has(p.name));
+
+  if (candidates.length === 0) {
+    return null;
+  }
+
+  return candidates[Math.floor(Math.random() * candidates.length)];
+};
+
 const getDefaultState = () => ({
   concepts: [
     {
       id: DEFAULT_CONCEPT_ID,
       name: DEFAULT_CONCEPT_NAME,
+      template: DEFAULT_CONCEPT_NAME,
       mode: 'light' as Mode,
       prefer: 'system' as ThemePrefer,
       themeConfig: getDefaultThemeConfig(),
@@ -60,16 +81,12 @@ const getDefaultState = () => ({
   previewSize: false as PreviewSize,
   selectedComponentId: 'Website',
   themeObject: createPreviewMuiTheme(deepmerge({ palette: { mode: 'light' } }, getDefaultThemeConfig().light), false),
-  lastShuffledPaletteIndex: -1,
-  lastShuffleResult: { headingFont: '', bodyFont: '' },
 });
 
 export const useThemeStore = create(
   subscribeWithSelector<ThemeStoreModel>((set, get) => ({
     // # 初始状态
     ...getDefaultState(),
-    // 添加一个状态来跟踪上次选择的调色板索引
-    lastShuffledPaletteIndex: -1,
 
     // # 修改整体数据
     resetStore: () => set(() => getDefaultState()),
@@ -77,17 +94,32 @@ export const useThemeStore = create(
       set(() => ({
         // 可根据实际需求重置部分状态
       })),
+    addConcept: ({ name = DEFAULT_CONCEPT_NAME, themeConfig } = {}) => {
+      const { concepts, applyPredefinedTheme } = get();
 
-    // # Concepts 管理
-    addConcept: (name, sourceThemeConfig) => {
-      const newConcept: Concept = {
-        id: nanoid(),
+      const uniqueName = ensureUniqueName(
+        concepts.map((c) => c.name),
         name,
+      );
+      let newConcept: Concept = {
+        id: nanoid(),
+        name: uniqueName,
+        template: DEFAULT_CONCEPT_NAME,
         mode: 'light',
         prefer: 'system',
-        themeConfig: sourceThemeConfig ? { ...sourceThemeConfig } : getDefaultThemeConfig(),
+        themeConfig: themeConfig ? { ...themeConfig } : getDefaultThemeConfig(),
         editor: getDefaultEditorState(),
       };
+
+      // 混入预制主题色盘
+      if (!themeConfig) {
+        const selectedPalette = pickRandomTheme(...concepts.map((c) => c.template));
+
+        if (selectedPalette) {
+          newConcept = applyPredefinedTheme(newConcept, selectedPalette);
+        }
+      }
+
       set((state) => ({
         concepts: [...state.concepts, newConcept],
         currentConceptId: newConcept.id,
@@ -106,17 +138,26 @@ export const useThemeStore = create(
         };
       });
     },
-    duplicateConcept: (id, name) => {
-      const concept = get().concepts.find((c) => c.id === id);
+    duplicateConcept: (id) => {
+      const { concepts } = get();
+      const concept = concepts.find((c) => c.id === id);
+
       if (concept) {
+        const uniqueName = ensureUniqueName(
+          concepts.map((c) => c.name),
+          concept.name,
+        );
+
         const newConcept: Concept = {
           id: nanoid(),
-          name: name || `${concept.name} Copy`,
+          name: uniqueName,
+          template: concept.template,
           mode: concept.mode,
           prefer: concept.prefer,
           themeConfig: JSON.parse(JSON.stringify(concept.themeConfig)),
           editor: JSON.parse(JSON.stringify(concept.editor)),
         };
+
         set((state) => ({
           concepts: [...state.concepts, newConcept],
           currentConceptId: newConcept.id,
@@ -130,17 +171,18 @@ export const useThemeStore = create(
     },
     setCurrentConcept: (id) => set({ currentConceptId: id }),
     getCurrentConcept: () => {
-      let result = get().concepts.find((c) => c.id === get().currentConceptId);
+      const { concepts, currentConceptId } = get();
+      let result = concepts.find((c) => c.id === currentConceptId);
 
       if (!result) {
-        result = getDefaultState().concepts[0];
+        [result] = getDefaultState().concepts;
       }
 
       return result;
     },
     setConcepts: ({ concepts, currentConceptId }) =>
       set(() => {
-        let updates: Partial<ThemeStoreState> = {};
+        const updates: Partial<ThemeStoreState> = {};
 
         if (concepts && currentConceptId) {
           updates.concepts = concepts;
@@ -171,6 +213,71 @@ export const useThemeStore = create(
 
         return updates;
       }),
+    // 应用预定义主题
+    applyPredefinedTheme: (concept, theme, colorKeys) => {
+      const { themeObject, concepts, isPredefinedTheme } = get();
+      const updates: { path: string; value: any }[] = [];
+      const lockedColors = concept.editor.colors;
+      let newConcept = { ...concept };
+
+      // 同时处理 light 和 dark 模式
+      (['light', 'dark'] as const).forEach((mode) => {
+        const modeTheme = theme[mode];
+
+        // 缩小 colors 范围
+        let _colorKeys = [];
+        if (Array.isArray(colorKeys)) {
+          _colorKeys = colorKeys;
+        } else if (colorKeys && typeof colorKeys === 'string') {
+          _colorKeys = [colorKeys];
+        } else {
+          _colorKeys = Object.keys(modeTheme);
+        }
+
+        _colorKeys.forEach((key) => {
+          const colorKey = key as keyof typeof modeTheme;
+          // 排除已锁定的 color
+          if (!lockedColors[colorKey]?.isLocked) {
+            const newMainColor = modeTheme[colorKey];
+            // 计算 Shades 颜色
+            const augmentedColor = themeObject.palette.augmentColor({ color: { main: newMainColor } });
+
+            Object.keys(augmentedColor).forEach((subKey) => {
+              updates.push({
+                path: `themeConfig.${mode}.palette.${colorKey}.${String(subKey)}`,
+                value: augmentedColor[subKey as keyof PaletteColor],
+              });
+            });
+          }
+        });
+      });
+
+      if (updates.length === 0) {
+        return newConcept;
+      }
+
+      // 修改主题模版名称
+      let conceptName = newConcept.name;
+      if (isPredefinedTheme(newConcept)) {
+        conceptName = ensureUniqueName(
+          concepts.map((c) => c.name),
+          theme.name,
+        );
+        newConcept.name = conceptName;
+      }
+
+      newConcept.template = theme.name;
+      newConcept.name = conceptName;
+
+      updates.forEach(({ path, value }) => {
+        newConcept = setByPath(newConcept, path, value);
+      });
+
+      return newConcept;
+    },
+    isPredefinedTheme(concept) {
+      return concept.name === concept.template || new RegExp(`^${concept.template}\\s\\d+$`).test(concept.name);
+    },
 
     // # ThemeOptions 编辑
     setThemeOption: (path, value) => {
@@ -251,12 +358,19 @@ export const useThemeStore = create(
         const current = state.concepts.find((c) => c.id === state.currentConceptId);
         if (!current) return {};
 
-        const newThemeOptions = { ...current.themeConfig, prefer };
+        let newMode = current.mode;
+
+        // 自动切换逻辑：如果禁用的模式是当前模式，则切换到另一个模式
+        if (prefer === 'light' && current.mode === 'dark') {
+          // 禁用 dark 模式，但当前是 dark，切换到 light
+          newMode = 'light';
+        } else if (prefer === 'dark' && current.mode === 'light') {
+          // 禁用 light 模式，但当前是 light，切换到 dark
+          newMode = 'dark';
+        }
 
         return {
-          concepts: state.concepts.map((c) =>
-            c.id === state.currentConceptId ? { ...c, themeConfig: newThemeOptions } : c,
-          ),
+          concepts: state.concepts.map((c) => (c.id === state.currentConceptId ? { ...c, prefer, mode: newMode } : c)),
         };
       });
     },
@@ -296,72 +410,42 @@ export const useThemeStore = create(
         const currentConcept = state.getCurrentConcept();
         if (!currentConcept) return {};
 
-        const { editor } = currentConcept;
-        const { themeObject, lastShuffledPaletteIndex } = state;
-        const lockedColors = editor.colors;
+        const selectedPalette = pickRandomTheme(currentConcept.template);
+        if (!selectedPalette) return {};
 
-        // 避免重复选择相同的调色板
-        let randomIndex: number;
-        do {
-          randomIndex = Math.floor(Math.random() * predefinedPalettes.length);
-        } while (randomIndex === lastShuffledPaletteIndex && predefinedPalettes.length > 1);
-
-        const selectedPalette = predefinedPalettes[randomIndex];
-
-        const updates: { path: string; value: any }[] = [];
-
-        // 同时处理 light 和 dark 模式
-        (['light', 'dark'] as const).forEach((mode) => {
-          const modePalette = selectedPalette[mode];
-          let _colorKeys = [];
-
-          if (Array.isArray(colorKeys)) {
-            _colorKeys = colorKeys;
-          } else if (colorKeys && typeof colorKeys === 'string') {
-            _colorKeys = [colorKeys];
-          } else {
-            _colorKeys = Object.keys(modePalette);
-          }
-
-          _colorKeys.forEach((key) => {
-            const colorKey = key as keyof typeof modePalette;
-            if (!lockedColors[colorKey]?.isLocked) {
-              const newMainColor = modePalette[colorKey];
-              const augmentedColor = themeObject.palette.augmentColor({ color: { main: newMainColor } });
-
-              Object.keys(augmentedColor).forEach((subKey) => {
-                updates.push({
-                  path: `${mode}.palette.${colorKey}.${String(subKey)}`,
-                  value: augmentedColor[subKey as keyof PaletteColor],
-                });
-              });
-            }
-          });
-        });
-
-        if (updates.length === 0) {
-          return {};
-        }
-
-        let newThemeConfig = { ...currentConcept.themeConfig };
-        updates.forEach(({ path, value }) => {
-          newThemeConfig = setByPath(newThemeConfig, path, value);
-        });
+        const newConcept = state.applyPredefinedTheme(currentConcept, selectedPalette, colorKeys);
 
         return {
-          concepts: state.concepts.map((c) =>
-            c.id === state.currentConceptId ? { ...c, themeConfig: newThemeConfig } : c,
-          ),
-          lastShuffledPaletteIndex: randomIndex,
+          concepts: state.concepts.map((c) => (c.id === state.currentConceptId ? newConcept : c)),
         };
       }),
+    // 重置所有颜色
+    resetColors: () => {
+      set((state) => {
+        const concept = state.getCurrentConcept();
+        if (!concept) return {};
+
+        const newConcept = { ...concept };
+        newConcept.themeConfig.light = {};
+        newConcept.themeConfig.dark = {};
+        if (state.isPredefinedTheme(concept)) {
+          newConcept.name = ensureUniqueName(
+            state.concepts.map((c) => c.name),
+            DEFAULT_CONCEPT_NAME,
+          );
+        }
+        newConcept.template = DEFAULT_CONCEPT_NAME;
+
+        return { concepts: state.concepts.map((c) => (c.id === state.currentConceptId ? newConcept : c)) };
+      });
+    },
 
     // # Fonts 编辑
     setFontOptions: (fontMap) => {
       const { setThemeOptions, themeObject, loadedFonts } = get();
       const { heading, body } = fontMap;
       const newFonts = [];
-      let updates: { path: string; value: any }[] = [];
+      const updates: { path: string; value: any }[] = [];
 
       if (body) {
         // body 字体本质上是 base 字体
@@ -411,7 +495,7 @@ export const useThemeStore = create(
   })),
 );
 
-// 自动同步 themeObject、concept.fonts
+// 实时更新 themeObject
 useThemeStore.subscribe(
   (state) => [state.concepts, state.currentConceptId, state.previewSize],
   () => {

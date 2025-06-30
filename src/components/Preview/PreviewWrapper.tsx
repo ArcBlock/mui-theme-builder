@@ -1,30 +1,20 @@
-import { Box, Paper, useTheme } from '@mui/material';
+import { Box, BoxProps, Paper, useTheme } from '@mui/material';
 import React from 'react';
-import { useThemeStore } from 'src/state/themeStore';
 import ThemeWrapper from 'src/components/ThemeWrapper';
+import { useThemeStore } from 'src/state/themeStore';
 
-interface PreviewWrapperProps {
+interface PreviewWrapperProps extends BoxProps {
   children: React.ReactNode;
 }
 
 /**
  * Wraps children in ThemeWrapper and creates a letterbox around the component
  */
-function PreviewWrapper({ children }: PreviewWrapperProps) {
+function PreviewWrapper({ children, ...props }: PreviewWrapperProps) {
   return (
-    <Box
-      sx={{
-        height: 1,
-        position: 'relative',
-      }}>
+    <Box className="preview-wrapper" {...props}>
       <ThemeWrapper>
-        <Box
-          sx={{
-            height: 1,
-            backgroundColor: '#F8F8F8',
-          }}>
-          <PreviewBackground>{children}</PreviewBackground>
-        </Box>
+        <PreviewBackground>{children}</PreviewBackground>
       </ThemeWrapper>
     </Box>
   );
@@ -44,10 +34,9 @@ function PreviewBackground({ children }: PreviewBackgroundProps) {
   const theme = useTheme();
   const directionIsRTL = theme.direction === 'rtl';
   const previewSize = useThemeStore((s) => s.previewSize);
+
   return (
     <Paper
-      elevation={8}
-      square
       sx={{
         maxWidth: (() => {
           if (previewSize === 'xs') return 375;
@@ -55,10 +44,12 @@ function PreviewBackground({ children }: PreviewBackgroundProps) {
           return 'unset';
         })(),
         height: 1,
-        overflowY: 'auto',
+        overflow: 'auto',
         margin: 'auto',
         position: 'relative', // for FAB positioning
         zIndex: 1,
+        backgroundColor: 'background.default',
+        backgroundImage: 'none',
       }}
       dir={directionIsRTL ? 'rtl' : ''}>
       {children}

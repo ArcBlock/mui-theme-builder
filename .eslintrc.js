@@ -12,12 +12,14 @@ module.exports = {
   rules: {
     'unicorn/filename-case': 'off',
     'import/prefer-default-export': 'off',
-    '@typescript-eslint/no-use-before-define': 'off',
-    'jsx-a11y/alt-text': 'off',
     'react/require-default-props': 'off',
     'react/no-unused-prop-types': 'off',
     'react/prop-types': 'off',
     'jsx-a11y/anchor-is-valid': 'off',
+    'jsx-a11y/alt-text': 'off',
+    '@typescript-eslint/no-use-before-define': 'off',
     '@typescript-eslint/indent': 'off',
+    '@typescript-eslint/naming-convention': 'off',
+    '@typescript-eslint/dot-notation': 'off',
   },
 };

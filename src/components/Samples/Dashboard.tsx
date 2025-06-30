@@ -3,7 +3,7 @@ import Dashboard from '@arcblock/ux/lib/Layout/dashboard';
 import { useLocaleContext } from '@arcblock/ux/lib/Locale/context';
 import TerminalOutlinedIcon from '@mui/icons-material/TerminalOutlined';
 import WidgetsOutlinedIcon from '@mui/icons-material/WidgetsOutlined';
-import { Box, Typography, styled } from '@mui/material';
+import { Box, styled } from '@mui/material';
 import StoreLogo from 'src/images/store-logo-notext.svg?react';
 
 import BlockletWrapper from './Share/BlockletWrapper';
@@ -380,6 +380,6 @@ export default function DashboardSample() {
 
 const StyledDashboard = styled(Dashboard)({
   '&.dashboard': {
-    height: '80vh',
+    minHeight: '80vh',
   },
 });

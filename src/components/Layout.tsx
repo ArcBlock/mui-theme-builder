@@ -52,7 +52,7 @@ function Layout({ children }: LayoutProps) {
   // 跟随父页面 locale 变化
   useEffect(() => {
     changeLocale(locale);
-  }, [locale]);
+  }, [changeLocale, locale]);
 
   if (!schemaKey && !isDev) {
     return (

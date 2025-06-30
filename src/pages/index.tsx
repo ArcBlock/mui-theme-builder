@@ -30,7 +30,9 @@ function IndexPage() {
               position: isMobile ? 'relative' : 'static',
             }}>
             {!isMobile && (
-              <Box className="hide-scrollbar" sx={{ flex: '1 0', overflowY: 'auto', overflowX: 'hidden' }}>
+              <Box
+                className="hide-scrollbar"
+                sx={{ maxWidth: '800px', flex: '1 0', overflowY: 'auto', overflowX: 'hidden' }}>
                 {/* 编辑区 */}
                 <Editor />
               </Box>

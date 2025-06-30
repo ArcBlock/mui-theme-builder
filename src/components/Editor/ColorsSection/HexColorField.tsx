@@ -17,7 +17,7 @@ export interface HexColorInputProps extends Omit<OutlinedTextFieldProps, 'value'
 export function HexColorField({ path, label = 'Hex', size = 'small', onChange, onReset, ...rest }: HexColorInputProps) {
   const { t } = useLocaleContext();
   const themeObject = useThemeStore((s) => s.themeObject);
-  const mode = themeObject.palette.mode;
+  const { mode } = themeObject.palette;
 
   const value = useMemo<string>(() => {
     return getByPath(themeObject, path);
