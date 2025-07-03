@@ -17,6 +17,7 @@ export default {
       name: '主题名称',
       add: '添加主题',
       rename: '重命名主题',
+      duplicateName: '主题名称已存在',
       duplicate: '复制主题',
       delete: '删除主题',
       saveSuccess: '主题保存成功。请刷新页面以应用更改。',

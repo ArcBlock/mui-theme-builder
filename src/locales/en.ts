@@ -17,6 +17,7 @@ export default {
       name: 'Theme Name',
       add: 'Add Theme',
       rename: 'Rename Theme',
+      duplicateName: 'Theme name already exists',
       duplicate: 'Duplicate Theme',
       delete: 'Delete Theme',
       saveSuccess: 'Theme saved successfully. Please refresh the page to apply changes.',

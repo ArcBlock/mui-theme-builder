@@ -9,7 +9,7 @@ import { Box, Button, Divider, Menu, MenuItem, Typography, styled } from '@mui/m
 import Drawer from '@mui/material/Drawer';
 import IconButton from '@mui/material/IconButton';
 import TextField from '@mui/material/TextField';
-import { useCallback, useState } from 'react';
+import { useCallback, useState, useMemo } from 'react';
 import useMobile from 'src/hooks/useMobile';
 import useSave from 'src/hooks/useSave';
 import { useThemeStore } from 'src/state/themeStore';
@@ -74,6 +74,12 @@ export function ConceptMenu() {
 
   const currentConcept = concepts.find((c) => c.id === currentConceptId);
 
+  // 检查主题名字是否重复
+  const isDuplicateName = useMemo(() => {
+    if (!renameValue.trim()) return false;
+    return concepts.some((concept) => concept.name === renameValue.trim() && concept.id !== renameTargetId);
+  }, [renameValue, concepts, renameTargetId]);
+
   // 切换主题
   const handleSelectConcept = useCallback(
     (concept: Concept) => () => {
@@ -101,7 +107,7 @@ export function ConceptMenu() {
 
   // 提交主题表单
   const handleRenameSubmit = () => {
-    if (renameTargetId && renameValue.trim()) {
+    if (renameTargetId && renameValue.trim() && !isDuplicateName) {
       renameConcept(renameTargetId, renameValue.trim());
       closeRenameDrawer();
     }
@@ -167,7 +173,6 @@ export function ConceptMenu() {
                     onClick={(e) => {
                       e.stopPropagation();
                       duplicateConcept(concept.id);
-                      setAnchorEl(null);
                     }}>
                     <ContentCopyIcon sx={{ fontSize: 16 }} />
                   </ConceptButton>
@@ -243,6 +248,8 @@ export function ConceptMenu() {
             label={t('editor.concept.name')}
             value={renameValue}
             autoFocus
+            error={isDuplicateName}
+            helperText={isDuplicateName && t('editor.concept.duplicateName')}
             onChange={(e) => setRenameValue(e.target.value)}
             onKeyDown={(e) => {
               if (e.key === 'Enter') handleRenameSubmit();
@@ -255,7 +262,11 @@ export function ConceptMenu() {
             <Button variant="text" size="small" onClick={closeRenameDrawer}>
               {t('editor.cancel')}
             </Button>
-            <Button variant="contained" size="small" onClick={handleRenameSubmit} disabled={!renameValue.trim()}>
+            <Button
+              variant="contained"
+              size="small"
+              onClick={handleRenameSubmit}
+              disabled={!renameValue.trim() || isDuplicateName}>
               {t('editor.confirm')}
             </Button>
           </Box>
