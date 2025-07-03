@@ -89,7 +89,23 @@ export const useThemeStore = create(
     ...getDefaultState(),
 
     // # 修改整体数据
-    resetStore: () => set(() => getDefaultState()),
+    resetStore: () =>
+      set((state) => {
+        const currentConcept = state.getCurrentConcept();
+        if (!currentConcept) return {};
+
+        return {
+          concepts: state.concepts.map((c) =>
+            c.id === state.currentConceptId
+              ? {
+                  ...c,
+                  themeConfig: getDefaultThemeConfig(),
+                  editor: getDefaultEditorState(),
+                }
+              : c,
+          ),
+        };
+      }),
     resetSiteData: () =>
       set(() => ({
         // 可根据实际需求重置部分状态
