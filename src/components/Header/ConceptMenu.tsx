@@ -11,6 +11,7 @@ import IconButton from '@mui/material/IconButton';
 import TextField from '@mui/material/TextField';
 import { useCallback, useState } from 'react';
 import useMobile from 'src/hooks/useMobile';
+import useSave from 'src/hooks/useSave';
 import { useThemeStore } from 'src/state/themeStore';
 import { Concept } from 'src/types/theme';
 
@@ -54,6 +55,8 @@ const ConceptButton = styled(Box)(() => ({
 
 export function ConceptMenu() {
   const { t } = useLocaleContext();
+  const isMobile = useMobile();
+  //
   const concepts = useThemeStore((s) => s.concepts);
   const currentConceptId = useThemeStore((s) => s.currentConceptId);
   const setCurrentConcept = useThemeStore((s) => s.setCurrentConcept);
@@ -61,32 +64,42 @@ export function ConceptMenu() {
   const duplicateConcept = useThemeStore((s) => s.duplicateConcept);
   const deleteConcept = useThemeStore((s) => s.deleteConcept);
   const renameConcept = useThemeStore((s) => s.renameConcept);
+  //
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
-  const isMobile = useMobile();
+  const { saveTheme } = useSave();
   const [renameDrawerOpen, setRenameDrawerOpen] = useState(false);
   const [renameTargetId, setRenameTargetId] = useState<string | null>(null);
   const [renameValue, setRenameValue] = useState('');
 
   const currentConcept = concepts.find((c) => c.id === currentConceptId);
+
+  // 切换主题
   const handleSelectConcept = useCallback(
     (concept: Concept) => () => {
       setCurrentConcept(concept.id);
+      // 直接保存主题
+      saveTheme(useThemeStore.getState());
       setAnchorEl(null);
     },
     [setCurrentConcept],
   );
 
+  // 打开主题编辑框
   const openRenameDrawer = (concept: Concept) => {
     setRenameTargetId(concept.id);
     setRenameValue(concept.name);
     setRenameDrawerOpen(true);
   };
+
+  // 关闭主题编辑框
   const closeRenameDrawer = () => {
     setRenameDrawerOpen(false);
     setRenameTargetId(null);
     setRenameValue('');
   };
+
+  // 提交主题表单
   const handleRenameSubmit = () => {
     if (renameTargetId && renameValue.trim()) {
       renameConcept(renameTargetId, renameValue.trim());
