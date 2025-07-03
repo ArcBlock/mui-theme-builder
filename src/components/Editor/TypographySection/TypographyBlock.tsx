@@ -27,9 +27,11 @@ function TypographyBlock({ variant, onClick }: TypographyBlockProps) {
         getDefaultFontFamily: () =>
           isDark ? defaultDarkTheme.typography.h1.fontFamily : defaultLightTheme.typography.h1.fontFamily,
         resetFontFamily: () => {
+          // body 也是 default，则可以移除 heading 的 fontFamily
           if (themeObject.typography.fontFamily === DEFAULT_FONT_STRING) {
             removeThemeOptions(HEADING_VARIANTS.map((v) => `typography.${v}.fontFamily`));
           } else {
+            // 否则需要设置
             setFontOptions({ heading: { fontFamily: DEFAULT_FONT_STRING } });
           }
         },
@@ -49,6 +51,9 @@ function TypographyBlock({ variant, onClick }: TypographyBlockProps) {
 
   const fontFamily = actions.getFontFamily();
   const defaultFontFamily = actions.getDefaultFontFamily();
+
+  console.log('fontFamily: ', fontFamily);
+  console.log('defaultFontFamily: ', defaultFontFamily);
 
   const handleReset = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();

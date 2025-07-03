@@ -29,7 +29,7 @@ export const DEFAULT_FONT_STRING = DEFAULT_FONTS.map((s) => {
   // 检查是否包含空格或特殊字符（除了连字符和数字）
   const needsQuotes = /[^\w-]/.test(s);
   return needsQuotes ? `"${s}"` : s;
-}).join(', ');
+}).join(',');
 
 // 获取主题配置字段名称
 const getThemeFieldName = (path: string, mode: Mode): keyof Concept['themeConfig'] => {
@@ -467,7 +467,10 @@ export const useThemeStore = create(
         // body 字体本质上是 base 字体
         updates.push({
           path: 'typography.fontFamily',
-          value: `"${body.fontFamily}", ${DEFAULT_FONT_STRING}`,
+          value:
+            body.fontFamily === DEFAULT_FONT_STRING
+              ? DEFAULT_FONT_STRING
+              : `"${body.fontFamily}", ${DEFAULT_FONT_STRING}`,
         });
         newFonts.push(body.fontFamily);
       }
@@ -476,7 +479,10 @@ export const useThemeStore = create(
         updates.push(
           ...HEADING_VARIANTS.map((v) => ({
             path: `typography.${v}.fontFamily`,
-            value: `"${heading.fontFamily}", ${DEFAULT_FONT_STRING}`,
+            value:
+              heading.fontFamily === DEFAULT_FONT_STRING
+                ? DEFAULT_FONT_STRING
+                : `"${heading.fontFamily}", ${DEFAULT_FONT_STRING}`,
           })),
         );
         newFonts.push(heading.fontFamily);
