@@ -31,6 +31,7 @@ export default {
       title: 'Colors',
       shades: 'Shades',
       reset: 'Reset all colors',
+      invalidHexColor: 'Invalid hex color',
       neutral: {
         title: 'Neutrals',
         default: 'background',

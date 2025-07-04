@@ -30,6 +30,7 @@ export default {
       title: '颜色',
       shades: '色阶',
       reset: '重置所有颜色',
+      invalidHexColor: '无效的 Hex 颜色值',
       neutral: {
         title: '中性色',
         default: '背景',

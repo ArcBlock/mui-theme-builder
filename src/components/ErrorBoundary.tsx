@@ -70,7 +70,7 @@ function ClearStorageButton() {
 
   return (
     <Button variant="contained" color="primary" size="large" onClick={handleClick}>
-      Reset Site Data
+      Refresh
     </Button>
   );
 }

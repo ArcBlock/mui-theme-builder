@@ -143,12 +143,17 @@ export function ColorEditDrawer({ open, colorType, onClose }: ColorEditDrawerPro
           <ColorPickerWrapper>
             <HexColorPicker color={neutralColor} style={{ width: '100%' }} onChange={handleNeutralColorChange} />
           </ColorPickerWrapper>
-          <TextField
+          <HexColorField
+            path={`palette.${colorType}`}
+            onChange={(v) => handleNeutralColorChange(v)}
+            onReset={(p) => removeThemeOption(p)}
+          />
+          {/* <TextField
             label="Hex"
             value={neutralColor}
             size="small"
             onChange={(e) => handleMainColorChange(e.target.value)}
-          />
+          /> */}
         </>
       )}
     </Stack>

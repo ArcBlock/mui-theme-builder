@@ -343,3 +343,27 @@ export function ensureUniqueName(list: string[], name: string): string {
 
   return `${name} ${nextNumber}`;
 }
+
+/**
+ * 验证是否为有效的 Hex 颜色值
+ * 支持带 # 或不带 # 的 3 位或 6 位 Hex 颜色
+ * @param value 要验证的颜色值
+ * @returns 是否为有效的 Hex 颜色
+ */
+export function isValidHexColor(value: string): boolean {
+  if (!value || typeof value !== 'string') {
+    return false;
+  }
+  
+  // 移除开头的 # 号
+  const hexValue = value.startsWith('#') ? value.slice(1) : value;
+  
+  // 检查长度：3位或6位
+  if (hexValue.length !== 3 && hexValue.length !== 6) {
+    return false;
+  }
+  
+  // 检查是否只包含有效的十六进制字符
+  const hexRegex = /^[0-9A-Fa-f]+$/;
+  return hexRegex.test(hexValue);
+}
