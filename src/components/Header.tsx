@@ -38,10 +38,6 @@ export default function Header({ sx, ...props }: HeaderProps) {
         {/* 菜单按钮 */}
         <HeaderActions />
         <Box sx={{ flexGrow: 1 }} />
-        {/* Samples 导航 */}
-        <SampleNavigation />
-        {/* 预览窗口导航 */}
-        <PreviewSizeControls />
       </Toolbar>
     </AppBar>
   );

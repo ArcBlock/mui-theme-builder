@@ -4,6 +4,7 @@ import { PC_PREVIEW_WINDOW_MIN_WIDTH } from 'src/constants';
 import useBlockletAppUrl from 'src/hooks/useBlockletAppUrl';
 import { useThemeStore } from 'src/state/themeStore';
 
+import SampleNavigation from '../Header/SampleNavigation';
 import { getSampleComponent } from '../Samples';
 import { PreviewBlocklet } from './PreviewBlocklet';
 import PreviewWrapper from './PreviewWrapper';
@@ -55,6 +56,12 @@ function PreviewWindow() {
         padding: 2,
         position: 'relative',
       }}>
+      {/* Samples 导航 */}
+      {!blockletAppUrl && (
+        <Box sx={{ display: 'flex', justifyContent: 'center', mb: 1 }}>
+          <SampleNavigation />
+        </Box>
+      )}
       <PreviewWrapper
         sx={{
           width: shouldScale ? PC_PREVIEW_WINDOW_MIN_WIDTH : '100%',

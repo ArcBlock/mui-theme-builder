@@ -2,6 +2,7 @@ import { Box } from '@mui/material';
 import Editor from 'src/components/Editor/Editor';
 import ErrorBoundary from 'src/components/ErrorBoundary';
 import Header from 'src/components/Header';
+import PreviewSizeControls from 'src/components/Header/PreviewSizeControls';
 import Layout from 'src/components/Layout';
 import PreviewWindow from 'src/components/Preview/PreviewWindow';
 import useMobile from 'src/hooks/useMobile';
@@ -27,7 +28,7 @@ function IndexPage() {
               overflow: 'hidden',
               backgroundColor: 'background.default',
               pb: isMobile ? '48px' : 0,
-              position: isMobile ? 'relative' : 'static',
+              position: 'relative',
             }}>
             {!isMobile && (
               <Box
@@ -40,6 +41,10 @@ function IndexPage() {
             <Box className="hide-scrollbar" sx={{ flex: '1 0', overflowY: 'auto', overflowX: 'hidden' }}>
               {/* 预览区 */}
               <PreviewWindow />
+              {/* 预览窗口导航 */}
+              <Box sx={{ position: 'absolute', bottom: 0, right: 0, zIndex: 1 }}>
+                <PreviewSizeControls />
+              </Box>
             </Box>
           </Box>
           {/* 编辑区 */}
