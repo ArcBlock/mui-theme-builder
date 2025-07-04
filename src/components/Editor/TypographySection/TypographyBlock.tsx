@@ -52,9 +52,6 @@ function TypographyBlock({ variant, onClick }: TypographyBlockProps) {
   const fontFamily = actions.getFontFamily();
   const defaultFontFamily = actions.getDefaultFontFamily();
 
-  console.log('fontFamily: ', fontFamily);
-  console.log('defaultFontFamily: ', defaultFontFamily);
-
   const handleReset = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
     actions.resetFontFamily();

@@ -110,6 +110,8 @@ export const useThemeStore = create(
       set(() => ({
         // 可根据实际需求重置部分状态
       })),
+
+    // # Concepts 管理
     addConcept: ({ name = DEFAULT_CONCEPT_NAME, themeConfig } = {}) => {
       const { concepts, applyPredefinedTheme } = get();
 
