@@ -15,7 +15,11 @@ interface Props {
 }
 export default function FeaturedPost({ post }: Props) {
   return (
-    <Grid item xs={12} md={6}>
+    <Grid
+      size={{
+        xs: 12,
+        md: 6
+      }}>
       <CardActionArea component="a" href="#">
         <Card sx={{ display: 'flex' }}>
           <Box sx={{ flex: 1 }}>
@@ -31,7 +35,9 @@ export default function FeaturedPost({ post }: Props) {
                 </Typography>
               </Tooltip>
               <Tooltip title='<Typography variant="subtitle1">' placement="left" arrow>
-                <Typography variant="subtitle1" paragraph>
+                <Typography variant="subtitle1" sx={{
+                  marginBottom: "16px"
+                }}>
                   {post.description}
                 </Typography>
               </Tooltip>

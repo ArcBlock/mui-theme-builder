@@ -43,8 +43,10 @@ export const createSiteThemeOptions = ({ palette }: ThemeOptions): ThemeOptions 
       MuiAccordion: {
         defaultProps: {
           square: true,
-          TransitionProps: {
-            unmountOnExit: true,
+          slotProps: {
+            transition: {
+              unmountOnExit: true,
+            }
           },
         },
         styleOverrides: {

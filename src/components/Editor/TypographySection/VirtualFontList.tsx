@@ -72,10 +72,10 @@ export default function VirtualFontList({
     return (
       <Typography
         variant="body2"
-        color="text.secondary"
         sx={{
+          color: "text.secondary",
           mt: 1,
-          textAlign: 'center',
+          textAlign: 'center'
         }}>
         {t('editor.typographySection.noFontsFound')}
       </Typography>

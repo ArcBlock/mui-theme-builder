@@ -37,11 +37,18 @@ const mockNotifications = [
     appIcon: <ServerLogoNotext style={{ width: 28, height: 28 }} />,
     description: (
       <span>
-        <Typography component="span" color="text.primary" fontWeight={600}>
+        <Typography
+          component="span"
+          sx={{
+            color: "text.primary",
+            fontWeight: 600
+          }}>
           Robot
         </Typography>
         <span> has assigned you a task: </span>
-        <Typography component="span" color="primary.main">
+        <Typography component="span" sx={{
+          color: "primary.main"
+        }}>
           Theme configuration feedback
         </Typography>
       </span>
@@ -96,13 +103,13 @@ function UserCenter() {
           <Stack
             direction="row"
             spacing={2}
-            alignItems="flex-start"
             key={item.id}
             sx={{
+              alignItems: "flex-start",
               p: 2,
               borderBottom: '1px solid',
               borderColor: 'divider',
-              minHeight: 80,
+              minHeight: 80
             }}>
             <Box
               sx={{
@@ -119,18 +126,32 @@ function UserCenter() {
               <Stack
                 direction="row"
                 spacing={1}
-                alignItems="center"
-                justifyContent="space-between"
-                sx={{ height: '32px' }}>
+                sx={{
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  height: '32px'
+                }}>
                 {item.appIcon}
-                <Typography variant="caption" color="text.secondary">
+                <Typography variant="caption" sx={{
+                  color: "text.secondary"
+                }}>
                   {timeSince(item.time)}
                 </Typography>
               </Stack>
-              <Typography variant="subtitle1" fontWeight={600} color="text.primary">
+              <Typography
+                variant="subtitle1"
+                sx={{
+                  fontWeight: 600,
+                  color: "text.primary"
+                }}>
                 {item.title}
               </Typography>
-              <Typography variant="body2" color="text.secondary" sx={{ mb: 0.5 }}>
+              <Typography
+                variant="body2"
+                sx={{
+                  color: "text.secondary",
+                  mb: 0.5
+                }}>
                 {item.description}
               </Typography>
             </Stack>
@@ -191,15 +212,25 @@ function UserCenter() {
   });
 
   return (
-    <Box className="user-center" display="flex" flexDirection={isMobile ? 'column' : 'row'}>
-      <Box className="user-center-tabs" flex="1" order={isMobile ? 2 : 'unset'}>
+    <Box
+      className="user-center"
+      sx={{
+        display: "flex",
+        flexDirection: isMobile ? 'column' : 'row'
+      }}>
+      <Box
+        className="user-center-tabs"
+        sx={{
+          flex: "1",
+          order: isMobile ? 2 : 'unset'
+        }}>
         <Box
-          display="flex"
-          flexDirection="column"
           sx={{
+            display: "flex",
+            flexDirection: "column",
             height: '100%',
             overflow: 'auto',
-            padding: '1px',
+            padding: '1px'
           }}>
           <Tabs
             orientation="horizontal"

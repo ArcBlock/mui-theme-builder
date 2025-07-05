@@ -38,7 +38,13 @@ function TypographySection() {
   return (
     <Box sx={{ mt: 3 }}>
       {/* 标题 */}
-      <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ mb: 2 }}>
+      <Stack
+        direction="row"
+        sx={{
+          justifyContent: "space-between",
+          alignItems: "center",
+          mb: 2
+        }}>
         {/* 标题 */}
         <Typography variant="h5">{t('editor.typographySection.title')}</Typography>
         {/* 工具栏 */}
@@ -47,16 +53,22 @@ function TypographySection() {
           <ButtonShuffle onClick={handleShuffleFonts} />
         </Box>
       </Stack>
-
       <Grid container spacing={2}>
-        <Grid item xs={12} sm={6}>
+        <Grid
+          size={{
+            xs: 12,
+            sm: 6
+          }}>
           <TypographyBlock variant="heading" onClick={() => handleVariantClick('heading')} />
         </Grid>
-        <Grid item xs={12} sm={6}>
+        <Grid
+          size={{
+            xs: 12,
+            sm: 6
+          }}>
           <TypographyBlock variant="body" onClick={() => handleVariantClick('body')} />
         </Grid>
       </Grid>
-
       {/* 字体编辑抽屉 */}
       <TypographyEditDrawer open={drawerOpen} variant={selectedVariant} onClose={() => setDrawerOpen(false)} />
     </Box>

@@ -32,15 +32,17 @@ function ShadeItem({ colorValue }: { colorValue: string }) {
   return (
     <Stack
       direction="row"
-      alignItems="center"
-      justifyContent="space-between"
       sx={{
+        alignItems: "center",
+        justifyContent: "space-between",
         p: 1,
         borderRadius: 1,
         border: '1px solid',
-        borderColor: 'divider',
+        borderColor: 'divider'
       }}>
-      <Stack direction="row" alignItems="center" spacing={1}>
+      <Stack direction="row" spacing={1} sx={{
+        alignItems: "center"
+      }}>
         <Box sx={{ width: 24, height: 24, borderRadius: 0.5, bgcolor: colorValue }} />
         <Box>{colorValue}</Box>
       </Stack>
@@ -117,7 +119,12 @@ export function ColorEditDrawer({ open, colorType, onClose }: ColorEditDrawerPro
 
   const drawerContent = (
     <Stack sx={{ p: 2, width: isMobile ? 'auto' : 320 }} spacing={2}>
-      <Stack direction="row" justifyContent="space-between" alignItems="center">
+      <Stack
+        direction="row"
+        sx={{
+          justifyContent: "space-between",
+          alignItems: "center"
+        }}>
         <Typography variant="h6">{t('editor.colorSection.title')}</Typography>
         <IconButton onClick={onClose}>
           <Close />

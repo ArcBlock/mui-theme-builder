@@ -15,7 +15,12 @@ function MuiComponent() {
       </Typography>
       {componentSamples.map(({ id: _id, title, component, docs }) => (
         <div key={_id} id={_id}>
-          <Grid container justifyContent="space-between" alignItems="center">
+          <Grid
+            container
+            sx={{
+              justifyContent: "space-between",
+              alignItems: "center"
+            }}>
             <Typography variant="h5" gutterBottom>
               {title}
             </Typography>

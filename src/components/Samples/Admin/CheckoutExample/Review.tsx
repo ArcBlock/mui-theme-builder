@@ -55,7 +55,11 @@ export default function Review() {
         </ListItem>
       </List>
       <Grid container spacing={2}>
-        <Grid item xs={12} sm={6}>
+        <Grid
+          size={{
+            xs: 12,
+            sm: 6
+          }}>
           <Tooltip title='<Typography color="textPrimary" variant="h6">' placement="left" arrow>
             <Typography variant="h6" gutterBottom sx={{ mt: 2 }}>
               Shipping
@@ -68,7 +72,13 @@ export default function Review() {
             <Typography gutterBottom>{addresses.join(', ')}</Typography>
           </Tooltip>
         </Grid>
-        <Grid item container direction="column" xs={12} sm={6}>
+        <Grid
+          container
+          direction="column"
+          size={{
+            xs: 12,
+            sm: 6
+          }}>
           <Tooltip title='<Typography color="textPrimary" variant="h6">' placement="left" arrow>
             <Typography variant="h6" gutterBottom sx={{ mt: 2 }}>
               Payment details
@@ -77,12 +87,12 @@ export default function Review() {
           <Grid container>
             {payments.map((payment) => (
               <React.Fragment key={payment.name}>
-                <Grid item xs={6}>
+                <Grid size={6}>
                   <Tooltip title='<Typography color="textPrimary" variant="body1">' placement="left" arrow>
                     <Typography gutterBottom>{payment.name}</Typography>
                   </Tooltip>
                 </Grid>
-                <Grid item xs={6}>
+                <Grid size={6}>
                   <Tooltip title='<Typography color="textPrimary" variant="body1">' placement="left" arrow>
                     <Typography gutterBottom>{payment.detail}</Typography>
                   </Tooltip>

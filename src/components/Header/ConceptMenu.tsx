@@ -257,8 +257,10 @@ export function ConceptMenu() {
               if (e.key === 'Enter') handleRenameSubmit();
               if (e.key === 'Escape') closeRenameDrawer();
             }}
-            inputProps={{ maxLength: 32 }}
             sx={{ mb: 2 }}
+            slotProps={{
+              htmlInput: { maxLength: 32 }
+            }}
           />
           <Box sx={{ display: 'flex', gap: 2, justifyContent: 'flex-end' }}>
             <Button variant="text" size="small" onClick={closeRenameDrawer}>

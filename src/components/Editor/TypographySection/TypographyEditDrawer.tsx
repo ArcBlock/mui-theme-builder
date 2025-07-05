@@ -111,7 +111,13 @@ function TypographyEditDrawer({ open, variant, onClose }: TypographyEditDrawerPr
   const drawerContent = (
     <Stack sx={{ p: 1.5, width: isMobile ? 'auto' : 320, height: '100%' }}>
       {/* 标题栏 */}
-      <Stack direction="row" justifyContent="space-between" alignItems="center" mb={1}>
+      <Stack
+        direction="row"
+        sx={{
+          justifyContent: "space-between",
+          alignItems: "center",
+          mb: 1
+        }}>
         <Typography sx={{ fontSize: 18, fontWeight: 500, textTransform: 'capitalize' }}>
           {variant === 'heading' ? t('editor.typographySection.heading') : t('editor.typographySection.body')}
         </Typography>
@@ -126,19 +132,21 @@ function TypographyEditDrawer({ open, variant, onClose }: TypographyEditDrawerPr
         value={searchQuery}
         size="small"
         sx={{ mb: 1, '& .MuiInputBase-input': { fontSize: 14 } }}
-        InputProps={{
-          startAdornment: (
-            <InputAdornment position="start">
-              <Search sx={{ fontSize: 20 }} />
-            </InputAdornment>
-          ),
-          endAdornment: searchQuery ? (
-            <IconButton size="small" onClick={() => handleSearchChange('')}>
-              <Close sx={{ fontSize: 16 }} />
-            </IconButton>
-          ) : null,
-        }}
         onChange={(e) => handleSearchChange(e.target.value)}
+        slotProps={{
+          input: {
+            startAdornment: (
+              <InputAdornment position="start">
+                <Search sx={{ fontSize: 20 }} />
+              </InputAdornment>
+            ),
+            endAdornment: searchQuery ? (
+              <IconButton size="small" onClick={() => handleSearchChange('')}>
+                <Close sx={{ fontSize: 16 }} />
+              </IconButton>
+            ) : null,
+          }
+        }}
       />
 
       {/* 字体分类卡片选择 */}
@@ -147,10 +155,9 @@ function TypographyEditDrawer({ open, variant, onClose }: TypographyEditDrawerPr
           const selected = selectedCategory === cat.value;
           return (
             <Grid
-              item
-              xs={3}
               key={cat.value}
-              onClick={() => (selected ? handleCategoryChange('All') : handleCategoryChange(cat.value))}>
+              onClick={() => (selected ? handleCategoryChange('All') : handleCategoryChange(cat.value))}
+              size={3}>
               <Box
                 sx={{
                   cursor: 'pointer',
@@ -163,7 +170,11 @@ function TypographyEditDrawer({ open, variant, onClose }: TypographyEditDrawerPr
                     backgroundColor: 'action.hover',
                   },
                 }}>
-                <Stack alignItems="center" sx={{ color: selected ? 'primary.main' : 'text.primary' }}>
+                <Stack
+                  sx={{
+                    alignItems: "center",
+                    color: selected ? 'primary.main' : 'text.primary'
+                  }}>
                   <Typography
                     sx={{
                       fontWeight: 700,
@@ -208,7 +219,13 @@ function TypographyEditDrawer({ open, variant, onClose }: TypographyEditDrawerPr
       <ButtonShuffle sx={{ mt: 1 }} onClick={handleShuffleFonts} />
       {/* 当前使用的字体 */}
       <Box>
-        <Typography variant="body2" color="text.secondary" align="center" sx={{ mt: 1 }}>
+        <Typography
+          variant="body2"
+          align="center"
+          sx={{
+            color: "text.secondary",
+            mt: 1
+          }}>
           {t('editor.typographySection.activeFont')}
           <Link href={`https://fonts.google.com/specimen/${activeFont}`} target="_blank" sx={{ ml: 1 }}>
             {activeFont}
@@ -223,7 +240,9 @@ function TypographyEditDrawer({ open, variant, onClose }: TypographyEditDrawerPr
       anchor={isMobile ? 'bottom' : 'left'}
       open={open}
       onClose={onClose}
-      PaperProps={{ sx: { height: { xs: '80vh', md: '100%' } } }}>
+      slotProps={{
+        paper: { sx: { height: { xs: '80vh', md: '100%' } } }
+      }}>
       {drawerContent}
     </Drawer>
   );

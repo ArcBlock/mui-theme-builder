@@ -87,7 +87,9 @@ function ColorsSection() {
     switch (layoutMode) {
       case 'large':
         return (
-          <Stack direction="row" alignItems="stretch">
+          <Stack direction="row" sx={{
+            alignItems: "stretch"
+          }}>
             <NeutralColorBlock sx={{ width: '25%', flexShrink: 0 }} onClick={(key) => handleColorClick(key)} />
             <Stack direction="row" sx={{ flexGrow: 1, flexWrap: 'wrap', mt: -1 }}>
               {colorTypes.map((colorType) => (
@@ -101,7 +103,9 @@ function ColorsSection() {
 
       case 'middle':
         return (
-          <Stack direction="row" alignItems="stretch">
+          <Stack direction="row" sx={{
+            alignItems: "stretch"
+          }}>
             <NeutralColorBlock sx={{ width: '33.33%', flexShrink: 0 }} onClick={(key) => handleColorClick(key)} />
             <Stack direction="row" sx={{ flexGrow: 1, flexWrap: 'wrap', mt: -1 }}>
               {colorTypes.map((colorType) => (
@@ -116,7 +120,9 @@ function ColorsSection() {
       case 'small':
         return (
           <>
-            <Stack direction="row" spacing={1} mb={1}>
+            <Stack direction="row" spacing={1} sx={{
+              mb: 1
+            }}>
               <NeutralColorBlock sx={{ flex: '1 0 0' }} onClick={(key) => handleColorClick(key)} />
               <Stack spacing={1} sx={{ flex: '1 0 0' }}>
                 {colorTypes.slice(0, 2).map((colorType) => (
@@ -128,7 +134,7 @@ function ColorsSection() {
             </Stack>
             <Grid container spacing={1}>
               {colorTypes.slice(2).map((colorType) => (
-                <Grid item xs={6} key={colorType}>
+                <Grid key={colorType} size={6}>
                   <ColorBlock colorType={colorType} onClick={() => handleColorClick(colorType)} />
                 </Grid>
               ))}
@@ -140,7 +146,13 @@ function ColorsSection() {
 
   return (
     <Box ref={containerRef}>
-      <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ mb: 2 }}>
+      <Stack
+        direction="row"
+        sx={{
+          justifyContent: "space-between",
+          alignItems: "center",
+          mb: 2
+        }}>
         {/* 标题 */}
         <Typography variant="h5">{t('editor.colorSection.title')}</Typography>
         {/* 工具栏 */}
@@ -182,10 +194,8 @@ function ColorsSection() {
           <ButtonShuffle onClick={handleShuffle} />
         </Box>
       </Stack>
-
       {/* 颜色块网格 */}
       {renderColorGrid()}
-
       {/* 颜色编辑弹窗 */}
       <ColorEditDrawer open={!!selectedColor} colorType={selectedColor} onClose={() => setSelectedColor(null)} />
     </Box>

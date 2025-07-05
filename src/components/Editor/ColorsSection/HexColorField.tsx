@@ -72,23 +72,24 @@ export function HexColorField({ path, label = 'Hex', size = 'small', onChange, o
       size={size}
       error={!isValid}
       helperText={!isValid ? t('editor.colorSection.invalidHexColor') : ''}
-      InputProps={{
-        endAdornment: (
-          <>
-            {value !== defaultValue && (
-              <IconButton title={t('editor.reset')} onClick={() => onReset?.(path)}>
-                <RestartAltIcon sx={{ fontSize: 20 }} />
-              </IconButton>
-            )}
-            <IconButton title={t('editor.copy')} onClick={handleCopy}>
-              <ContentCopyIcon sx={{ fontSize: 16 }} />
-            </IconButton>
-          </>
-        ),
-      }}
       onChange={handleInputChange}
       onBlur={handleBlur}
       {...rest}
-    />
+      slotProps={{
+        input: {
+          endAdornment: (
+            <>
+              {value !== defaultValue && (
+                <IconButton title={t('editor.reset')} onClick={() => onReset?.(path)}>
+                  <RestartAltIcon sx={{ fontSize: 20 }} />
+                </IconButton>
+              )}
+              <IconButton title={t('editor.copy')} onClick={handleCopy}>
+                <ContentCopyIcon sx={{ fontSize: 16 }} />
+              </IconButton>
+            </>
+          ),
+        }
+      }} />
   );
 }

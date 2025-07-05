@@ -45,7 +45,11 @@ export default function ListExample() {
         />
       </FormGroup>
       <Grid container spacing={2}>
-        <Grid item xs={12} md={6}>
+        <Grid
+          size={{
+            xs: 12,
+            md: 6
+          }}>
           <Typography variant="h6" sx={{ mt: 4, mx: 0, mb: 2 }}>
             Text only
           </Typography>
@@ -59,7 +63,11 @@ export default function ListExample() {
             </List>
           </Box>
         </Grid>
-        <Grid item xs={12} md={6}>
+        <Grid
+          size={{
+            xs: 12,
+            md: 6
+          }}>
           <Typography variant="h6" sx={{ mt: 4, mx: 0, mb: 2 }}>
             Icon with text
           </Typography>
@@ -78,7 +86,11 @@ export default function ListExample() {
         </Grid>
       </Grid>
       <Grid container spacing={2}>
-        <Grid item xs={12} md={6}>
+        <Grid
+          size={{
+            xs: 12,
+            md: 6
+          }}>
           <Typography variant="h6" sx={{ mt: 4, mx: 0, mb: 2 }}>
             Avatar with text
           </Typography>
@@ -97,7 +109,11 @@ export default function ListExample() {
             </List>
           </Box>
         </Grid>
-        <Grid item xs={12} md={6}>
+        <Grid
+          size={{
+            xs: 12,
+            md: 6
+          }}>
           <Typography variant="h6" sx={{ mt: 4, mx: 0, mb: 2 }}>
             Avatar with text and icon
           </Typography>

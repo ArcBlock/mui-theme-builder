@@ -14,10 +14,18 @@ export default function PaymentForm() {
         </Typography>
       </Tooltip>
       <Grid container spacing={3}>
-        <Grid item xs={12} md={6}>
+        <Grid
+          size={{
+            xs: 12,
+            md: 6
+          }}>
           <TextField required id="cardName" label="Name on card" fullWidth autoComplete="cc-name" variant="standard" />
         </Grid>
-        <Grid item xs={12} md={6}>
+        <Grid
+          size={{
+            xs: 12,
+            md: 6
+          }}>
           <TextField
             required
             id="cardNumber"
@@ -27,10 +35,18 @@ export default function PaymentForm() {
             variant="standard"
           />
         </Grid>
-        <Grid item xs={12} md={6}>
+        <Grid
+          size={{
+            xs: 12,
+            md: 6
+          }}>
           <TextField required id="expDate" label="Expiry date" fullWidth autoComplete="cc-exp" variant="standard" />
         </Grid>
-        <Grid item xs={12} md={6}>
+        <Grid
+          size={{
+            xs: 12,
+            md: 6
+          }}>
           <TextField
             required
             id="cvv"
@@ -41,7 +57,7 @@ export default function PaymentForm() {
             variant="standard"
           />
         </Grid>
-        <Grid item xs={12}>
+        <Grid size={12}>
           <FormControlLabel
             control={
               <Tooltip title='<Checkbox color="secondary">' arrow>

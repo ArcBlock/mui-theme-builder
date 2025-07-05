@@ -121,7 +121,12 @@ function TypographyBlock({ variant, onClick }: TypographyBlockProps) {
         <IconButtonLock lock={isLocked} onClick={toggleLock} />
       </Stack>
       <Stack spacing={1}>
-        <Typography variant="subtitle1" color="text.primary" sx={{ textTransform: 'capitalize' }}>
+        <Typography
+          variant="subtitle1"
+          sx={{
+            color: "text.primary",
+            textTransform: 'capitalize'
+          }}>
           {actions.getLabel()}
         </Typography>
         <Typography variant={variant as any} sx={{ fontSize: '2em' }}>

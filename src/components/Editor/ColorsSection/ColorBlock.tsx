@@ -93,7 +93,11 @@ export function ColorBlock({ colorType, onClick }: ColorBlockProps) {
         {/* Lock Icon */}
         <IconButtonLock lock={isLocked} color={actionColor} onClick={toggleLock} />
       </Stack>
-      <Box flexGrow={1} sx={{ minHeight: 40 }} />
+      <Box
+        sx={{
+          flexGrow: 1,
+          minHeight: 40
+        }} />
       <Box
         sx={{
           display: 'flex',

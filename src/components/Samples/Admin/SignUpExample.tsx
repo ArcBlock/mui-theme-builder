@@ -40,7 +40,11 @@ export default function SignUpExample() {
           }}
           noValidate>
           <Grid container spacing={2}>
-            <Grid item xs={12} sm={6}>
+            <Grid
+              size={{
+                xs: 12,
+                sm: 6
+              }}>
               <TextField
                 autoComplete="fname"
                 name="firstName"
@@ -52,7 +56,11 @@ export default function SignUpExample() {
                 autoFocus
               />
             </Grid>
-            <Grid item xs={12} sm={6}>
+            <Grid
+              size={{
+                xs: 12,
+                sm: 6
+              }}>
               <TextField
                 variant="outlined"
                 required
@@ -63,7 +71,7 @@ export default function SignUpExample() {
                 autoComplete="lname"
               />
             </Grid>
-            <Grid item xs={12}>
+            <Grid size={12}>
               <TextField
                 variant="outlined"
                 required
@@ -74,7 +82,7 @@ export default function SignUpExample() {
                 autoComplete="email"
               />
             </Grid>
-            <Grid item xs={12}>
+            <Grid size={12}>
               <TextField
                 variant="outlined"
                 required
@@ -86,7 +94,7 @@ export default function SignUpExample() {
                 autoComplete="current-password"
               />
             </Grid>
-            <Grid item xs={12}>
+            <Grid size={12}>
               <FormControlLabel
                 control={
                   <Tooltip title='<Checkbox color="primary">' arrow>
@@ -102,8 +110,10 @@ export default function SignUpExample() {
               Sign Up
             </Button>
           </Tooltip>
-          <Grid container justifyContent="flex-end">
-            <Grid item>
+          <Grid container sx={{
+            justifyContent: "flex-end"
+          }}>
+            <Grid>
               <Tooltip title='<Link color="primary" variant="body2">' arrow>
                 <Link href="#" variant="body2" underline="hover">
                   Already have an account? Sign in

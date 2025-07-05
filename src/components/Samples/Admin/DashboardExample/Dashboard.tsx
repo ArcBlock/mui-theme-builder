@@ -53,7 +53,11 @@ export default function Dashboard() {
         <Container maxWidth="lg" sx={{ py: 4 }}>
           <Grid container spacing={3}>
             {/* Chart */}
-            <Grid item xs={12} md={8}>
+            <Grid
+              size={{
+                xs: 12,
+                md: 8
+              }}>
               <Paper
                 sx={{
                   ...paperStyle,
@@ -63,7 +67,11 @@ export default function Dashboard() {
               </Paper>
             </Grid>
             {/* Recent Deposits */}
-            <Grid item xs={12} md={4}>
+            <Grid
+              size={{
+                xs: 12,
+                md: 4
+              }}>
               <Paper
                 sx={{
                   ...paperStyle,
@@ -73,7 +81,7 @@ export default function Dashboard() {
               </Paper>
             </Grid>
             {/* Recent Orders */}
-            <Grid item xs={12}>
+            <Grid size={12}>
               <Paper sx={paperStyle}>
                 <Orders />
               </Paper>
