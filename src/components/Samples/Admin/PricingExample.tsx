@@ -121,30 +121,27 @@ export default function PricingExample() {
       </Container>
       {/* End hero unit */}
       <Container maxWidth="md" component="main">
-        <Grid container spacing={5} alignItems="flex-end">
+        <Grid
+          container
+          spacing={5}
+          sx={{
+            alignItems: 'flex-end',
+          }}>
           {tiers.map((tier) => (
             // Enterprise card is full width at sm breakpoint
-            <Grid item key={tier.title} xs={12} sm={tier.title === 'Enterprise' ? 12 : 6} md={4}>
+            <Grid
+              key={tier.title}
+              size={{
+                xs: 12,
+                sm: tier.title === 'Enterprise' ? 12 : 6,
+                md: 4,
+              }}>
               <Card>
                 <Tooltip title="<CardHeader>" arrow placement="top">
                   <div>
                     <CardHeader
                       title={tier.title}
                       subheader={tier.subheader}
-                      titleTypographyProps={{ align: 'center' }}
-                      subheaderTypographyProps={{
-                        align: 'center',
-                        sx: {
-                          color: 'secondary.contrastText',
-                          bgcolor:
-                            // eslint-disable-next-line no-nested-ternary
-                            tier.color === 'main'
-                              ? 'secondary.main'
-                              : tier.color === 'light'
-                                ? 'secondary.light'
-                                : 'secondary.dark',
-                        },
-                      }}
                       action={tier.title === 'Pro' ? <StarIcon /> : null}
                       sx={{
                         color: 'secondary.contrastText',
@@ -155,6 +152,23 @@ export default function PricingExample() {
                             : tier.color === 'light'
                               ? 'secondary.light'
                               : 'secondary.dark',
+                      }}
+                      slotProps={{
+                        title: { align: 'center' },
+
+                        subheader: {
+                          align: 'center',
+                          sx: {
+                            color: 'secondary.contrastText',
+                            bgcolor:
+                              // eslint-disable-next-line no-nested-ternary
+                              tier.color === 'main'
+                                ? 'secondary.main'
+                                : tier.color === 'light'
+                                  ? 'secondary.light'
+                                  : 'secondary.dark',
+                          },
+                        },
                       }}
                     />
                   </div>
@@ -216,9 +230,19 @@ export default function PricingExample() {
             sm: 6,
           },
         }}>
-        <Grid container spacing={4} justifyContent="space-evenly">
+        <Grid
+          container
+          spacing={4}
+          sx={{
+            justifyContent: 'space-evenly',
+          }}>
           {footers.map((footer) => (
-            <Grid item xs={6} sm={3} key={footer.title}>
+            <Grid
+              key={footer.title}
+              size={{
+                xs: 6,
+                sm: 3,
+              }}>
               <Tooltip title='<Typography color="textPrimary" variant="h6">' placement="left" arrow>
                 <Typography variant="h6" color="textPrimary" gutterBottom>
                   {footer.title}

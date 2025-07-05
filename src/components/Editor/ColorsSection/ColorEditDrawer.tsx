@@ -1,6 +1,6 @@
 import { useLocaleContext } from '@arcblock/ux/lib/Locale/context';
 import { Close } from '@mui/icons-material';
-import { Box, Drawer, IconButton, Stack, TextField, Typography, useMediaQuery } from '@mui/material';
+import { Box, Drawer, IconButton, Stack, Typography, useMediaQuery } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { get } from 'lodash';
 import { useMemo } from 'react';
@@ -8,6 +8,7 @@ import { HexColorPicker } from 'react-colorful';
 import { useThemeStore } from 'src/state/themeStore';
 import { getByPath } from 'src/utils';
 
+import { ButtonShuffle } from '../Common/ButtonShuffle';
 import { HexColorField } from './HexColorField';
 import type { NeutralColorType } from './NeutralColorBlock';
 
@@ -31,15 +32,20 @@ function ShadeItem({ colorValue }: { colorValue: string }) {
   return (
     <Stack
       direction="row"
-      alignItems="center"
-      justifyContent="space-between"
       sx={{
+        alignItems: 'center',
+        justifyContent: 'space-between',
         p: 1,
         borderRadius: 1,
         border: '1px solid',
         borderColor: 'divider',
       }}>
-      <Stack direction="row" alignItems="center" spacing={1}>
+      <Stack
+        direction="row"
+        spacing={1}
+        sx={{
+          alignItems: 'center',
+        }}>
         <Box sx={{ width: 24, height: 24, borderRadius: 0.5, bgcolor: colorValue }} />
         <Box>{colorValue}</Box>
       </Stack>
@@ -67,6 +73,7 @@ export function ColorEditDrawer({ open, colorType, onClose }: ColorEditDrawerPro
   const isMobile = useMediaQuery(themeObject.breakpoints.down('md'));
   const setThemeOptions = useThemeStore((s) => s.setThemeOptions);
   const removeThemeOption = useThemeStore((s) => s.removeThemeOption);
+  const shuffleColors = useThemeStore((s) => s.shuffleColors);
 
   const mainColor = useMemo(() => {
     if (isMainColor(colorType)) {
@@ -106,9 +113,21 @@ export function ColorEditDrawer({ open, colorType, onClose }: ColorEditDrawerPro
     setThemeOptions([{ path: `palette.${colorType}`, value: newColor }]);
   };
 
+  const handleShuffleColor = () => {
+    if (!colorType) return;
+    if (mainColor) {
+      shuffleColors(colorType);
+    }
+  };
+
   const drawerContent = (
     <Stack sx={{ p: 2, width: isMobile ? 'auto' : 320 }} spacing={2}>
-      <Stack direction="row" justifyContent="space-between" alignItems="center">
+      <Stack
+        direction="row"
+        sx={{
+          justifyContent: 'space-between',
+          alignItems: 'center',
+        }}>
         <Typography variant="h6">{t('editor.colorSection.title')}</Typography>
         <IconButton onClick={onClose}>
           <Close />
@@ -136,6 +155,8 @@ export function ColorEditDrawer({ open, colorType, onClose }: ColorEditDrawerPro
             <ShadeLabel>{t('editor.colorSection.contrastText')}</ShadeLabel>
             <ShadeItem colorValue={mainColor.contrastText} />
           </Stack>
+          {/* 随机颜色 */}
+          <ButtonShuffle sx={{ mt: 1 }} onClick={handleShuffleColor} />
         </>
       )}
       {neutralColor && (
@@ -143,11 +164,10 @@ export function ColorEditDrawer({ open, colorType, onClose }: ColorEditDrawerPro
           <ColorPickerWrapper>
             <HexColorPicker color={neutralColor} style={{ width: '100%' }} onChange={handleNeutralColorChange} />
           </ColorPickerWrapper>
-          <TextField
-            label="Hex"
-            value={neutralColor}
-            size="small"
-            onChange={(e) => handleMainColorChange(e.target.value)}
+          <HexColorField
+            path={`palette.${colorType}`}
+            onChange={(v) => handleNeutralColorChange(v)}
+            onReset={(p) => removeThemeOption(p)}
           />
         </>
       )}

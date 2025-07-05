@@ -25,6 +25,7 @@ export interface PredefinedTheme {
   name: string;
   light: Record<MainColors, string>;
   dark: Record<MainColors, string>;
+  fonts: Partial<Record<TextVariant, { fontFamily: string }>>;
 }
 
 export interface EditorState {
@@ -52,14 +53,29 @@ export interface ThemeStoreState {
   previewSize: PreviewSize;
   selectedComponentId: string;
   themeObject: Theme;
+  saving: boolean;
+  history: {
+    concepts: Concept[];
+    currentConceptId: string;
+  }[];
+  currentHistoryIndex: number;
+  maxHistorySize: number;
 }
 
 export interface ThemeStoreModel extends ThemeStoreState {
-  // 整体设置
+  // # 整体设置
   resetStore: () => void;
-  resetSiteData: () => void;
+  setSaving: (saving: boolean) => void;
 
-  // Concepts 管理
+  // # 历史记录管理
+  undo: () => void;
+  redo: () => void;
+  canUndo: () => boolean;
+  canRedo: () => boolean;
+  saveToHistory: () => void;
+  clearHistory: () => void;
+
+  // # Concepts 管理
   setCurrentConcept: (id: string) => void;
   getCurrentConcept: () => Concept;
   addConcept: (options?: { name?: string; themeConfig?: Concept['themeConfig'] }) => void;
@@ -67,10 +83,21 @@ export interface ThemeStoreModel extends ThemeStoreState {
   duplicateConcept: (id: string) => void;
   renameConcept: (id: string, name: string) => void;
   setConcepts: (data: { concepts: Concept[]; currentConceptId: string }) => void;
-  applyPredefinedTheme: (concept: Concept, theme: PredefinedTheme, colorKeys?: string | string[]) => Concept;
+  applyTheme: (concept: Concept, theme: PredefinedTheme, options?: { colorKeys?: string | string[] }) => Concept;
+  applyColors: (
+    concept: Concept,
+    theme: Pick<PredefinedTheme, 'light' | 'dark'>,
+    colorKeys?: string | string[],
+  ) => Concept;
+  applyTypography: (
+    concept: Concept,
+    theme: Pick<PredefinedTheme, 'fonts'>,
+    textVariants?: TextVariant | TextVariant[],
+  ) => Concept;
   isPredefinedTheme: (concept: Concept) => boolean;
+  shuffleTheme: () => void;
 
-  // ThemeOption 编辑
+  // # ThemeOption 编辑
   setThemeOption: (path: string, value: any) => void;
   setThemeOptions: (configs: { path: string; value: any }[]) => void;
   removeThemeOption: (path: string) => void;
@@ -80,15 +107,17 @@ export interface ThemeStoreModel extends ThemeStoreState {
   updateThemeConfig: (themeConfig: Concept['themeConfig']) => void;
   getCurrentThemeOptions: () => ThemeOptions;
 
-  // Colors 编辑
+  // # Colors 编辑
   setColorLock: (colorKey: string, isLocked: boolean) => void;
   shuffleColors: (colorKeys?: string | string[]) => void;
   resetColors: () => void;
 
-  // Fonts 编辑
-  setFontOptions: (fontMap: Partial<Record<TextVariant, { fontFamily: string }>>) => void;
+  // # Fonts 编辑
+  fetchFonts: (concepts: Concept | Concept[]) => Set<string>;
+  setFontLock: (variant: TextVariant, isLocked: boolean) => void;
+  setFontOptions: (fonts: Partial<Record<TextVariant, { fontFamily: string }>>) => void;
 
-  // Preview 查看
+  // # Preview 查看
   setPreviewSize: (size: PreviewSize) => void;
   setSelectedComponentId: (id: string) => void;
 }

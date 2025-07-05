@@ -36,7 +36,10 @@ export default function MainFeaturedPost({ post }: Props) {
         }}
       />
       <Grid container>
-        <Grid item md={6}>
+        <Grid
+          size={{
+            md: 6,
+          }}>
           <Box
             sx={{
               position: 'relative',
@@ -55,7 +58,12 @@ export default function MainFeaturedPost({ post }: Props) {
               </Typography>
             </Tooltip>
             <Tooltip title='<Typography color="textPrimary" variant="h5">' placement="left" arrow>
-              <Typography variant="h5" color="inherit" paragraph>
+              <Typography
+                variant="h5"
+                color="inherit"
+                sx={{
+                  marginBottom: '16px',
+                }}>
                 {post.description}
               </Typography>
             </Tooltip>

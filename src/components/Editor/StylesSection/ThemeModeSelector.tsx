@@ -26,7 +26,12 @@ function ThemeModeSelector({ value = 'light', onChange }: ThemeModeSelectorProps
   return (
     <Stack direction="row" spacing={2}>
       <OptionPaper elevation={0} className={value === 'light' ? 'Mui-selected' : ''} onClick={() => onChange('light')}>
-        <Stack spacing={1} direction="row" alignItems="center">
+        <Stack
+          spacing={1}
+          direction="row"
+          sx={{
+            alignItems: 'center',
+          }}>
           <Box
             sx={{
               height: 24,
@@ -41,7 +46,12 @@ function ThemeModeSelector({ value = 'light', onChange }: ThemeModeSelectorProps
         </Stack>
       </OptionPaper>
       <OptionPaper elevation={0} className={value === 'dark' ? 'Mui-selected' : ''} onClick={() => onChange('dark')}>
-        <Stack spacing={1} direction="row" alignItems="center">
+        <Stack
+          spacing={1}
+          direction="row"
+          sx={{
+            alignItems: 'center',
+          }}>
           <Box sx={{ height: 24, width: 24, bgcolor: 'grey.800', borderRadius: 64 }} />
           <Typography variant="body2">{t('editor.darkMode')}</Typography>
         </Stack>
@@ -50,7 +60,12 @@ function ThemeModeSelector({ value = 'light', onChange }: ThemeModeSelectorProps
         elevation={0}
         className={value === 'system' ? 'Mui-selected' : ''}
         onClick={() => onChange('system')}>
-        <Stack spacing={1} direction="row" alignItems="center">
+        <Stack
+          spacing={1}
+          direction="row"
+          sx={{
+            alignItems: 'center',
+          }}>
           <Box
             sx={{
               height: 24,

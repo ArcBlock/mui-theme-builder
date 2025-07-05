@@ -1,8 +1,17 @@
+## 0.3.0 (2025-7-5)
+
+- fix: unify interaction behavior for lock, shuffle, and reset buttons
+- fix: fix crash when editing color values
+- feat: improve responsive layout for better mobile support
+- refactor: reorganize action buttons for clearer UI separation
+- feat: support live preview in Preview panel
+- feat: add undo and redo functionality
+
 ## 0.2.1 (2025-6-28)
 
 - feat: show the name of the built-in theme
 - feat: supports disabling Dark/Light mode
-- feat: preview window supports scale 
+- feat: preview window supports scale
 
 ## 0.2.0 (2025-6-25)
 

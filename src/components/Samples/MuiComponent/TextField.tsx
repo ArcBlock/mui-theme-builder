@@ -28,8 +28,10 @@ export default function TextFieldExample() {
           label="Read Only"
           defaultValue="Hello World"
           variant="standard"
-          InputProps={{
-            readOnly: true,
+          slotProps={{
+            input: {
+              readOnly: true,
+            },
           }}
         />
         <TextField
@@ -37,8 +39,10 @@ export default function TextFieldExample() {
           label="Number"
           type="number"
           variant="standard"
-          InputLabelProps={{
-            shrink: true,
+          slotProps={{
+            inputLabel: {
+              shrink: true,
+            },
           }}
         />
         <TextField id="standard-search" label="Search field" type="search" variant="standard" />
@@ -71,19 +75,23 @@ export default function TextFieldExample() {
           id="filled-read-only-input"
           label="Read Only"
           defaultValue="Hello World"
-          InputProps={{
-            readOnly: true,
-          }}
           variant="filled"
+          slotProps={{
+            input: {
+              readOnly: true,
+            },
+          }}
         />
         <TextField
           id="filled-number"
           label="Number"
           type="number"
-          InputLabelProps={{
-            shrink: true,
-          }}
           variant="filled"
+          slotProps={{
+            inputLabel: {
+              shrink: true,
+            },
+          }}
         />
         <TextField id="filled-search" label="Search field" type="search" variant="filled" />
         <TextField
@@ -110,16 +118,20 @@ export default function TextFieldExample() {
           id="outlined-read-only-input"
           label="Read Only"
           defaultValue="Hello World"
-          InputProps={{
-            readOnly: true,
+          slotProps={{
+            input: {
+              readOnly: true,
+            },
           }}
         />
         <TextField
           id="outlined-number"
           label="Number"
           type="number"
-          InputLabelProps={{
-            shrink: true,
+          slotProps={{
+            inputLabel: {
+              shrink: true,
+            },
           }}
         />
         <TextField id="outlined-search" label="Search field" type="search" />

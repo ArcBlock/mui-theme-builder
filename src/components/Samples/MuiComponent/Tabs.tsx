@@ -13,7 +13,7 @@ interface TabPanelProps {
   value: any;
 }
 
-function TabPanel(props: TabPanelProps) {
+function TabPanel({ ...props }: TabPanelProps) {
   const { children, value, index, ...other } = props;
 
   return (
@@ -24,7 +24,10 @@ function TabPanel(props: TabPanelProps) {
       aria-labelledby={`simple-tab-${index}`}
       {...other}>
       {value === index && (
-        <Box p={3}>
+        <Box
+          sx={{
+            p: 3,
+          }}>
           <Typography>{children}</Typography>
         </Box>
       )}
@@ -52,7 +55,10 @@ export default function TabsExample() {
         flexGrow: 1,
         bgcolor: 'background.paper',
       }}>
-      <Box position="static">
+      <Box
+        sx={{
+          position: 'static',
+        }}>
         <Tabs value={value} onChange={handleChange} aria-label="simple tabs example">
           <Tab label="Recents" {...a11yProps(0)} />
           <Tab label="Favourites" {...a11yProps(1)} />
@@ -68,8 +74,10 @@ export default function TabsExample() {
       <TabPanel value={value} index={2}>
         Item Three
       </TabPanel>
-
-      <Box position="static">
+      <Box
+        sx={{
+          position: 'static',
+        }}>
         <Tabs value={value} onChange={handleChange} aria-label="simple tabs example">
           <Tab icon={<PhoneIcon />} label="Recents" {...a11yProps(0)} />
           <Tab icon={<FavoriteIcon />} label="Favourites" {...a11yProps(1)} />

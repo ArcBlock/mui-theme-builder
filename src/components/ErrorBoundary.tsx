@@ -1,6 +1,5 @@
 import { Alert, Box, Button } from '@mui/material';
 import { Component, ErrorInfo, ReactNode, useCallback } from 'react';
-import { useThemeStore } from 'src/state/themeStore';
 
 interface Props {
   children: ReactNode;
@@ -62,15 +61,13 @@ class ErrorBoundary extends Component<Props, State> {
 export default ErrorBoundary;
 
 function ClearStorageButton() {
-  const resetSiteData = useThemeStore((s) => s.resetSiteData);
   const handleClick = useCallback(() => {
-    resetSiteData();
     window.location.reload();
-  }, [resetSiteData]);
+  }, []);
 
   return (
     <Button variant="contained" color="primary" size="large" onClick={handleClick}>
-      Reset Site Data
+      Refresh
     </Button>
   );
 }

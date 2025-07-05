@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { useCallback } from 'react';
+import { useThemeStore } from 'src/state/themeStore';
 import { Concept } from 'src/types/theme';
 import { getAuthHeaders, isDev } from 'src/utils';
 
@@ -7,6 +8,7 @@ import useSchemaKey from './useSchemaKey';
 
 export default function useSave() {
   const schemaKey = useSchemaKey();
+  const setSaving = useThemeStore((s) => s.setSaving);
 
   const saveTheme = useCallback(
     async ({ concepts, currentConceptId }: { concepts: Concept[]; currentConceptId: string }) => {
@@ -15,8 +17,22 @@ export default function useSave() {
         currentConceptId,
       };
 
+      setSaving(true);
+
+      // 本地测试用
+      if (isDev) {
+        // eslint-disable-next-line no-console
+        console.log('themeData', themeData);
+        // eslint-disable-next-line no-promise-executor-return
+        await new Promise((resolve) => setTimeout(resolve, 500));
+        // eslint-disable-next-line no-console
+        setSaving(false);
+
+        return;
+      }
+
       // 后端保存
-      if (!isDev) {
+      try {
         await axios.post(
           schemaKey,
           {
@@ -26,12 +42,14 @@ export default function useSave() {
             headers: getAuthHeaders(),
           },
         );
-      } else {
-        // eslint-disable-next-line no-console
-        console.log('themeData', themeData); // 本地测试用
+        // eslint-disable-next-line no-useless-catch
+      } catch (error) {
+        throw error;
+      } finally {
+        setSaving(false);
       }
     },
-    [schemaKey],
+    [schemaKey, setSaving],
   );
 
   return { saveTheme };

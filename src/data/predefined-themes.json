@@ -16,6 +16,14 @@
       "error": "#E57373",
       "info": "#64B5F6",
       "warning": "#FFB74D"
+    },
+    "fonts": {
+      "heading": {
+        "fontFamily": "Manrope"
+      },
+      "body": {
+        "fontFamily": "Lato"
+      }
     }
   },
   {
@@ -35,6 +43,14 @@
       "error": "#E74C3C",
       "info": "#3498DB",
       "warning": "#F39C12"
+    },
+    "fonts": {
+      "heading": {
+        "fontFamily": "Libre Baskerville"
+      },
+      "body": {
+        "fontFamily": "Crimson Text"
+      }
     }
   },
   {
@@ -54,6 +70,14 @@
       "error": "#EF9A9A",
       "info": "#9FA8DA",
       "warning": "#FFE082"
+    },
+    "fonts": {
+      "heading": {
+        "fontFamily": "Cormorant Garamond"
+      },
+      "body": {
+        "fontFamily": "EB Garamond"
+      }
     }
   },
   {
@@ -73,6 +97,14 @@
       "error": "#EF476F",
       "info": "#00B4D8",
       "warning": "#FFD60A"
+    },
+    "fonts": {
+      "heading": {
+        "fontFamily": "Raleway"
+      },
+      "body": {
+        "fontFamily": "PT Sans"
+      }
     }
   },
   {
@@ -92,6 +124,14 @@
       "error": "#E74C3C",
       "info": "#3498DB",
       "warning": "#F1C40F"
+    },
+    "fonts": {
+      "heading": {
+        "fontFamily": "IBM Plex Serif"
+      },
+      "body": {
+        "fontFamily": "IBM Plex Sans"
+      }
     }
   },
   {
@@ -111,6 +151,14 @@
       "error": "#EF5350",
       "info": "#80CBC4",
       "warning": "#FFCC02"
+    },
+    "fonts": {
+      "heading": {
+        "fontFamily": "Quicksand"
+      },
+      "body": {
+        "fontFamily": "Nunito Sans"
+      }
     }
   },
   {
@@ -130,6 +178,14 @@
       "error": "#E57373",
       "info": "#64B5F6",
       "warning": "#FFB74D"
+    },
+    "fonts": {
+      "heading": {
+        "fontFamily": "Dancing Script"
+      },
+      "body": {
+        "fontFamily": "Lora"
+      }
     }
   },
   {
@@ -149,6 +205,14 @@
       "error": "#E57373",
       "info": "#64B5F6",
       "warning": "#FFB74D"
+    },
+    "fonts": {
+      "heading": {
+        "fontFamily": "Montserrat"
+      },
+      "body": {
+        "fontFamily": "Open Sans"
+      }
     }
   },
   {
@@ -168,6 +232,14 @@
       "error": "#E57373",
       "info": "#64B5F6",
       "warning": "#FF8A65"
+    },
+    "fonts": {
+      "heading": {
+        "fontFamily": "Lobster"
+      },
+      "body": {
+        "fontFamily": "Roboto Slab"
+      }
     }
   },
   {
@@ -187,6 +259,14 @@
       "error": "#E57373",
       "info": "#64B5F6",
       "warning": "#FFB74D"
+    },
+    "fonts": {
+      "heading": {
+        "fontFamily": "Pacifico"
+      },
+      "body": {
+        "fontFamily": "Nunito"
+      }
     }
   },
   {
@@ -206,6 +286,14 @@
       "error": "#E57373",
       "info": "#64B5F6",
       "warning": "#FFB74D"
+    },
+    "fonts": {
+      "heading": {
+        "fontFamily": "Gentium Plus"
+      },
+      "body": {
+        "fontFamily": "Vollkorn"
+      }
     }
   },
   {
@@ -225,6 +313,14 @@
       "error": "#E57373",
       "info": "#4DD0E1",
       "warning": "#FFB74D"
+    },
+    "fonts": {
+      "heading": {
+        "fontFamily": "Oswald"
+      },
+      "body": {
+        "fontFamily": "Public Sans"
+      }
     }
   },
   {
@@ -244,6 +340,14 @@
       "error": "#E57373",
       "info": "#64B5F6",
       "warning": "#FFB74D"
+    },
+    "fonts": {
+      "heading": {
+        "fontFamily": "Kalam"
+      },
+      "body": {
+        "fontFamily": "Heebo"
+      }
     }
   },
   {
@@ -263,6 +367,14 @@
       "error": "#E57373",
       "info": "#64B5F6",
       "warning": "#FFB74D"
+    },
+    "fonts": {
+      "heading": {
+        "fontFamily": "Rubik"
+      },
+      "body": {
+        "fontFamily": "Karla"
+      }
     }
   },
   {
@@ -282,6 +394,14 @@
       "error": "#E57373",
       "info": "#64B5F6",
       "warning": "#FF8A65"
+    },
+    "fonts": {
+      "heading": {
+        "fontFamily": "Righteous"
+      },
+      "body": {
+        "fontFamily": "Barlow"
+      }
     }
   },
   {
@@ -301,6 +421,14 @@
       "error": "#E57373",
       "info": "#64B5F6",
       "warning": "#FFB74D"
+    },
+    "fonts": {
+      "heading": {
+        "fontFamily": "Cinzel"
+      },
+      "body": {
+        "fontFamily": "Spectral"
+      }
     }
   },
   {
@@ -320,6 +448,14 @@
       "error": "#E57373",
       "info": "#64B5F6",
       "warning": "#FFB74D"
+    },
+    "fonts": {
+      "heading": {
+        "fontFamily": "Exo 2"
+      },
+      "body": {
+        "fontFamily": "Fira Sans"
+      }
     }
   },
   {
@@ -339,6 +475,14 @@
       "error": "#F44336",
       "info": "#64B5F6",
       "warning": "#FFB74D"
+    },
+    "fonts": {
+      "heading": {
+        "fontFamily": "Ponnala"
+      },
+      "body": {
+        "fontFamily": "Inter"
+      }
     }
   },
   {
@@ -358,6 +502,14 @@
       "error": "#E57373",
       "info": "#64B5F6",
       "warning": "#FFB74D"
+    },
+    "fonts": {
+      "heading": {
+        "fontFamily": "Ponnala"
+      },
+      "body": {
+        "fontFamily": "Inter"
+      }
     }
   },
   {
@@ -377,6 +529,14 @@
       "error": "#E57373",
       "info": "#64B5F6",
       "warning": "#FFB74D"
+    },
+    "fonts": {
+      "heading": {
+        "fontFamily": "Playfair Display"
+      },
+      "body": {
+        "fontFamily": "Merriweather"
+      }
     }
   },
   {
@@ -396,6 +556,14 @@
       "error": "#E57373",
       "info": "#64B5F6",
       "warning": "#FFB74D"
+    },
+    "fonts": {
+      "heading": {
+        "fontFamily": "Comfortaa"
+      },
+      "body": {
+        "fontFamily": "Poppins"
+      }
     }
   },
   {
@@ -415,6 +583,14 @@
       "error": "#E57373",
       "info": "#64B5F6",
       "warning": "#FFB74D"
+    },
+    "fonts": {
+      "heading": {
+        "fontFamily": "Ponnala"
+      },
+      "body": {
+        "fontFamily": "Inter"
+      }
     }
   },
   {
@@ -434,6 +610,14 @@
       "error": "#E57373",
       "info": "#64B5F6",
       "warning": "#FFB74D"
+    },
+    "fonts": {
+      "heading": {
+        "fontFamily": "Bubblegum Sans"
+      },
+      "body": {
+        "fontFamily": "Fredoka"
+      }
     }
   },
   {
@@ -453,6 +637,14 @@
       "error": "#E57373",
       "info": "#64B5F6",
       "warning": "#FFB74D"
+    },
+    "fonts": {
+      "heading": {
+        "fontFamily": "Ponnala"
+      },
+      "body": {
+        "fontFamily": "Inter"
+      }
     }
   },
   {
@@ -472,6 +664,14 @@
       "error": "#E57373",
       "info": "#64B5F6",
       "warning": "#FFB74D"
+    },
+    "fonts": {
+      "heading": {
+        "fontFamily": "Ponnala"
+      },
+      "body": {
+        "fontFamily": "Inter"
+      }
     }
   },
   {
@@ -491,6 +691,14 @@
       "error": "#E57373",
       "info": "#64B5F6",
       "warning": "#FFB74D"
+    },
+    "fonts": {
+      "heading": {
+        "fontFamily": "Ponnala"
+      },
+      "body": {
+        "fontFamily": "Work Sans"
+      }
     }
   },
   {
@@ -510,6 +718,14 @@
       "error": "#E57373",
       "info": "#64B5F6",
       "warning": "#FFB74D"
+    },
+    "fonts": {
+      "heading": {
+        "fontFamily": "Playfair Display"
+      },
+      "body": {
+        "fontFamily": "Merriweather"
+      }
     }
   },
   {
@@ -529,6 +745,14 @@
       "error": "#F44336",
       "info": "#64B5F6",
       "warning": "#FFB74D"
+    },
+    "fonts": {
+      "heading": {
+        "fontFamily": "Ponnala"
+      },
+      "body": {
+        "fontFamily": "Inter"
+      }
     }
   },
   {
@@ -548,6 +772,14 @@
       "error": "#E57373",
       "info": "#64B5F6",
       "warning": "#FFB74D"
+    },
+    "fonts": {
+      "heading": {
+        "fontFamily": "Ponnala"
+      },
+      "body": {
+        "fontFamily": "Inter"
+      }
     }
   },
   {
@@ -567,6 +799,14 @@
       "error": "#E57373",
       "info": "#64B5F6",
       "warning": "#FFB74D"
+    },
+    "fonts": {
+      "heading": {
+        "fontFamily": "Ponnala"
+      },
+      "body": {
+        "fontFamily": "Inter"
+      }
     }
   },
   {
@@ -586,6 +826,14 @@
       "error": "#E57373",
       "info": "#64B5F6",
       "warning": "#FFB74D"
+    },
+    "fonts": {
+      "heading": {
+        "fontFamily": "Ponnala"
+      },
+      "body": {
+        "fontFamily": "Inter"
+      }
     }
   },
   {
@@ -605,6 +853,14 @@
       "error": "#E57373",
       "info": "#64B5F6",
       "warning": "#FFB74D"
+    },
+    "fonts": {
+      "heading": {
+        "fontFamily": "Playfair Display"
+      },
+      "body": {
+        "fontFamily": "Merriweather"
+      }
     }
   },
   {
@@ -624,6 +880,14 @@
       "error": "#E57373",
       "info": "#64B5F6",
       "warning": "#FFB74D"
+    },
+    "fonts": {
+      "heading": {
+        "fontFamily": "Ponnala"
+      },
+      "body": {
+        "fontFamily": "Inter"
+      }
     }
   },
   {
@@ -643,6 +907,14 @@
       "error": "#E57373",
       "info": "#64B5F6",
       "warning": "#FFB74D"
+    },
+    "fonts": {
+      "heading": {
+        "fontFamily": "Bubblegum Sans"
+      },
+      "body": {
+        "fontFamily": "Fredoka"
+      }
     }
   },
   {
@@ -662,6 +934,14 @@
       "error": "#E57373",
       "info": "#64B5F6",
       "warning": "#FFB74D"
+    },
+    "fonts": {
+      "heading": {
+        "fontFamily": "Ponnala"
+      },
+      "body": {
+        "fontFamily": "Inter"
+      }
     }
   },
   {
@@ -681,6 +961,14 @@
       "error": "#E57373",
       "info": "#64B5F6",
       "warning": "#FFB74D"
+    },
+    "fonts": {
+      "heading": {
+        "fontFamily": "Ponnala"
+      },
+      "body": {
+        "fontFamily": "Inter"
+      }
     }
   },
   {
@@ -700,6 +988,14 @@
       "error": "#FF3131",
       "info": "#00BFFF",
       "warning": "#FFD600"
+    },
+    "fonts": {
+      "heading": {
+        "fontFamily": "Audiowide"
+      },
+      "body": {
+        "fontFamily": "Fira Code"
+      }
     }
   },
   {
@@ -719,6 +1015,14 @@
       "error": "#FF1744",
       "info": "#00B8D4",
       "warning": "#FF9800"
+    },
+    "fonts": {
+      "heading": {
+        "fontFamily": "Righteous"
+      },
+      "body": {
+        "fontFamily": "Fredoka"
+      }
     }
   },
   {
@@ -738,6 +1042,14 @@
       "error": "#FF1744",
       "info": "#00B8D4",
       "warning": "#FFEA00"
+    },
+    "fonts": {
+      "heading": {
+        "fontFamily": "Orbitron"
+      },
+      "body": {
+        "fontFamily": "Space Grotesk"
+      }
     }
   },
   {
@@ -757,6 +1069,14 @@
       "error": "#FF1744",
       "info": "#18FFFF",
       "warning": "#FFD740"
+    },
+    "fonts": {
+      "heading": {
+        "fontFamily": "Lilita One"
+      },
+      "body": {
+        "fontFamily": "Comfortaa"
+      }
     }
   },
   {
@@ -776,6 +1096,14 @@
       "error": "#FF1744",
       "info": "#536DFE",
       "warning": "#FFD600"
+    },
+    "fonts": {
+      "heading": {
+        "fontFamily": "JetBrains Mono"
+      },
+      "body": {
+        "fontFamily": "Roboto Mono"
+      }
     }
   },
   {
@@ -795,6 +1123,14 @@
       "error": "#FF1744",
       "info": "#2979FF",
       "warning": "#FFEA00"
+    },
+    "fonts": {
+      "heading": {
+        "fontFamily": "Bebas Neue"
+      },
+      "body": {
+        "fontFamily": "Ubuntu"
+      }
     }
   },
   {
@@ -814,6 +1150,14 @@
       "error": "#FF1744",
       "info": "#536DFE",
       "warning": "#FFD600"
+    },
+    "fonts": {
+      "heading": {
+        "fontFamily": "Poppins"
+      },
+      "body": {
+        "fontFamily": "Mulish"
+      }
     }
   },
   {
@@ -833,6 +1177,14 @@
       "error": "#FF1744",
       "info": "#8AC6D1",
       "warning": "#FFD600"
+    },
+    "fonts": {
+      "heading": {
+        "fontFamily": "Josefin Sans"
+      },
+      "body": {
+        "fontFamily": "Libre Franklin"
+      }
     }
   },
   {
@@ -852,6 +1204,14 @@
       "error": "#FF1744",
       "info": "#FFD600",
       "warning": "#FFEA00"
+    },
+    "fonts": {
+      "heading": {
+        "fontFamily": "Playfair Display"
+      },
+      "body": {
+        "fontFamily": "Merriweather"
+      }
     }
   },
   {
@@ -871,6 +1231,14 @@
       "error": "#FF1744",
       "info": "#00B8D4",
       "warning": "#FFD600"
+    },
+    "fonts": {
+      "heading": {
+        "fontFamily": "Righteous"
+      },
+      "body": {
+        "fontFamily": "Fredoka"
+      }
     }
   },
   {
@@ -890,6 +1258,14 @@
       "error": "#FF2052",
       "info": "#00BFFF",
       "warning": "#FFD700"
+    },
+    "fonts": {
+      "heading": {
+        "fontFamily": "Audiowide"
+      },
+      "body": {
+        "fontFamily": "Fira Code"
+      }
     }
   },
   {
@@ -909,6 +1285,14 @@
       "error": "#D7263D",
       "info": "#00B8D4",
       "warning": "#FFEA00"
+    },
+    "fonts": {
+      "heading": {
+        "fontFamily": "Righteous"
+      },
+      "body": {
+        "fontFamily": "Fredoka"
+      }
     }
   },
   {
@@ -928,6 +1312,14 @@
       "error": "#FF1744",
       "info": "#18FFFF",
       "warning": "#FFD740"
+    },
+    "fonts": {
+      "heading": {
+        "fontFamily": "Bubblegum Sans"
+      },
+      "body": {
+        "fontFamily": "Fredoka"
+      }
     }
   },
   {
@@ -947,6 +1339,14 @@
       "error": "#FF2052",
       "info": "#00BFFF",
       "warning": "#FFD700"
+    },
+    "fonts": {
+      "heading": {
+        "fontFamily": "Audiowide"
+      },
+      "body": {
+        "fontFamily": "Fira Code"
+      }
     }
   },
   {
@@ -966,6 +1366,14 @@
       "error": "#FF1744",
       "info": "#00B8D4",
       "warning": "#FFEA00"
+    },
+    "fonts": {
+      "heading": {
+        "fontFamily": "Ponnala"
+      },
+      "body": {
+        "fontFamily": "Inter"
+      }
     }
   },
   {
@@ -985,6 +1393,14 @@
       "error": "#FF1744",
       "info": "#2979FF",
       "warning": "#FFEA00"
+    },
+    "fonts": {
+      "heading": {
+        "fontFamily": "Ponnala"
+      },
+      "body": {
+        "fontFamily": "Inter"
+      }
     }
   },
   {
@@ -1004,6 +1420,14 @@
       "error": "#FF1744",
       "info": "#536DFE",
       "warning": "#FFD600"
+    },
+    "fonts": {
+      "heading": {
+        "fontFamily": "Press Start 2P"
+      },
+      "body": {
+        "fontFamily": "VT323"
+      }
     }
   },
   {
@@ -1023,6 +1447,14 @@
       "error": "#FF1744",
       "info": "#00B8D4",
       "warning": "#FFD600"
+    },
+    "fonts": {
+      "heading": {
+        "fontFamily": "Dancing Script"
+      },
+      "body": {
+        "fontFamily": "Playfair Display"
+      }
     }
   },
   {
@@ -1042,6 +1474,14 @@
       "error": "#FF1744",
       "info": "#8AC6D1",
       "warning": "#FFD740"
+    },
+    "fonts": {
+      "heading": {
+        "fontFamily": "Noto Sans JP"
+      },
+      "body": {
+        "fontFamily": "Noto Sans"
+      }
     }
   },
   {
@@ -1061,6 +1501,14 @@
       "error": "#FF1744",
       "info": "#00B8D4",
       "warning": "#FFD600"
+    },
+    "fonts": {
+      "heading": {
+        "fontFamily": "Cabin"
+      },
+      "body": {
+        "fontFamily": "Source Sans 3"
+      }
     }
   },
   {
@@ -1080,6 +1528,14 @@
       "error": "#FF61A6",
       "info": "#B967FF",
       "warning": "#FFFB96"
+    },
+    "fonts": {
+      "heading": {
+        "fontFamily": "Syncopate"
+      },
+      "body": {
+        "fontFamily": "Electrolize"
+      }
     }
   },
   {
@@ -1099,6 +1555,14 @@
       "error": "#FF3131",
       "info": "#00BFFF",
       "warning": "#F9FF21"
+    },
+    "fonts": {
+      "heading": {
+        "fontFamily": "Righteous"
+      },
+      "body": {
+        "fontFamily": "Fredoka"
+      }
     }
   },
   {
@@ -1118,6 +1582,14 @@
       "error": "#00FFAB",
       "info": "#FF61A6",
       "warning": "#FFFB96"
+    },
+    "fonts": {
+      "heading": {
+        "fontFamily": "Silkscreen"
+      },
+      "body": {
+        "fontFamily": "Share Tech Mono"
+      }
     }
   },
   {
@@ -1137,6 +1609,14 @@
       "error": "#2979FF",
       "info": "#FF80AB",
       "warning": "#00B8D4"
+    },
+    "fonts": {
+      "heading": {
+        "fontFamily": "Baloo 2"
+      },
+      "body": {
+        "fontFamily": "Fredoka"
+      }
     }
   },
   {
@@ -1156,6 +1636,14 @@
       "error": "#FF3131",
       "info": "#B967FF",
       "warning": "#F9FF21"
+    },
+    "fonts": {
+      "heading": {
+        "fontFamily": "Comfortaa"
+      },
+      "body": {
+        "fontFamily": "Poppins"
+      }
     }
   },
   {
@@ -1175,6 +1663,14 @@
       "error": "#FF71CE",
       "info": "#39FF14",
       "warning": "#FF3131"
+    },
+    "fonts": {
+      "heading": {
+        "fontFamily": "Audiowide"
+      },
+      "body": {
+        "fontFamily": "Fira Code"
+      }
     }
   },
   {
@@ -1194,6 +1690,14 @@
       "error": "#FF00C8",
       "info": "#01CDFE",
       "warning": "#FFB300"
+    },
+    "fonts": {
+      "heading": {
+        "fontFamily": "Ponnala"
+      },
+      "body": {
+        "fontFamily": "Work Sans"
+      }
     }
   },
   {
@@ -1213,6 +1717,14 @@
       "error": "#00FFAB",
       "info": "#F50057",
       "warning": "#B967FF"
+    },
+    "fonts": {
+      "heading": {
+        "fontFamily": "Ponnala"
+      },
+      "body": {
+        "fontFamily": "Inter"
+      }
     }
   },
   {
@@ -1232,6 +1744,14 @@
       "error": "#01CDFE",
       "info": "#FFB300",
       "warning": "#00FFAB"
+    },
+    "fonts": {
+      "heading": {
+        "fontFamily": "Ponnala"
+      },
+      "body": {
+        "fontFamily": "Inter"
+      }
     }
   },
   {
@@ -1251,6 +1771,14 @@
       "error": "#FF3131",
       "info": "#B967FF",
       "warning": "#01CDFE"
+    },
+    "fonts": {
+      "heading": {
+        "fontFamily": "Ponnala"
+      },
+      "body": {
+        "fontFamily": "Inter"
+      }
     }
   },
   {
@@ -1270,6 +1798,14 @@
       "error": "#FF61A6",
       "info": "#00FFAB",
       "warning": "#FFFB96"
+    },
+    "fonts": {
+      "heading": {
+        "fontFamily": "Ponnala"
+      },
+      "body": {
+        "fontFamily": "Inter"
+      }
     }
   },
   {
@@ -1289,6 +1825,14 @@
       "error": "#2979FF",
       "info": "#F9FF21",
       "warning": "#FF3131"
+    },
+    "fonts": {
+      "heading": {
+        "fontFamily": "Ponnala"
+      },
+      "body": {
+        "fontFamily": "Inter"
+      }
     }
   },
   {
@@ -1308,6 +1852,14 @@
       "error": "#FF1744",
       "info": "#B967FF",
       "warning": "#FFD740"
+    },
+    "fonts": {
+      "heading": {
+        "fontFamily": "Bubblegum Sans"
+      },
+      "body": {
+        "fontFamily": "Fredoka"
+      }
     }
   },
   {
@@ -1327,6 +1879,14 @@
       "error": "#FF00C8",
       "info": "#FFB300",
       "warning": "#00FFAB"
+    },
+    "fonts": {
+      "heading": {
+        "fontFamily": "Ponnala"
+      },
+      "body": {
+        "fontFamily": "Inter"
+      }
     }
   },
   {
@@ -1346,6 +1906,14 @@
       "error": "#FF3131",
       "info": "#01CDFE",
       "warning": "#B967FF"
+    },
+    "fonts": {
+      "heading": {
+        "fontFamily": "Ponnala"
+      },
+      "body": {
+        "fontFamily": "Inter"
+      }
     }
   },
   {
@@ -1365,6 +1933,14 @@
       "error": "#FF3131",
       "info": "#01CDFE",
       "warning": "#FFD600"
+    },
+    "fonts": {
+      "heading": {
+        "fontFamily": "Ponnala"
+      },
+      "body": {
+        "fontFamily": "Inter"
+      }
     }
   },
   {
@@ -1384,6 +1960,14 @@
       "error": "#FF61A6",
       "info": "#B967FF",
       "warning": "#00FFAB"
+    },
+    "fonts": {
+      "heading": {
+        "fontFamily": "Ponnala"
+      },
+      "body": {
+        "fontFamily": "Inter"
+      }
     }
   },
   {
@@ -1403,6 +1987,14 @@
       "error": "#00B8D4",
       "info": "#FFB300",
       "warning": "#B967FF"
+    },
+    "fonts": {
+      "heading": {
+        "fontFamily": "Bubblegum Sans"
+      },
+      "body": {
+        "fontFamily": "Fredoka"
+      }
     }
   },
   {
@@ -1422,6 +2014,14 @@
       "error": "#FF3131",
       "info": "#01CDFE",
       "warning": "#FFFB96"
+    },
+    "fonts": {
+      "heading": {
+        "fontFamily": "Ponnala"
+      },
+      "body": {
+        "fontFamily": "Work Sans"
+      }
     }
   },
   {
@@ -1441,6 +2041,14 @@
       "error": "#FF61A6",
       "info": "#B967FF",
       "warning": "#01CDFE"
+    },
+    "fonts": {
+      "heading": {
+        "fontFamily": "Ponnala"
+      },
+      "body": {
+        "fontFamily": "Inter"
+      }
     }
   },
   {
@@ -1460,6 +2068,14 @@
       "error": "#FF1744",
       "info": "#01CDFE",
       "warning": "#B967FF"
+    },
+    "fonts": {
+      "heading": {
+        "fontFamily": "Audiowide"
+      },
+      "body": {
+        "fontFamily": "Fira Code"
+      }
     }
   },
   {
@@ -1479,6 +2095,14 @@
       "error": "#FF3131",
       "info": "#B967FF",
       "warning": "#FFD740"
+    },
+    "fonts": {
+      "heading": {
+        "fontFamily": "Bubblegum Sans"
+      },
+      "body": {
+        "fontFamily": "Fredoka"
+      }
     }
   },
   {
@@ -1498,6 +2122,14 @@
       "error": "#FF61A6",
       "info": "#01CDFE",
       "warning": "#FFFB96"
+    },
+    "fonts": {
+      "heading": {
+        "fontFamily": "Righteous"
+      },
+      "body": {
+        "fontFamily": "Fredoka"
+      }
     }
   },
   {
@@ -1517,6 +2149,14 @@
       "error": "#FF3131",
       "info": "#FFB300",
       "warning": "#00FFAB"
+    },
+    "fonts": {
+      "heading": {
+        "fontFamily": "Audiowide"
+      },
+      "body": {
+        "fontFamily": "Fira Code"
+      }
     }
   },
   {
@@ -1536,6 +2176,14 @@
       "error": "#FF1744",
       "info": "#01CDFE",
       "warning": "#B967FF"
+    },
+    "fonts": {
+      "heading": {
+        "fontFamily": "Ponnala"
+      },
+      "body": {
+        "fontFamily": "Inter"
+      }
     }
   },
   {
@@ -1555,6 +2203,14 @@
       "error": "#FF3131",
       "info": "#01CDFE",
       "warning": "#FFFB96"
+    },
+    "fonts": {
+      "heading": {
+        "fontFamily": "Ponnala"
+      },
+      "body": {
+        "fontFamily": "Work Sans"
+      }
     }
   },
   {
@@ -1574,6 +2230,14 @@
       "error": "#FF61A6",
       "info": "#00FFAB",
       "warning": "#FFD740"
+    },
+    "fonts": {
+      "heading": {
+        "fontFamily": "Bubblegum Sans"
+      },
+      "body": {
+        "fontFamily": "Fredoka"
+      }
     }
   },
   {
@@ -1593,6 +2257,14 @@
       "error": "#2979FF",
       "info": "#F9FF21",
       "warning": "#FF3131"
+    },
+    "fonts": {
+      "heading": {
+        "fontFamily": "Ponnala"
+      },
+      "body": {
+        "fontFamily": "Inter"
+      }
     }
   },
   {
@@ -1612,6 +2284,14 @@
       "error": "#FF3131",
       "info": "#01CDFE",
       "warning": "#FFD740"
+    },
+    "fonts": {
+      "heading": {
+        "fontFamily": "Ponnala"
+      },
+      "body": {
+        "fontFamily": "Inter"
+      }
     }
   },
   {
@@ -1631,6 +2311,14 @@
       "error": "#FF61A6",
       "info": "#01CDFE",
       "warning": "#FFD740"
+    },
+    "fonts": {
+      "heading": {
+        "fontFamily": "Comfortaa"
+      },
+      "body": {
+        "fontFamily": "Poppins"
+      }
     }
   },
   {
@@ -1650,6 +2338,14 @@
       "error": "#FF1744",
       "info": "#01CDFE",
       "warning": "#FFD740"
+    },
+    "fonts": {
+      "heading": {
+        "fontFamily": "Ponnala"
+      },
+      "body": {
+        "fontFamily": "Inter"
+      }
     }
   },
   {
@@ -1669,6 +2365,14 @@
       "error": "#FF3131",
       "info": "#FFB300",
       "warning": "#F9FF21"
+    },
+    "fonts": {
+      "heading": {
+        "fontFamily": "Ponnala"
+      },
+      "body": {
+        "fontFamily": "Inter"
+      }
     }
   },
   {
@@ -1688,6 +2392,14 @@
       "error": "#FF3131",
       "info": "#B967FF",
       "warning": "#FFD740"
+    },
+    "fonts": {
+      "heading": {
+        "fontFamily": "Comfortaa"
+      },
+      "body": {
+        "fontFamily": "Poppins"
+      }
     }
   },
   {
@@ -1707,6 +2419,14 @@
       "error": "#2979FF",
       "info": "#F9FF21",
       "warning": "#FF3131"
+    },
+    "fonts": {
+      "heading": {
+        "fontFamily": "Ponnala"
+      },
+      "body": {
+        "fontFamily": "Inter"
+      }
     }
   },
   {
@@ -1726,6 +2446,14 @@
       "error": "#FF3131",
       "info": "#01CDFE",
       "warning": "#FFD740"
+    },
+    "fonts": {
+      "heading": {
+        "fontFamily": "Ponnala"
+      },
+      "body": {
+        "fontFamily": "Inter"
+      }
     }
   },
   {
@@ -1745,6 +2473,14 @@
       "error": "#FF61A6",
       "info": "#B967FF",
       "warning": "#01CDFE"
+    },
+    "fonts": {
+      "heading": {
+        "fontFamily": "Ponnala"
+      },
+      "body": {
+        "fontFamily": "Inter"
+      }
     }
   },
   {
@@ -1764,6 +2500,14 @@
       "error": "#FF3131",
       "info": "#01CDFE",
       "warning": "#FFD600"
+    },
+    "fonts": {
+      "heading": {
+        "fontFamily": "Ponnala"
+      },
+      "body": {
+        "fontFamily": "Inter"
+      }
     }
   },
   {
@@ -1783,6 +2527,14 @@
       "error": "#FF61A6",
       "info": "#B967FF",
       "warning": "#01CDFE"
+    },
+    "fonts": {
+      "heading": {
+        "fontFamily": "Ponnala"
+      },
+      "body": {
+        "fontFamily": "Inter"
+      }
     }
   },
   {
@@ -1802,6 +2554,14 @@
       "error": "#FF61A6",
       "info": "#B967FF",
       "warning": "#00FFAB"
+    },
+    "fonts": {
+      "heading": {
+        "fontFamily": "Ponnala"
+      },
+      "body": {
+        "fontFamily": "Inter"
+      }
     }
   },
   {
@@ -1821,6 +2581,14 @@
       "error": "#00B8D4",
       "info": "#FFB300",
       "warning": "#B967FF"
+    },
+    "fonts": {
+      "heading": {
+        "fontFamily": "Bubblegum Sans"
+      },
+      "body": {
+        "fontFamily": "Fredoka"
+      }
     }
   },
   {
@@ -1840,6 +2608,14 @@
       "error": "#FF61A6",
       "info": "#01CDFE",
       "warning": "#FFFB96"
+    },
+    "fonts": {
+      "heading": {
+        "fontFamily": "Righteous"
+      },
+      "body": {
+        "fontFamily": "Fredoka"
+      }
     }
   },
   {
@@ -1859,6 +2635,14 @@
       "error": "#FF3131",
       "info": "#00BFFF",
       "warning": "#FFD600"
+    },
+    "fonts": {
+      "heading": {
+        "fontFamily": "Audiowide"
+      },
+      "body": {
+        "fontFamily": "Fira Code"
+      }
     }
   },
   {
@@ -1878,6 +2662,14 @@
       "error": "#FF1744",
       "info": "#18FFFF",
       "warning": "#FFD740"
+    },
+    "fonts": {
+      "heading": {
+        "fontFamily": "Bubblegum Sans"
+      },
+      "body": {
+        "fontFamily": "Fredoka"
+      }
     }
   },
   {
@@ -1897,6 +2689,14 @@
       "error": "#FF61A6",
       "info": "#00FFAB",
       "warning": "#FFD740"
+    },
+    "fonts": {
+      "heading": {
+        "fontFamily": "Audiowide"
+      },
+      "body": {
+        "fontFamily": "Fira Code"
+      }
     }
   },
   {
@@ -1916,6 +2716,14 @@
       "error": "#FF1744",
       "info": "#01CDFE",
       "warning": "#B967FF"
+    },
+    "fonts": {
+      "heading": {
+        "fontFamily": "Comfortaa"
+      },
+      "body": {
+        "fontFamily": "Poppins"
+      }
     }
   },
   {
@@ -1935,6 +2743,14 @@
       "error": "#FF3131",
       "info": "#01CDFE",
       "warning": "#FFD740"
+    },
+    "fonts": {
+      "heading": {
+        "fontFamily": "Ponnala"
+      },
+      "body": {
+        "fontFamily": "Inter"
+      }
     }
   },
   {
@@ -1954,6 +2770,14 @@
       "error": "#2979FF",
       "info": "#F9FF21",
       "warning": "#FF3131"
+    },
+    "fonts": {
+      "heading": {
+        "fontFamily": "Ponnala"
+      },
+      "body": {
+        "fontFamily": "Inter"
+      }
     }
   },
   {
@@ -1973,6 +2797,14 @@
       "error": "#FF1744",
       "info": "#536DFE",
       "warning": "#FFD600"
+    },
+    "fonts": {
+      "heading": {
+        "fontFamily": "Ponnala"
+      },
+      "body": {
+        "fontFamily": "Inter"
+      }
     }
   },
   {
@@ -1992,6 +2824,14 @@
       "error": "#00B8D4",
       "info": "#FFB300",
       "warning": "#B967FF"
+    },
+    "fonts": {
+      "heading": {
+        "fontFamily": "Bubblegum Sans"
+      },
+      "body": {
+        "fontFamily": "Fredoka"
+      }
     }
   },
   {
@@ -2011,6 +2851,14 @@
       "error": "#FF3131",
       "info": "#01CDFE",
       "warning": "#FFFB96"
+    },
+    "fonts": {
+      "heading": {
+        "fontFamily": "Ponnala"
+      },
+      "body": {
+        "fontFamily": "Work Sans"
+      }
     }
   },
   {
@@ -2030,6 +2878,14 @@
       "error": "#FF3131",
       "info": "#B967FF",
       "warning": "#F9FF21"
+    },
+    "fonts": {
+      "heading": {
+        "fontFamily": "Comfortaa"
+      },
+      "body": {
+        "fontFamily": "Poppins"
+      }
     }
   },
   {
@@ -2049,6 +2905,14 @@
       "error": "#FF2052",
       "info": "#00BFFF",
       "warning": "#FFD700"
+    },
+    "fonts": {
+      "heading": {
+        "fontFamily": "Audiowide"
+      },
+      "body": {
+        "fontFamily": "Fira Code"
+      }
     }
   },
   {
@@ -2068,6 +2932,14 @@
       "error": "#D7263D",
       "info": "#00B8D4",
       "warning": "#FFEA00"
+    },
+    "fonts": {
+      "heading": {
+        "fontFamily": "Righteous"
+      },
+      "body": {
+        "fontFamily": "Fredoka"
+      }
     }
   },
   {
@@ -2087,6 +2959,14 @@
       "error": "#FF1744",
       "info": "#18FFFF",
       "warning": "#FFD740"
+    },
+    "fonts": {
+      "heading": {
+        "fontFamily": "Bubblegum Sans"
+      },
+      "body": {
+        "fontFamily": "Fredoka"
+      }
     }
   },
   {
@@ -2106,6 +2986,14 @@
       "error": "#FF2052",
       "info": "#00BFFF",
       "warning": "#FFD700"
+    },
+    "fonts": {
+      "heading": {
+        "fontFamily": "Audiowide"
+      },
+      "body": {
+        "fontFamily": "Fira Code"
+      }
     }
   },
   {
@@ -2125,6 +3013,14 @@
       "error": "#FF1744",
       "info": "#00B8D4",
       "warning": "#FFEA00"
+    },
+    "fonts": {
+      "heading": {
+        "fontFamily": "Ponnala"
+      },
+      "body": {
+        "fontFamily": "Inter"
+      }
     }
   },
   {
@@ -2144,6 +3040,14 @@
       "error": "#FF1744",
       "info": "#2979FF",
       "warning": "#FFEA00"
+    },
+    "fonts": {
+      "heading": {
+        "fontFamily": "Ponnala"
+      },
+      "body": {
+        "fontFamily": "Inter"
+      }
     }
   },
   {
@@ -2163,6 +3067,14 @@
       "error": "#FF1744",
       "info": "#536DFE",
       "warning": "#FFD600"
+    },
+    "fonts": {
+      "heading": {
+        "fontFamily": "Audiowide"
+      },
+      "body": {
+        "fontFamily": "Fira Code"
+      }
     }
   },
   {
@@ -2182,6 +3094,14 @@
       "error": "#FF1744",
       "info": "#00B8D4",
       "warning": "#FFD600"
+    },
+    "fonts": {
+      "heading": {
+        "fontFamily": "Comfortaa"
+      },
+      "body": {
+        "fontFamily": "Poppins"
+      }
     }
   },
   {
@@ -2201,6 +3121,14 @@
       "error": "#FF1744",
       "info": "#8AC6D1",
       "warning": "#FFD740"
+    },
+    "fonts": {
+      "heading": {
+        "fontFamily": "Ponnala"
+      },
+      "body": {
+        "fontFamily": "Inter"
+      }
     }
   },
   {
@@ -2220,6 +3148,14 @@
       "error": "#FF1744",
       "info": "#00B8D4",
       "warning": "#FFD600"
+    },
+    "fonts": {
+      "heading": {
+        "fontFamily": "Righteous"
+      },
+      "body": {
+        "fontFamily": "Fredoka"
+      }
     }
   }
 ]

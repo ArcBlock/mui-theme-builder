@@ -13,12 +13,18 @@ export default {
     copy: 'Copy',
     copied: 'Copied!',
     shuffle: 'Shuffle',
+    lock: 'Lock',
+    unlock: 'Unlock',
+    undo: 'Undo',
+    redo: 'Redo',
     concept: {
       name: 'Theme Name',
       add: 'Add Theme',
       rename: 'Rename Theme',
+      duplicateName: 'Theme name already exists',
       duplicate: 'Duplicate Theme',
       delete: 'Delete Theme',
+      shuffle: 'Shuffle Theme',
       saveSuccess: 'Theme saved successfully. Please refresh the page to apply changes.',
       saveFailed: 'Save failed: {message}',
       resetTitle: 'Reset Theme',
@@ -29,7 +35,8 @@ export default {
     colorSection: {
       title: 'Colors',
       shades: 'Shades',
-      reset: 'Reset all colors',
+      reset: 'Reset Colors',
+      invalidHexColor: 'Invalid hex color',
       neutral: {
         title: 'Neutrals',
         default: 'background',

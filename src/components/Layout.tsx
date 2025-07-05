@@ -36,11 +36,18 @@ function Layout({ children }: LayoutProps) {
   const { locale } = useParentLocale();
   const { changeLocale } = useLocaleContext();
   const loading = syncLoading || parentThemeLoading;
+
+  // 跟随父页面主题
   const siteTheme = useMemo(() => {
     if (parentThemeLoading) return {} as Theme;
 
     return createTheme(deepmerge(parentTheme, createSiteThemeOptions(parentTheme)));
   }, [parentTheme, parentThemeLoading]);
+
+  // 跟随父页面 locale
+  useEffect(() => {
+    changeLocale(locale);
+  }, [changeLocale, locale]);
 
   // 通知父页面已经加载完毕
   useEffect(() => {
@@ -48,11 +55,6 @@ function Layout({ children }: LayoutProps) {
       window.parent?.postMessage({ type: 'THEME_BUILDER_LOADED' }, window.location.origin);
     }
   }, [loading]);
-
-  // 跟随父页面 locale 变化
-  useEffect(() => {
-    changeLocale(locale);
-  }, [changeLocale, locale]);
 
   if (!schemaKey && !isDev) {
     return (

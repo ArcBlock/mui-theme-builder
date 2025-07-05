@@ -1,18 +1,25 @@
 import { Box, useTheme } from '@mui/material';
 import { useEffect, useRef, useState } from 'react';
 import { PC_PREVIEW_WINDOW_MIN_WIDTH } from 'src/constants';
+import useBlockletAppUrl from 'src/hooks/useBlockletAppUrl';
 import { useThemeStore } from 'src/state/themeStore';
 
+import SampleNavigation from '../Header/SampleNavigation';
 import { getSampleComponent } from '../Samples';
+import { PreviewBlocklet } from './PreviewBlocklet';
 import PreviewWrapper from './PreviewWrapper';
 
 function PreviewWindow() {
   const theme = useTheme();
   const selectedComponentId = useThemeStore((s) => s.selectedComponentId);
   const previewSize = useThemeStore((s) => s.previewSize);
-  const previewComponent = getSampleComponent(selectedComponentId);
   const containerRef = useRef<HTMLDivElement>(null);
   const [containerWidth, setContainerWidth] = useState<number>(0);
+  const blockletAppUrl = useBlockletAppUrl();
+
+  const sampleComponent = getSampleComponent(selectedComponentId);
+  // 如果 appUrl 存在，则支持 blocklet 实时预览
+  const previewComponent = blockletAppUrl ? <PreviewBlocklet appUrl={blockletAppUrl} /> : sampleComponent;
 
   // 监听容器宽度变化
   useEffect(() => {
@@ -49,6 +56,12 @@ function PreviewWindow() {
         padding: 2,
         position: 'relative',
       }}>
+      {/* Samples 导航 */}
+      {!blockletAppUrl && (
+        <Box sx={{ display: 'flex', justifyContent: 'center', mb: 1 }}>
+          <SampleNavigation />
+        </Box>
+      )}
       <PreviewWrapper
         sx={{
           width: shouldScale ? PC_PREVIEW_WINDOW_MIN_WIDTH : '100%',

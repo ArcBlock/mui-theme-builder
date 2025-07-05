@@ -9,8 +9,9 @@ import { Box, Button, Divider, Menu, MenuItem, Typography, styled } from '@mui/m
 import Drawer from '@mui/material/Drawer';
 import IconButton from '@mui/material/IconButton';
 import TextField from '@mui/material/TextField';
-import { useCallback, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import useMobile from 'src/hooks/useMobile';
+import useSave from 'src/hooks/useSave';
 import { useThemeStore } from 'src/state/themeStore';
 import { Concept } from 'src/types/theme';
 
@@ -54,6 +55,8 @@ const ConceptButton = styled(Box)(() => ({
 
 export function ConceptMenu() {
   const { t } = useLocaleContext();
+  const isMobile = useMobile();
+  //
   const concepts = useThemeStore((s) => s.concepts);
   const currentConceptId = useThemeStore((s) => s.currentConceptId);
   const setCurrentConcept = useThemeStore((s) => s.setCurrentConcept);
@@ -61,34 +64,50 @@ export function ConceptMenu() {
   const duplicateConcept = useThemeStore((s) => s.duplicateConcept);
   const deleteConcept = useThemeStore((s) => s.deleteConcept);
   const renameConcept = useThemeStore((s) => s.renameConcept);
+  //
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
-  const isMobile = useMobile();
+  const { saveTheme } = useSave();
   const [renameDrawerOpen, setRenameDrawerOpen] = useState(false);
   const [renameTargetId, setRenameTargetId] = useState<string | null>(null);
   const [renameValue, setRenameValue] = useState('');
 
   const currentConcept = concepts.find((c) => c.id === currentConceptId);
+
+  // 检查主题名字是否重复
+  const isDuplicateName = useMemo(() => {
+    if (!renameValue.trim()) return false;
+    return concepts.some((concept) => concept.name === renameValue.trim() && concept.id !== renameTargetId);
+  }, [renameValue, concepts, renameTargetId]);
+
+  // 切换主题
   const handleSelectConcept = useCallback(
     (concept: Concept) => () => {
       setCurrentConcept(concept.id);
+      // 直接保存主题
+      saveTheme(useThemeStore.getState());
       setAnchorEl(null);
     },
-    [setCurrentConcept],
+    [setCurrentConcept, saveTheme],
   );
 
+  // 打开主题编辑框
   const openRenameDrawer = (concept: Concept) => {
     setRenameTargetId(concept.id);
     setRenameValue(concept.name);
     setRenameDrawerOpen(true);
   };
+
+  // 关闭主题编辑框
   const closeRenameDrawer = () => {
     setRenameDrawerOpen(false);
     setRenameTargetId(null);
     setRenameValue('');
   };
+
+  // 提交主题表单
   const handleRenameSubmit = () => {
-    if (renameTargetId && renameValue.trim()) {
+    if (renameTargetId && renameValue.trim() && !isDuplicateName) {
       renameConcept(renameTargetId, renameValue.trim());
       closeRenameDrawer();
     }
@@ -99,12 +118,12 @@ export function ConceptMenu() {
       <Box
         className={open ? 'is-open' : ''}
         sx={{
-          minWidth: 80,
+          width: isMobile ? 'auto' : 160,
           display: 'flex',
           alignItems: 'center',
           gap: 1,
           cursor: 'pointer',
-          py: 1,
+          height: '32px',
           px: 1,
           border: '1px solid',
           borderColor: 'transparent',
@@ -117,7 +136,9 @@ export function ConceptMenu() {
           },
         }}
         onClick={(e) => setAnchorEl(e.currentTarget)}>
-        <Typography variant="body2" sx={{ flex: 1 }}>
+        <Typography
+          variant="body2"
+          sx={{ flex: 1, overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis' }}>
           {currentConcept?.name}
         </Typography>
         <KeyboardArrowDownIcon style={{ fontSize: 14 }} />
@@ -154,7 +175,6 @@ export function ConceptMenu() {
                     onClick={(e) => {
                       e.stopPropagation();
                       duplicateConcept(concept.id);
-                      setAnchorEl(null);
                     }}>
                     <ContentCopyIcon sx={{ fontSize: 16 }} />
                   </ConceptButton>
@@ -230,19 +250,27 @@ export function ConceptMenu() {
             label={t('editor.concept.name')}
             value={renameValue}
             autoFocus
+            error={isDuplicateName}
+            helperText={isDuplicateName && t('editor.concept.duplicateName')}
             onChange={(e) => setRenameValue(e.target.value)}
             onKeyDown={(e) => {
               if (e.key === 'Enter') handleRenameSubmit();
               if (e.key === 'Escape') closeRenameDrawer();
             }}
-            inputProps={{ maxLength: 32 }}
             sx={{ mb: 2 }}
+            slotProps={{
+              htmlInput: { maxLength: 32 },
+            }}
           />
           <Box sx={{ display: 'flex', gap: 2, justifyContent: 'flex-end' }}>
             <Button variant="text" size="small" onClick={closeRenameDrawer}>
               {t('editor.cancel')}
             </Button>
-            <Button variant="contained" size="small" onClick={handleRenameSubmit} disabled={!renameValue.trim()}>
+            <Button
+              variant="contained"
+              size="small"
+              onClick={handleRenameSubmit}
+              disabled={!renameValue.trim() || isDuplicateName}>
               {t('editor.confirm')}
             </Button>
           </Box>

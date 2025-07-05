@@ -29,8 +29,9 @@ export const createSiteThemeOptions = ({ palette }: ThemeOptions): ThemeOptions 
 
   return {
     shape: {
-      borderRadius: 8, // 编辑器固定圆角大小
+      borderRadius: 8, // 固定圆角大小
     },
+    spacing: 8, // 固定间距，以免无法编辑
     components: {
       MuiButton: {
         styleOverrides: {
@@ -42,8 +43,10 @@ export const createSiteThemeOptions = ({ palette }: ThemeOptions): ThemeOptions 
       MuiAccordion: {
         defaultProps: {
           square: true,
-          TransitionProps: {
-            unmountOnExit: true,
+          slotProps: {
+            transition: {
+              unmountOnExit: true,
+            },
           },
         },
         styleOverrides: {

@@ -1,13 +1,14 @@
 import { AppBar, AppBarProps, Box, Toolbar } from '@mui/material';
+import useMobile from 'src/hooks/useMobile';
 
 import { ConceptMenu } from './Header/ConceptMenu';
 import { HeaderActions } from './Header/HeaderActions';
-import PreviewSizeControls from './Header/PreviewSizeControls';
-import SampleNavigation from './Header/SampleNavigation';
 
 export interface HeaderProps extends AppBarProps {}
 
 export default function Header({ sx, ...props }: HeaderProps) {
+  const isMobile = useMobile();
+
   return (
     <AppBar
       position="sticky"
@@ -35,13 +36,9 @@ export default function Header({ sx, ...props }: HeaderProps) {
         <Box sx={{ marginLeft: -1 }}>
           <ConceptMenu />
         </Box>
+        {isMobile && <Box sx={{ flexGrow: 1 }} />}
         {/* 菜单按钮 */}
         <HeaderActions />
-        <Box sx={{ flexGrow: 1 }} />
-        {/* Samples 导航 */}
-        <SampleNavigation />
-        {/* 预览窗口导航 */}
-        <PreviewSizeControls />
       </Toolbar>
     </AppBar>
   );

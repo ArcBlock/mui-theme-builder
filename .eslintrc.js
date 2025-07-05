@@ -21,5 +21,11 @@ module.exports = {
     '@typescript-eslint/indent': 'off',
     '@typescript-eslint/naming-convention': 'off',
     '@typescript-eslint/dot-notation': 'off',
+    'react/require-default-props': [
+      'error',
+      {
+        functions: 'defaultArguments',
+      },
+    ],
   },
 };

@@ -21,7 +21,7 @@ export default function VirtualFontList({
   loading,
   onFontSelect,
   previewText = 'The quick brown fox jumps over the lazy dog',
-  onLoadMore,
+  onLoadMore = undefined,
   hasMore = false,
 }: VirtualFontListProps) {
   const { t } = useLocaleContext();
@@ -72,8 +72,8 @@ export default function VirtualFontList({
     return (
       <Typography
         variant="body2"
-        color="text.secondary"
         sx={{
+          color: 'text.secondary',
           mt: 1,
           textAlign: 'center',
         }}>

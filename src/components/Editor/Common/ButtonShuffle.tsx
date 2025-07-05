@@ -1,8 +1,14 @@
 import { useLocaleContext } from '@arcblock/ux/lib/Locale/context';
-import ShuffleIcon from '@mui/icons-material/Shuffle';
-import { Button, ButtonProps } from '@mui/material';
+import ShuffleIconBase from '@mui/icons-material/Shuffle';
+import { Button, ButtonProps, SvgIconProps } from '@mui/material';
 
 const noop = () => {};
+
+export const DEFAULT_SHUFFLE_COLOR = '#6248ff';
+
+export function ShuffleIcon({ sx, ...rest }: SvgIconProps) {
+  return <ShuffleIconBase sx={{ color: DEFAULT_SHUFFLE_COLOR, fontSize: 20, ...sx }} {...rest} />;
+}
 
 export function ButtonShuffle({
   onClick = noop,
@@ -20,7 +26,7 @@ export function ButtonShuffle({
       variant={variant}
       color={color}
       size={size}
-      startIcon={<ShuffleIcon style={{ color: '#6248ff' }} />}
+      startIcon={<ShuffleIcon />}
       sx={{ textTransform: 'none', borderColor: 'divider', ...sx }}
       onClick={onClick}>
       {t('editor.shuffle')}
