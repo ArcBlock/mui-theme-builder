@@ -153,7 +153,7 @@ export default function DefaultExample() {
 }
 
 export interface FeatureCardProps {
-  icon: React.ReactElement;
+  icon: React.ReactElement<any>;
   title: string;
   children: React.ReactNode;
 }
@@ -178,7 +178,7 @@ export function FeatureCard({ icon, title, children }: FeatureCardProps) {
 }
 
 export interface ThemeToolUsageListItemProps {
-  icon: React.ReactElement;
+  icon: React.ReactElement<any>;
   label: string;
   children: React.ReactNode;
 }
