@@ -49,10 +49,10 @@ function TypographySection() {
       </Stack>
 
       <Grid container spacing={2}>
-        <Grid item xs={6}>
+        <Grid item xs={12} sm={6}>
           <TypographyBlock variant="heading" onClick={() => handleVariantClick('heading')} />
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={12} sm={6}>
           <TypographyBlock variant="body" onClick={() => handleVariantClick('body')} />
         </Grid>
       </Grid>

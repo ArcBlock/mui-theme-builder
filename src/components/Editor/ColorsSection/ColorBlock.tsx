@@ -3,6 +3,7 @@ import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import { Box, IconButton, Paper, Stack, Typography } from '@mui/material';
 import { PaletteColor } from '@mui/material/styles';
 import { useMemoizedFn } from 'ahooks';
+import useMobile from 'src/hooks/useMobile';
 import { defaultDarkTheme, defaultLightTheme } from 'src/siteTheme';
 import { useThemeStore } from 'src/state/themeStore';
 import { getByPath } from 'src/utils';
@@ -17,6 +18,7 @@ export interface ColorBlockProps {
 
 export function ColorBlock({ colorType, onClick }: ColorBlockProps) {
   const { t } = useLocaleContext();
+  const isMobile = useMobile();
   const themeObject = useThemeStore((s) => s.themeObject);
   const isLocked = useThemeStore((s) => s.getCurrentConcept().editor.colors[colorType]?.isLocked ?? false);
   const setColorLock = useThemeStore((s) => s.setColorLock);
@@ -59,7 +61,7 @@ export function ColorBlock({ colorType, onClick }: ColorBlockProps) {
         borderRadius: 1.5,
         backgroundColor: mainColor,
         '& .action': {
-          opacity: 0,
+          opacity: isMobile ? 1 : 0,
           transition: 'opacity 0.2s',
           '&.is-locked': {
             opacity: 1,
@@ -91,7 +93,7 @@ export function ColorBlock({ colorType, onClick }: ColorBlockProps) {
         {/* Lock Icon */}
         <IconButtonLock lock={isLocked} color={actionColor} onClick={toggleLock} />
       </Stack>
-      <Box flexGrow={1} />
+      <Box flexGrow={1} sx={{ minHeight: 40 }} />
       <Box
         sx={{
           display: 'flex',

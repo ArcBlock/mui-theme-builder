@@ -4,6 +4,7 @@ import { IconButton, Paper, Stack, Typography } from '@mui/material';
 import { useMemoizedFn } from 'ahooks';
 import { useMemo } from 'react';
 import useGoogleFonts from 'src/hooks/useGoogleFonts';
+import useMobile from 'src/hooks/useMobile';
 import { defaultDarkTheme, defaultLightTheme } from 'src/siteTheme';
 import { DEFAULT_FONT_STRING, HEADING_VARIANTS, useThemeStore } from 'src/state/themeStore';
 import { TextVariant } from 'src/types/theme';
@@ -20,6 +21,7 @@ interface TypographyBlockProps {
 function TypographyBlock({ variant, onClick }: TypographyBlockProps) {
   const { t } = useLocaleContext();
   const themeObject = useThemeStore((s) => s.themeObject);
+  const isMobile = useMobile();
   const { shuffleFonts } = useGoogleFonts({ category: 'All', searchQuery: '' });
   const removeThemeOption = useThemeStore((s) => s.removeThemeOption);
   const removeThemeOptions = useThemeStore((s) => s.removeThemeOptions);
@@ -87,7 +89,7 @@ function TypographyBlock({ variant, onClick }: TypographyBlockProps) {
         height: '100%',
         cursor: 'pointer',
         '& .action': {
-          opacity: 0,
+          opacity: isMobile ? 1 : 0,
           transition: 'opacity 0.2s',
           '&.is-locked': {
             opacity: 1,

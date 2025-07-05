@@ -118,7 +118,7 @@ export function ConceptMenu() {
       <Box
         className={open ? 'is-open' : ''}
         sx={{
-          width: 160,
+          width: isMobile ? 'auto' : 160,
           display: 'flex',
           alignItems: 'center',
           gap: 1,
