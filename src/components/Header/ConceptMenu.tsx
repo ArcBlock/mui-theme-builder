@@ -123,7 +123,7 @@ export function ConceptMenu() {
           alignItems: 'center',
           gap: 1,
           cursor: 'pointer',
-          py: 1,
+          height: '32px',
           px: 1,
           border: '1px solid',
           borderColor: 'transparent',

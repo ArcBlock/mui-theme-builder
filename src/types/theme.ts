@@ -52,12 +52,13 @@ export interface ThemeStoreState {
   previewSize: PreviewSize;
   selectedComponentId: string;
   themeObject: Theme;
+  saving: boolean;
 }
 
 export interface ThemeStoreModel extends ThemeStoreState {
-  // 整体设置
+  // # 整体设置
   resetStore: () => void;
-  resetSiteData: () => void;
+  setSaving: (saving: boolean) => void;
 
   // Concepts 管理
   setCurrentConcept: (id: string) => void;
@@ -67,7 +68,8 @@ export interface ThemeStoreModel extends ThemeStoreState {
   duplicateConcept: (id: string) => void;
   renameConcept: (id: string, name: string) => void;
   setConcepts: (data: { concepts: Concept[]; currentConceptId: string }) => void;
-  applyPredefinedTheme: (concept: Concept, theme: PredefinedTheme, colorKeys?: string | string[]) => Concept;
+  applyTheme: (concept: Concept, theme: PredefinedTheme, options?: { colorKeys?: string | string[] }) => Concept;
+  applyColors: (concept: Concept, theme: PredefinedTheme, colorKeys?: string | string[]) => Concept;
   isPredefinedTheme: (concept: Concept) => boolean;
 
   // ThemeOption 编辑

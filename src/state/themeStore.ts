@@ -81,6 +81,7 @@ const getDefaultState = () => ({
   previewSize: false as PreviewSize,
   selectedComponentId: 'Website',
   themeObject: createPreviewMuiTheme(deepmerge({ palette: { mode: 'light' } }, getDefaultThemeConfig().light), false),
+  saving: false,
 });
 
 export const useThemeStore = create(
@@ -106,14 +107,11 @@ export const useThemeStore = create(
           ),
         };
       }),
-    resetSiteData: () =>
-      set(() => ({
-        // 可根据实际需求重置部分状态
-      })),
+    setSaving: (saving) => set({ saving }),
 
     // # Concepts 管理
     addConcept: ({ name = DEFAULT_CONCEPT_NAME, themeConfig } = {}) => {
-      const { concepts, applyPredefinedTheme } = get();
+      const { concepts, applyTheme } = get();
 
       const uniqueName = ensureUniqueName(
         concepts.map((c) => c.name),
@@ -134,7 +132,7 @@ export const useThemeStore = create(
         const selectedPalette = pickRandomTheme(...concepts.map((c) => c.template));
 
         if (selectedPalette) {
-          newConcept = applyPredefinedTheme(newConcept, selectedPalette);
+          newConcept = applyTheme(newConcept, selectedPalette);
         }
       }
 
@@ -232,13 +230,36 @@ export const useThemeStore = create(
         return updates;
       }),
     // 应用预定义主题
-    applyPredefinedTheme: (concept, theme, colorKeys) => {
-      const { themeObject, concepts, isPredefinedTheme } = get();
+    applyTheme: (concept, theme, options = {}) => {
+      const { applyColors, concepts, isPredefinedTheme } = get();
+      const { colorKeys } = options;
+
+      // 应用 colors
+      let newConcept = applyColors(concept, theme, colorKeys);
+
+      // 修改主题模版名称
+      let conceptName = newConcept.name;
+      if (isPredefinedTheme(newConcept)) {
+        conceptName = ensureUniqueName(
+          concepts.map((c) => c.name),
+          theme.name,
+        );
+        newConcept.name = conceptName;
+      }
+      newConcept.template = theme.name;
+      newConcept.name = conceptName;
+
+      return newConcept;
+    },
+    // 应用预定义颜色
+    applyColors: (concept, theme, colorKeys) => {
+      const { themeObject } = get();
       const updates: { path: string; value: any }[] = [];
       const lockedColors = concept.editor.colors;
+
       let newConcept = { ...concept };
 
-      // 同时处理 light 和 dark 模式
+      // 修改 light 和 dark 的颜色
       (['light', 'dark'] as const).forEach((mode) => {
         const modeTheme = theme[mode];
 
@@ -273,19 +294,6 @@ export const useThemeStore = create(
       if (updates.length === 0) {
         return newConcept;
       }
-
-      // 修改主题模版名称
-      let conceptName = newConcept.name;
-      if (isPredefinedTheme(newConcept)) {
-        conceptName = ensureUniqueName(
-          concepts.map((c) => c.name),
-          theme.name,
-        );
-        newConcept.name = conceptName;
-      }
-
-      newConcept.template = theme.name;
-      newConcept.name = conceptName;
 
       updates.forEach(({ path, value }) => {
         newConcept = setByPath(newConcept, path, value);
@@ -431,7 +439,7 @@ export const useThemeStore = create(
         const selectedPalette = pickRandomTheme(currentConcept.template);
         if (!selectedPalette) return {};
 
-        const newConcept = state.applyPredefinedTheme(currentConcept, selectedPalette, colorKeys);
+        const newConcept = state.applyColors(currentConcept, selectedPalette, colorKeys);
 
         return {
           concepts: state.concepts.map((c) => (c.id === state.currentConceptId ? newConcept : c)),
@@ -446,12 +454,6 @@ export const useThemeStore = create(
         const newConcept = { ...concept };
         newConcept.themeConfig.light = {};
         newConcept.themeConfig.dark = {};
-        if (state.isPredefinedTheme(concept)) {
-          newConcept.name = ensureUniqueName(
-            state.concepts.map((c) => c.name),
-            DEFAULT_CONCEPT_NAME,
-          );
-        }
         newConcept.template = DEFAULT_CONCEPT_NAME;
 
         return { concepts: state.concepts.map((c) => (c.id === state.currentConceptId ? newConcept : c)) };
