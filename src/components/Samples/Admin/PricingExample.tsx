@@ -121,18 +121,21 @@ export default function PricingExample() {
       </Container>
       {/* End hero unit */}
       <Container maxWidth="md" component="main">
-        <Grid container spacing={5} sx={{
-          alignItems: "flex-end"
-        }}>
+        <Grid
+          container
+          spacing={5}
+          sx={{
+            alignItems: 'flex-end',
+          }}>
           {tiers.map((tier) => (
             // Enterprise card is full width at sm breakpoint
-            (<Grid
-            key={tier.title}
-            size={{
-              xs: 12,
-              sm: tier.title === 'Enterprise' ? 12 : 6,
-              md: 4
-            }}>
+            <Grid
+              key={tier.title}
+              size={{
+                xs: 12,
+                sm: tier.title === 'Enterprise' ? 12 : 6,
+                md: 4,
+              }}>
               <Card>
                 <Tooltip title="<CardHeader>" arrow placement="top">
                   <div>
@@ -165,8 +168,9 @@ export default function PricingExample() {
                                   ? 'secondary.light'
                                   : 'secondary.dark',
                           },
-                        }
-                      }} />
+                        },
+                      }}
+                    />
                   </div>
                 </Tooltip>
                 <CardContent>
@@ -210,7 +214,7 @@ export default function PricingExample() {
                   </Tooltip>
                 </CardActions>
               </Card>
-            </Grid>)
+            </Grid>
           ))}
         </Grid>
       </Container>
@@ -226,15 +230,18 @@ export default function PricingExample() {
             sm: 6,
           },
         }}>
-        <Grid container spacing={4} sx={{
-          justifyContent: "space-evenly"
-        }}>
+        <Grid
+          container
+          spacing={4}
+          sx={{
+            justifyContent: 'space-evenly',
+          }}>
           {footers.map((footer) => (
             <Grid
               key={footer.title}
               size={{
                 xs: 6,
-                sm: 3
+                sm: 3,
               }}>
               <Tooltip title='<Typography color="textPrimary" variant="h6">' placement="left" arrow>
                 <Typography variant="h6" color="textPrimary" gutterBottom>

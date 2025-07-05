@@ -87,9 +87,11 @@ function ColorsSection() {
     switch (layoutMode) {
       case 'large':
         return (
-          <Stack direction="row" sx={{
-            alignItems: "stretch"
-          }}>
+          <Stack
+            direction="row"
+            sx={{
+              alignItems: 'stretch',
+            }}>
             <NeutralColorBlock sx={{ width: '25%', flexShrink: 0 }} onClick={(key) => handleColorClick(key)} />
             <Stack direction="row" sx={{ flexGrow: 1, flexWrap: 'wrap', mt: -1 }}>
               {colorTypes.map((colorType) => (
@@ -100,12 +102,13 @@ function ColorsSection() {
             </Stack>
           </Stack>
         );
-
       case 'middle':
         return (
-          <Stack direction="row" sx={{
-            alignItems: "stretch"
-          }}>
+          <Stack
+            direction="row"
+            sx={{
+              alignItems: 'stretch',
+            }}>
             <NeutralColorBlock sx={{ width: '33.33%', flexShrink: 0 }} onClick={(key) => handleColorClick(key)} />
             <Stack direction="row" sx={{ flexGrow: 1, flexWrap: 'wrap', mt: -1 }}>
               {colorTypes.map((colorType) => (
@@ -116,13 +119,15 @@ function ColorsSection() {
             </Stack>
           </Stack>
         );
-
       case 'small':
         return (
           <>
-            <Stack direction="row" spacing={1} sx={{
-              mb: 1
-            }}>
+            <Stack
+              direction="row"
+              spacing={1}
+              sx={{
+                mb: 1,
+              }}>
               <NeutralColorBlock sx={{ flex: '1 0 0' }} onClick={(key) => handleColorClick(key)} />
               <Stack spacing={1} sx={{ flex: '1 0 0' }}>
                 {colorTypes.slice(0, 2).map((colorType) => (
@@ -141,6 +146,8 @@ function ColorsSection() {
             </Grid>
           </>
         );
+      default:
+        return null;
     }
   };
 
@@ -149,9 +156,9 @@ function ColorsSection() {
       <Stack
         direction="row"
         sx={{
-          justifyContent: "space-between",
-          alignItems: "center",
-          mb: 2
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          mb: 2,
         }}>
         {/* 标题 */}
         <Typography variant="h5">{t('editor.colorSection.title')}</Typography>

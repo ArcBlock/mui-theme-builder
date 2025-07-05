@@ -43,7 +43,7 @@ export default function SignUpExample() {
             <Grid
               size={{
                 xs: 12,
-                sm: 6
+                sm: 6,
               }}>
               <TextField
                 autoComplete="fname"
@@ -59,7 +59,7 @@ export default function SignUpExample() {
             <Grid
               size={{
                 xs: 12,
-                sm: 6
+                sm: 6,
               }}>
               <TextField
                 variant="outlined"
@@ -110,9 +110,11 @@ export default function SignUpExample() {
               Sign Up
             </Button>
           </Tooltip>
-          <Grid container sx={{
-            justifyContent: "flex-end"
-          }}>
+          <Grid
+            container
+            sx={{
+              justifyContent: 'flex-end',
+            }}>
             <Grid>
               <Tooltip title='<Link color="primary" variant="body2">' arrow>
                 <Link href="#" variant="body2" underline="hover">

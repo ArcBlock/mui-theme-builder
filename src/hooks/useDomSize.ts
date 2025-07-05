@@ -24,7 +24,7 @@ export default function useDomSize(ref: React.RefObject<HTMLElement | null>) {
     return () => {
       resizeObserver.disconnect();
     };
-  }, [ref]);
+  }, [ref, size]);
 
   return size;
 }

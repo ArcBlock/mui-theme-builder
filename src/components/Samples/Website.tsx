@@ -44,22 +44,30 @@ export default function LandingPage() {
         <Container component="main" sx={{ flexGrow: 1, py: { xs: 4, md: 8 } }}>
           {/* Hero Section */}
           <Box sx={{ textAlign: 'center', mb: 8 }}>
-            <Typography variant="h2" component="h1" gutterBottom sx={{
-              fontWeight: "bold"
-            }}>
-              {t('samples.website.hero.title')} <br />
-              <Typography component="span" variant="h2" color="primary" sx={{
-                fontWeight: "bold"
+            <Typography
+              variant="h2"
+              component="h1"
+              gutterBottom
+              sx={{
+                fontWeight: 'bold',
               }}>
+              {t('samples.website.hero.title')} <br />
+              <Typography
+                component="span"
+                variant="h2"
+                color="primary"
+                sx={{
+                  fontWeight: 'bold',
+                }}>
                 TeamSpace
               </Typography>
             </Typography>
             <Typography
               variant="body1"
               sx={{
-                color: "text.secondary",
+                color: 'text.secondary',
                 maxWidth: 'md',
-                mx: 'auto'
+                mx: 'auto',
               }}>
               {t('samples.website.hero.subtitle')}
             </Typography>
@@ -67,8 +75,8 @@ export default function LandingPage() {
               direction="row"
               spacing={2}
               sx={{
-                justifyContent: "center",
-                mt: 4
+                justifyContent: 'center',
+                mt: 4,
               }}>
               <Button variant="contained" size="large">
                 {t('samples.website.hero.cta.start')}
@@ -81,16 +89,19 @@ export default function LandingPage() {
 
           {/* Features Section */}
           <Box sx={{ textAlign: 'center', mb: 8 }}>
-            <Typography variant="h4" gutterBottom sx={{
-              fontWeight: "bold"
-            }}>
+            <Typography
+              variant="h4"
+              gutterBottom
+              sx={{
+                fontWeight: 'bold',
+              }}>
               {t('samples.website.features.title')}
             </Typography>
             <Typography
               variant="body1"
               sx={{
-                color: "text.secondary",
-                mb: 4
+                color: 'text.secondary',
+                mb: 4,
               }}>
               {t('samples.website.features.subtitle')}
             </Typography>
@@ -101,7 +112,7 @@ export default function LandingPage() {
                   size={{
                     xs: 12,
                     sm: 6,
-                    md: 3
+                    md: 3,
                   }}>
                   <Paper
                     variant="outlined"
@@ -115,14 +126,19 @@ export default function LandingPage() {
                       backgroundColor: 'background.paper',
                     }}>
                     <Avatar sx={{ bgcolor: 'primary.light', mb: 2, width: 64, height: 64 }}>{feature.icon}</Avatar>
-                    <Typography variant="h6" gutterBottom sx={{
-                      fontWeight: "bold"
-                    }}>
+                    <Typography
+                      variant="h6"
+                      gutterBottom
+                      sx={{
+                        fontWeight: 'bold',
+                      }}>
                       {feature.title}
                     </Typography>
-                    <Typography variant="body2" sx={{
-                      color: "text.secondary"
-                    }}>
+                    <Typography
+                      variant="body2"
+                      sx={{
+                        color: 'text.secondary',
+                      }}>
                       {feature.description}
                     </Typography>
                   </Paper>
@@ -133,16 +149,19 @@ export default function LandingPage() {
 
           {/* Final CTA Section */}
           <Box sx={{ textAlign: 'center' }}>
-            <Typography variant="h4" gutterBottom sx={{
-              fontWeight: "bold"
-            }}>
+            <Typography
+              variant="h4"
+              gutterBottom
+              sx={{
+                fontWeight: 'bold',
+              }}>
               {t('samples.website.finalCta.title')}
             </Typography>
             <Typography
               variant="body1"
               sx={{
-                color: "text.secondary",
-                mb: 4
+                color: 'text.secondary',
+                mb: 4,
               }}>
               {t('samples.website.finalCta.subtitle')}
             </Typography>

@@ -121,12 +121,12 @@ export const useThemeStore = create(
 
     // # 历史记录管理
     saveToHistory: () => {
-      const state = get();
+      const { concepts, currentConceptId } = get();
 
       // 深拷贝当前状态
       const stateToSave = {
-        concepts: JSON.parse(JSON.stringify(state.concepts)),
-        currentConceptId: state.currentConceptId,
+        concepts: JSON.parse(JSON.stringify(concepts)),
+        currentConceptId,
       };
 
       set((state) => {
@@ -151,8 +151,8 @@ export const useThemeStore = create(
     },
 
     undo: () => {
-      const state = get();
-      if (!state.canUndo()) return;
+      const { canUndo } = get();
+      if (!canUndo()) return;
 
       set((state) => {
         const newIndex = state.currentHistoryIndex - 1;
@@ -171,8 +171,8 @@ export const useThemeStore = create(
     },
 
     redo: () => {
-      const state = get();
-      if (!state.canRedo()) return;
+      const { canRedo } = get();
+      if (!canRedo()) return;
 
       set((state) => {
         const newIndex = state.currentHistoryIndex + 1;
@@ -490,10 +490,10 @@ export const useThemeStore = create(
     shuffleTheme: () => {
       const { concepts, applyTheme, getCurrentConcept, fetchFonts, saveToHistory } = get();
       const currentConcept = getCurrentConcept();
-      if (!currentConcept) return {};
+      if (!currentConcept) return;
 
       const selected = pickRandomTheme(currentConcept.template);
-      if (!selected) return {};
+      if (!selected) return;
 
       const newConcept = applyTheme(currentConcept, selected);
       const loadedFonts = fetchFonts(newConcept);

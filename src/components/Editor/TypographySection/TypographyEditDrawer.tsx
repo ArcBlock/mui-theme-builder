@@ -114,9 +114,9 @@ function TypographyEditDrawer({ open, variant, onClose }: TypographyEditDrawerPr
       <Stack
         direction="row"
         sx={{
-          justifyContent: "space-between",
-          alignItems: "center",
-          mb: 1
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          mb: 1,
         }}>
         <Typography sx={{ fontSize: 18, fontWeight: 500, textTransform: 'capitalize' }}>
           {variant === 'heading' ? t('editor.typographySection.heading') : t('editor.typographySection.body')}
@@ -145,7 +145,7 @@ function TypographyEditDrawer({ open, variant, onClose }: TypographyEditDrawerPr
                 <Close sx={{ fontSize: 16 }} />
               </IconButton>
             ) : null,
-          }
+          },
         }}
       />
 
@@ -172,8 +172,8 @@ function TypographyEditDrawer({ open, variant, onClose }: TypographyEditDrawerPr
                 }}>
                 <Stack
                   sx={{
-                    alignItems: "center",
-                    color: selected ? 'primary.main' : 'text.primary'
+                    alignItems: 'center',
+                    color: selected ? 'primary.main' : 'text.primary',
                   }}>
                   <Typography
                     sx={{
@@ -223,8 +223,8 @@ function TypographyEditDrawer({ open, variant, onClose }: TypographyEditDrawerPr
           variant="body2"
           align="center"
           sx={{
-            color: "text.secondary",
-            mt: 1
+            color: 'text.secondary',
+            mt: 1,
           }}>
           {t('editor.typographySection.activeFont')}
           <Link href={`https://fonts.google.com/specimen/${activeFont}`} target="_blank" sx={{ ml: 1 }}>
@@ -241,7 +241,7 @@ function TypographyEditDrawer({ open, variant, onClose }: TypographyEditDrawerPr
       open={open}
       onClose={onClose}
       slotProps={{
-        paper: { sx: { height: { xs: '80vh', md: '100%' } } }
+        paper: { sx: { height: { xs: '80vh', md: '100%' } } },
       }}>
       {drawerContent}
     </Drawer>

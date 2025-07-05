@@ -1,10 +1,8 @@
-import { useLocaleContext } from '@arcblock/ux/lib/Locale/context';
 import { Box, Button, ButtonGroup } from '@mui/material';
 import Samples from 'src/components/Samples';
 import { useThemeStore } from 'src/state/themeStore';
 
 export default function SampleNavigation() {
-  const { t } = useLocaleContext();
   const selectedComponentId = useThemeStore((s) => s.selectedComponentId);
   const setSelectedComponentId = useThemeStore((s) => s.setSelectedComponentId);
 

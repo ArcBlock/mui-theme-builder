@@ -10,7 +10,6 @@ export interface PreviewBlockletProps {
 
 export function PreviewBlocklet({ appUrl }: PreviewBlockletProps) {
   const iframeRef = useRef<HTMLIFrameElement>(null);
-  const themeObject = useThemeStore((state) => state.themeObject);
   const concept = useThemeStore((state) => state.getCurrentConcept());
   const [iframeLoaded, setIframeLoaded] = useState(false);
 
@@ -26,7 +25,7 @@ export function PreviewBlocklet({ appUrl }: PreviewBlockletProps) {
         const iframeDocument = iframe.contentDocument || iframe.contentWindow?.document;
         if (!iframeDocument) return;
         const height = iframeDocument.body.scrollHeight;
-        iframe.style.height = Math.max(MIN_HEIGHT, height) + 'px';
+        iframe.style.height = `${Math.max(MIN_HEIGHT, height)}px`;
       } catch (err) {
         console.warn('Cannot access iframe content (possibly cross-origin):', err);
       }
@@ -52,6 +51,7 @@ export function PreviewBlocklet({ appUrl }: PreviewBlockletProps) {
     };
 
     iframe.addEventListener('load', onLoad);
+    // eslint-disable-next-line consistent-return
     return () => {
       iframe.removeEventListener('load', onLoad);
     };
@@ -68,16 +68,17 @@ export function PreviewBlocklet({ appUrl }: PreviewBlockletProps) {
         },
       });
     }
-  }, [themeObject, iframeLoaded]);
+  }, [iframeLoaded, concept]);
 
   return (
     <iframe
+      title="blocklet preview"
       ref={iframeRef}
       src={appUrl}
       style={{
         border: 0,
         width: '100%',
-        height: MIN_HEIGHT + 'px',
+        height: `${MIN_HEIGHT}px`,
         display: 'block',
       }}
       onLoad={onIframeLoad}

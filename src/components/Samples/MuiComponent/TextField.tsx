@@ -31,7 +31,7 @@ export default function TextFieldExample() {
           slotProps={{
             input: {
               readOnly: true,
-            }
+            },
           }}
         />
         <TextField
@@ -42,7 +42,7 @@ export default function TextFieldExample() {
           slotProps={{
             inputLabel: {
               shrink: true,
-            }
+            },
           }}
         />
         <TextField id="standard-search" label="Search field" type="search" variant="standard" />
@@ -79,7 +79,7 @@ export default function TextFieldExample() {
           slotProps={{
             input: {
               readOnly: true,
-            }
+            },
           }}
         />
         <TextField
@@ -90,7 +90,7 @@ export default function TextFieldExample() {
           slotProps={{
             inputLabel: {
               shrink: true,
-            }
+            },
           }}
         />
         <TextField id="filled-search" label="Search field" type="search" variant="filled" />
@@ -121,7 +121,7 @@ export default function TextFieldExample() {
           slotProps={{
             input: {
               readOnly: true,
-            }
+            },
           }}
         />
         <TextField
@@ -131,7 +131,7 @@ export default function TextFieldExample() {
           slotProps={{
             inputLabel: {
               shrink: true,
-            }
+            },
           }}
         />
         <TextField id="outlined-search" label="Search field" type="search" />

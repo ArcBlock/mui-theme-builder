@@ -7,18 +7,7 @@ import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import SaveIcon from '@mui/icons-material/Save';
 import UndoIcon from '@mui/icons-material/Undo';
 import LoadingButton from '@mui/lab/LoadingButton';
-import {
-  Box,
-  Button,
-  ButtonGroup,
-  Divider,
-  ListItemIcon,
-  ListItemText,
-  Menu,
-  MenuItem,
-  Tooltip,
-  useTheme,
-} from '@mui/material';
+import { Box, Button, ButtonGroup, Divider, ListItemIcon, ListItemText, Menu, MenuItem, Tooltip } from '@mui/material';
 import { useRef, useState } from 'react';
 import { useKeyboardShortcuts } from 'src/hooks/useKeyboardShortcuts';
 import useMobile from 'src/hooks/useMobile';
@@ -50,7 +39,6 @@ const commonButtonGroupProps = {
 
 export function HeaderActions() {
   const { t } = useLocaleContext?.() || { t: (x: string) => x };
-  const theme = useTheme();
   const isMobile = useMobile();
   const saving = useThemeStore((s) => s.saving);
   const resetStore = useThemeStore((s) => s.resetStore);

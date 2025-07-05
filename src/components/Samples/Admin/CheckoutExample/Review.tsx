@@ -58,7 +58,7 @@ export default function Review() {
         <Grid
           size={{
             xs: 12,
-            sm: 6
+            sm: 6,
           }}>
           <Tooltip title='<Typography color="textPrimary" variant="h6">' placement="left" arrow>
             <Typography variant="h6" gutterBottom sx={{ mt: 2 }}>
@@ -77,7 +77,7 @@ export default function Review() {
           direction="column"
           size={{
             xs: 12,
-            sm: 6
+            sm: 6,
           }}>
           <Tooltip title='<Typography color="textPrimary" variant="h6">' placement="left" arrow>
             <Typography variant="h6" gutterBottom sx={{ mt: 2 }}>

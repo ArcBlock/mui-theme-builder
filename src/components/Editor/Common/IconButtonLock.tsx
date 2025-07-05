@@ -5,12 +5,17 @@ import { Box, BoxProps } from '@mui/material';
 import useMobile from 'src/hooks/useMobile';
 
 export interface IconButtonLockProps extends BoxProps {
-  lock: boolean;
+  lock?: boolean;
   onClick?: (e: React.MouseEvent<HTMLDivElement>) => void;
   color?: string;
 }
 
-export function IconButtonLock({ lock = false, onClick, color = 'text.primary', ...rest }: IconButtonLockProps) {
+export function IconButtonLock({
+  lock = false,
+  onClick = undefined,
+  color = 'text.primary',
+  ...rest
+}: IconButtonLockProps) {
   const isMobile = useMobile();
   const { t } = useLocaleContext();
 

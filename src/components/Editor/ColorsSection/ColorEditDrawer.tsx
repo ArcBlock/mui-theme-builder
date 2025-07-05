@@ -1,6 +1,6 @@
 import { useLocaleContext } from '@arcblock/ux/lib/Locale/context';
 import { Close } from '@mui/icons-material';
-import { Box, Drawer, IconButton, Stack, TextField, Typography, useMediaQuery } from '@mui/material';
+import { Box, Drawer, IconButton, Stack, Typography, useMediaQuery } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { get } from 'lodash';
 import { useMemo } from 'react';
@@ -33,16 +33,19 @@ function ShadeItem({ colorValue }: { colorValue: string }) {
     <Stack
       direction="row"
       sx={{
-        alignItems: "center",
-        justifyContent: "space-between",
+        alignItems: 'center',
+        justifyContent: 'space-between',
         p: 1,
         borderRadius: 1,
         border: '1px solid',
-        borderColor: 'divider'
+        borderColor: 'divider',
       }}>
-      <Stack direction="row" spacing={1} sx={{
-        alignItems: "center"
-      }}>
+      <Stack
+        direction="row"
+        spacing={1}
+        sx={{
+          alignItems: 'center',
+        }}>
         <Box sx={{ width: 24, height: 24, borderRadius: 0.5, bgcolor: colorValue }} />
         <Box>{colorValue}</Box>
       </Stack>
@@ -122,8 +125,8 @@ export function ColorEditDrawer({ open, colorType, onClose }: ColorEditDrawerPro
       <Stack
         direction="row"
         sx={{
-          justifyContent: "space-between",
-          alignItems: "center"
+          justifyContent: 'space-between',
+          alignItems: 'center',
         }}>
         <Typography variant="h6">{t('editor.colorSection.title')}</Typography>
         <IconButton onClick={onClose}>

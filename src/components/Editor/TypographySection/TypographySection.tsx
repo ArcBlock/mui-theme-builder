@@ -41,9 +41,9 @@ function TypographySection() {
       <Stack
         direction="row"
         sx={{
-          justifyContent: "space-between",
-          alignItems: "center",
-          mb: 2
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          mb: 2,
         }}>
         {/* 标题 */}
         <Typography variant="h5">{t('editor.typographySection.title')}</Typography>
@@ -57,14 +57,14 @@ function TypographySection() {
         <Grid
           size={{
             xs: 12,
-            sm: 6
+            sm: 6,
           }}>
           <TypographyBlock variant="heading" onClick={() => handleVariantClick('heading')} />
         </Grid>
         <Grid
           size={{
             xs: 12,
-            sm: 6
+            sm: 6,
           }}>
           <TypographyBlock variant="body" onClick={() => handleVariantClick('body')} />
         </Grid>

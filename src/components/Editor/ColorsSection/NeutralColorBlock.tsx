@@ -20,7 +20,7 @@ export interface NeutralColorBlockProps extends Omit<PaperProps, 'onClick'> {
   onClick?: (key: NeutralColorType) => void;
 }
 
-export function NeutralColorBlock({ onClick, sx, ...props }: NeutralColorBlockProps) {
+export function NeutralColorBlock({ onClick = undefined, sx, ...props }: NeutralColorBlockProps) {
   const { t } = useLocaleContext();
   const theme = useTheme();
   const themeObject = useThemeStore((s) => s.themeObject);

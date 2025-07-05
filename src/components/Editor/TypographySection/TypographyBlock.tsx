@@ -124,8 +124,8 @@ function TypographyBlock({ variant, onClick }: TypographyBlockProps) {
         <Typography
           variant="subtitle1"
           sx={{
-            color: "text.primary",
-            textTransform: 'capitalize'
+            color: 'text.primary',
+            textTransform: 'capitalize',
           }}>
           {actions.getLabel()}
         </Typography>

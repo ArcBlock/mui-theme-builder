@@ -18,8 +18,8 @@ function MuiComponent() {
           <Grid
             container
             sx={{
-              justifyContent: "space-between",
-              alignItems: "center"
+              justifyContent: 'space-between',
+              alignItems: 'center',
             }}>
             <Typography variant="h5" gutterBottom>
               {title}

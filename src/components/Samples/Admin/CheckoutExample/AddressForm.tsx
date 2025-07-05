@@ -17,7 +17,7 @@ export default function AddressForm() {
         <Grid
           size={{
             xs: 12,
-            sm: 6
+            sm: 6,
           }}>
           <TextField
             required
@@ -32,7 +32,7 @@ export default function AddressForm() {
         <Grid
           size={{
             xs: 12,
-            sm: 6
+            sm: 6,
           }}>
           <TextField
             required
@@ -68,7 +68,7 @@ export default function AddressForm() {
         <Grid
           size={{
             xs: 12,
-            sm: 6
+            sm: 6,
           }}>
           <TextField
             required
@@ -83,14 +83,14 @@ export default function AddressForm() {
         <Grid
           size={{
             xs: 12,
-            sm: 6
+            sm: 6,
           }}>
           <TextField id="state" name="state" label="State/Province/Region" fullWidth variant="standard" />
         </Grid>
         <Grid
           size={{
             xs: 12,
-            sm: 6
+            sm: 6,
           }}>
           <TextField
             required
@@ -105,7 +105,7 @@ export default function AddressForm() {
         <Grid
           size={{
             xs: 12,
-            sm: 6
+            sm: 6,
           }}>
           <TextField
             required

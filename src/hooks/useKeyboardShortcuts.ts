@@ -36,7 +36,6 @@ export function useKeyboardShortcuts({ onUndo, onRedo, canUndo = true, canRedo =
           event.stopPropagation();
           onRedo();
         }
-        return;
       }
     };
 

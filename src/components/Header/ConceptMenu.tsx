@@ -88,7 +88,7 @@ export function ConceptMenu() {
       saveTheme(useThemeStore.getState());
       setAnchorEl(null);
     },
-    [setCurrentConcept],
+    [setCurrentConcept, saveTheme],
   );
 
   // 打开主题编辑框
@@ -259,7 +259,7 @@ export function ConceptMenu() {
             }}
             sx={{ mb: 2 }}
             slotProps={{
-              htmlInput: { maxLength: 32 }
+              htmlInput: { maxLength: 32 },
             }}
           />
           <Box sx={{ display: 'flex', gap: 2, justifyContent: 'flex-end' }}>

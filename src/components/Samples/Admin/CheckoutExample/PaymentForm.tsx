@@ -17,14 +17,14 @@ export default function PaymentForm() {
         <Grid
           size={{
             xs: 12,
-            md: 6
+            md: 6,
           }}>
           <TextField required id="cardName" label="Name on card" fullWidth autoComplete="cc-name" variant="standard" />
         </Grid>
         <Grid
           size={{
             xs: 12,
-            md: 6
+            md: 6,
           }}>
           <TextField
             required
@@ -38,14 +38,14 @@ export default function PaymentForm() {
         <Grid
           size={{
             xs: 12,
-            md: 6
+            md: 6,
           }}>
           <TextField required id="expDate" label="Expiry date" fullWidth autoComplete="cc-exp" variant="standard" />
         </Grid>
         <Grid
           size={{
             xs: 12,
-            md: 6
+            md: 6,
           }}>
           <TextField
             required

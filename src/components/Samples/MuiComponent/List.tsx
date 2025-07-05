@@ -48,7 +48,7 @@ export default function ListExample() {
         <Grid
           size={{
             xs: 12,
-            md: 6
+            md: 6,
           }}>
           <Typography variant="h6" sx={{ mt: 4, mx: 0, mb: 2 }}>
             Text only
@@ -66,7 +66,7 @@ export default function ListExample() {
         <Grid
           size={{
             xs: 12,
-            md: 6
+            md: 6,
           }}>
           <Typography variant="h6" sx={{ mt: 4, mx: 0, mb: 2 }}>
             Icon with text
@@ -89,7 +89,7 @@ export default function ListExample() {
         <Grid
           size={{
             xs: 12,
-            md: 6
+            md: 6,
           }}>
           <Typography variant="h6" sx={{ mt: 4, mx: 0, mb: 2 }}>
             Avatar with text
@@ -112,7 +112,7 @@ export default function ListExample() {
         <Grid
           size={{
             xs: 12,
-            md: 6
+            md: 6,
           }}>
           <Typography variant="h6" sx={{ mt: 4, mx: 0, mb: 2 }}>
             Avatar with text and icon

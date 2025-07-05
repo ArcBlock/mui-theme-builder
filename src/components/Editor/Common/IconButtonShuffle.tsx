@@ -8,7 +8,7 @@ export interface IconButtonLockProps extends BoxProps {
   color?: string;
 }
 
-export function IconButtonShuffle({ onClick, color = 'text.primary', ...rest }: IconButtonLockProps) {
+export function IconButtonShuffle({ onClick = undefined, color = 'text.primary', ...rest }: IconButtonLockProps) {
   const { t } = useLocaleContext();
 
   return (

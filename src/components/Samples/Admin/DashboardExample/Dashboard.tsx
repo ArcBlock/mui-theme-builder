@@ -56,7 +56,7 @@ export default function Dashboard() {
             <Grid
               size={{
                 xs: 12,
-                md: 8
+                md: 8,
               }}>
               <Paper
                 sx={{
@@ -70,7 +70,7 @@ export default function Dashboard() {
             <Grid
               size={{
                 xs: 12,
-                md: 4
+                md: 4,
               }}>
               <Paper
                 sx={{

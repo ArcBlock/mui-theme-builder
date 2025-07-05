@@ -22,16 +22,20 @@ import React from 'react';
 
 export default function DefaultExample() {
   return (
-    <Box sx={{
-      p: 3
-    }}>
-      <Grid container spacing={2} sx={{
-        justifyContent: "center"
+    <Box
+      sx={{
+        p: 3,
       }}>
+      <Grid
+        container
+        spacing={2}
+        sx={{
+          justifyContent: 'center',
+        }}>
         <Grid
           size={{
             xs: 12,
-            md: 6
+            md: 6,
           }}>
           <FeatureCard icon={<BuildIcon color="primary" />} title="Editor Usage">
             <List>
@@ -86,7 +90,7 @@ export default function DefaultExample() {
         <Grid
           size={{
             xs: 12,
-            md: 6
+            md: 6,
           }}>
           <FeatureCard title="Features" icon={<StarIcon color="primary" />}>
             <List>
@@ -129,9 +133,11 @@ export default function DefaultExample() {
               </ListItem>
               <ListItem>
                 <ListItemText>
-                  <Typography variant="body2" sx={{
-                    marginBottom: "16px"
-                  }}>
+                  <Typography
+                    variant="body2"
+                    sx={{
+                      marginBottom: '16px',
+                    }}>
                     Google Fonts loaded through the Web Font Loader package so you can preview your theme with a variety
                     of fonts.
                   </Typography>
@@ -145,9 +151,11 @@ export default function DefaultExample() {
               </ListItem>
               <ListItem>
                 <ListItemText>
-                  <Typography variant="body2" sx={{
-                    marginBottom: "16px"
-                  }}>
+                  <Typography
+                    variant="body2"
+                    sx={{
+                      marginBottom: '16px',
+                    }}>
                     Add global styles or default options with various built in snippets
                   </Typography>
                   <Typography variant="body2">
@@ -178,9 +186,12 @@ export function FeatureCard({ icon, title, children }: FeatureCardProps) {
   return (
     <Card>
       <CardContent>
-        <Grid container spacing={1} sx={{
-          alignItems: "center"
-        }}>
+        <Grid
+          container
+          spacing={1}
+          sx={{
+            alignItems: 'center',
+          }}>
           <Grid>{icon}</Grid>
           <Grid>
             <Tooltip title='<Typography color="textPrimary" variant="h5">' placement="left" arrow>

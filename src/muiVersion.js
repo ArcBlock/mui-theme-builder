@@ -1,2 +1,2 @@
 // Auto-generated on build by extractMuiVersion.sh
-export default "^5.17.1"
+export default "^7.2.0"

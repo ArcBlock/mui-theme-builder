@@ -46,7 +46,7 @@ export const createSiteThemeOptions = ({ palette }: ThemeOptions): ThemeOptions 
           slotProps: {
             transition: {
               unmountOnExit: true,
-            }
+            },
           },
         },
         styleOverrides: {

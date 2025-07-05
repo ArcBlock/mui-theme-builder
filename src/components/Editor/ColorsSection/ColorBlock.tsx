@@ -16,7 +16,7 @@ export interface ColorBlockProps {
   onClick?: () => void;
 }
 
-export function ColorBlock({ colorType, onClick }: ColorBlockProps) {
+export function ColorBlock({ colorType, onClick = undefined }: ColorBlockProps) {
   const { t } = useLocaleContext();
   const isMobile = useMobile();
   const themeObject = useThemeStore((s) => s.themeObject);
@@ -96,8 +96,9 @@ export function ColorBlock({ colorType, onClick }: ColorBlockProps) {
       <Box
         sx={{
           flexGrow: 1,
-          minHeight: 40
-        }} />
+          minHeight: 40,
+        }}
+      />
       <Box
         sx={{
           display: 'flex',

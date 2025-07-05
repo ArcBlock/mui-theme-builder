@@ -1,4 +1,3 @@
-import { FamilyRestroomOutlined } from '@mui/icons-material';
 import axios from 'axios';
 import { useCallback } from 'react';
 import { useThemeStore } from 'src/state/themeStore';
@@ -20,9 +19,11 @@ export default function useSave() {
 
       setSaving(true);
 
+      // 本地测试用
       if (isDev) {
-        // 本地测试用
+        // eslint-disable-next-line no-console
         console.log('themeData', themeData);
+        // eslint-disable-next-line no-promise-executor-return
         await new Promise((resolve) => setTimeout(resolve, 500));
         // eslint-disable-next-line no-console
         setSaving(false);
@@ -41,13 +42,14 @@ export default function useSave() {
             headers: getAuthHeaders(),
           },
         );
+        // eslint-disable-next-line no-useless-catch
       } catch (error) {
         throw error;
       } finally {
         setSaving(false);
       }
     },
-    [schemaKey],
+    [schemaKey, setSaving],
   );
 
   return { saveTheme };

@@ -1,6 +1,5 @@
 import { Alert, Box, Button } from '@mui/material';
 import { Component, ErrorInfo, ReactNode, useCallback } from 'react';
-import { useThemeStore } from 'src/state/themeStore';
 
 interface Props {
   children: ReactNode;

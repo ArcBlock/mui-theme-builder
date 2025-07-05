@@ -1,7 +1,6 @@
 import { deepmerge } from '@arcblock/ux/lib/Theme';
 import { BLOCKLET_THEME_DARK, BLOCKLET_THEME_LIGHT } from '@blocklet/theme';
-import { ThemeOptions, createTheme } from '@mui/material';
-import { TypographyOptions } from '@mui/material/styles/createTypography';
+import { ThemeOptions, TypographyVariantsOptions, createTheme } from '@mui/material';
 import dotProp from 'dot-prop-immutable';
 import JSON5 from 'json5';
 
@@ -111,7 +110,7 @@ export function getFontsFromThemeOptions(
   previousFonts: string[] | undefined,
   loadedFonts: Set<string>,
 ) {
-  const { typography } = themeOptions as { typography: TypographyOptions | undefined };
+  const { typography } = themeOptions as { typography: TypographyVariantsOptions | undefined };
 
   // get all defined fonts from the themeOptions
   const fontList: string[] = [
@@ -354,15 +353,15 @@ export function isValidHexColor(value: string): boolean {
   if (!value || typeof value !== 'string') {
     return false;
   }
-  
+
   // 移除开头的 # 号
   const hexValue = value.startsWith('#') ? value.slice(1) : value;
-  
+
   // 检查长度：3位或6位
   if (hexValue.length !== 3 && hexValue.length !== 6) {
     return false;
   }
-  
+
   // 检查是否只包含有效的十六进制字符
   const hexRegex = /^[0-9A-Fa-f]+$/;
   return hexRegex.test(hexValue);

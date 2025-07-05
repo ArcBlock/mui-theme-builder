@@ -17,7 +17,7 @@ export default function BlogSidebar({ archives, description, social, title }: Pr
     <Grid
       size={{
         xs: 12,
-        md: 4
+        md: 4,
       }}>
       <Paper elevation={0} sx={{ p: 2 }}>
         <Tooltip title='<Typography variant="h6">' placement="left" arrow>
@@ -36,9 +36,13 @@ export default function BlogSidebar({ archives, description, social, title }: Pr
       </Tooltip>
       {archives.map((archive) => (
         <Tooltip key={archive.title} title='<Link color="primary" variant="body1">' placement="left" arrow>
-          <Link variant="body1" href={archive.url} underline="hover" sx={{
-            display: "block"
-          }}>
+          <Link
+            variant="body1"
+            href={archive.url}
+            underline="hover"
+            sx={{
+              display: 'block',
+            }}>
             {archive.title}
           </Link>
         </Tooltip>
@@ -50,12 +54,20 @@ export default function BlogSidebar({ archives, description, social, title }: Pr
       </Tooltip>
       {social.map((network: Social) => (
         <Tooltip key={network.name} title='<Link color="primary" variant="body1">' placement="left" arrow>
-          <Link variant="body1" href="#" underline="hover" sx={{
-            display: "block"
-          }}>
-            <Grid container direction="row" spacing={1} sx={{
-              alignItems: "center"
+          <Link
+            variant="body1"
+            href="#"
+            underline="hover"
+            sx={{
+              display: 'block',
             }}>
+            <Grid
+              container
+              direction="row"
+              spacing={1}
+              sx={{
+                alignItems: 'center',
+              }}>
               <Grid>
                 <network.icon />
               </Grid>

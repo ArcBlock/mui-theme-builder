@@ -11,7 +11,7 @@ export default function Main({ title }: Props) {
     <Grid
       size={{
         xs: 12,
-        md: 8
+        md: 8,
       }}>
       <Tooltip title='<Typography color="textPrimary" variant="h6">' placement="left" arrow>
         <Typography variant="h6" gutterBottom>
@@ -39,9 +39,10 @@ export default function Main({ title }: Props) {
           </Typography>
         </Tooltip>
         <Tooltip title='<Typography color="textPrimary" variant="body1">' placement="left" arrow>
-          <Typography sx={{
-            marginBottom: "16px"
-          }}>
+          <Typography
+            sx={{
+              marginBottom: '16px',
+            }}>
             {`Cum sociis natoque penatibus et magnis dis parturient montes, nascetur
             ridiculus mus. Aenean eu leo quam. Pellentesque ornare sem lacinia quam
             venenatis vestibulum. Sed posuere consectetur est at lobortis. Cras mattis
@@ -58,9 +59,10 @@ export default function Main({ title }: Props) {
           <Typography>Heading</Typography>
         </Tooltip>
         <Tooltip title='<Typography color="textPrimary" variant="body1">' placement="left" arrow>
-          <Typography sx={{
-            marginBottom: "16px"
-          }}>
+          <Typography
+            sx={{
+              marginBottom: '16px',
+            }}>
             {`Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.
             Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget
             lacinia odio sem nec elit. Morbi leo risus, porta ac consectetur ac,
@@ -71,9 +73,10 @@ export default function Main({ title }: Props) {
           <Typography>Sub-heading</Typography>
         </Tooltip>
         <Tooltip title='<Typography color="textPrimary" variant="body1">' placement="left" arrow>
-          <Typography sx={{
-            marginBottom: "16px"
-          }}>
+          <Typography
+            sx={{
+              marginBottom: '16px',
+            }}>
             Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
           </Typography>
         </Tooltip>
@@ -81,9 +84,10 @@ export default function Main({ title }: Props) {
           <Typography>Sub-heading</Typography>
         </Tooltip>
         <Tooltip title='<Typography color="textPrimary" variant="body1">' placement="left" arrow>
-          <Typography sx={{
-            marginBottom: "16px"
-          }}>
+          <Typography
+            sx={{
+              marginBottom: '16px',
+            }}>
             {`Cum sociis natoque penatibus et magnis dis parturient montes, nascetur
             ridiculus mus. Aenean lacinia bibendum nulla sed consectetur. Etiam porta
             sem malesuada magna mollis euismod. Fusce dapibus, tellus ac cursus
@@ -97,9 +101,10 @@ export default function Main({ title }: Props) {
           <li>Nulla vitae elit libero, a pharetra augue.</li>
         </ul>
         <Tooltip title='<Typography color="textPrimary" variant="body1">' placement="left" arrow>
-          <Typography sx={{
-            marginBottom: "16px"
-          }}>
+          <Typography
+            sx={{
+              marginBottom: '16px',
+            }}>
             Donec ullamcorper nulla non metus auctor fringilla. Nulla vitae elit libero, a pharetra augue.
           </Typography>
         </Tooltip>

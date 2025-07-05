@@ -14,7 +14,14 @@ export interface HexColorInputProps extends Omit<OutlinedTextFieldProps, 'value'
   onReset?: (path: string) => void;
 }
 
-export function HexColorField({ path, label = 'Hex', size = 'small', onChange, onReset, ...rest }: HexColorInputProps) {
+export function HexColorField({
+  path,
+  label = 'Hex',
+  size = 'small',
+  onChange = undefined,
+  onReset = undefined,
+  ...rest
+}: HexColorInputProps) {
   const { t } = useLocaleContext();
   const themeObject = useThemeStore((s) => s.themeObject);
   const { mode } = themeObject.palette;
@@ -89,7 +96,8 @@ export function HexColorField({ path, label = 'Hex', size = 'small', onChange, o
               </IconButton>
             </>
           ),
-        }
-      }} />
+        },
+      }}
+    />
   );
 }
