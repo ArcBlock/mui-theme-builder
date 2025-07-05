@@ -15,6 +15,8 @@ export default {
     shuffle: '随机生成',
     lock: '锁定',
     unlock: '解锁',
+    undo: '撤销',
+    redo: '重做',
     concept: {
       name: '主题名称',
       add: '添加主题',

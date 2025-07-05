@@ -82,6 +82,10 @@ const getDefaultState = () => ({
   selectedComponentId: 'Website',
   themeObject: createPreviewMuiTheme(deepmerge({ palette: { mode: 'light' } }, getDefaultThemeConfig().light), false),
   saving: false,
+  // 历史记录相关
+  history: [],
+  currentHistoryIndex: -1,
+  maxHistorySize: 50,
 });
 
 export const useThemeStore = create(
@@ -90,7 +94,9 @@ export const useThemeStore = create(
     ...getDefaultState(),
 
     // # 修改整体数据
-    resetStore: () =>
+    resetStore: () => {
+      const { saveToHistory } = get();
+
       set((state) => {
         const currentConcept = state.getCurrentConcept();
         if (!currentConcept) return {};
@@ -106,12 +112,104 @@ export const useThemeStore = create(
               : c,
           ),
         };
-      }),
+      });
+
+      // 保存到历史记录
+      saveToHistory();
+    },
     setSaving: (saving) => set({ saving }),
+
+    // # 历史记录管理
+    saveToHistory: () => {
+      const state = get();
+
+      // 深拷贝当前状态
+      const stateToSave = {
+        concepts: JSON.parse(JSON.stringify(state.concepts)),
+        currentConceptId: state.currentConceptId,
+      };
+
+      set((state) => {
+        const { history, currentHistoryIndex, maxHistorySize } = state;
+
+        // 如果当前不在历史记录的最后位置，则截断后面的记录
+        const newHistory = history.slice(0, currentHistoryIndex + 1);
+
+        // 添加新的历史记录
+        newHistory.push(stateToSave);
+
+        // 如果超过最大历史记录数，删除最老的记录
+        if (newHistory.length > maxHistorySize) {
+          newHistory.shift();
+        }
+
+        return {
+          history: newHistory,
+          currentHistoryIndex: newHistory.length - 1,
+        };
+      });
+    },
+
+    undo: () => {
+      const state = get();
+      if (!state.canUndo()) return;
+
+      set((state) => {
+        const newIndex = state.currentHistoryIndex - 1;
+        const stateToRestore = state.history[newIndex];
+
+        if (stateToRestore) {
+          return {
+            concepts: stateToRestore.concepts,
+            currentConceptId: stateToRestore.currentConceptId,
+            currentHistoryIndex: newIndex,
+          };
+        }
+
+        return {};
+      });
+    },
+
+    redo: () => {
+      const state = get();
+      if (!state.canRedo()) return;
+
+      set((state) => {
+        const newIndex = state.currentHistoryIndex + 1;
+        const stateToRestore = state.history[newIndex];
+
+        if (stateToRestore) {
+          return {
+            concepts: stateToRestore.concepts,
+            currentConceptId: stateToRestore.currentConceptId,
+            currentHistoryIndex: newIndex,
+          };
+        }
+
+        return {};
+      });
+    },
+
+    canUndo: () => {
+      const state = get();
+      return state.currentHistoryIndex > 0;
+    },
+
+    canRedo: () => {
+      const state = get();
+      return state.currentHistoryIndex < state.history.length - 1;
+    },
+
+    clearHistory: () => {
+      set({
+        history: [],
+        currentHistoryIndex: -1,
+      });
+    },
 
     // # Concepts 管理
     addConcept: ({ name = DEFAULT_CONCEPT_NAME, themeConfig } = {}) => {
-      const { concepts, applyTheme } = get();
+      const { concepts, applyTheme, saveToHistory } = get();
 
       const uniqueName = ensureUniqueName(
         concepts.map((c) => c.name),
@@ -140,8 +238,13 @@ export const useThemeStore = create(
         concepts: [...state.concepts, newConcept],
         currentConceptId: newConcept.id,
       }));
+
+      // 保存到历史记录
+      saveToHistory();
     },
     deleteConcept: (id) => {
+      const { saveToHistory } = get();
+
       set((state) => {
         const newConcepts = state.concepts.filter((c) => c.id !== id);
         let newCurrentId = state.currentConceptId;
@@ -153,9 +256,12 @@ export const useThemeStore = create(
           currentConceptId: newCurrentId,
         };
       });
+
+      // 保存到历史记录
+      saveToHistory();
     },
     duplicateConcept: (id) => {
-      const { concepts } = get();
+      const { concepts, saveToHistory } = get();
       const concept = concepts.find((c) => c.id === id);
 
       if (concept) {
@@ -178,14 +284,29 @@ export const useThemeStore = create(
           concepts: [...state.concepts, newConcept],
           currentConceptId: newConcept.id,
         }));
+
+        // 保存到历史记录
+        saveToHistory();
       }
     },
     renameConcept: (id, name) => {
+      const { saveToHistory } = get();
+
       set((state) => ({
         concepts: state.concepts.map((c) => (c.id === id ? { ...c, name } : c)),
       }));
+
+      // 保存到历史记录
+      saveToHistory();
     },
-    setCurrentConcept: (id) => set({ currentConceptId: id }),
+    setCurrentConcept: (id) => {
+      const { saveToHistory } = get();
+
+      set({ currentConceptId: id });
+
+      // 切换概念时保存到历史记录
+      saveToHistory();
+    },
     getCurrentConcept: () => {
       const { concepts, currentConceptId } = get();
       let result = concepts.find((c) => c.id === currentConceptId);
@@ -197,7 +318,7 @@ export const useThemeStore = create(
       return result;
     },
     setConcepts: ({ concepts, currentConceptId }) => {
-      const { fetchFonts } = get();
+      const { fetchFonts, clearHistory, saveToHistory } = get();
 
       set(() => {
         const updates: Partial<ThemeStoreState> = {};
@@ -210,6 +331,10 @@ export const useThemeStore = create(
 
         return updates;
       });
+
+      // setConcepts 比较特殊，只在第一次同步远程数据时使用，并作为 history 的起点
+      clearHistory();
+      saveToHistory();
     },
     // 使用某个预定义主题
     applyTheme: (concept, theme, options = {}) => {
@@ -363,7 +488,7 @@ export const useThemeStore = create(
       return concept.name === concept.template || new RegExp(`^${concept.template}\\s\\d+$`).test(concept.name);
     },
     shuffleTheme: () => {
-      const { concepts, applyTheme, getCurrentConcept, fetchFonts } = get();
+      const { concepts, applyTheme, getCurrentConcept, fetchFonts, saveToHistory } = get();
       const currentConcept = getCurrentConcept();
       if (!currentConcept) return {};
 
@@ -377,10 +502,15 @@ export const useThemeStore = create(
         concepts: concepts.map((c) => (c.id === currentConcept.id ? newConcept : c)),
         loadedFonts,
       }));
+
+      // 保存到历史记录
+      saveToHistory();
     },
 
     // # ThemeOptions 编辑
     setThemeOption: (path, value) => {
+      const { saveToHistory } = get();
+
       set((state) => {
         const current = state.concepts.find((c) => c.id === state.currentConceptId);
         if (!current || !path) return {};
@@ -396,8 +526,13 @@ export const useThemeStore = create(
           ),
         };
       });
+
+      // 保存到历史记录
+      saveToHistory();
     },
     setThemeOptions: (configs) => {
+      const { saveToHistory } = get();
+
       set((state) => {
         const current = state.concepts.find((c) => c.id === state.currentConceptId);
         if (!current) return {};
@@ -416,8 +551,13 @@ export const useThemeStore = create(
           ),
         };
       });
+
+      // 保存到历史记录
+      saveToHistory();
     },
     removeThemeOption: (path) => {
+      const { saveToHistory } = get();
+
       set((state) => {
         const current = state.concepts.find((c) => c.id === state.currentConceptId);
         if (!current || !path) return {};
@@ -433,8 +573,13 @@ export const useThemeStore = create(
           ),
         };
       });
+
+      // 保存到历史记录
+      saveToHistory();
     },
     removeThemeOptions: (paths) => {
+      const { saveToHistory } = get();
+
       set((state) => {
         const current = state.concepts.find((c) => c.id === state.currentConceptId);
         if (!current) return {};
@@ -452,8 +597,13 @@ export const useThemeStore = create(
           ),
         };
       });
+
+      // 保存到历史记录
+      saveToHistory();
     },
     setThemePrefer: (prefer) => {
+      const { saveToHistory } = get();
+
       set((state) => {
         const current = state.concepts.find((c) => c.id === state.currentConceptId);
         if (!current) return {};
@@ -473,20 +623,33 @@ export const useThemeStore = create(
           concepts: state.concepts.map((c) => (c.id === state.currentConceptId ? { ...c, prefer, mode: newMode } : c)),
         };
       });
+
+      // 保存到历史记录
+      saveToHistory();
     },
     setThemeMode: (mode) => {
+      const { saveToHistory } = get();
+
       set((state) => {
         const current = state.concepts.find((c) => c.id === state.currentConceptId);
         if (!current) return {};
         return { concepts: state.concepts.map((c) => (c.id === state.currentConceptId ? { ...c, mode } : c)) };
       });
+
+      // 保存到历史记录
+      saveToHistory();
     },
     updateThemeConfig: (themeConfig) => {
+      const { saveToHistory } = get();
+
       set((state) => ({
         concepts: state.concepts.map((c) =>
           c.id === state.currentConceptId ? { ...c, themeConfig: { ...themeConfig } } : c,
         ),
       }));
+
+      // 保存到历史记录
+      saveToHistory();
     },
     getCurrentThemeOptions: () => {
       const concept = get().getCurrentConcept();
@@ -505,7 +668,9 @@ export const useThemeStore = create(
             : c,
         ),
       })),
-    shuffleColors: (colorKeys) =>
+    shuffleColors: (colorKeys) => {
+      const { saveToHistory } = get();
+
       set((state) => {
         const currentConcept = state.getCurrentConcept();
         if (!currentConcept) return {};
@@ -518,9 +683,15 @@ export const useThemeStore = create(
         return {
           concepts: state.concepts.map((c) => (c.id === state.currentConceptId ? newConcept : c)),
         };
-      }),
+      });
+
+      // 保存到历史记录
+      saveToHistory();
+    },
     // 重置所有颜色
     resetColors: () => {
+      const { saveToHistory } = get();
+
       set((state) => {
         const concept = state.getCurrentConcept();
         if (!concept) return {};
@@ -532,6 +703,9 @@ export const useThemeStore = create(
 
         return { concepts: state.concepts.map((c) => (c.id === state.currentConceptId ? newConcept : c)) };
       });
+
+      // 保存到历史记录
+      saveToHistory();
     },
 
     // # Fonts 编辑
@@ -572,7 +746,7 @@ export const useThemeStore = create(
         ),
       })),
     setFontOptions: (fonts) => {
-      const { applyTypography, getCurrentConcept, fetchFonts } = get();
+      const { applyTypography, getCurrentConcept, fetchFonts, saveToHistory } = get();
 
       const newConcept = applyTypography(getCurrentConcept(), { fonts });
       const loadedFonts = fetchFonts(newConcept);
@@ -581,6 +755,9 @@ export const useThemeStore = create(
         concepts: state.concepts.map((c) => (c.id === state.currentConceptId ? newConcept : c)),
         loadedFonts,
       }));
+
+      // 保存到历史记录
+      saveToHistory();
     },
 
     // # Preview 查看
@@ -618,3 +795,6 @@ useThemeStore.subscribe(
   },
   { equalityFn: shallow }, // shallow 支持数组比较
 );
+
+// 目前 history 采用的是每次保存修改后的 state。因此一开始压入一个初始 state，以支持 undo 操作
+useThemeStore.getState().saveToHistory();

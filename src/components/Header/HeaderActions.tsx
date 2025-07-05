@@ -1,11 +1,14 @@
 import Confirm from '@arcblock/ux/lib/Dialog/confirm';
 import { useLocaleContext } from '@arcblock/ux/lib/Locale/context';
 import Toast from '@arcblock/ux/lib/Toast';
+import RedoIcon from '@mui/icons-material/Redo';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import SaveIcon from '@mui/icons-material/Save';
+import UndoIcon from '@mui/icons-material/Undo';
 import LoadingButton from '@mui/lab/LoadingButton';
-import { Box, Tooltip } from '@mui/material';
+import { Box, ButtonGroup, Tooltip } from '@mui/material';
 import { useState } from 'react';
+import { useKeyboardShortcuts } from 'src/hooks/useKeyboardShortcuts';
 import useSave from 'src/hooks/useSave';
 import { useThemeStore } from 'src/state/themeStore';
 
@@ -18,13 +21,27 @@ const btnSx = {
   fontSize: 14,
 };
 
+const btnGroupSx = {
+  '& .MuiButton-root': {
+    ...btnSx,
+  },
+};
+
 export function HeaderActions() {
   const { t } = useLocaleContext?.() || { t: (x: string) => x };
   const saving = useThemeStore((s) => s.saving);
   const resetStore = useThemeStore((s) => s.resetStore);
   const shuffleTheme = useThemeStore((s) => s.shuffleTheme);
+  const undo = useThemeStore((s) => s.undo);
+  const redo = useThemeStore((s) => s.redo);
+  const canUndo = useThemeStore((s) => s.canUndo());
+  const canRedo = useThemeStore((s) => s.canRedo());
   const [resetOpen, setResetOpen] = useState(false);
   const { saveTheme } = useSave();
+
+  // 检测操作系统 (使用 userAgent 替代已废弃的 platform)
+  const isMac = typeof navigator !== 'undefined' && /Mac|iPhone|iPad|iPod/.test(navigator.userAgent);
+  const modKey = isMac ? 'Cmd' : 'Ctrl';
 
   // 保存主题
   const handleSave = async () => {
@@ -51,45 +68,70 @@ export function HeaderActions() {
     shuffleTheme();
   };
 
+  // 撤销操作
+  const handleUndo = () => {
+    undo();
+  };
+
+  // 重做操作
+  const handleRedo = () => {
+    redo();
+  };
+
+  // 键盘快捷键
+  useKeyboardShortcuts({
+    onUndo: handleUndo,
+    onRedo: handleRedo,
+    canUndo,
+    canRedo,
+  });
+
   return (
     <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, ml: 1 }}>
-      {/* 保存 */}
-      <LoadingButton
-        variant="outlined"
-        color="inherit"
-        size="small"
-        startIcon={<SaveIcon sx={{ color: 'text.primary' }} />}
-        loading={saving}
-        sx={{ ...btnSx }}
-        onClick={handleSave}>
-        {t('editor.save')}
-      </LoadingButton>
-      {/* 整体 Shuffle 颜色 */}
-      <Tooltip title={t('editor.concept.shuffle')}>
-        <LoadingButton variant="outlined" color="inherit" size="small" sx={{ ...btnSx }} onClick={handleShuffle}>
-          <ShuffleIcon />
+      {/* 保存按钮组 */}
+      <ButtonGroup variant="outlined" color="inherit" size="small" sx={btnGroupSx}>
+        <LoadingButton startIcon={<SaveIcon sx={{ color: 'text.primary' }} />} loading={saving} onClick={handleSave}>
+          {t('editor.save')}
         </LoadingButton>
-      </Tooltip>
-      {/* 重置 */}
-      <Tooltip title={t('editor.concept.resetTitle')}>
-        <LoadingButton
-          variant="outlined"
-          color="inherit"
-          size="small"
-          disabled={saving}
-          onClick={handleReset}
-          sx={{
-            ...btnSx,
-            '&:hover': {
-              backgroundColor: 'warning.lighter',
-              '& .MuiSvgIcon-root': {
-                color: 'warning.main',
+      </ButtonGroup>
+
+      {/* 撤销/重做按钮组 */}
+      <ButtonGroup variant="outlined" color="inherit" size="small" sx={btnGroupSx}>
+        <Tooltip title={`${t('editor.undo')} (${modKey}+Z)`}>
+          <LoadingButton disabled={!canUndo} onClick={handleUndo}>
+            <UndoIcon sx={{ fontSize: 18 }} />
+          </LoadingButton>
+        </Tooltip>
+        <Tooltip title={`${t('editor.redo')} (${modKey}+Shift+Z)`}>
+          <LoadingButton disabled={!canRedo} onClick={handleRedo}>
+            <RedoIcon sx={{ fontSize: 18 }} />
+          </LoadingButton>
+        </Tooltip>
+      </ButtonGroup>
+
+      {/* 主题操作按钮组 */}
+      <ButtonGroup variant="outlined" color="inherit" size="small" sx={btnGroupSx}>
+        <Tooltip title={t('editor.concept.shuffle')}>
+          <LoadingButton onClick={handleShuffle}>
+            <ShuffleIcon />
+          </LoadingButton>
+        </Tooltip>
+        <Tooltip title={t('editor.concept.resetTitle')}>
+          <LoadingButton
+            disabled={saving}
+            onClick={handleReset}
+            sx={{
+              '&:hover': {
+                '& .MuiSvgIcon-root': {
+                  color: 'warning.main',
+                },
               },
-            },
-          }}>
-          <RestartAltIcon sx={{ color: 'warning.light', fontSize: 20 }} />
-        </LoadingButton>
-      </Tooltip>
+            }}>
+            <RestartAltIcon sx={{ fontSize: 20 }} />
+          </LoadingButton>
+        </Tooltip>
+      </ButtonGroup>
+
       <Confirm
         open={resetOpen}
         title={t('editor.concept.resetTitle')}

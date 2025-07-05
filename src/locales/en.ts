@@ -15,6 +15,8 @@ export default {
     shuffle: 'Shuffle',
     lock: 'Lock',
     unlock: 'Unlock',
+    undo: 'Undo',
+    redo: 'Redo',
     concept: {
       name: 'Theme Name',
       add: 'Add Theme',

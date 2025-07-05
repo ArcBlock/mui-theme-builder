@@ -41,7 +41,8 @@ export default function useRemoteThemeSync() {
             {
               id: DEFAULT_CONCEPT_ID,
               name: DEFAULT_CONCEPT_NAME,
-              mode: 'light',
+              template: DEFAULT_CONCEPT_NAME,
+              mode: !prefer || prefer === 'system' ? 'light' : prefer,
               prefer,
               themeConfig: {
                 light,

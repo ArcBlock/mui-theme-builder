@@ -54,6 +54,12 @@ export interface ThemeStoreState {
   selectedComponentId: string;
   themeObject: Theme;
   saving: boolean;
+  history: {
+    concepts: Concept[];
+    currentConceptId: string;
+  }[];
+  currentHistoryIndex: number;
+  maxHistorySize: number;
 }
 
 export interface ThemeStoreModel extends ThemeStoreState {
@@ -61,7 +67,15 @@ export interface ThemeStoreModel extends ThemeStoreState {
   resetStore: () => void;
   setSaving: (saving: boolean) => void;
 
-  // Concepts 管理
+  // # 历史记录管理
+  undo: () => void;
+  redo: () => void;
+  canUndo: () => boolean;
+  canRedo: () => boolean;
+  saveToHistory: () => void;
+  clearHistory: () => void;
+
+  // # Concepts 管理
   setCurrentConcept: (id: string) => void;
   getCurrentConcept: () => Concept;
   addConcept: (options?: { name?: string; themeConfig?: Concept['themeConfig'] }) => void;
@@ -83,7 +97,7 @@ export interface ThemeStoreModel extends ThemeStoreState {
   isPredefinedTheme: (concept: Concept) => boolean;
   shuffleTheme: () => void;
 
-  // ThemeOption 编辑
+  // # ThemeOption 编辑
   setThemeOption: (path: string, value: any) => void;
   setThemeOptions: (configs: { path: string; value: any }[]) => void;
   removeThemeOption: (path: string) => void;
@@ -93,17 +107,17 @@ export interface ThemeStoreModel extends ThemeStoreState {
   updateThemeConfig: (themeConfig: Concept['themeConfig']) => void;
   getCurrentThemeOptions: () => ThemeOptions;
 
-  // Colors 编辑
+  // # Colors 编辑
   setColorLock: (colorKey: string, isLocked: boolean) => void;
   shuffleColors: (colorKeys?: string | string[]) => void;
   resetColors: () => void;
 
-  // Fonts 编辑
+  // # Fonts 编辑
   fetchFonts: (concepts: Concept | Concept[]) => Set<string>;
   setFontLock: (variant: TextVariant, isLocked: boolean) => void;
   setFontOptions: (fonts: Partial<Record<TextVariant, { fontFamily: string }>>) => void;
 
-  // Preview 查看
+  // # Preview 查看
   setPreviewSize: (size: PreviewSize) => void;
   setSelectedComponentId: (id: string) => void;
 }
