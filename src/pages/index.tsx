@@ -15,6 +15,8 @@ function IndexPage() {
       <ErrorBoundary>
         <Box
           sx={{
+            color: 'text.primary',
+            backgroundColor: 'background.default',
             display: 'flex',
             flexDirection: 'column',
             height: '100%',

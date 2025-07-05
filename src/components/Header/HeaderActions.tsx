@@ -6,7 +6,6 @@ import RedoIcon from '@mui/icons-material/Redo';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import SaveIcon from '@mui/icons-material/Save';
 import UndoIcon from '@mui/icons-material/Undo';
-import LoadingButton from '@mui/lab/LoadingButton';
 import { Box, Button, ButtonGroup, Divider, ListItemIcon, ListItemText, Menu, MenuItem, Tooltip } from '@mui/material';
 import { useRef, useState } from 'react';
 import { useKeyboardShortcuts } from 'src/hooks/useKeyboardShortcuts';
@@ -123,9 +122,9 @@ export function HeaderActions() {
 
   // 保存按钮组件
   const renderSaveButton = () => (
-    <LoadingButton startIcon={<SaveIcon sx={saveIconSx} />} loading={saving} sx={{ ...btnSx }} onClick={handleSave}>
+    <Button startIcon={<SaveIcon sx={saveIconSx} />} loading={saving} sx={{ ...btnSx }} onClick={handleSave}>
       {t('editor.save')}
-    </LoadingButton>
+    </Button>
   );
 
   // 移动端渲染 SplitButton
@@ -197,26 +196,26 @@ export function HeaderActions() {
       {/* 撤销/重做按钮组 */}
       <ButtonGroup {...commonButtonGroupProps} sx={btnGroupSx}>
         <Tooltip title={`${t('editor.undo')} (${modKey}+Z)`}>
-          <LoadingButton disabled={!canUndo} onClick={handleUndo}>
+          <Button disabled={!canUndo} onClick={handleUndo}>
             <UndoIcon sx={{ fontSize: 18 }} />
-          </LoadingButton>
+          </Button>
         </Tooltip>
         <Tooltip title={`${t('editor.redo')} (${modKey}+Shift+Z)`}>
-          <LoadingButton disabled={!canRedo} onClick={handleRedo}>
+          <Button disabled={!canRedo} onClick={handleRedo}>
             <RedoIcon sx={{ fontSize: 18 }} />
-          </LoadingButton>
+          </Button>
         </Tooltip>
       </ButtonGroup>
 
       {/* 主题操作按钮组 */}
       <ButtonGroup {...commonButtonGroupProps} sx={btnGroupSx}>
         <Tooltip title={t('editor.concept.shuffle')}>
-          <LoadingButton onClick={handleShuffle}>
+          <Button onClick={handleShuffle}>
             <ShuffleIcon />
-          </LoadingButton>
+          </Button>
         </Tooltip>
         <Tooltip title={t('editor.concept.resetTitle')}>
-          <LoadingButton
+          <Button
             disabled={saving}
             onClick={handleReset}
             sx={{
@@ -227,7 +226,7 @@ export function HeaderActions() {
               },
             }}>
             <RestartAltIcon sx={{ fontSize: 20 }} />
-          </LoadingButton>
+          </Button>
         </Tooltip>
       </ButtonGroup>
 
