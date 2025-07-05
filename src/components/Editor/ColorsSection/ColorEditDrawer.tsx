@@ -8,6 +8,7 @@ import { HexColorPicker } from 'react-colorful';
 import { useThemeStore } from 'src/state/themeStore';
 import { getByPath } from 'src/utils';
 
+import { ButtonShuffle } from '../Common/ButtonShuffle';
 import { HexColorField } from './HexColorField';
 import type { NeutralColorType } from './NeutralColorBlock';
 
@@ -67,6 +68,7 @@ export function ColorEditDrawer({ open, colorType, onClose }: ColorEditDrawerPro
   const isMobile = useMediaQuery(themeObject.breakpoints.down('md'));
   const setThemeOptions = useThemeStore((s) => s.setThemeOptions);
   const removeThemeOption = useThemeStore((s) => s.removeThemeOption);
+  const shuffleColors = useThemeStore((s) => s.shuffleColors);
 
   const mainColor = useMemo(() => {
     if (isMainColor(colorType)) {
@@ -106,6 +108,13 @@ export function ColorEditDrawer({ open, colorType, onClose }: ColorEditDrawerPro
     setThemeOptions([{ path: `palette.${colorType}`, value: newColor }]);
   };
 
+  const handleShuffleColor = () => {
+    if (!colorType) return;
+    if (mainColor) {
+      shuffleColors(colorType);
+    }
+  };
+
   const drawerContent = (
     <Stack sx={{ p: 2, width: isMobile ? 'auto' : 320 }} spacing={2}>
       <Stack direction="row" justifyContent="space-between" alignItems="center">
@@ -136,6 +145,8 @@ export function ColorEditDrawer({ open, colorType, onClose }: ColorEditDrawerPro
             <ShadeLabel>{t('editor.colorSection.contrastText')}</ShadeLabel>
             <ShadeItem colorValue={mainColor.contrastText} />
           </Stack>
+          {/* 随机颜色 */}
+          <ButtonShuffle sx={{ mt: 1 }} onClick={handleShuffleColor} />
         </>
       )}
       {neutralColor && (
@@ -148,12 +159,6 @@ export function ColorEditDrawer({ open, colorType, onClose }: ColorEditDrawerPro
             onChange={(v) => handleNeutralColorChange(v)}
             onReset={(p) => removeThemeOption(p)}
           />
-          {/* <TextField
-            label="Hex"
-            value={neutralColor}
-            size="small"
-            onChange={(e) => handleMainColorChange(e.target.value)}
-          /> */}
         </>
       )}
     </Stack>

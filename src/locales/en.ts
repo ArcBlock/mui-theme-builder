@@ -13,6 +13,8 @@ export default {
     copy: 'Copy',
     copied: 'Copied!',
     shuffle: 'Shuffle',
+    lock: 'Lock',
+    unlock: 'Unlock',
     concept: {
       name: 'Theme Name',
       add: 'Add Theme',
@@ -20,6 +22,7 @@ export default {
       duplicateName: 'Theme name already exists',
       duplicate: 'Duplicate Theme',
       delete: 'Delete Theme',
+      shuffle: 'Shuffle Theme',
       saveSuccess: 'Theme saved successfully. Please refresh the page to apply changes.',
       saveFailed: 'Save failed: {message}',
       resetTitle: 'Reset Theme',
@@ -30,7 +33,7 @@ export default {
     colorSection: {
       title: 'Colors',
       shades: 'Shades',
-      reset: 'Reset all colors',
+      reset: 'Reset Colors',
       invalidHexColor: 'Invalid hex color',
       neutral: {
         title: 'Neutrals',

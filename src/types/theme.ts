@@ -25,6 +25,7 @@ export interface PredefinedTheme {
   name: string;
   light: Record<MainColors, string>;
   dark: Record<MainColors, string>;
+  fonts: Partial<Record<TextVariant, { fontFamily: string }>>;
 }
 
 export interface EditorState {
@@ -69,8 +70,18 @@ export interface ThemeStoreModel extends ThemeStoreState {
   renameConcept: (id: string, name: string) => void;
   setConcepts: (data: { concepts: Concept[]; currentConceptId: string }) => void;
   applyTheme: (concept: Concept, theme: PredefinedTheme, options?: { colorKeys?: string | string[] }) => Concept;
-  applyColors: (concept: Concept, theme: PredefinedTheme, colorKeys?: string | string[]) => Concept;
+  applyColors: (
+    concept: Concept,
+    theme: Pick<PredefinedTheme, 'light' | 'dark'>,
+    colorKeys?: string | string[],
+  ) => Concept;
+  applyTypography: (
+    concept: Concept,
+    theme: Pick<PredefinedTheme, 'fonts'>,
+    textVariants?: TextVariant | TextVariant[],
+  ) => Concept;
   isPredefinedTheme: (concept: Concept) => boolean;
+  shuffleTheme: () => void;
 
   // ThemeOption 编辑
   setThemeOption: (path: string, value: any) => void;
@@ -88,7 +99,9 @@ export interface ThemeStoreModel extends ThemeStoreState {
   resetColors: () => void;
 
   // Fonts 编辑
-  setFontOptions: (fontMap: Partial<Record<TextVariant, { fontFamily: string }>>) => void;
+  fetchFonts: (concepts: Concept | Concept[]) => Set<string>;
+  setFontLock: (variant: TextVariant, isLocked: boolean) => void;
+  setFontOptions: (fonts: Partial<Record<TextVariant, { fontFamily: string }>>) => void;
 
   // Preview 查看
   setPreviewSize: (size: PreviewSize) => void;

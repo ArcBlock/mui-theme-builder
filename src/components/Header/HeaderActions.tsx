@@ -4,15 +4,25 @@ import Toast from '@arcblock/ux/lib/Toast';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import SaveIcon from '@mui/icons-material/Save';
 import LoadingButton from '@mui/lab/LoadingButton';
-import { Box, IconButton, Tooltip } from '@mui/material';
+import { Box, Tooltip } from '@mui/material';
 import { useState } from 'react';
 import useSave from 'src/hooks/useSave';
 import { useThemeStore } from 'src/state/themeStore';
 
+import { ShuffleIcon } from '../Editor/Common/ButtonShuffle';
+
+const btnSx = {
+  height: '32px',
+  minWidth: 0,
+  borderColor: 'divider',
+  fontSize: 14,
+};
+
 export function HeaderActions() {
   const { t } = useLocaleContext?.() || { t: (x: string) => x };
-  const resetStore = useThemeStore((s) => s.resetStore);
   const saving = useThemeStore((s) => s.saving);
+  const resetStore = useThemeStore((s) => s.resetStore);
+  const shuffleTheme = useThemeStore((s) => s.shuffleTheme);
   const [resetOpen, setResetOpen] = useState(false);
   const { saveTheme } = useSave();
 
@@ -36,6 +46,11 @@ export function HeaderActions() {
     await handleSave();
   };
 
+  // 随机挑选主题
+  const handleShuffle = () => {
+    shuffleTheme();
+  };
+
   return (
     <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, ml: 1 }}>
       {/* 保存 */}
@@ -45,10 +60,16 @@ export function HeaderActions() {
         size="small"
         startIcon={<SaveIcon sx={{ color: 'text.primary' }} />}
         loading={saving}
-        sx={{ borderColor: 'divider', fontSize: 14 }}
+        sx={{ ...btnSx }}
         onClick={handleSave}>
         {t('editor.save')}
       </LoadingButton>
+      {/* 整体 Shuffle 颜色 */}
+      <Tooltip title={t('editor.concept.shuffle')}>
+        <LoadingButton variant="outlined" color="inherit" size="small" sx={{ ...btnSx }} onClick={handleShuffle}>
+          <ShuffleIcon />
+        </LoadingButton>
+      </Tooltip>
       {/* 重置 */}
       <Tooltip title={t('editor.concept.resetTitle')}>
         <LoadingButton
@@ -58,9 +79,7 @@ export function HeaderActions() {
           disabled={saving}
           onClick={handleReset}
           sx={{
-            minWidth: 0,
-            height: '32px',
-            borderColor: 'divider',
+            ...btnSx,
             '&:hover': {
               backgroundColor: 'warning.lighter',
               '& .MuiSvgIcon-root': {

@@ -196,46 +196,30 @@ export const useThemeStore = create(
 
       return result;
     },
-    setConcepts: ({ concepts, currentConceptId }) =>
+    setConcepts: ({ concepts, currentConceptId }) => {
+      const { fetchFonts } = get();
+
       set(() => {
         const updates: Partial<ThemeStoreState> = {};
 
         if (concepts && currentConceptId) {
           updates.concepts = concepts;
           updates.currentConceptId = currentConceptId;
-
-          // 预加载字体
-          const newFonts = concepts
-            .reduce<string[]>((acc, c) => {
-              const { typography } = c.themeConfig.common;
-
-              if (typography && typeof typography === 'object') {
-                if (typography.fontFamily) acc.push(typography.fontFamily);
-                if (typography.h1?.fontFamily) acc.push(typography.h1.fontFamily);
-              }
-
-              return acc;
-            }, [])
-            .flatMap((x) => (x == null ? [] : x?.replace(/"/g, '').split(',')))
-            // .filter((x): x is string => !!x) // remove nulls and undefined items
-            // .map(x => ) // strip out quotes and split by comma
-            // .flat() // flatten the array if any font families had multiple specified
-            .map((x) => x.trim()); // trim off any white space
-
-          const loadedFonts = loadFontsIfRequired(newFonts, new Set());
-
-          updates.loadedFonts = loadedFonts;
+          updates.loadedFonts = fetchFonts(concepts);
         }
 
         return updates;
-      }),
-    // 应用预定义主题
+      });
+    },
+    // 使用某个预定义主题
     applyTheme: (concept, theme, options = {}) => {
-      const { applyColors, concepts, isPredefinedTheme } = get();
+      const { concepts, applyColors, applyTypography, isPredefinedTheme } = get();
       const { colorKeys } = options;
 
       // 应用 colors
       let newConcept = applyColors(concept, theme, colorKeys);
+      // 应用 fonts
+      newConcept = applyTypography(newConcept, theme);
 
       // 修改主题模版名称
       let conceptName = newConcept.name;
@@ -251,7 +235,7 @@ export const useThemeStore = create(
 
       return newConcept;
     },
-    // 应用预定义颜色
+    // 批量使用颜色
     applyColors: (concept, theme, colorKeys) => {
       const { themeObject } = get();
       const updates: { path: string; value: any }[] = [];
@@ -301,8 +285,98 @@ export const useThemeStore = create(
 
       return newConcept;
     },
+    // 应批量使用字体
+    applyTypography: (concept, theme, textVariants) => {
+      const { themeObject } = get();
+      const updates: { path: string; value: any }[] = [];
+      const lockedTypographys = concept.editor.typography;
+
+      let newConcept = { ...concept };
+
+      // 缩小范围
+      let _textVariants = Object.keys(theme.fonts);
+      if (textVariants) {
+        _textVariants = Array.isArray(textVariants) ? textVariants : [textVariants];
+      }
+
+      let body: { fontFamily: string } | undefined;
+      let heading: { fontFamily: string } | undefined;
+
+      _textVariants.forEach((variant) => {
+        if (!lockedTypographys[variant]?.isLocked) {
+          if (variant === 'body') {
+            body = theme.fonts[variant];
+          } else if (variant === 'heading') {
+            heading = theme.fonts[variant];
+          }
+        }
+      });
+
+      // 修改 body
+      if (body) {
+        // body 字体本质上是 base 字体
+        updates.push({
+          path: 'themeConfig.common.typography.fontFamily',
+          value:
+            body.fontFamily === DEFAULT_FONT_STRING
+              ? DEFAULT_FONT_STRING
+              : `"${body.fontFamily}", ${DEFAULT_FONT_STRING}`,
+        });
+      }
+      // 修改 heading
+      if (heading) {
+        const headingFontFamily = heading.fontFamily;
+        updates.push(
+          ...HEADING_VARIANTS.map((v) => ({
+            path: `themeConfig.common.typography.${v}.fontFamily`,
+            value:
+              headingFontFamily === DEFAULT_FONT_STRING
+                ? DEFAULT_FONT_STRING
+                : `"${headingFontFamily}", ${DEFAULT_FONT_STRING}`,
+          })),
+        );
+      } else if (body) {
+        // 单独修改 body，不能影响 Heading 字体
+        const headingFontFamily = themeObject.typography.h1.fontFamily ?? DEFAULT_FONT_STRING;
+
+        if (headingFontFamily !== body.fontFamily) {
+          updates.push(
+            ...HEADING_VARIANTS.map((v) => ({
+              path: `themeConfig.common.typography.${v}.fontFamily`,
+              value: headingFontFamily,
+            })),
+          );
+        }
+      }
+
+      if (updates.length === 0) {
+        return newConcept;
+      }
+
+      updates.forEach(({ path, value }) => {
+        newConcept = setByPath(newConcept, path, value);
+      });
+
+      return newConcept;
+    },
     isPredefinedTheme(concept) {
       return concept.name === concept.template || new RegExp(`^${concept.template}\\s\\d+$`).test(concept.name);
+    },
+    shuffleTheme: () => {
+      const { concepts, applyTheme, getCurrentConcept, fetchFonts } = get();
+      const currentConcept = getCurrentConcept();
+      if (!currentConcept) return {};
+
+      const selected = pickRandomTheme(currentConcept.template);
+      if (!selected) return {};
+
+      const newConcept = applyTheme(currentConcept, selected);
+      const loadedFonts = fetchFonts(newConcept);
+
+      set(() => ({
+        concepts: concepts.map((c) => (c.id === currentConcept.id ? newConcept : c)),
+        loadedFonts,
+      }));
     },
 
     // # ThemeOptions 编辑
@@ -436,10 +510,10 @@ export const useThemeStore = create(
         const currentConcept = state.getCurrentConcept();
         if (!currentConcept) return {};
 
-        const selectedPalette = pickRandomTheme(currentConcept.template);
-        if (!selectedPalette) return {};
+        const selected = pickRandomTheme(currentConcept.template);
+        if (!selected) return {};
 
-        const newConcept = state.applyColors(currentConcept, selectedPalette, colorKeys);
+        const newConcept = state.applyColors(currentConcept, selected, colorKeys);
 
         return {
           concepts: state.concepts.map((c) => (c.id === state.currentConceptId ? newConcept : c)),
@@ -461,58 +535,52 @@ export const useThemeStore = create(
     },
 
     // # Fonts 编辑
-    setFontOptions: (fontMap) => {
-      const { setThemeOptions, themeObject, loadedFonts } = get();
-      const { heading, body } = fontMap;
-      const newFonts = [];
-      const updates: { path: string; value: any }[] = [];
+    fetchFonts: (concepts) => {
+      const { loadedFonts } = get();
+      const _concepts = Array.isArray(concepts) ? concepts : [concepts];
 
-      if (body) {
-        // body 字体本质上是 base 字体
-        updates.push({
-          path: 'typography.fontFamily',
-          value:
-            body.fontFamily === DEFAULT_FONT_STRING
-              ? DEFAULT_FONT_STRING
-              : `"${body.fontFamily}", ${DEFAULT_FONT_STRING}`,
-        });
-        newFonts.push(body.fontFamily);
-      }
+      if (_concepts.length === 0) return loadedFonts;
 
-      if (heading) {
-        updates.push(
-          ...HEADING_VARIANTS.map((v) => ({
-            path: `typography.${v}.fontFamily`,
-            value:
-              heading.fontFamily === DEFAULT_FONT_STRING
-                ? DEFAULT_FONT_STRING
-                : `"${heading.fontFamily}", ${DEFAULT_FONT_STRING}`,
-          })),
-        );
-        newFonts.push(heading.fontFamily);
-      } else if (body) {
-        // 单独修改 body 时，不能影响 Heading 字体
-        const headingFontFamily = themeObject.typography.h1.fontFamily ?? DEFAULT_FONT_STRING;
+      const allFonts = _concepts
+        .reduce<string[]>((acc, c) => {
+          const { typography } = c.themeConfig.common;
 
-        if (headingFontFamily !== body.fontFamily) {
-          updates.push(
-            ...HEADING_VARIANTS.map((v) => ({
-              path: `typography.${v}.fontFamily`,
-              value: headingFontFamily,
-            })),
-          );
-        }
-      }
+          if (typography && typeof typography === 'object') {
+            if (typography.fontFamily) acc.push(typography.fontFamily);
+            if (typography.h1?.fontFamily) acc.push(typography.h1.fontFamily);
+          }
 
-      // 本地加载新字体文件
-      if (newFonts.length > 0) {
-        const _loadedFonts = loadFontsIfRequired(newFonts, loadedFonts);
-        set(() => ({
-          loadedFonts: _loadedFonts,
-        }));
-      }
+          return acc;
+        }, [])
+        .flatMap((x) => (x == null ? [] : x?.replace(/"/g, '').split(',')))
+        // .filter((x): x is string => !!x) // remove nulls and undefined items
+        // .map(x => ) // strip out quotes and split by comma
+        // .flat() // flatten the array if any font families had multiple specified
+        .map((x) => x.trim()); // trim off any white space
 
-      setThemeOptions(updates);
+      return loadFontsIfRequired(allFonts, loadedFonts);
+    },
+    setFontLock: (variant, isLocked) =>
+      set((state) => ({
+        concepts: state.concepts.map((c) =>
+          c.id === state.currentConceptId
+            ? {
+                ...c,
+                editor: { ...c.editor, typography: { ...c.editor.typography, [variant]: { isLocked } } },
+              }
+            : c,
+        ),
+      })),
+    setFontOptions: (fonts) => {
+      const { applyTypography, getCurrentConcept, fetchFonts } = get();
+
+      const newConcept = applyTypography(getCurrentConcept(), { fonts });
+      const loadedFonts = fetchFonts(newConcept);
+
+      set((state) => ({
+        concepts: state.concepts.map((c) => (c.id === state.currentConceptId ? newConcept : c)),
+        loadedFonts,
+      }));
     },
 
     // # Preview 查看

@@ -1,10 +1,14 @@
-import LockIcon from '@mui/icons-material/Lock';
-import LockOpenIcon from '@mui/icons-material/LockOpen';
-import { Box, Paper, Stack, Typography } from '@mui/material';
+import { useLocaleContext } from '@arcblock/ux/lib/Locale/context';
+import RestartAltIcon from '@mui/icons-material/RestartAlt';
+import { Box, IconButton, Paper, Stack, Typography } from '@mui/material';
 import { PaletteColor } from '@mui/material/styles';
-import { useCallback } from 'react';
-import useMobile from 'src/hooks/useMobile';
+import { useMemoizedFn } from 'ahooks';
+import { defaultDarkTheme, defaultLightTheme } from 'src/siteTheme';
 import { useThemeStore } from 'src/state/themeStore';
+import { getByPath } from 'src/utils';
+
+import { IconButtonLock } from '../Common/IconButtonLock';
+import { IconButtonShuffle } from '../Common/IconButtonShuffle';
 
 export interface ColorBlockProps {
   colorType: string;
@@ -12,21 +16,35 @@ export interface ColorBlockProps {
 }
 
 export function ColorBlock({ colorType, onClick }: ColorBlockProps) {
-  const isMobile = useMobile();
+  const { t } = useLocaleContext();
   const themeObject = useThemeStore((s) => s.themeObject);
   const isLocked = useThemeStore((s) => s.getCurrentConcept().editor.colors[colorType]?.isLocked ?? false);
   const setColorLock = useThemeStore((s) => s.setColorLock);
+  const removeThemeOption = useThemeStore((s) => s.removeThemeOption);
+  const shuffleColors = useThemeStore((s) => s.shuffleColors);
 
+  const isDark = themeObject.palette.mode === 'dark';
+  const defaultColor = isDark
+    ? getByPath(defaultDarkTheme, `palette.${colorType}.main`)
+    : getByPath(defaultLightTheme, `palette.${colorType}.main`);
   const color = themeObject.palette[colorType as keyof typeof themeObject.palette] as PaletteColor;
   const mainColor = color?.main || themeObject.palette.grey[200];
+  const actionColor = themeObject.palette.getContrastText(mainColor);
 
-  const toggleLock = useCallback(
-    (e: React.MouseEvent<HTMLDivElement>) => {
-      e.stopPropagation();
-      setColorLock(colorType, !isLocked);
-    },
-    [colorType, isLocked, setColorLock],
-  );
+  const handleReset = useMemoizedFn((e: React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
+    removeThemeOption(`palette.${colorType}`);
+  });
+
+  const toggleLock = useMemoizedFn((e: React.MouseEvent<HTMLDivElement>) => {
+    e.stopPropagation();
+    setColorLock(colorType, !isLocked);
+  });
+
+  const handleShuffle = useMemoizedFn((e) => {
+    e.stopPropagation();
+    shuffleColors(colorType);
+  });
 
   return (
     <Paper
@@ -40,36 +58,38 @@ export function ColorBlock({ colorType, onClick }: ColorBlockProps) {
         position: 'relative',
         borderRadius: 1.5,
         backgroundColor: mainColor,
-        '& .lock': {
-          p: 1,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          borderRadius: 64,
-          color: themeObject.palette.getContrastText(mainColor),
-          '&:hover': {
-            backgroundColor: 'action.hover',
-          },
-        },
-        '& .lock-open': {
+        '& .action': {
           opacity: 0,
           transition: 'opacity 0.2s',
+          '&.is-locked': {
+            opacity: 1,
+          },
         },
         '&:hover': {
           borderColor: 'primary.main',
-          '& .lock-open': {
+          '& .action': {
             opacity: 1,
           },
         },
       }}
       onClick={onClick}>
-      <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ mb: 1 }}>
-        {/* Color Name */}
-        <Typography variant="subtitle1" />
+      <Stack
+        direction="row"
+        sx={{
+          position: 'absolute',
+          top: 8,
+          right: 4,
+        }}>
+        {/* Reset Icon */}
+        {mainColor !== defaultColor && (
+          <IconButton className="action" title={t('editor.reset')} onClick={handleReset}>
+            <RestartAltIcon sx={{ fontSize: 20, color: actionColor }} />
+          </IconButton>
+        )}
+        {/* Shuffle Icon */}
+        <IconButtonShuffle color={actionColor} onClick={handleShuffle} />
         {/* Lock Icon */}
-        <Box className={`lock ${isLocked || isMobile ? '' : 'lock-open'}`} onClick={toggleLock}>
-          {isLocked ? <LockIcon style={{ fontSize: 14 }} /> : <LockOpenIcon style={{ fontSize: 14 }} />}
-        </Box>
+        <IconButtonLock lock={isLocked} color={actionColor} onClick={toggleLock} />
       </Stack>
       <Box flexGrow={1} />
       <Box

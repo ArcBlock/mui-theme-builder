@@ -13,6 +13,8 @@ export default {
     copy: '复制',
     copied: '已复制！',
     shuffle: '随机生成',
+    lock: '锁定',
+    unlock: '解锁',
     concept: {
       name: '主题名称',
       add: '添加主题',
@@ -20,6 +22,7 @@ export default {
       duplicateName: '主题名称已存在',
       duplicate: '复制主题',
       delete: '删除主题',
+      shuffle: '随机生成主题',
       saveSuccess: '主题保存成功。请刷新页面以应用更改。',
       saveFailed: '保存失败：{message}',
       resetTitle: '重置主题',
@@ -29,7 +32,7 @@ export default {
     colorSection: {
       title: '颜色',
       shades: '色阶',
-      reset: '重置所有颜色',
+      reset: '重置颜色',
       invalidHexColor: '无效的 Hex 颜色值',
       neutral: {
         title: '中性色',

@@ -9,7 +9,7 @@ import { Box, Button, Divider, Menu, MenuItem, Typography, styled } from '@mui/m
 import Drawer from '@mui/material/Drawer';
 import IconButton from '@mui/material/IconButton';
 import TextField from '@mui/material/TextField';
-import { useCallback, useState, useMemo } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import useMobile from 'src/hooks/useMobile';
 import useSave from 'src/hooks/useSave';
 import { useThemeStore } from 'src/state/themeStore';
@@ -118,7 +118,7 @@ export function ConceptMenu() {
       <Box
         className={open ? 'is-open' : ''}
         sx={{
-          minWidth: 80,
+          width: 160,
           display: 'flex',
           alignItems: 'center',
           gap: 1,
@@ -136,7 +136,9 @@ export function ConceptMenu() {
           },
         }}
         onClick={(e) => setAnchorEl(e.currentTarget)}>
-        <Typography variant="body2" sx={{ flex: 1 }}>
+        <Typography
+          variant="body2"
+          sx={{ flex: 1, overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis' }}>
           {currentConcept?.name}
         </Typography>
         <KeyboardArrowDownIcon style={{ fontSize: 14 }} />
