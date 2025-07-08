@@ -53,7 +53,7 @@ function TypographySection() {
         {/* 工具栏 */}
         <Box sx={{ display: 'flex', gap: 1, justifyContent: 'flex-end', alignItems: 'center' }}>
           {/* 调整字体大小 */}
-          <Tooltip title={t('editor.typographySection.fontSize')}>
+          <Tooltip title={t('editor.typographySection.adjustFontSize')}>
             <Button
               variant="outlined"
               size="small"

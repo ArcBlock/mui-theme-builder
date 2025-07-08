@@ -78,7 +78,7 @@ export default {
       serif: 'Serif',
       display: 'Display',
       monospace: 'Mono',
-      fontSize: 'Font Size',
+      adjustFontSize: 'Adjust Font Size',
       resetAllSizes: 'Reset All Sizes',
       fontSizeDescriptions: {
         body: 'Main text for content and interface',
