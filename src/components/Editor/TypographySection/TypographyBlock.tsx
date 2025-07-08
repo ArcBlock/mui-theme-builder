@@ -129,7 +129,7 @@ function TypographyBlock({ variant, onClick }: TypographyBlockProps) {
           }}>
           {actions.getLabel()}
         </Typography>
-        <Typography variant={variant as any} sx={{ fontFamily, fontSize: '2em' }}>
+        <Typography variant={variant as any} sx={{ fontFamily, fontSize: '32px' }}>
           {fontFamily?.split(',')[0].replace(/"/g, '')}
         </Typography>
       </Stack>

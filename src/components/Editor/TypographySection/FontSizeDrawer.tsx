@@ -100,8 +100,7 @@ export function FontSizeDrawer({ open, onClose }: FontSizeDrawerProps) {
 
   // 重置所有字体大小
   const handleResetAll = () => {
-    const allPaths = Object.keys(HEADING_VARIANTS)
-      .map((variant) => `typography.${variant}.fontSize`)
+    const allPaths = HEADING_VARIANTS.map((variant) => `typography.${variant}.fontSize`)
       .concat('typography.fontSize')
       .concat(BODY_VARIANTS.map((v) => `typography.${v}.fontSize`));
 

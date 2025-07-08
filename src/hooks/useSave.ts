@@ -23,6 +23,8 @@ export default function useSave() {
       if (isDev) {
         // eslint-disable-next-line no-console
         console.log('themeData', themeData);
+        // @ts-ignore
+        window.themeData = themeData;
         // eslint-disable-next-line no-promise-executor-return
         await new Promise((resolve) => setTimeout(resolve, 500));
         // eslint-disable-next-line no-console

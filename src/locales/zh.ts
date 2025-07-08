@@ -77,6 +77,7 @@ export default {
       serif: '衬线',
       display: '装饰',
       monospace: '等宽',
+      fontSize: '字体大小',
       adjustFontSize: '调整字体大小',
       resetAllSizes: '重置所有大小',
       fontSizeDescriptions: {

@@ -32,7 +32,7 @@ export function ColorsSettingMenu() {
   });
 
   return (
-    <Box>
+    <>
       <Button
         onClick={handleClick}
         variant="outlined"
@@ -78,6 +78,6 @@ export function ColorsSettingMenu() {
           <Typography variant="body2">{t('editor.colorSection.reset')}</Typography>
         </MenuItem>
       </Menu>
-    </Box>
+    </>
   );
 }
