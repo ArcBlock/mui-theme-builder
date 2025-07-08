@@ -6,6 +6,11 @@ export type ThemePrefer = 'light' | 'dark' | 'system';
 export type TextVariant = 'heading' | 'body';
 export type PreviewSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | false;
 export type MainColors = 'primary' | 'secondary' | 'success' | 'error' | 'info' | 'warning';
+export type ApplyThemeOptions = {
+  colorKeys?: string | string[];
+  textVariants?: TextVariant | TextVariant[];
+  skipCheckLock?: boolean;
+};
 
 export interface Concept {
   id: string;
@@ -83,17 +88,13 @@ export interface ThemeStoreModel extends ThemeStoreState {
   duplicateConcept: (id: string) => void;
   renameConcept: (id: string, name: string) => void;
   setConcepts: (data: { concepts: Concept[]; currentConceptId: string }) => void;
-  applyTheme: (concept: Concept, theme: PredefinedTheme, options?: { colorKeys?: string | string[] }) => Concept;
+  applyTheme: (concept: Concept, theme: PredefinedTheme, options?: ApplyThemeOptions) => Concept;
   applyColors: (
     concept: Concept,
     theme: Pick<PredefinedTheme, 'light' | 'dark'>,
-    colorKeys?: string | string[],
+    options?: ApplyThemeOptions,
   ) => Concept;
-  applyTypography: (
-    concept: Concept,
-    theme: Pick<PredefinedTheme, 'fonts'>,
-    textVariants?: TextVariant | TextVariant[],
-  ) => Concept;
+  applyTypography: (concept: Concept, theme: Pick<PredefinedTheme, 'fonts'>, options?: ApplyThemeOptions) => Concept;
   isPredefinedTheme: (concept: Concept) => boolean;
   shuffleTheme: () => void;
 

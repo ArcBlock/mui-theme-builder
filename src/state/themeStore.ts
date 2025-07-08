@@ -14,7 +14,14 @@ import type {
   ThemeStoreModel,
   ThemeStoreState,
 } from 'src/types/theme';
-import { createPreviewMuiTheme, ensureUniqueName, loadFontsIfRequired, removeByPath, setByPath } from 'src/utils';
+import {
+  createPreviewMuiTheme,
+  ensureUniqueName,
+  isSingle,
+  loadFontsIfRequired,
+  removeByPath,
+  setByPath,
+} from 'src/utils';
 import { create } from 'zustand';
 import { subscribeWithSelector } from 'zustand/middleware';
 import { shallow } from 'zustand/shallow';
@@ -23,6 +30,7 @@ export const DEFAULT_CONCEPT_ID = 'EdNkoyjQDQFY7f1gzwdat';
 export const DEFAULT_CONCEPT_NAME = 'Default';
 export const MODE_SPECIFIC_FIELDS = ['palette', 'components', 'shadows']; // 需要区分 light/dark 的主题配置
 export const HEADING_VARIANTS = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'subtitle1', 'subtitle2', 'overline'] as const;
+export const BODY_VARIANTS = ['body1', 'body2'] as const;
 
 // 默认的 font-family 字符串
 export const DEFAULT_FONT_STRING = DEFAULT_FONTS.map((s) => {
@@ -342,7 +350,7 @@ export const useThemeStore = create(
       const { colorKeys } = options;
 
       // 应用 colors
-      let newConcept = applyColors(concept, theme, colorKeys);
+      let newConcept = applyColors(concept, theme, { colorKeys });
       // 应用 fonts
       newConcept = applyTypography(newConcept, theme);
 
@@ -361,7 +369,7 @@ export const useThemeStore = create(
       return newConcept;
     },
     // 批量使用颜色
-    applyColors: (concept, theme, colorKeys) => {
+    applyColors: (concept, theme, { colorKeys, skipCheckLock } = {}) => {
       const { themeObject } = get();
       const updates: { path: string; value: any }[] = [];
       const lockedColors = concept.editor.colors;
@@ -385,7 +393,7 @@ export const useThemeStore = create(
         _colorKeys.forEach((key) => {
           const colorKey = key as keyof typeof modeTheme;
           // 排除已锁定的 color
-          if (!lockedColors[colorKey]?.isLocked) {
+          if (skipCheckLock || !lockedColors[colorKey]?.isLocked) {
             const newMainColor = modeTheme[colorKey];
             // 计算 Shades 颜色
             const augmentedColor = themeObject.palette.augmentColor({ color: { main: newMainColor } });
@@ -411,7 +419,7 @@ export const useThemeStore = create(
       return newConcept;
     },
     // 应批量使用字体
-    applyTypography: (concept, theme, textVariants) => {
+    applyTypography: (concept, theme, { textVariants, skipCheckLock } = {}) => {
       const { themeObject } = get();
       const updates: { path: string; value: any }[] = [];
       const lockedTypographys = concept.editor.typography;
@@ -428,7 +436,7 @@ export const useThemeStore = create(
       let heading: { fontFamily: string } | undefined;
 
       _textVariants.forEach((variant) => {
-        if (!lockedTypographys[variant]?.isLocked) {
+        if (skipCheckLock || !lockedTypographys[variant]?.isLocked) {
           if (variant === 'body') {
             body = theme.fonts[variant];
           } else if (variant === 'heading') {
@@ -678,7 +686,10 @@ export const useThemeStore = create(
         const selected = pickRandomTheme(currentConcept.template);
         if (!selected) return {};
 
-        const newConcept = state.applyColors(currentConcept, selected, colorKeys);
+        const newConcept = state.applyColors(currentConcept, selected, {
+          colorKeys,
+          skipCheckLock: isSingle(colorKeys),
+        });
 
         return {
           concepts: state.concepts.map((c) => (c.id === state.currentConceptId ? newConcept : c)),
@@ -748,7 +759,11 @@ export const useThemeStore = create(
     setFontOptions: (fonts) => {
       const { applyTypography, getCurrentConcept, fetchFonts, saveToHistory } = get();
 
-      const newConcept = applyTypography(getCurrentConcept(), { fonts });
+      const newConcept = applyTypography(
+        getCurrentConcept(),
+        { fonts },
+        { skipCheckLock: isSingle(Object.keys(fonts)) },
+      );
       const loadedFonts = fetchFonts(newConcept);
 
       set((state) => ({

@@ -1,37 +1,38 @@
 import { useLocaleContext } from '@arcblock/ux/lib/Locale/context';
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import { Box, Button, Divider, Menu, MenuItem, Typography } from '@mui/material';
+import { useMemoizedFn } from 'ahooks';
 import { useState } from 'react';
 import { useThemeStore } from 'src/state/themeStore';
 import type { ThemePrefer } from 'src/types/theme';
 
-function ModeDisableMenu() {
+export function ColorsSettingMenu() {
   const { t } = useLocaleContext();
   const prefer = useThemeStore((s) => s.getCurrentConcept().prefer);
   const setThemePrefer = useThemeStore((s) => s.setThemePrefer);
   const resetColors = useThemeStore((s) => s.resetColors);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
-  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+  const handleClick = useMemoizedFn((event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
-  };
+  });
 
-  const handleClose = () => {
+  const handleClose = useMemoizedFn(() => {
     setAnchorEl(null);
-  };
+  });
 
-  const handleOptionSelect = (value: ThemePrefer) => {
+  const handleOptionSelect = useMemoizedFn((value: ThemePrefer) => {
     setThemePrefer(value);
     handleClose();
-  };
+  });
 
-  const handleResetColors = () => {
+  const handleResetColors = useMemoizedFn(() => {
     resetColors();
     handleClose();
-  };
+  });
 
   return (
-    <Box>
+    <>
       <Button
         onClick={handleClick}
         variant="outlined"
@@ -58,8 +59,10 @@ function ModeDisableMenu() {
           vertical: 'top',
           horizontal: 'right',
         }}
-        PaperProps={{
-          sx: { minWidth: 120 },
+        slotProps={{
+          paper: {
+            sx: { minWidth: 120 },
+          },
         }}>
         <MenuItem onClick={() => handleOptionSelect('system')} selected={prefer === 'system'}>
           <Typography variant="body2">{t('editor.colorSection.modeDisable.none')}</Typography>
@@ -75,8 +78,6 @@ function ModeDisableMenu() {
           <Typography variant="body2">{t('editor.colorSection.reset')}</Typography>
         </MenuItem>
       </Menu>
-    </Box>
+    </>
   );
 }
-
-export default ModeDisableMenu;

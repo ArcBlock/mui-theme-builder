@@ -1,5 +1,6 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import react from '@vitejs/plugin-react';
+import { codeInspectorPlugin } from 'code-inspector-plugin';
 import path, { join } from 'path';
 import { defineConfig, loadEnv } from 'vite';
 // @ts-ignore
@@ -56,6 +57,9 @@ export default defineConfig(({ mode }) => {
       monacoEditorPlugin({
         publicPath: monacoEditorPublicPath,
         customDistPath: (root, buildOutDir) => path.resolve(buildOutDir, monacoEditorPublicPath),
+      }),
+      codeInspectorPlugin({
+        bundler: 'vite',
       }),
     ],
     define: {
