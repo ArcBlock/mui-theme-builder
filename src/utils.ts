@@ -366,3 +366,7 @@ export function isValidHexColor(value: string): boolean {
   const hexRegex = /^[0-9A-Fa-f]+$/;
   return hexRegex.test(hexValue);
 }
+
+export function isSingle<T>(arr?: T | T[]): boolean {
+  return !!arr && (Array.isArray(arr) ? arr.length === 1 : true);
+}
