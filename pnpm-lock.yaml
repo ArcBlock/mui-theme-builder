@@ -159,6 +159,9 @@ importers:
       bumpp:
         specifier: ^9.11.1
         version: 9.11.1(magicast@0.3.5)
+      code-inspector-plugin:
+        specifier: ^0.20.15
+        version: 0.20.15
       eslint:
         specifier: ^8.57.1
         version: 8.57.1
@@ -1787,6 +1790,15 @@ packages:
   '@vitest/utils@3.2.4':
     resolution: {integrity: sha512-fB2V0JFrQSMsCo9HiSq3Ezpdv4iYaXRG1Sx8edX3MwxfyNn83mKiGzOcH+Fkxt4MHxr3y42fQi1oeAInqgX2QA==}
 
+  '@vue/compiler-core@3.5.17':
+    resolution: {integrity: sha512-Xe+AittLbAyV0pabcN7cP7/BenRBNcteM4aSDCtRvGw0d9OL+HG1u/XHLY/kt1q4fyMeZYXyIYrsHuPSiDPosA==}
+
+  '@vue/compiler-dom@3.5.17':
+    resolution: {integrity: sha512-+2UgfLKoaNLhgfhV5Ihnk6wB4ljyW1/7wUIog2puUqajiC29Lp5R/IKDdkebh9jTbTogTbsgB+OY9cEWzG95JQ==}
+
+  '@vue/shared@3.5.17':
+    resolution: {integrity: sha512-CabR+UN630VnsJO/jHWYBC1YVXyMq94KKp6iF5MQgZJs5I8cmjw6oVMO1oDbtBkENSHSSn/UadWlW/OAgdmKrg==}
+
   '@wangshijun/hdkey@2.0.5':
     resolution: {integrity: sha512-BCVoapO+cBAniHPf00v4XhJBzRVthFkD+h9ee/6SwGUir2juZibyuKCKi42AK48TpMMMBg7BgUXdr30alchNgg==}
 
@@ -2255,6 +2267,10 @@ packages:
     resolution: {integrity: sha512-4D3B6Wf41KOYRFdszmDqMCGq5VV/uMAB273JILmO+3jAlh8X4qDtdtgCR3fxtbLEMzSx22QdhnDcJvu2u1fVwg==}
     engines: {node: '>=8'}
 
+  chalk@4.1.1:
+    resolution: {integrity: sha512-diHzdDKxcU+bAsUboHLPEDQiw0qEe0qd7SYUn3HgcFlWgbDcfLGswOHYeGrHKzG9z6UYf01d9VFMfZxPM1xZSg==}
+    engines: {node: '>=10'}
+
   chalk@4.1.2:
     resolution: {integrity: sha512-oKnbhFyRIXpUuez8iBMmyEa4nbj4IOQyuhc/wy9kY7/WVPcwIO9VA668Pu8RkO7+0G76SLROeyw9CpQ061i4mA==}
     engines: {node: '>=10'}
@@ -2349,6 +2365,12 @@ packages:
   cluster-key-slot@1.1.2:
     resolution: {integrity: sha512-RMr0FhtfXemyinomL4hrWcYJxmX6deFdCxpJzhDttxgO1+bcCnkk+9drydLVDmAMG7NE6aN/fl4F7ucU/90gAA==}
     engines: {node: '>=0.10.0'}
+
+  code-inspector-core@0.20.15:
+    resolution: {integrity: sha512-2PKFKkrdacwieS/A0e8nHf6AfqOGN4OQx4HtIPh8H+GfQry1jwsLdi+uCMMoBP4w/Cujy6onVYVg55Iu5w2OYQ==}
+
+  code-inspector-plugin@0.20.15:
+    resolution: {integrity: sha512-JIFNpBor45i1SnyD28TqbTsB6bND57kYzGR4c3gqIhZj9bO1nxSd51ef8OOSbsBXxhMpNjbldwYoBuQExdFAVA==}
 
   color-convert@2.0.1:
     resolution: {integrity: sha512-RRECPsj7iu/xb5oKYcsFHSppFNnsj/52OVTRKb4zP5onXwVF3zVmmToNcOfGC+CRDpfK/U584fMg38ZHCaElKQ==}
@@ -2944,6 +2966,9 @@ packages:
   es-to-primitive@1.3.0:
     resolution: {integrity: sha512-w+5mJ3GuFL+NjVtJlvydShqE1eN3h3PbI7/5LAsYJP/2qtuMXjfL2LpHSRqo4b4eSF5K/DH1JXKUAHSB2UW50g==}
     engines: {node: '>= 0.4'}
+
+  esbuild-code-inspector-plugin@0.20.15:
+    resolution: {integrity: sha512-iCTPL4plbWPX+KerG1VUMK/+iuxm/RB9DLBKGVCgB2z7viw3O00+C2HIVua9QBcb13kU33Ws61BuIP7nfz74PQ==}
 
   esbuild@0.25.5:
     resolution: {integrity: sha512-P8OtKZRv/5J5hhz0cUAdu/cLuPIKXpQl1R9pZtvmHWQvrAUVd0UNIPT4IB4W3rNOqVO0rlqHmCIbSwxh/c9yUQ==}
@@ -4163,6 +4188,9 @@ packages:
     resolution: {integrity: sha512-MbjN408fEndfiQXbFQ1vnd+1NoLDsnQW41410oQBXiyXDMYH5z505juWa4KUE1LqxRC7DgOgZDbKLxHIwm27hA==}
     engines: {node: '>=0.10'}
 
+  launch-ide@1.0.7:
+    resolution: {integrity: sha512-wJMTq6U2sVYqxrlp544KQxtl8cHoXFfQa2ivDtKJ6ock2ARneiEHqUFce/NQsnNP1aZNg4OXB6g00oFRvni1/Q==}
+
   lazy@1.0.11:
     resolution: {integrity: sha512-Y+CjUfLmIpoUCCRl0ub4smrYtGGr5AOa2AKOaWelGHOGz33X/Y/KizefGqbkwfz44+cnq/+9habclf8vOmu2LA==}
     engines: {node: '>=0.2.0'}
@@ -4969,6 +4997,10 @@ packages:
 
   pnpm-workspace-yaml@0.3.1:
     resolution: {integrity: sha512-3nW5RLmREmZ8Pm8MbPsO2RM+99RRjYd25ynj3NV0cFsN7CcEl4sDFzgoFmSyduFwxFQ2Qbu3y2UdCh6HlyUOeA==}
+
+  portfinder@1.0.37:
+    resolution: {integrity: sha512-yuGIEjDAYnnOex9ddMnKZEMFE0CcGo6zbfzDklkmT1m5z734ss6JMzN9rNB3+RR7iS+F10D4/BVIaXOyh8PQKw==}
+    engines: {node: '>= 10.12'}
 
   possible-typed-array-names@1.1.0:
     resolution: {integrity: sha512-/+5VFTchJDoVj3bhoqi6UeymcD00DAwb1nJwamzPvHEszJ4FpF6SNNbUbOS8yI56qHzdV8eK0qEfOSiodkTdxg==}
@@ -6251,6 +6283,9 @@ packages:
   victory-vendor@36.9.2:
     resolution: {integrity: sha512-PnpQQMuxlwYdocC8fIJqVXvkeViHYzotI+NJrCuav0ZYFoq912ZHBk3mCeuj+5/VpodOjPe1z0Fk2ihgzlXqjQ==}
 
+  vite-code-inspector-plugin@0.20.15:
+    resolution: {integrity: sha512-Zd6dFN5/uqz0zkys6F+pNG//ToWw5nBGerPfwsD4KWMgEauXbPsQl78k20Fur/4dsrmUDXtM2uGG6FSdAsVT9A==}
+
   vite-node@3.2.4:
     resolution: {integrity: sha512-EbKSKh+bh1E1IFxeO0pg1n4dvoOTt0UDiXMd/qn++r98+jPO1xtJilvXldeuQ8giIB5IkpjCgMleHMNEsGH6pg==}
     engines: {node: ^18.0.0 || ^20.0.0 || >=22.0.0}
@@ -6366,6 +6401,9 @@ packages:
   webidl-conversions@7.0.0:
     resolution: {integrity: sha512-VwddBukDzu71offAQR975unBIGqfKZpM+8ZX6ySk8nYhVoo5CYaZyzt3YBvYtRtO+aoGlqxPg/B87NGVZ/fu6g==}
     engines: {node: '>=12'}
+
+  webpack-code-inspector-plugin@0.20.15:
+    resolution: {integrity: sha512-CaaIAMHOVCjWT2TEvhutZdR4SW/F0AAmRDtfafirRnhgmGH7fRHn8UB4hTI5z1AnS4FtLOt/RrW+UZkMMZc8+Q==}
 
   whatwg-encoding@2.0.0:
     resolution: {integrity: sha512-p41ogyeMUrw3jWclHWTQg1k05DSVXPLcVxRTYsXUk+ZooOCZLcoYgPZ/HL/D/N+uQPOtcp1me1WhBEaX02mhWg==}
@@ -9064,6 +9102,21 @@ snapshots:
       loupe: 3.1.4
       tinyrainbow: 2.0.0
 
+  '@vue/compiler-core@3.5.17':
+    dependencies:
+      '@babel/parser': 7.28.0
+      '@vue/shared': 3.5.17
+      entities: 4.5.0
+      estree-walker: 2.0.2
+      source-map-js: 1.2.1
+
+  '@vue/compiler-dom@3.5.17':
+    dependencies:
+      '@vue/compiler-core': 3.5.17
+      '@vue/shared': 3.5.17
+
+  '@vue/shared@3.5.17': {}
+
   '@wangshijun/hdkey@2.0.5':
     dependencies:
       '@wangshijun/secp256k1': 4.0.3
@@ -9674,6 +9727,11 @@ snapshots:
       ansi-styles: 4.3.0
       supports-color: 7.2.0
 
+  chalk@4.1.1:
+    dependencies:
+      ansi-styles: 4.3.0
+      supports-color: 7.2.0
+
   chalk@4.1.2:
     dependencies:
       ansi-styles: 4.3.0
@@ -9775,6 +9833,27 @@ snapshots:
   clsx@2.1.1: {}
 
   cluster-key-slot@1.1.2: {}
+
+  code-inspector-core@0.20.15:
+    dependencies:
+      '@vue/compiler-dom': 3.5.17
+      chalk: 4.1.2
+      dotenv: 16.6.1
+      launch-ide: 1.0.7
+      portfinder: 1.0.37
+    transitivePeerDependencies:
+      - supports-color
+
+  code-inspector-plugin@0.20.15:
+    dependencies:
+      chalk: 4.1.1
+      code-inspector-core: 0.20.15
+      dotenv: 16.6.1
+      esbuild-code-inspector-plugin: 0.20.15
+      vite-code-inspector-plugin: 0.20.15
+      webpack-code-inspector-plugin: 0.20.15
+    transitivePeerDependencies:
+      - supports-color
 
   color-convert@2.0.1:
     dependencies:
@@ -10473,6 +10552,12 @@ snapshots:
       is-callable: 1.2.7
       is-date-object: 1.1.0
       is-symbol: 1.1.1
+
+  esbuild-code-inspector-plugin@0.20.15:
+    dependencies:
+      code-inspector-core: 0.20.15
+    transitivePeerDependencies:
+      - supports-color
 
   esbuild@0.25.5:
     optionalDependencies:
@@ -11889,6 +11974,11 @@ snapshots:
     dependencies:
       language-subtag-registry: 0.3.23
 
+  launch-ide@1.0.7:
+    dependencies:
+      chalk: 4.1.2
+      dotenv: 16.6.1
+
   lazy@1.0.11: {}
 
   lazystream@1.0.1:
@@ -12756,6 +12846,13 @@ snapshots:
   pnpm-workspace-yaml@0.3.1:
     dependencies:
       yaml: 2.8.0
+
+  portfinder@1.0.37:
+    dependencies:
+      async: 3.2.6
+      debug: 4.4.1
+    transitivePeerDependencies:
+      - supports-color
 
   possible-typed-array-names@1.1.0: {}
 
@@ -14253,6 +14350,12 @@ snapshots:
       d3-time: 3.1.0
       d3-timer: 3.0.1
 
+  vite-code-inspector-plugin@0.20.15:
+    dependencies:
+      code-inspector-core: 0.20.15
+    transitivePeerDependencies:
+      - supports-color
+
   vite-node@3.2.4(@types/node@24.0.10)(jiti@2.4.2)(yaml@2.8.0):
     dependencies:
       cac: 6.7.14
@@ -14399,6 +14502,12 @@ snapshots:
   webfontloader@1.6.28: {}
 
   webidl-conversions@7.0.0: {}
+
+  webpack-code-inspector-plugin@0.20.15:
+    dependencies:
+      code-inspector-core: 0.20.15
+    transitivePeerDependencies:
+      - supports-color
 
   whatwg-encoding@2.0.0:
     dependencies:
