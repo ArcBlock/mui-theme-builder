@@ -1,3 +1,10 @@
+## 0.3.1 (2025-7-8)
+
+- feat: support for adjusting font size
+- fix: allow adjusting individual values when locked
+- fix: incorrect font preview
+- chore: add code inspector
+
 ## 0.3.0 (2025-7-5)
 
 - fix: unify interaction behavior for lock, shuffle, and reset buttons
