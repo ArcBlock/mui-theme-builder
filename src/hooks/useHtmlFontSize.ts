@@ -11,7 +11,7 @@ export default function useHtmlFontSize(): number {
     // 直接从根元素获取计算后的字体大小
     const rootFontSize = parseFloat(getComputedStyle(document.documentElement).fontSize);
 
-    if (!isNaN(rootFontSize)) {
+    if (!Number.isNaN(rootFontSize)) {
       setHtmlFontSize(rootFontSize);
     }
   }, []);

@@ -26,8 +26,6 @@ const getThemeFontSizes = (theme: Theme, htmlFontSize: number) => {
           } else {
             value = parseFloat(value);
           }
-        } else if (typeof value === 'number') {
-          value = value;
         }
 
         acc[variant] = value || theme.typography.fontSize;
@@ -58,8 +56,6 @@ export function FontSizeDrawer({ open, onClose }: FontSizeDrawerProps) {
   const isMobile = useMobile();
   const htmlFontSize = useHtmlFontSize();
 
-  console.log('themeObject', themeObject);
-
   const sizes = useReactive<Record<TypographyVariant, number>>(getThemeFontSizes(themeObject, htmlFontSize));
   const defaultSizes = useMemo<Record<TypographyVariant, number>>(
     () => getThemeFontSizes(BLOCKLET_THEME_LIGHT, htmlFontSize),
@@ -83,12 +79,10 @@ export function FontSizeDrawer({ open, onClose }: FontSizeDrawerProps) {
           ),
         );
       }
+    } else if (size === defaultSizes[variant]) {
+      removeThemeOptions([`typography.${variant}.fontSize`]);
     } else {
-      if (size === defaultSizes[variant]) {
-        removeThemeOptions([`typography.${variant}.fontSize`]);
-      } else {
-        setThemeOptions([{ path: `typography.${variant}.fontSize`, value: `${size}px` }]);
-      }
+      setThemeOptions([{ path: `typography.${variant}.fontSize`, value: `${size}px` }]);
     }
   });
 
