@@ -30,6 +30,7 @@ export const DEFAULT_CONCEPT_ID = 'EdNkoyjQDQFY7f1gzwdat';
 export const DEFAULT_CONCEPT_NAME = 'Default';
 export const MODE_SPECIFIC_FIELDS = ['palette', 'components', 'shadows']; // 需要区分 light/dark 的主题配置
 export const HEADING_VARIANTS = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'subtitle1', 'subtitle2', 'overline'] as const;
+export const BODY_VARIANTS = ['body1', 'body2'] as const;
 
 // 默认的 font-family 字符串
 export const DEFAULT_FONT_STRING = DEFAULT_FONTS.map((s) => {

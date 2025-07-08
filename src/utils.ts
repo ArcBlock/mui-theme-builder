@@ -370,3 +370,8 @@ export function isValidHexColor(value: string): boolean {
 export function isSingle<T>(arr?: T | T[]): boolean {
   return !!arr && (Array.isArray(arr) ? arr.length === 1 : true);
 }
+
+// 将 MUI 中的 rem 转为 px
+export function remToPx(rem: number, typographyFontSize = 14, typographyHtmlFontSize = 16, htmlFontSize = 16) {
+  return rem * (typographyFontSize / 14) * (htmlFontSize / typographyHtmlFontSize) * htmlFontSize;
+}

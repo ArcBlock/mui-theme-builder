@@ -175,7 +175,13 @@ export function ColorEditDrawer({ open, colorType, onClose }: ColorEditDrawerPro
   );
 
   return (
-    <Drawer anchor={isMobile ? 'bottom' : 'left'} open={open} onClose={onClose}>
+    <Drawer
+      anchor={isMobile ? 'bottom' : 'left'}
+      open={open}
+      onClose={onClose}
+      slotProps={{
+        backdrop: { sx: { backgroundColor: 'transparent' } },
+      }}>
       {drawerContent}
     </Drawer>
   );

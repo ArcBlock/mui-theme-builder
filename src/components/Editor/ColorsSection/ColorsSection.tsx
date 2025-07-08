@@ -11,7 +11,7 @@ import { useThemeStore } from 'src/state/themeStore';
 import { ButtonShuffle } from '../Common/ButtonShuffle';
 import { ColorBlock } from './ColorBlock';
 import { ColorEditDrawer, colorTypes } from './ColorEditDrawer';
-import ModeDisableMenu from './ModeDisableMenu';
+import { ColorsSettingMenu } from './ColorsSettingMenu';
 import { NeutralColorBlock, type NeutralColorType } from './NeutralColorBlock';
 
 type ColorType = (typeof colorTypes)[number] | NeutralColorType;
@@ -195,8 +195,8 @@ function ColorsSection() {
               )}
             </ToggleButton>
           </Box>
-          {/* 模式禁用设置 */}
-          <ModeDisableMenu />
+          {/* 其它设置 */}
+          <ColorsSettingMenu />
           {/* Shuffle 按钮 */}
           <ButtonShuffle onClick={handleShuffle} />
         </Box>

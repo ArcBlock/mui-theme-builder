@@ -1,17 +1,20 @@
 import { useLocaleContext } from '@arcblock/ux/lib/Locale/context';
-import { Box, Grid, Stack, Typography } from '@mui/material';
+import FormatSizeIcon from '@mui/icons-material/FormatSize';
+import { Box, Button, Grid, Stack, Tooltip, Typography } from '@mui/material';
 import { useState } from 'react';
 import useGoogleFonts from 'src/hooks/useGoogleFonts';
 import { useThemeStore } from 'src/state/themeStore';
 import { TextVariant } from 'src/types/theme';
 
 import { ButtonShuffle } from '../Common/ButtonShuffle';
+import { FontFamilySelectorDrawer } from './FontFamilySelectorDrawer';
+import { FontSizeDrawer } from './FontSizeDrawer';
 import TypographyBlock from './TypographyBlock';
-import TypographyEditDrawer from './TypographyEditDrawer';
 
 function TypographySection() {
   const { t } = useLocaleContext();
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const [fontSizeDrawerOpen, setFontSizeDrawerOpen] = useState(false);
   const [selectedVariant, setSelectedVariant] = useState<TextVariant>('heading');
   const { setFontOptions } = useThemeStore();
   const { shuffleFonts } = useGoogleFonts({ category: 'All', searchQuery: '' });
@@ -49,6 +52,16 @@ function TypographySection() {
         <Typography variant="h5">{t('editor.typographySection.title')}</Typography>
         {/* 工具栏 */}
         <Box sx={{ display: 'flex', gap: 1, justifyContent: 'flex-end', alignItems: 'center' }}>
+          {/* 调整字体大小 */}
+          <Tooltip title={t('editor.typographySection.fontSize')}>
+            <Button
+              variant="outlined"
+              size="small"
+              sx={{ color: 'inherit', borderColor: 'divider', minWidth: 'auto' }}
+              onClick={() => setFontSizeDrawerOpen(true)}>
+              <FormatSizeIcon sx={{ py: '2px' }} />
+            </Button>
+          </Tooltip>
           {/* Shuffle 按钮 */}
           <ButtonShuffle onClick={handleShuffleFonts} />
         </Box>
@@ -70,7 +83,9 @@ function TypographySection() {
         </Grid>
       </Grid>
       {/* 字体编辑抽屉 */}
-      <TypographyEditDrawer open={drawerOpen} variant={selectedVariant} onClose={() => setDrawerOpen(false)} />
+      <FontFamilySelectorDrawer open={drawerOpen} variant={selectedVariant} onClose={() => setDrawerOpen(false)} />
+      {/* 字体大小设置抽屉 */}
+      <FontSizeDrawer open={fontSizeDrawerOpen} onClose={() => setFontSizeDrawerOpen(false)} />
     </Box>
   );
 }

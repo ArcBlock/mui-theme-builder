@@ -46,13 +46,13 @@ const FONT_CATEGORIES = [
   },
 ];
 
-interface TypographyEditDrawerProps {
+export interface TypographyEditDrawerProps {
   open: boolean;
   variant: TextVariant;
   onClose: () => void;
 }
 
-function TypographyEditDrawer({ open, variant, onClose }: TypographyEditDrawerProps) {
+export function FontFamilySelectorDrawer({ open, variant, onClose }: TypographyEditDrawerProps) {
   const { t } = useLocaleContext();
   const setFontOptions = useThemeStore((s) => s.setFontOptions);
   const themeObject = useThemeStore((s) => s.themeObject);
@@ -242,10 +242,9 @@ function TypographyEditDrawer({ open, variant, onClose }: TypographyEditDrawerPr
       onClose={onClose}
       slotProps={{
         paper: { sx: { height: { xs: '80vh', md: '100%' } } },
+        backdrop: { sx: { backgroundColor: 'transparent' } },
       }}>
       {drawerContent}
     </Drawer>
   );
 }
-
-export default TypographyEditDrawer;
