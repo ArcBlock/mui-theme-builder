@@ -91,7 +91,7 @@ export function ThemeBuilder({
             {showEditor && !isMobile && (
               <Box
                 className="hide-scrollbar"
-                sx={{ maxWidth: '800px', flex: '1 0', overflowY: 'auto', overflowX: 'hidden' }}>
+                sx={{ maxWidth: showPreview ? '800px' : 'unset', flex: '1 0', overflowY: 'auto', overflowX: 'hidden' }}>
                 {/* 编辑区 */}
                 <Editor />
               </Box>
