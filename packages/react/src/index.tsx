@@ -134,6 +134,7 @@ ThemeBuilder.Editor = Editor;
 ThemeBuilder.Preview = Preview;
 
 export { useThemeBuilder };
+export * from './constants';
 export * from './state/createStore';
 export * from './types/theme';
 export * from './types/fonts';
