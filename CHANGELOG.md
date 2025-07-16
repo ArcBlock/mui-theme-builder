@@ -1,6 +1,6 @@
 ## 0.4.0 (July 16, 2025)
 
-- feat(react): add theme builder react component library
+- feat(react): introduce Theme Builder component library
 
 ## 0.3.1 (2025-7-8)
 
