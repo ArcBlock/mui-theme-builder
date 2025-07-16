@@ -5,7 +5,6 @@ import { PaletteColor, Theme } from '@mui/material/styles';
 import cloneDeep from 'lodash/cloneDeep';
 import { nanoid } from 'nanoid';
 import predefinedThemes from 'src/data/predefined-themes.json';
-import { getDefaultThemeConfig } from 'src/siteTheme';
 import type {
   Concept,
   EditorState,
@@ -18,6 +17,7 @@ import type {
 import {
   createPreviewMuiTheme,
   ensureUniqueName,
+  getDefaultThemeConfig,
   isSingle,
   loadFontsIfRequired,
   removeByPath,

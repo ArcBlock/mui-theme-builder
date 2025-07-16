@@ -1,8 +1,8 @@
 import { type Concept, DEFAULT_CONCEPT_ID, DEFAULT_CONCEPT_NAME, type ThemeData } from '@blocklet/theme-builder-react';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { getAuthHeaders, isDev } from 'src/utils';
 
+import { getAuthHeaders, isDev } from '../utils';
 import useSchemaKey from './useSchemaKey';
 
 export default function useRemoteThemeSync() {

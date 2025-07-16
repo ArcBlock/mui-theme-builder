@@ -4,8 +4,8 @@ import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import { IconButton, OutlinedTextFieldProps, TextField } from '@mui/material';
 import { useMemo, useState } from 'react';
+import { defaultDarkTheme, defaultLightTheme } from 'src/constants';
 import { useThemeBuilder } from 'src/context/themeBuilder';
-import { defaultDarkTheme, defaultLightTheme } from 'src/siteTheme';
 import { getByPath, isValidHexColor } from 'src/utils';
 
 export interface HexColorInputProps extends Omit<OutlinedTextFieldProps, 'value' | 'variant' | 'onChange' | 'onReset'> {

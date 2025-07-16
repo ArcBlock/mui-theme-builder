@@ -3,7 +3,7 @@ import { BLOCKLET_THEME_DARK, BLOCKLET_THEME_LIGHT } from '@blocklet/theme';
 import { ThemeOptions, TypographyVariantsOptions, createTheme } from '@mui/material';
 import dotProp from 'dot-prop-immutable';
 
-import { PreviewSize } from './types/theme';
+import { Concept, PreviewSize } from './types/theme';
 
 export const isDev = process.env.NODE_ENV === 'development';
 
@@ -73,20 +73,6 @@ export function verbose(...args: any[]) {
     // eslint-disable-next-line no-console
     console.log(...args);
   }
-}
-
-export function getAuthHeaders() {
-  const headers: Record<string, any> = {};
-  const urlParams = new URLSearchParams(window.location.search);
-  const authKey = urlParams.get('authKey');
-  if (authKey) {
-    const authToken = window.localStorage.getItem(authKey);
-    if (authToken) {
-      headers.Authorization = `Bearer ${authToken}`;
-    }
-  }
-
-  return headers;
 }
 
 /**
@@ -368,3 +354,10 @@ export function isSingle<T>(arr?: T | T[]): boolean {
 export function remToPx(rem: number, typographyFontSize = 14, typographyHtmlFontSize = 16, htmlFontSize = 16) {
   return rem * (typographyFontSize / 14) * (htmlFontSize / typographyHtmlFontSize) * htmlFontSize;
 }
+
+// 获取默认 theme 配置
+export const getDefaultThemeConfig = (): Concept['themeConfig'] => ({
+  light: {},
+  dark: {},
+  common: {},
+});

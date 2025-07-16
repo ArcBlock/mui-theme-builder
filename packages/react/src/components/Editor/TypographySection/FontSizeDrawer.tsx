@@ -3,10 +3,10 @@ import { Close, RestartAlt } from '@mui/icons-material';
 import { Box, Button, Drawer, IconButton, Slider, Stack, Theme, Typography } from '@mui/material';
 import { useMemoizedFn, useReactive } from 'ahooks';
 import { useMemo } from 'react';
+import { defaultLightTheme } from 'src/constants';
 import { useThemeBuilder } from 'src/context/themeBuilder';
 import useHtmlFontSize from 'src/hooks/useHtmlFontSize';
 import useMobile from 'src/hooks/useMobile';
-import { defaultLightTheme } from 'src/siteTheme';
 import { BODY_VARIANTS, HEADING_VARIANTS } from 'src/state/createStore';
 import { remToPx } from 'src/utils';
 

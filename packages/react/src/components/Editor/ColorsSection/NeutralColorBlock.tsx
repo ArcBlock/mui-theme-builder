@@ -1,5 +1,5 @@
 import { useLocaleContext } from '@arcblock/ux/lib/Locale/context';
-import { Box, Paper, PaperProps, Typography, useTheme } from '@mui/material';
+import { Box, Paper, PaperProps, Typography } from '@mui/material';
 import { useMemo } from 'react';
 import { useThemeBuilder } from 'src/context/themeBuilder';
 import { getByPath } from 'src/utils';
@@ -22,7 +22,6 @@ export interface NeutralColorBlockProps extends Omit<PaperProps, 'onClick'> {
 
 export function NeutralColorBlock({ onClick = undefined, sx, ...props }: NeutralColorBlockProps) {
   const { t } = useLocaleContext();
-  const theme = useTheme();
   const themeObject = useThemeBuilder((s) => s.themeObject);
   const neutralColors = useMemo(() => {
     const { palette } = themeObject;

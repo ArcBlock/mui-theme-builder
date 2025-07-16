@@ -3,10 +3,10 @@ import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import { IconButton, Paper, Stack, Typography } from '@mui/material';
 import { useMemoizedFn } from 'ahooks';
 import { useMemo } from 'react';
+import { defaultDarkTheme, defaultLightTheme } from 'src/constants';
 import { useThemeBuilder } from 'src/context/themeBuilder';
 import useGoogleFonts from 'src/hooks/useGoogleFonts';
 import useMobile from 'src/hooks/useMobile';
-import { defaultDarkTheme, defaultLightTheme } from 'src/siteTheme';
 import { DEFAULT_FONT_STRING, HEADING_VARIANTS } from 'src/state/createStore';
 import { TextVariant } from 'src/types/theme';
 

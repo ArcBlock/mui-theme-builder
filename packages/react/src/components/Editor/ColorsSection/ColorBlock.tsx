@@ -3,9 +3,9 @@ import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import { Box, IconButton, Paper, Stack, Typography } from '@mui/material';
 import { PaletteColor } from '@mui/material/styles';
 import { useMemoizedFn } from 'ahooks';
+import { defaultDarkTheme, defaultLightTheme } from 'src/constants';
 import { useThemeBuilder } from 'src/context/themeBuilder';
 import useMobile from 'src/hooks/useMobile';
-import { defaultDarkTheme, defaultLightTheme } from 'src/siteTheme';
 import { getByPath } from 'src/utils';
 
 import { IconButtonLock } from '../Common/IconButtonLock';

@@ -1,15 +1,16 @@
-import { useLocaleContext } from '@arcblock/ux/lib/Locale/context';
 import { ThemeProvider } from '@arcblock/ux/lib/Theme';
 import { ThemeBuilder } from '@blocklet/theme-builder-react';
 import { Alert, Box, CircularProgress, Theme, createTheme } from '@mui/material';
 import React, { useEffect, useMemo } from 'react';
-import ErrorBoundary from 'src/components/ErrorBoundary';
-import useParentLocale from 'src/hooks/useParentLocale';
-import useParentTheme from 'src/hooks/useParentTheme';
-import useRemoteThemeSync from 'src/hooks/useRemoteThemeSync';
-import useSave from 'src/hooks/useSave';
-import useSchemaKey from 'src/hooks/useSchemaKey';
-import { isDev } from 'src/utils';
+
+import ErrorBoundary from '../components/ErrorBoundary';
+import useParentLocale from '../hooks/useParentLocale';
+import useParentTheme from '../hooks/useParentTheme';
+import useRemoteThemeSync from '../hooks/useRemoteThemeSync';
+import useSave from '../hooks/useSave';
+import useSchemaKey from '../hooks/useSchemaKey';
+
+export const isDev = process.env.NODE_ENV === 'development';
 
 function Center({ children }: { children: React.ReactNode }) {
   return (
@@ -31,7 +32,6 @@ function Index() {
   const { loading: syncLoading, themeData } = useRemoteThemeSync();
   const { parentTheme, loading: parentThemeLoading } = useParentTheme();
   const { locale } = useParentLocale();
-  const { changeLocale } = useLocaleContext();
   const { saveTheme } = useSave();
   const loading = syncLoading || parentThemeLoading;
 
@@ -41,11 +41,6 @@ function Index() {
 
     return createTheme(parentTheme);
   }, [parentTheme, parentThemeLoading]);
-
-  // 跟随父页面 locale
-  useEffect(() => {
-    changeLocale(locale);
-  }, [changeLocale, locale]);
 
   // 通知父页面已经加载完毕
   useEffect(() => {

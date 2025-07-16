@@ -1,7 +1,7 @@
 import { type ThemeData } from '@blocklet/theme-builder-react';
 import { useMemoizedFn } from 'ahooks';
 import axios from 'axios';
-import { getAuthHeaders, isDev } from 'src/utils';
+import { getAuthHeaders, isDev } from '../utils';
 
 import useSchemaKey from './useSchemaKey';
 
