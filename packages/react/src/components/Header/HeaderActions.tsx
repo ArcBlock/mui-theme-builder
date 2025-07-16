@@ -11,7 +11,7 @@ import { useRef, useState } from 'react';
 import { useThemeBuilder } from 'src/context/themeBuilder';
 import { useKeyboardShortcuts } from 'src/hooks/useKeyboardShortcuts';
 import useMobile from 'src/hooks/useMobile';
-import useSave from 'src/hooks/useSave';
+import { ThemeData } from 'src/types/theme';
 
 import { ShuffleIcon } from '../Editor/Common/ButtonShuffle';
 
@@ -36,9 +36,14 @@ const commonButtonGroupProps = {
   size: 'small',
 } as const;
 
-export function HeaderActions() {
+export interface HeaderActionsProps {
+  onSave?: (themeData: ThemeData) => Promise<void>;
+}
+
+export function HeaderActions({ onSave }: HeaderActionsProps) {
   const { t } = useLocaleContext?.() || { t: (x: string) => x };
   const isMobile = useMobile();
+  const setSaving = useThemeBuilder((s) => s.setSaving);
   const saving = useThemeBuilder((s) => s.saving);
   const getThemeData = useThemeBuilder((s) => s.getThemeData);
   const resetStore = useThemeBuilder((s) => s.resetStore);
@@ -50,7 +55,6 @@ export function HeaderActions() {
   const [resetOpen, setResetOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const splitButtonRef = useRef<HTMLDivElement>(null);
-  const { saveTheme } = useSave();
 
   // 检测操作系统 (使用 userAgent 替代已废弃的 platform)
   const isMac = typeof navigator !== 'undefined' && /Mac|iPhone|iPad|iPod/.test(navigator.userAgent);
@@ -59,10 +63,13 @@ export function HeaderActions() {
   // 保存主题
   const handleSave = async () => {
     try {
-      await saveTheme(getThemeData());
+      setSaving(true);
+      await onSave?.(getThemeData());
       Toast.success(t('editor.concept.saveSuccess'));
     } catch (e) {
       Toast.error(t('editor.concept.saveFailed', { message: (e as Error).message }));
+    } finally {
+      setSaving(false);
     }
   };
 

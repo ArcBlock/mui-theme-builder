@@ -57,6 +57,7 @@ export interface ThemeBuilderProps extends BoxProps {
   themeOptions?: ThemeOptions;
   themeData?: ThemeData;
   children?: React.ReactNode;
+  onSave?: (themeData: ThemeData) => Promise<void>;
 }
 
 export function ThemeBuilder({
@@ -67,6 +68,7 @@ export function ThemeBuilder({
   themeOptions = {},
   themeData = undefined,
   children,
+  onSave = undefined,
   ...rest
 }: ThemeBuilderProps) {
   const isMobile = useMobile();
@@ -75,7 +77,7 @@ export function ThemeBuilder({
     () =>
       children || (
         <>
-          {showHeader && <Header />}
+          {showHeader && <Header onSave={onSave} />}
           <Box
             sx={{
               display: 'flex',

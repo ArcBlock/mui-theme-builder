@@ -1,12 +1,15 @@
 import { AppBar, AppBarProps, Box, Toolbar } from '@mui/material';
 import useMobile from 'src/hooks/useMobile';
+import { ThemeData } from 'src/types/theme';
 
 import { ConceptMenu } from './Header/ConceptMenu';
 import { HeaderActions } from './Header/HeaderActions';
 
-export interface HeaderProps extends AppBarProps {}
+export interface HeaderProps extends AppBarProps {
+  onSave?: (themeData: ThemeData) => Promise<void>;
+}
 
-export default function Header({ sx, ...props }: HeaderProps) {
+export default function Header({ sx, onSave, ...props }: HeaderProps) {
   const isMobile = useMobile();
 
   return (
@@ -38,7 +41,7 @@ export default function Header({ sx, ...props }: HeaderProps) {
         </Box>
         {isMobile && <Box sx={{ flexGrow: 1 }} />}
         {/* 菜单按钮 */}
-        <HeaderActions />
+        <HeaderActions onSave={onSave} />
       </Toolbar>
     </AppBar>
   );

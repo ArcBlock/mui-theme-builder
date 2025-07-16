@@ -7,6 +7,7 @@ import ErrorBoundary from 'src/components/ErrorBoundary';
 import useParentLocale from 'src/hooks/useParentLocale';
 import useParentTheme from 'src/hooks/useParentTheme';
 import useRemoteThemeSync from 'src/hooks/useRemoteThemeSync';
+import useSave from 'src/hooks/useSave';
 import useSchemaKey from 'src/hooks/useSchemaKey';
 import { isDev } from 'src/utils';
 
@@ -31,6 +32,7 @@ function Index() {
   const { parentTheme, loading: parentThemeLoading } = useParentTheme();
   const { locale } = useParentLocale();
   const { changeLocale } = useLocaleContext();
+  const { saveTheme } = useSave();
   const loading = syncLoading || parentThemeLoading;
 
   // 跟随父页面主题
@@ -71,7 +73,7 @@ function Index() {
   return (
     <ErrorBoundary>
       <ThemeProvider theme={siteTheme} injectFirst>
-        <ThemeBuilder showPreview locale={locale} themeData={themeData} />
+        <ThemeBuilder showPreview locale={locale} themeData={themeData} onSave={saveTheme} />
       </ThemeProvider>
     </ErrorBoundary>
   );

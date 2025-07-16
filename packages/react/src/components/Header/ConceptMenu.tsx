@@ -12,8 +12,7 @@ import TextField from '@mui/material/TextField';
 import { useCallback, useMemo, useState } from 'react';
 import { useThemeBuilder } from 'src/context/themeBuilder';
 import useMobile from 'src/hooks/useMobile';
-import useSave from 'src/hooks/useSave';
-import { Concept } from 'src/types/theme';
+import { Concept, ThemeData } from 'src/types/theme';
 
 const ConceptItem = styled(MenuItem)(({ theme }) => ({
   minWidth: 254,
@@ -53,10 +52,15 @@ const ConceptButton = styled(Box)(() => ({
   },
 }));
 
-export function ConceptMenu() {
+export interface ConceptMenuProps {
+  onSave?: (themeData: ThemeData) => Promise<void>;
+}
+export function ConceptMenu({ onSave }: ConceptMenuProps) {
   const { t } = useLocaleContext();
   const isMobile = useMobile();
   //
+  const setSaving = useThemeBuilder((s) => s.setSaving);
+  const getThemeData = useThemeBuilder((s) => s.getThemeData);
   const concepts = useThemeBuilder((s) => s.concepts);
   const currentConceptId = useThemeBuilder((s) => s.currentConceptId);
   const setCurrentConcept = useThemeBuilder((s) => s.setCurrentConcept);
@@ -67,7 +71,6 @@ export function ConceptMenu() {
   //
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
-  const { saveTheme } = useSave();
   const [renameDrawerOpen, setRenameDrawerOpen] = useState(false);
   const [renameTargetId, setRenameTargetId] = useState<string | null>(null);
   const [renameValue, setRenameValue] = useState('');
@@ -82,13 +85,21 @@ export function ConceptMenu() {
 
   // 切换主题
   const handleSelectConcept = useCallback(
-    (concept: Concept) => () => {
+    (concept: Concept) => async () => {
+      setSaving(true);
       setCurrentConcept(concept.id);
       // 直接保存主题
-      saveTheme(store.getState());
+      try {
+        await onSave?.(getThemeData());
+      } catch (e) {
+        console.error(e);
+      } finally {
+        setSaving(false);
+      }
+
       setAnchorEl(null);
     },
-    [setCurrentConcept, saveTheme],
+    [setCurrentConcept, onSave],
   );
 
   // 打开主题编辑框
