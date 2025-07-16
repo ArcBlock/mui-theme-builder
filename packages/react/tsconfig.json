@@ -1,12 +1,12 @@
 {
   "compilerOptions": {
+    "types": ["vitest/globals"],
     "outDir": "./dist",
     "target": "es2020",
     "module": "esnext",
     "lib": ["esnext", "DOM"],
     "allowJs": true,
     "declaration": true,
-    "emitDeclarationOnly": true,
     "isolatedModules": true,
     "moduleResolution": "node",
     "esModuleInterop": true,
@@ -20,6 +20,6 @@
       "src/*": ["./src/*"]
     }
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.jsx", "src/**/*.js", "vite.config.ts"],
+  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.jsx", "src/**/*.js", "vite.config.,ts"],
   "exclude": ["src/**/*.stories.js", "src/**/demo/*"]
 }

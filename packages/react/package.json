@@ -22,7 +22,7 @@
     "lint": "eslint src --ext .mjs,.js,.jsx,.ts,.tsx",
     "lint:fix": "npm run lint -- --fix",
     "clean": "node scripts/build-clean.mjs",
-    "build": "./extractMuiVersion.sh && vite build && node publish.js",
+    "build": "tsc --noEmit && ./extractMuiVersion.sh && vite build && node publish.js",
     "prepare": "npx simple-git-hooks",
     "bump-version": "zx --quiet scripts/bump-version.mjs",
     "fetch-fonts": "node scripts/fetch-google-fonts.mjs",

@@ -63,8 +63,9 @@ export function NeutralColorBlock({ onClick = undefined, sx, ...props }: Neutral
               '&:hover': {
                 borderColor: 'primary.main',
                 '&:last-child': {
-                  borderBottomLeftRadius: theme.shape.borderRadius * 1.5,
-                  borderBottomRightRadius: theme.shape.borderRadius * 1.5,
+                  borderRadius: 1.5,
+                  borderTopLeftRadius: 0,
+                  borderTopRightRadius: 0,
                 },
               },
             }}

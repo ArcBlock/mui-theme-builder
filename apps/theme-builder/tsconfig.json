@@ -1,5 +1,5 @@
 {
-  "include": ["src", "vite.config.ts"],
+  "include": ["src", "vite.config.mts"],
   "compilerOptions": {
     /* Visit https://aka.ms/tsconfig.json to read more about this file */
 

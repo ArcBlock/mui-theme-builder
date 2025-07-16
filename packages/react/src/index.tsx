@@ -6,15 +6,15 @@ import type { Locale } from '@arcblock/ux/lib/type';
 import { Box, BoxProps, type Theme, type ThemeOptions, createTheme, styled } from '@mui/material';
 import { useMemoizedFn } from 'ahooks';
 import { useEffect, useMemo } from 'react';
-import Editor from 'src/components/Editor/Editor';
-import Header from 'src/components/Header';
-import PreviewSizeControls from 'src/components/Header/PreviewSizeControls';
-import PreviewWindow from 'src/components/Preview/PreviewWindow';
-import { ThemeBuilderContext, useThemeBuilder } from 'src/context/themeBuilder';
-import useMobile from 'src/hooks/useMobile';
-import { translations } from 'src/locales';
 
+import Editor from './components/Editor';
+import Header from './components/Header';
+import PreviewSizeControls from './components/Header/PreviewSizeControls';
+import PreviewWindow from './components/Preview/PreviewWindow';
 import { BUILDER_THEME_OPTIONS } from './constants';
+import { ThemeBuilderContext, useThemeBuilder } from './context/themeBuilder';
+import useMobile from './hooks/useMobile';
+import { translations } from './locales';
 import createStore from './state/createStore';
 import { ThemeData } from './types/theme';
 
@@ -67,7 +67,7 @@ export function ThemeBuilder({
   locale = 'en',
   themeOptions = {},
   themeData = undefined,
-  children,
+  children = undefined,
   onSave = undefined,
   ...rest
 }: ThemeBuilderProps) {
@@ -104,7 +104,7 @@ export function ThemeBuilder({
           {isMobile && <Editor />}
         </>
       ),
-    [children, showEditor, showHeader, showPreview, isMobile],
+    [children, showEditor, showHeader, showPreview, isMobile, onSave],
   );
   // 继承父主题
   const createBuilderTheme = useMemoizedFn((parentTheme: Theme) => {

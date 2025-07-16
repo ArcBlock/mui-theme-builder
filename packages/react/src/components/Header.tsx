@@ -9,7 +9,7 @@ export interface HeaderProps extends AppBarProps {
   onSave?: (themeData: ThemeData) => Promise<void>;
 }
 
-export default function Header({ sx, onSave, ...props }: HeaderProps) {
+export default function Header({ sx, onSave = undefined, ...props }: HeaderProps) {
   const isMobile = useMobile();
 
   return (

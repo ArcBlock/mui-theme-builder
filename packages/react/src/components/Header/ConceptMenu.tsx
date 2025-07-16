@@ -55,7 +55,7 @@ const ConceptButton = styled(Box)(() => ({
 export interface ConceptMenuProps {
   onSave?: (themeData: ThemeData) => Promise<void>;
 }
-export function ConceptMenu({ onSave }: ConceptMenuProps) {
+export function ConceptMenu({ onSave = undefined }: ConceptMenuProps) {
   const { t } = useLocaleContext();
   const isMobile = useMobile();
   //
@@ -99,7 +99,7 @@ export function ConceptMenu({ onSave }: ConceptMenuProps) {
 
       setAnchorEl(null);
     },
-    [setCurrentConcept, onSave],
+    [setCurrentConcept, onSave, getThemeData, setSaving],
   );
 
   // 打开主题编辑框

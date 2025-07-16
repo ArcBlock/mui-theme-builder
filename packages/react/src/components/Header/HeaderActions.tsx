@@ -40,7 +40,7 @@ export interface HeaderActionsProps {
   onSave?: (themeData: ThemeData) => Promise<void>;
 }
 
-export function HeaderActions({ onSave }: HeaderActionsProps) {
+export function HeaderActions({ onSave = undefined }: HeaderActionsProps) {
   const { t } = useLocaleContext?.() || { t: (x: string) => x };
   const isMobile = useMobile();
   const setSaving = useThemeBuilder((s) => s.setSaving);

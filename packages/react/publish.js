@@ -23,6 +23,7 @@ fs.writeFileSync(
       name,
       version,
       main: 'index.js',
+      module: 'index.js',
       publishConfig: {
         access: 'public',
       },

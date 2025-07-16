@@ -1,6 +1,7 @@
 declare module 'vite-plugin-blocklet';
 declare module '@arcblock/did-connect/*';
 declare module '@arcblock/icons';
+declare module '@arcblock/icons/*';
 
 declare module '@mui/material/colors' {
   export const amber: Record<number | string, string>;
@@ -32,6 +33,11 @@ declare module '*.png' {
 declare module '*.webp' {
   const value: any;
   export = value;
+}
+declare module '*.svg?react' {
+  import React from 'react';
+  const SVG: React.FC<React.SVGProps<SVGSVGElement>>;
+  export default SVG;
 }
 
 declare global {

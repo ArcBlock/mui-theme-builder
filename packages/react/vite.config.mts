@@ -9,29 +9,32 @@ import svgr from 'vite-plugin-svgr';
 
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '');
+  const isProduction = mode === 'production';
   const arcblockUxBasePath = env.ARCBLOCK_UX_BASE_PATH;
   const alias: Record<string, string> = {};
   const precompilationExclude: string[] = [];
-  const hoistedLibs: string[] = [
-    // ux repo 中其他的包
-    '@arcblock/bridge',
-    '@arcblock/icons',
-    '@arcblock/react-hooks',
-    '@arcblock/nft-display',
-    // ux repo 中 使用到 server repo 的包
-    '@blocklet/meta',
-    '@blocklet/js-sdk',
-    // 带有公共 context 的包
-    'react',
-    'react-router-dom',
-    '@emotion/react',
-    '@emotion/styled',
-    '@mui/icons-material',
-    '@mui/material',
-  ];
-  if (arcblockUxBasePath) {
+
+  if (!isProduction && arcblockUxBasePath) {
     // eslint-disable-next-line no-console
     console.log('enable debug with UX');
+
+    const hoistedLibs: string[] = [
+      // ux repo 中其他的包
+      '@arcblock/bridge',
+      '@arcblock/icons',
+      '@arcblock/react-hooks',
+      '@arcblock/nft-display',
+      // ux repo 中 使用到 server repo 的包
+      '@blocklet/meta',
+      '@blocklet/js-sdk',
+      // 带有公共 context 的包
+      'react',
+      'react-router-dom',
+      '@emotion/react',
+      '@emotion/styled',
+      '@mui/icons-material',
+      '@mui/material',
+    ];
 
     alias['@arcblock/ux/lib'] = `${arcblockUxBasePath}/packages/ux/src`;
     alias['@arcblock/did-connect/lib'] = `${arcblockUxBasePath}/packages/did-connect/src`;
@@ -61,6 +64,7 @@ export default defineConfig(({ mode }) => {
       dts({
         entryRoot: 'src',
         exclude: ['**/*.stories.*', '**/*.test.*', '**/demo/**'],
+        tsconfigPath: './tsconfig.json',
       }),
       noBundlePlugin({
         root: 'src',
