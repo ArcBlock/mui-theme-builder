@@ -90,14 +90,13 @@ export function ConceptMenu({ onSave = undefined }: ConceptMenuProps) {
       setCurrentConcept(concept.id);
       // 直接保存主题
       try {
+        setAnchorEl(null);
         await onSave?.(getThemeData());
       } catch (e) {
         console.error(e);
       } finally {
         setSaving(false);
       }
-
-      setAnchorEl(null);
     },
     [setCurrentConcept, onSave, getThemeData, setSaving],
   );

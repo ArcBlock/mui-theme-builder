@@ -37,7 +37,7 @@ export default function Header({ sx, onSave = undefined, ...props }: HeaderProps
         }}>
         {/* 主题管理菜单 */}
         <Box sx={{ marginLeft: -1 }}>
-          <ConceptMenu />
+          <ConceptMenu onSave={onSave} />
         </Box>
         {isMobile && <Box sx={{ flexGrow: 1 }} />}
         {/* 菜单按钮 */}
