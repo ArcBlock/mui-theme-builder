@@ -15,25 +15,25 @@ importers:
   packages/react:
     dependencies:
       '@abtnode/constant':
-        specifier: ^1.16.45
+        specifier: ^1.16.46
         version: 1.16.46
       '@arcblock/did-connect':
-        specifier: ^3.0.22
+        specifier: ^3.0.26
         version: 3.0.26(6a205a613322ca5ea1dfd22825802055)
       '@arcblock/icons':
-        specifier: ^3.0.22
+        specifier: ^3.0.26
         version: 3.0.26(react@19.1.0)
       '@arcblock/ux':
-        specifier: ^3.0.22
+        specifier: ^3.0.26
         version: 3.0.26(@emotion/react@11.14.0(@types/react@19.1.8)(react@19.1.0))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.1.8)(react@19.1.0))(@types/react@19.1.8)(react@19.1.0))(@mui/icons-material@7.2.0(@mui/material@7.2.0(@emotion/react@11.14.0(@types/react@19.1.8)(react@19.1.0))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.1.8)(react@19.1.0))(@types/react@19.1.8)(react@19.1.0))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(@types/react@19.1.8)(react@19.1.0))(@mui/material@7.2.0(@emotion/react@11.14.0(@types/react@19.1.8)(react@19.1.0))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.1.8)(react@19.1.0))(@types/react@19.1.8)(react@19.1.0))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(@mui/utils@7.2.0(@types/react@19.1.8)(react@19.1.0))(@types/react@19.1.8)(prop-types@15.8.1)(react-dom@19.1.0(react@19.1.0))(react-router-dom@6.30.1(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react@19.1.0)
       '@babel/eslint-parser':
         specifier: ^7.28.0
         version: 7.28.0(@babel/core@7.28.0)(eslint@8.57.1)
       '@blocklet/theme':
-        specifier: ^3.0.22
+        specifier: ^3.0.26
         version: 3.0.26(@mui/material@7.2.0(@emotion/react@11.14.0(@types/react@19.1.8)(react@19.1.0))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.1.8)(react@19.1.0))(@types/react@19.1.8)(react@19.1.0))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))
       '@blocklet/ui-react':
-        specifier: ^3.0.22
+        specifier: ^3.0.26
         version: 3.0.26(0e326a532a6f3d81c9b4c2deac6c6bd0)
       '@emotion/react':
         specifier: ^11.14.0
@@ -7247,7 +7247,7 @@ snapshots:
       '@ocap/mcrypto': 1.20.15
       '@ocap/util': 1.20.15
       bn.js: 5.2.1
-      joi: 17.12.2
+      joi: 17.13.3
       lodash: 4.17.21
     transitivePeerDependencies:
       - supports-color
@@ -7340,7 +7340,7 @@ snapshots:
 
   '@babel/generator@7.17.7':
     dependencies:
-      '@babel/types': 7.17.0
+      '@babel/types': 7.28.1
       jsesc: 2.5.2
       source-map: 0.5.7
 
@@ -7702,11 +7702,11 @@ snapshots:
 
   '@did-connect/authenticator@2.2.8':
     dependencies:
-      '@arcblock/did': 1.20.15
-      '@arcblock/jwt': 1.20.15
+      '@arcblock/did': 1.21.0
+      '@arcblock/jwt': 1.21.0
       '@did-connect/types': 2.2.8
-      '@ocap/util': 1.20.15
-      '@ocap/wallet': 1.20.15
+      '@ocap/util': 1.21.0
+      '@ocap/wallet': 1.21.0
       debug: 4.4.1
       lodash: 4.17.21
     transitivePeerDependencies:
@@ -7714,14 +7714,14 @@ snapshots:
 
   '@did-connect/handler@2.2.8(debug@4.4.1)':
     dependencies:
-      '@arcblock/did': 1.20.15
-      '@arcblock/jwt': 1.20.15
-      '@arcblock/ws': 1.20.15
+      '@arcblock/did': 1.21.0
+      '@arcblock/jwt': 1.21.0
+      '@arcblock/ws': 1.21.0
       '@did-connect/authenticator': 2.2.8
       '@did-connect/storage': 2.2.8
       '@did-connect/types': 2.2.8
-      '@ocap/mcrypto': 1.20.15
-      '@ocap/util': 1.20.15
+      '@ocap/mcrypto': 1.21.0
+      '@ocap/util': 1.21.0
       axios: 1.10.0(debug@4.4.1)
       lodash: 4.17.21
       object-hash: 3.0.0
@@ -7742,7 +7742,7 @@ snapshots:
   '@did-connect/types@2.2.8':
     dependencies:
       '@arcblock/validator': 1.21.0
-      '@ocap/mcrypto': 1.20.15
+      '@ocap/mcrypto': 1.21.0
       joi: 17.13.3
     transitivePeerDependencies:
       - supports-color
@@ -9027,7 +9027,7 @@ snapshots:
 
   '@types/sax@1.2.7':
     dependencies:
-      '@types/node': 17.0.45
+      '@types/node': 24.0.14
 
   '@types/tern@0.23.9':
     dependencies:
@@ -10038,7 +10038,7 @@ snapshots:
   code-inspector-core@0.20.17:
     dependencies:
       '@vue/compiler-dom': 3.5.17
-      chalk: 4.1.1
+      chalk: 4.1.2
       dotenv: 16.6.1
       launch-ide: 1.0.8
       portfinder: 1.0.37
@@ -10181,7 +10181,7 @@ snapshots:
     dependencies:
       cipher-base: 1.0.6
       inherits: 2.0.4
-      ripemd160: 2.0.1
+      ripemd160: 2.0.2
       sha.js: 2.4.12
 
   create-hash@1.2.0:
@@ -12135,7 +12135,7 @@ snapshots:
 
   launch-ide@1.0.8:
     dependencies:
-      chalk: 4.1.1
+      chalk: 4.1.2
       dotenv: 16.6.1
 
   lazy@1.0.11: {}

@@ -16,7 +16,7 @@
     "clean:root": "pnpx rm-deep node_modules",
     "build": "pnpm -r run clean && pnpm -r run build",
     "coverage": "CI=1 pnpm -r run coverage",
-    "update:deps": "taze -r -w -n '/@abtnode|@aigne|@arcblock|@blocklet|@did-connect|@did-pay|@did-space|@nft-store|@nft-studio|@ocap|vite-plugin-blocklet/' && pnpm install && pnpm dedupe && pnpm build",
+    "update:deps": "taze -r -w -n '/@abtnode|@aigne|@arcblock|@blocklet|@did-connect|@did-pay|@did-space|@nft-store|@nft-studio|@ocap|vite-plugin-blocklet/' && pnpm install",
     "bump-version": "make bump-version",
     "publish": "pnpm -r --filter './packages/*' publish --access public --no-git-checks"
   },
