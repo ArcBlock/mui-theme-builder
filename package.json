@@ -17,7 +17,8 @@
     "build": "pnpm -r run clean && pnpm -r run build",
     "coverage": "CI=1 pnpm -r run coverage",
     "update:deps": "taze -r -w -n && pnpm install && pnpm dedupe && pnpm build",
-    "bump-version": "make bump-version"
+    "bump-version": "make bump-version",
+    "publish": "pnpm -r --filter './packages/*' publish --access public --no-git-checks"
   },
   "devDependencies": {
     "taze": "^19.1.0"

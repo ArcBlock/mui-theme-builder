@@ -1,8 +1,8 @@
 {
   "name": "@blocklet/theme-builder-react",
-  "private": true,
   "description": "React component library for Blocklet Theme Builder",
   "version": "0.3.1",
+  "license": "0BSD",
   "keywords": [
     "MUI",
     "Blocklet",
@@ -12,16 +12,19 @@
     "ArcBlock (https://github.com/ArcBlock)"
   ],
   "files": [
-    "dist",
-    "LICENSE",
-    "README.md"
+    "dist"
   ],
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "dev": "vite --host",
     "serve": "vite preview",
     "lint": "eslint src --ext .mjs,.js,.jsx,.ts,.tsx",
     "lint:fix": "npm run lint -- --fix",
-    "build": "tsc --noEmit && ./extractMuiVersion.sh && vite build && node publish.js",
+    "build": "tsc --noEmit && ./extractMuiVersion.sh && vite build",
     "prepare": "npx simple-git-hooks",
     "fetch-fonts": "node scripts/fetch-google-fonts.mjs",
     "test": "vitest run",
@@ -112,13 +115,5 @@
     "vite-plugin-no-bundle": "^4.0.0",
     "vite-plugin-svgr": "^4.3.0",
     "vitest": "^3.2.4"
-  },
-  "license": "0BSD",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/ArcBlock/mui-theme-builder"
-  },
-  "bugs": {
-    "url": "https://github.com/ArcBlock/mui-theme-builder/issues"
   }
 }
