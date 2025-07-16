@@ -11,9 +11,26 @@ export interface PreviewBlockletProps {
 export function PreviewBlocklet({ appUrl }: PreviewBlockletProps) {
   const iframeRef = useRef<HTMLIFrameElement>(null);
   const concept = useThemeBuilder((s) => s.getCurrentConcept());
-  const [iframeLoaded, setIframeLoaded] = useState(false);
+  const iframeLoaded = useRef(false);
 
-  const onIframeLoad = useMemoizedFn(() => setIframeLoaded(true));
+  // 发送主题配置
+  const sendConcept = useMemoizedFn(() => {
+    if (iframeLoaded.current) {
+      iframeRef.current?.contentWindow?.postMessage({
+        type: 'THEME_BUILDER_CONFIG_CHANGED',
+        payload: {
+          mode: concept.mode,
+          ...concept.themeConfig,
+        },
+      });
+    }
+  });
+
+  // 预览页面加载完毕
+  const onIframeLoad = useMemoizedFn(() => {
+    iframeLoaded.current = true;
+    sendConcept();
+  });
 
   // 动态调整 iframe 高度
   useEffect(() => {
@@ -57,18 +74,10 @@ export function PreviewBlocklet({ appUrl }: PreviewBlockletProps) {
     };
   }, []);
 
-  // 实时发送主题配置
+  // 主题发生改变
   useEffect(() => {
-    if (iframeLoaded) {
-      iframeRef.current?.contentWindow?.postMessage({
-        type: 'THEME_BUILDER_CONFIG_CHANGED',
-        payload: {
-          mode: concept.mode,
-          ...concept.themeConfig,
-        },
-      });
-    }
-  }, [iframeLoaded, concept]);
+    sendConcept();
+  }, [concept]);
 
   return (
     <iframe
