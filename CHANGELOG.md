@@ -1,3 +1,7 @@
+## 0.4.1 (July 17, 2025)
+
+- fix(theme-builder): package missing files
+
 ## 0.4.0 (July 16, 2025)
 
 - feat(react): introduce Theme Builder component library
