@@ -1,3 +1,7 @@
+## 0.4.2 (July 17, 2025)
+
+- chore(theme-builder): move all dependencies to devDependencies
+
 ## 0.4.1 (July 17, 2025)
 
 - fix(theme-builder): package missing files

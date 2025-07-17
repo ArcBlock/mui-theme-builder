@@ -1,7 +1,7 @@
 {
   "name": "@blocklet/theme-builder-react",
   "description": "React component library for Blocklet Theme Builder",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "license": "0BSD",
   "keywords": [
     "MUI",

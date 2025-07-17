@@ -1,7 +1,7 @@
 {
   "name": "@blocklet/theme-builder",
   "description": "A comprehensive tool to customize themes for Material-UI",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "keywords": [
     "MUI",
     "MUI v5",
@@ -49,7 +49,9 @@
       "last 1 safari version"
     ]
   },
-  "dependencies": {
+  "dependencies": {},
+  "devDependencies": {
+    "@arcblock/eslint-config-ts": "^0.3.3",
     "@babel/eslint-parser": "^7.28.0",
     "@blocklet/theme-builder-react": "workspace:*",
     "@emotion/react": "^11.14.0",
@@ -57,17 +59,6 @@
     "@mui/icons-material": "^7.2.0",
     "@mui/lab": "7.0.0-beta.14",
     "@mui/material": "^7.2.0",
-    "ahooks": "^3.9.0",
-    "axios": "^1.10.0",
-    "date-fns": "^4.1.0",
-    "lodash": "^4.17.21",
-    "mdi-material-ui": "^7.9.4",
-    "react": "~19.1.0",
-    "react-dom": "~19.1.0",
-    "xhr-mock": "^2.5.1"
-  },
-  "devDependencies": {
-    "@arcblock/eslint-config-ts": "^0.3.3",
     "@testing-library/react": "^14.3.1",
     "@trivago/prettier-plugin-sort-imports": "^4.3.0",
     "@types/dot-prop-immutable": "^1.5.4",
@@ -77,11 +68,18 @@
     "@vitejs/plugin-react": "^4.6.0",
     "@vitest/coverage-v8": "^3.2.4",
     "@vitest/ui": "^3.2.4",
+    "ahooks": "^3.9.0",
+    "axios": "^1.10.0",
     "code-inspector-plugin": "^0.20.15",
+    "date-fns": "^4.1.0",
     "eslint": "^8.57.1",
     "jsdom": "^22.1.0",
     "lint-staged": "^15.5.2",
+    "lodash": "^4.17.21",
+    "mdi-material-ui": "^7.9.4",
     "prettier": "^3.6.2",
+    "react": "~19.1.0",
+    "react-dom": "~19.1.0",
     "simple-git-hooks": "^2.13.0",
     "typescript": "~5.5.4",
     "vite": "^7.0.3",
