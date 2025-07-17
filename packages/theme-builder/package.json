@@ -21,7 +21,7 @@
     "serve": "vite preview",
     "lint": "eslint src --ext .mjs,.js,.jsx,.ts,.tsx",
     "lint:fix": "npm run lint -- --fix",
-    "build": "vite build",
+    "build": "vite build && vite build --config vite.config.lib.mts",
     "prepare": "npx simple-git-hooks",
     "test": "vitest run",
     "test:watch": "vitest",
