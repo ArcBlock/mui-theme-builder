@@ -1,3 +1,7 @@
+## 0.4.0 (July 16, 2025)
+
+- feat(react): introduce Theme Builder component library
+
 ## 0.3.1 (2025-7-8)
 
 - feat: support for adjusting font size

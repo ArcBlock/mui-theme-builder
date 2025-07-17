@@ -1,135 +1,26 @@
 {
-  "name": "@blocklet/theme-builder",
+  "name": "mui-theme-builder",
   "private": true,
-  "description": "A comprehensive tool to customize themes for Material-UI",
   "version": "0.3.1",
-  "keywords": [
-    "MUI",
-    "MUI v5",
-    "Material-UI",
-    "MUI Theme Creator"
-  ],
-  "contributors": [
-    "ArcBlock (https://github.com/ArcBlock)"
-  ],
-  "files": [
-    "dist",
-    "public",
-    "screenshots",
-    "LICENSE",
-    "README.md"
-  ],
-  "scripts": {
-    "dev": "vite --host",
-    "serve": "vite preview",
-    "lint": "eslint src --ext .mjs,.js,.jsx,.ts,.tsx",
-    "lint:fix": "npm run lint -- --fix",
-    "clean": "node scripts/build-clean.mjs",
-    "build": "./extractMuiVersion.sh && vite build && node publish.js",
-    "prepare": "npx simple-git-hooks",
-    "bump-version": "zx --quiet scripts/bump-version.mjs",
-    "fetch-fonts": "node scripts/fetch-google-fonts.mjs",
-    "update:deps": "taze -r -w && pnpm install && pnpm dedupe && pnpm build",
-    "test": "vitest run",
-    "test:watch": "vitest",
-    "test:ui": "vitest --ui",
-    "coverage": "vitest run --coverage"
-  },
-  "lint-staged": {
-    "*.{mjs,js,jsx,ts,tsx}": [
-      "prettier --write",
-      "eslint"
-    ],
-    "*.{css,less,scss,json,graphql}": [
-      "prettier --write"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
-  "dependencies": {
-    "@abtnode/constant": "^1.16.45",
-    "@arcblock/did-connect": "^3.0.22",
-    "@arcblock/icons": "^3.0.22",
-    "@arcblock/ux": "^3.0.22",
-    "@babel/eslint-parser": "^7.28.0",
-    "@blocklet/theme": "^3.0.22",
-    "@blocklet/ui-react": "^3.0.22",
-    "@emotion/react": "^11.14.0",
-    "@emotion/styled": "^11.14.1",
-    "@iconify/react": "^5.2.1",
-    "@mui/icons-material": "^7.2.0",
-    "@mui/lab": "7.0.0-beta.14",
-    "@mui/material": "^7.2.0",
-    "@tanstack/react-virtual": "^3.13.12",
-    "@types/recharts": "^1.8.29",
-    "ahooks": "^3.9.0",
-    "axios": "^1.10.0",
-    "date-fns": "^4.1.0",
-    "dot-prop-immutable": "^2.1.1",
-    "flat": "^5.0.2",
-    "is-url": "^1.2.4",
-    "json5": "^2.2.3",
-    "lodash": "^4.17.21",
-    "mdi-material-ui": "^7.9.4",
-    "nanoid": "^5.1.5",
-    "react": "~19.1.0",
-    "react-colorful": "^5.6.1",
-    "react-dom": "~19.1.0",
-    "react-router-dom": "^7.6.3",
-    "recharts": "^2.15.4",
-    "ufo": "^1.6.1",
-    "webfontloader": "^1.6.28",
-    "xhr-mock": "^2.5.1",
-    "zustand": "^5.0.6"
-  },
-  "devDependencies": {
-    "@arcblock/eslint-config-ts": "^0.3.3",
-    "@testing-library/react": "^14.3.1",
-    "@trivago/prettier-plugin-sort-imports": "^4.3.0",
-    "@types/codemirror": "^0.0.97",
-    "@types/dot-prop-immutable": "^1.5.4",
-    "@types/flat": "^5.0.5",
-    "@types/is-url": "^1.2.32",
-    "@types/lodash": "^4.17.20",
-    "@types/webfontloader": "^1.6.38",
-    "@typescript-eslint/eslint-plugin": "^7.18.0",
-    "@typescript-eslint/parser": "~7.16.1",
-    "@vitejs/plugin-react": "^4.6.0",
-    "@vitest/coverage-v8": "^3.2.4",
-    "@vitest/ui": "^3.2.4",
-    "bumpp": "^9.11.1",
-    "code-inspector-plugin": "^0.20.15",
-    "eslint": "^8.57.1",
-    "jsdom": "^22.1.0",
-    "lint-staged": "^15.5.2",
-    "prettier": "^3.6.2",
-    "rimraf": "^5.0.10",
-    "simple-git-hooks": "^2.13.0",
-    "taze": "^19.1.0",
-    "typescript": "~5.5.4",
-    "vite": "^7.0.3",
-    "vite-plugin-blocklet": "^0.10.1",
-    "vite-plugin-monaco-editor": "^1.1.0",
-    "vite-plugin-svgr": "^4.3.0",
-    "vitest": "^3.2.4",
-    "zx": "^8.6.1"
-  },
   "license": "0BSD",
+  "author": "Arcblock <blocklet@arcblock.io> https://github.com/blocklet",
   "repository": {
     "type": "git",
     "url": "https://github.com/ArcBlock/mui-theme-builder"
   },
-  "bugs": {
-    "url": "https://github.com/ArcBlock/mui-theme-builder/issues"
+  "scripts": {
+    "preinstall": "npx only-allow pnpm",
+    "lint": "pnpm -r run lint",
+    "lint:fix": "pnpm -r run lint:fix",
+    "clean": "pnpm -r run clean",
+    "clean:root": "pnpx rm-deep node_modules",
+    "build": "pnpm -r run clean && pnpm -r run build",
+    "coverage": "CI=1 pnpm -r run coverage",
+    "update:deps": "taze -r -w -n '/@abtnode|@aigne|@arcblock|@blocklet|@did-connect|@did-pay|@did-space|@nft-store|@nft-studio|@ocap|vite-plugin-blocklet/' && pnpm install",
+    "bump-version": "make bump-version",
+    "publish": "pnpm -r --filter './packages/*' publish --access public --no-git-checks"
+  },
+  "devDependencies": {
+    "taze": "^19.1.0"
   }
 }

@@ -1,0 +1,117 @@
+{
+  "name": "@blocklet/theme-builder-react",
+  "description": "React component library for Blocklet Theme Builder",
+  "version": "0.4.0",
+  "license": "0BSD",
+  "keywords": [
+    "MUI",
+    "Blocklet",
+    "Theme Builder"
+  ],
+  "contributors": [
+    "ArcBlock (https://github.com/ArcBlock)"
+  ],
+  "files": [
+    "dist"
+  ],
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "lint": "eslint src --ext .mjs,.js,.jsx,.ts,.tsx",
+    "lint:fix": "npm run lint -- --fix",
+    "build": "tsc --noEmit && ./extractMuiVersion.sh && vite build",
+    "prepare": "npx simple-git-hooks",
+    "fetch-fonts": "node scripts/fetch-google-fonts.mjs",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:ui": "vitest --ui",
+    "coverage": "vitest run --coverage"
+  },
+  "lint-staged": {
+    "*.{mjs,js,jsx,ts,tsx}": [
+      "prettier --write",
+      "eslint"
+    ],
+    "*.{css,less,scss,json,graphql}": [
+      "prettier --write"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "dependencies": {
+    "@abtnode/constant": "^1.16.46",
+    "@arcblock/did-connect": "^3.0.26",
+    "@arcblock/icons": "^3.0.26",
+    "@arcblock/ux": "^3.0.26",
+    "@babel/eslint-parser": "^7.28.0",
+    "@blocklet/theme": "^3.0.26",
+    "@blocklet/ui-react": "^3.0.26",
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.1",
+    "@iconify/react": "^5.2.1",
+    "@mui/icons-material": "^7.2.0",
+    "@mui/lab": "7.0.0-beta.14",
+    "@mui/material": "^7.2.0",
+    "@tanstack/react-virtual": "^3.13.12",
+    "@types/recharts": "^1.8.29",
+    "ahooks": "^3.9.0",
+    "date-fns": "^4.1.0",
+    "dot-prop-immutable": "^2.1.1",
+    "flat": "^5.0.2",
+    "lodash": "^4.17.21",
+    "mdi-material-ui": "^7.9.4",
+    "nanoid": "^5.1.5",
+    "react": "~19.1.0",
+    "react-colorful": "^5.6.1",
+    "react-dom": "~19.1.0",
+    "react-router-dom": "^6.22.3",
+    "recharts": "^2.15.4",
+    "ufo": "^1.6.1",
+    "webfontloader": "^1.6.28",
+    "xhr-mock": "^2.5.1",
+    "zustand": "^5.0.6"
+  },
+  "devDependencies": {
+    "@arcblock/eslint-config-ts": "^0.3.3",
+    "@testing-library/react": "^14.3.1",
+    "@trivago/prettier-plugin-sort-imports": "^4.3.0",
+    "@types/codemirror": "^0.0.97",
+    "@types/dot-prop-immutable": "^1.5.4",
+    "@types/flat": "^5.0.5",
+    "@types/is-url": "^1.2.32",
+    "@types/lodash": "^4.17.20",
+    "@types/webfontloader": "^1.6.38",
+    "@typescript-eslint/eslint-plugin": "^7.18.0",
+    "@typescript-eslint/parser": "~7.16.1",
+    "@vitejs/plugin-react": "^4.6.0",
+    "@vitest/coverage-v8": "^3.2.4",
+    "@vitest/ui": "^3.2.4",
+    "code-inspector-plugin": "^0.20.15",
+    "eslint": "^8.57.1",
+    "fast-glob": "^3.3.3",
+    "jsdom": "^22.1.0",
+    "lint-staged": "^15.5.2",
+    "prettier": "^3.6.2",
+    "simple-git-hooks": "^2.13.0",
+    "typescript": "~5.5.4",
+    "vite": "^7.0.3",
+    "vite-plugin-blocklet": "^0.10.1",
+    "vite-plugin-dts": "^4.5.4",
+    "vite-plugin-no-bundle": "^4.0.0",
+    "vite-plugin-svgr": "^4.3.0",
+    "vitest": "^3.2.4"
+  }
+}
