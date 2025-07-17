@@ -1,8 +1,6 @@
 {
   "name": "mui-theme-builder",
   "private": true,
-  "version": "0.3.1",
-  "license": "0BSD",
   "author": "Arcblock <blocklet@arcblock.io> https://github.com/blocklet",
   "repository": {
     "type": "git",

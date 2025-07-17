@@ -42,4 +42,4 @@ jobs:
       - name: Publish Packages
         run: |
           npm config set '//registry.npmjs.org/:_authToken' "${{ secrets.NPM_TOKEN }}"
-          pnpm publish
+          npm run publish
