@@ -1,5 +1,5 @@
 import { useMemoizedFn } from 'ahooks';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { useThemeBuilder } from 'src/context/themeBuilder';
 
 const MIN_HEIGHT = 768;
@@ -77,7 +77,7 @@ export function PreviewBlocklet({ appUrl }: PreviewBlockletProps) {
   // 主题发生改变
   useEffect(() => {
     sendConcept();
-  }, [concept]);
+  }, [concept, sendConcept]);
 
   return (
     <iframe
