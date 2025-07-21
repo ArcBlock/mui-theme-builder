@@ -61,14 +61,17 @@ const mockSession = {
 };
 
 // @ts-ignore
-window.blocklet = {
-  did: 'zNKuiSAJ5Kx2rcaoxnNRWEQxupojK7Xni625',
-  appId: 'zNKuiSAJ5Kx2rcaoxnNRWEQxupojK7Xni625',
-  languages: [
-    { code: 'en', name: 'English' },
-    { code: 'zh', name: '简体中文' },
-  ],
-};
+if (!window.blocklet) {
+  // @ts-ignore mock window.blocklet
+  window.blocklet = {
+    did: 'zNKuiSAJ5Kx2rcaoxnNRWEQxupojK7Xni625',
+    appId: 'zNKuiSAJ5Kx2rcaoxnNRWEQxupojK7Xni625',
+    languages: [
+      { code: 'en', name: 'English' },
+      { code: 'zh', name: '简体中文' },
+    ],
+  };
+}
 
 export default function SessionWrapper({ children }: { children: React.ReactNode }) {
   const [sessionCtx, setSessionCtx] = useState<{ session: Record<string, any> }>({} as any);
