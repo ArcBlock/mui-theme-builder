@@ -1,3 +1,8 @@
+## 0.4.3 (July 21, 2025)
+
+- fix(react): avoid overwriting window.blocklet
+- fix(react): remove redundant top navigation
+
 ## 0.4.2 (July 17, 2025)
 
 - chore(theme-builder): move all dependencies to devDependencies
