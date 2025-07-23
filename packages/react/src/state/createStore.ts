@@ -798,6 +798,7 @@ export default function createStore() {
   store.subscribe(
     (state) => [state.concepts, state.currentConceptId, state.previewSize],
     () => {
+      console.log('themeObject change');
       const state = store.getState();
       const concept = state.getCurrentConcept();
 

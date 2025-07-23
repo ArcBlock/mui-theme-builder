@@ -6,6 +6,7 @@ import type { Locale } from '@arcblock/ux/lib/type';
 import { Box, BoxProps, type Theme, type ThemeOptions, createTheme, styled } from '@mui/material';
 import { useMemoizedFn } from 'ahooks';
 import { useEffect, useMemo } from 'react';
+import { shallow } from 'zustand/shallow';
 
 import Editor from './components/Editor';
 import Header from './components/Header';
@@ -49,7 +50,7 @@ function Preview(props: BoxProps) {
   );
 }
 
-export interface ThemeBuilderProps extends BoxProps {
+export interface ThemeBuilderProps extends Omit<BoxProps, 'onChange'> {
   showPreview?: boolean;
   showEditor?: boolean;
   showHeader?: boolean;
@@ -58,8 +59,8 @@ export interface ThemeBuilderProps extends BoxProps {
   themeData?: ThemeData;
   children?: React.ReactNode;
   onSave?: (themeData: ThemeData) => Promise<void>;
+  onChange?: (themeData: ThemeData) => void;
 }
-
 export function ThemeBuilder({
   showPreview = false,
   showEditor = true,
@@ -69,6 +70,7 @@ export function ThemeBuilder({
   themeData = undefined,
   children = undefined,
   onSave = undefined,
+  onChange = undefined,
   ...rest
 }: ThemeBuilderProps) {
   const isMobile = useMobile();
@@ -110,12 +112,29 @@ export function ThemeBuilder({
   const createBuilderTheme = useMemoizedFn((parentTheme: Theme) => {
     return createTheme(deepmergeAll([parentTheme, BUILDER_THEME_OPTIONS, themeOptions]));
   });
+
   // 设置主题数据
   useEffect(() => {
     if (themeData) {
       store.getState().setConcepts(themeData);
     }
   }, [themeData, store]);
+
+  // 监听 store 数据变化
+  useEffect(() => {
+    const unsubscribe = store.subscribe(
+      (state) => [state.concepts, state.currentConceptId],
+      () => {
+        console.log('onChange');
+        onChange?.(store.getState().getThemeData());
+      },
+      { equalityFn: shallow }, // shallow 支持数组比较
+    );
+
+    return () => {
+      unsubscribe();
+    };
+  }, [store, onChange]);
 
   return (
     <ThemeProvider theme={createBuilderTheme}>
