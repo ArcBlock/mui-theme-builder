@@ -85,6 +85,7 @@ const getDefaultState = () => ({
   selectedComponentId: 'Website',
   themeObject: createPreviewMuiTheme(deepmerge({ palette: { mode: 'light' } }, getDefaultThemeConfig().light), false),
   saving: false,
+  showColorMode: true,
   // 历史记录相关
   history: [],
   currentHistoryIndex: -1,
@@ -131,6 +132,7 @@ export default function createStore() {
           currentConceptId,
         };
       },
+      setColorModeVisible: (visible) => set({ showColorMode: visible }),
 
       // # 历史记录管理
       saveToHistory: () => {
@@ -162,7 +164,6 @@ export default function createStore() {
           };
         });
       },
-
       undo: () => {
         const { canUndo } = get();
         if (!canUndo()) return;
@@ -182,7 +183,6 @@ export default function createStore() {
           return {};
         });
       },
-
       redo: () => {
         const { canRedo } = get();
         if (!canRedo()) return;
@@ -202,17 +202,14 @@ export default function createStore() {
           return {};
         });
       },
-
       canUndo: () => {
         const state = get();
         return state.currentHistoryIndex > 0;
       },
-
       canRedo: () => {
         const state = get();
         return state.currentHistoryIndex < state.history.length - 1;
       },
-
       clearHistory: () => {
         set({
           history: [],

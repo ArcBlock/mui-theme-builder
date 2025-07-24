@@ -64,6 +64,7 @@ export interface ThemeStoreState {
   selectedComponentId: string;
   themeObject: Theme;
   saving: boolean;
+  showColorMode: boolean;
   history: {
     concepts: Concept[];
     currentConceptId: string;
@@ -77,6 +78,7 @@ export interface ThemeStoreModel extends ThemeStoreState {
   resetStore: () => void;
   setSaving: (saving: boolean) => void;
   getThemeData: () => ThemeData;
+  setColorModeVisible: (visible: boolean) => void;
 
   // # 历史记录管理
   undo: () => void;

@@ -17,7 +17,7 @@ import { ThemeBuilderContext, useThemeBuilder } from './context/themeBuilder';
 import useMobile from './hooks/useMobile';
 import { translations } from './locales';
 import createStore from './state/createStore';
-import { ThemeData } from './types/theme';
+import { Mode, ThemeData } from './types/theme';
 import { getTheme, saveTheme } from './utils';
 
 const Container = styled(Box)(({ theme }) => ({
@@ -67,6 +67,8 @@ export interface BaseThemeBuilderProps extends Omit<BoxProps, 'onChange'> {
   showPreview?: boolean;
   showEditor?: boolean;
   showHeader?: boolean;
+  showColorMode?: boolean;
+  colorMode?: Mode;
   locale?: Locale;
   themeOptions?: ThemeOptions;
   themeData?: ThemeData | null;
@@ -79,6 +81,8 @@ export function BaseThemeBuilder({
   showPreview = false,
   showEditor = true,
   showHeader = true,
+  showColorMode = true,
+  colorMode,
   locale = 'en',
   themeOptions = {},
   themeData = undefined,
@@ -133,6 +137,24 @@ export function BaseThemeBuilder({
       store.getState().setConcepts(themeData);
     }
   }, [themeData, store]);
+
+  // 设置当前使用的颜色模式
+  useEffect(() => {
+    const { setThemeMode } = store.getState();
+
+    if (colorMode === 'light' || colorMode === 'dark') {
+      setThemeMode(colorMode);
+    }
+  }, [colorMode]);
+
+  // 隐藏/显示颜色模式切换
+  useEffect(() => {
+    const { setColorModeVisible } = store.getState();
+
+    if (showColorMode === true || showColorMode === false) {
+      setColorModeVisible(showColorMode);
+    }
+  }, [showColorMode]);
 
   // 监听 store 数据变化
   useEffect(() => {

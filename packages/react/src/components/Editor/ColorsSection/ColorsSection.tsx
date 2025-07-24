@@ -42,6 +42,7 @@ function ColorsSection() {
   const { t } = useLocaleContext();
   const theme = useTheme();
   const concept = useThemeBuilder((s) => s.getCurrentConcept());
+  const showColorMode = useThemeBuilder((s) => s.showColorMode);
   const { mode, prefer } = concept;
   const isMobile = useMobile();
   const containerRef = useRef<HTMLDivElement>(null);
@@ -165,36 +166,38 @@ function ColorsSection() {
         {/* 工具栏 */}
         <Box sx={{ display: 'flex', gap: 1, justifyContent: 'flex-end', alignItems: 'center' }}>
           {/* 模式切换 */}
-          <Box
-            sx={{
-              display: 'flex',
-              alignItems: 'center',
-              backgroundColor: 'grey.100',
-              borderRadius: 1,
-              gap: '2px',
-              p: '2px',
-            }}>
-            <ToggleButton
-              title={t('editor.colorSection.lightMode')}
-              className={`${mode === 'light' ? 'is-active' : ''} ${isLightDisabled ? 'is-disabled' : ''}`}
-              onClick={() => handleModeChange('light')}>
-              {isLightDisabled ? (
-                <BlockIcon style={{ fontSize: 18, color: theme.palette.error.main }} />
-              ) : (
-                <LightModeOutlinedIcon style={{ fontSize: 18 }} />
-              )}
-            </ToggleButton>
-            <ToggleButton
-              title={t('editor.colorSection.darkMode')}
-              className={`${mode === 'dark' ? 'is-active' : ''} ${isDarkDisabled ? 'is-disabled' : ''}`}
-              onClick={() => handleModeChange('dark')}>
-              {isDarkDisabled ? (
-                <BlockIcon style={{ fontSize: 18, color: theme.palette.error.main }} />
-              ) : (
-                <Brightness2OutlinedIcon style={{ fontSize: 18 }} />
-              )}
-            </ToggleButton>
-          </Box>
+          {showColorMode && (
+            <Box
+              sx={{
+                display: 'flex',
+                alignItems: 'center',
+                backgroundColor: 'grey.100',
+                borderRadius: 1,
+                gap: '2px',
+                p: '2px',
+              }}>
+              <ToggleButton
+                title={t('editor.colorSection.lightMode')}
+                className={`${mode === 'light' ? 'is-active' : ''} ${isLightDisabled ? 'is-disabled' : ''}`}
+                onClick={() => handleModeChange('light')}>
+                {isLightDisabled ? (
+                  <BlockIcon style={{ fontSize: 18, color: theme.palette.error.main }} />
+                ) : (
+                  <LightModeOutlinedIcon style={{ fontSize: 18 }} />
+                )}
+              </ToggleButton>
+              <ToggleButton
+                title={t('editor.colorSection.darkMode')}
+                className={`${mode === 'dark' ? 'is-active' : ''} ${isDarkDisabled ? 'is-disabled' : ''}`}
+                onClick={() => handleModeChange('dark')}>
+                {isDarkDisabled ? (
+                  <BlockIcon style={{ fontSize: 18, color: theme.palette.error.main }} />
+                ) : (
+                  <Brightness2OutlinedIcon style={{ fontSize: 18 }} />
+                )}
+              </ToggleButton>
+            </Box>
+          )}
           {/* 其它设置 */}
           <ColorsSettingMenu />
           {/* Shuffle 按钮 */}
