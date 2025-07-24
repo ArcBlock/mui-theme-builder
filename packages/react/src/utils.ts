@@ -1,9 +1,13 @@
+import { WELLKNOWN_SERVICE_PATH_PREFIX } from '@abtnode/constant';
 import { deepmerge } from '@arcblock/ux/lib/Theme';
 import { BLOCKLET_THEME_DARK, BLOCKLET_THEME_LIGHT } from '@blocklet/theme';
 import { ThemeOptions, TypographyVariantsOptions, createTheme } from '@mui/material';
+import axios, { AxiosRequestConfig } from 'axios';
 import dotProp from 'dot-prop-immutable';
+import { joinURL } from 'ufo';
 
-import { Concept, PreviewSize } from './types/theme';
+import { DEFAULT_CONCEPT_ID, DEFAULT_CONCEPT_NAME } from './constants';
+import { Concept, PreviewSize, ThemeData } from './types/theme';
 
 export const isDev = process.env.NODE_ENV === 'development';
 
@@ -361,3 +365,75 @@ export const getDefaultThemeConfig = (): Concept['themeConfig'] => ({
   dark: {},
   common: {},
 });
+
+export function getThemeEndpoint() {
+  return joinURL(
+    window.location.origin,
+    WELLKNOWN_SERVICE_PATH_PREFIX,
+    // @ts-ignore
+    `/api/theme?id=${encodeURIComponent(window.blocklet.did)}`,
+  );
+}
+
+// 保存 service theme
+export function saveTheme({ url, data, ...config }: Omit<AxiosRequestConfig<ThemeData>, 'method'> = {}) {
+  const _url = url || getThemeEndpoint();
+
+  return axios.post(
+    _url,
+    {
+      theme: data,
+    },
+    config,
+  );
+}
+
+// 获取 service theme
+export function getTheme({ url, ...config }: Omit<AxiosRequestConfig<ThemeData>, 'method'> = {}) {
+  const _url = url || getThemeEndpoint();
+
+  return axios.get(_url, config).then((res) => {
+    const {
+      // 旧数据
+      light = {},
+      dark = {},
+      common = {},
+      prefer = 'system',
+      // 新数据
+      concepts,
+      currentConceptId,
+    } = res.data || {};
+
+    let _concepts = concepts as Concept[];
+    let _currentConceptId = currentConceptId as string;
+
+    // 兼容旧数据（单主题）
+    if (!_concepts) {
+      _concepts = [
+        {
+          id: DEFAULT_CONCEPT_ID,
+          name: DEFAULT_CONCEPT_NAME,
+          template: DEFAULT_CONCEPT_NAME,
+          mode: !prefer || prefer === 'system' ? 'light' : prefer,
+          prefer,
+          themeConfig: {
+            light,
+            dark,
+            common,
+          },
+          editor: {
+            colors: {},
+            typography: {},
+            styles: {},
+          },
+        },
+      ];
+      _currentConceptId = DEFAULT_CONCEPT_ID;
+    }
+
+    return {
+      concepts: _concepts,
+      currentConceptId: _currentConceptId,
+    };
+  });
+}

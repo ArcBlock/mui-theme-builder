@@ -4,8 +4,8 @@ import { ToastProvider } from '@arcblock/ux/lib/Toast';
 import { deepmergeAll } from '@arcblock/ux/lib/Util';
 import type { Locale } from '@arcblock/ux/lib/type';
 import { Box, BoxProps, type Theme, type ThemeOptions, createTheme, styled } from '@mui/material';
-import { useMemoizedFn } from 'ahooks';
-import { useEffect, useMemo } from 'react';
+import { useAsyncEffect, useMemoizedFn } from 'ahooks';
+import { useEffect, useMemo, useState } from 'react';
 import { shallow } from 'zustand/shallow';
 
 import Editor from './components/Editor';
@@ -18,13 +18,15 @@ import useMobile from './hooks/useMobile';
 import { translations } from './locales';
 import createStore from './state/createStore';
 import { ThemeData } from './types/theme';
+import { getTheme, saveTheme } from './utils';
 
 const Container = styled(Box)(({ theme }) => ({
-  color: theme.palette.text.primary,
-  backgroundColor: theme.palette.background.default,
+  position: 'relative',
+  height: '100%',
   display: 'flex',
   flexDirection: 'column',
-  height: '100%',
+  color: theme.palette.text.primary,
+  backgroundColor: theme.palette.background.default,
   '& .hide-scrollbar': {
     /* Firefox */
     scrollbarWidth: 'none',
@@ -35,6 +37,16 @@ const Container = styled(Box)(({ theme }) => ({
   '&::-webkit-scrollbar': {
     display: 'none',
   },
+}));
+const OpacityLoading = styled(Box)(({ theme }) => ({
+  position: 'absolute',
+  top: 0,
+  right: 0,
+  bottom: 0,
+  left: 0,
+  zIndex: 2000,
+  opacity: 0.4,
+  backgroundColor: theme.palette.background.default,
 }));
 
 function Preview(props: BoxProps) {
@@ -50,18 +62,20 @@ function Preview(props: BoxProps) {
   );
 }
 
-export interface ThemeBuilderProps extends Omit<BoxProps, 'onChange'> {
+export interface BaseThemeBuilderProps extends Omit<BoxProps, 'onChange'> {
+  loading?: boolean;
   showPreview?: boolean;
   showEditor?: boolean;
   showHeader?: boolean;
   locale?: Locale;
   themeOptions?: ThemeOptions;
-  themeData?: ThemeData;
+  themeData?: ThemeData | null;
   children?: React.ReactNode;
   onSave?: (themeData: ThemeData) => Promise<void>;
   onChange?: (themeData: ThemeData) => void;
 }
-export function ThemeBuilder({
+export function BaseThemeBuilder({
+  loading = false,
   showPreview = false,
   showEditor = true,
   showHeader = true,
@@ -72,7 +86,7 @@ export function ThemeBuilder({
   onSave = undefined,
   onChange = undefined,
   ...rest
-}: ThemeBuilderProps) {
+}: BaseThemeBuilderProps) {
   const isMobile = useMobile();
   const store = useMemo(() => createStore(), []);
   const content = useMemo(
@@ -125,7 +139,6 @@ export function ThemeBuilder({
     const unsubscribe = store.subscribe(
       (state) => [state.concepts, state.currentConceptId],
       () => {
-        console.log('onChange');
         onChange?.(store.getState().getThemeData());
       },
       { equalityFn: shallow }, // shallow 支持数组比较
@@ -141,18 +154,71 @@ export function ThemeBuilder({
       <LocaleProvider locale={locale} translations={translations}>
         <ToastProvider>
           <ThemeBuilderContext.Provider value={store}>
-            <Container {...rest}>{content}</Container>
+            <Container {...rest}>
+              {content}
+              {loading && <OpacityLoading />}
+            </Container>
           </ThemeBuilderContext.Provider>
         </ToastProvider>
       </LocaleProvider>
     </ThemeProvider>
   );
 }
+
+export type DefaultSave = typeof saveTheme;
+export type DefaultFetch = typeof getTheme;
+export interface ThemeBuilderProps extends Omit<BaseThemeBuilderProps, 'onSave' | 'onLoad'> {
+  /** 为 false 时，不会自动从 service 拉取 ThemeData */
+  fetchTheme?: false | ((defaultFetch: DefaultFetch) => Promise<ThemeData | null>);
+  onLoad?: (themeData: ThemeData | null) => void;
+  onSave?: (themeData: ThemeData, defaultSave: DefaultSave) => Promise<void>;
+}
+export function ThemeBuilder({ themeData: outerThemeData, fetchTheme, onLoad, onSave, ...rest }: ThemeBuilderProps) {
+  const [themeData, setThemeData] = useState<ThemeData | null>(null);
+  const [loading, setLoading] = useState(fetchTheme !== false);
+
+  // 支持后端保存
+  const handleSave = useMemoizedFn(async (themeData: ThemeData) => {
+    if (onSave) {
+      await onSave(themeData, saveTheme);
+      return;
+    }
+
+    await saveTheme({ data: themeData });
+  });
+
+  // 后端获取 themeData
+  useAsyncEffect(async () => {
+    let result: ThemeData | null = null;
+
+    // 无需拉取
+    if (fetchTheme === false || themeData) {
+      setLoading(false);
+      onLoad?.(null);
+      return;
+    }
+
+    setLoading(true);
+    try {
+      if (fetchTheme) {
+        result = await fetchTheme(getTheme);
+      } else {
+        result = await getTheme();
+      }
+      setThemeData(result);
+      onLoad?.(result);
+    } finally {
+      setLoading(false);
+    }
+  }, [fetchTheme, setThemeData]);
+
+  return <BaseThemeBuilder themeData={outerThemeData || themeData} loading={loading} onSave={handleSave} {...rest} />;
+}
 ThemeBuilder.Toolbar = Header;
 ThemeBuilder.Editor = Editor;
 ThemeBuilder.Preview = Preview;
 
-export { useThemeBuilder };
+export { useThemeBuilder, saveTheme, getTheme };
 export * from './constants';
 export * from './state/createStore';
 export * from './types/theme';

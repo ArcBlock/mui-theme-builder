@@ -1,6 +1,5 @@
-import { type ThemeData } from '@blocklet/theme-builder-react';
+import type { DefaultSave, ThemeData } from '@blocklet/theme-builder-react';
 import { useMemoizedFn } from 'ahooks';
-import axios from 'axios';
 
 import { getAuthHeaders, isDev } from '../utils';
 import useSchemaKey from './useSchemaKey';
@@ -8,7 +7,7 @@ import useSchemaKey from './useSchemaKey';
 export default function useSave() {
   const schemaKey = useSchemaKey();
 
-  const saveTheme = useMemoizedFn(async (themeData: ThemeData) => {
+  const saveTheme = useMemoizedFn(async (themeData: ThemeData, defaultSave: DefaultSave) => {
     // 本地测试用
     if (isDev) {
       // eslint-disable-next-line no-console
@@ -22,15 +21,7 @@ export default function useSave() {
     }
 
     // 后端保存
-    await axios.post(
-      schemaKey,
-      {
-        theme: themeData,
-      },
-      {
-        headers: getAuthHeaders(),
-      },
-    );
+    await defaultSave({ data: themeData, url: schemaKey, headers: getAuthHeaders() });
   });
 
   return { saveTheme };

@@ -1,6 +1,5 @@
 import { deepmerge } from '@arcblock/ux/lib/Theme';
 import { deepmergeAll } from '@arcblock/ux/lib/Util';
-import { DEFAULT_FONTS } from '@blocklet/theme';
 import { PaletteColor, Theme } from '@mui/material/styles';
 import cloneDeep from 'lodash/cloneDeep';
 import { nanoid } from 'nanoid';
@@ -27,18 +26,13 @@ import { create } from 'zustand';
 import { subscribeWithSelector } from 'zustand/middleware';
 import { shallow } from 'zustand/shallow';
 
-export const DEFAULT_CONCEPT_ID = 'EdNkoyjQDQFY7f1gzwdat';
-export const DEFAULT_CONCEPT_NAME = 'Default';
-export const MODE_SPECIFIC_FIELDS = ['palette', 'components', 'shadows']; // 需要区分 light/dark 的主题配置
-export const HEADING_VARIANTS = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'subtitle1', 'subtitle2', 'overline'] as const;
-export const BODY_VARIANTS = ['body1', 'body2'] as const;
-
-// 默认的 font-family 字符串
-export const DEFAULT_FONT_STRING = DEFAULT_FONTS.map((s) => {
-  // 检查是否包含空格或特殊字符（除了连字符和数字）
-  const needsQuotes = /[^\w-]/.test(s);
-  return needsQuotes ? `"${s}"` : s;
-}).join(',');
+import {
+  DEFAULT_CONCEPT_ID,
+  DEFAULT_CONCEPT_NAME,
+  DEFAULT_FONT_STRING,
+  HEADING_VARIANTS,
+  MODE_SPECIFIC_FIELDS,
+} from '../constants';
 
 // 获取主题配置字段名称
 const getThemeFieldName = (path: string, mode: Mode): keyof Concept['themeConfig'] => {
@@ -798,7 +792,6 @@ export default function createStore() {
   store.subscribe(
     (state) => [state.concepts, state.currentConceptId, state.previewSize],
     () => {
-      console.log('themeObject change');
       const state = store.getState();
       const concept = state.getCurrentConcept();
 

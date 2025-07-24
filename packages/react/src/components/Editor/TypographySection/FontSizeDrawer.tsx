@@ -4,10 +4,10 @@ import { Box, Button, Drawer, IconButton, Slider, Stack, Theme, Typography } fro
 import { useMemoizedFn, useReactive } from 'ahooks';
 import { useMemo } from 'react';
 import { defaultLightTheme } from 'src/constants';
+import { BODY_VARIANTS, HEADING_VARIANTS } from 'src/constants';
 import { useThemeBuilder } from 'src/context/themeBuilder';
 import useHtmlFontSize from 'src/hooks/useHtmlFontSize';
 import useMobile from 'src/hooks/useMobile';
-import { BODY_VARIANTS, HEADING_VARIANTS } from 'src/state/createStore';
 import { remToPx } from 'src/utils';
 
 type HeadingVariant = (typeof HEADING_VARIANTS)[number];
