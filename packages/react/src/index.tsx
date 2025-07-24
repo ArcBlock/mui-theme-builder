@@ -82,7 +82,7 @@ export function BaseThemeBuilder({
   showEditor = true,
   showHeader = true,
   showColorMode = true,
-  colorMode,
+  colorMode = undefined,
   locale = 'en',
   themeOptions = {},
   themeData = undefined,
@@ -145,7 +145,7 @@ export function BaseThemeBuilder({
     if (colorMode === 'light' || colorMode === 'dark') {
       setThemeMode(colorMode);
     }
-  }, [colorMode]);
+  }, [colorMode, store]);
 
   // 隐藏/显示颜色模式切换
   useEffect(() => {
@@ -154,7 +154,7 @@ export function BaseThemeBuilder({
     if (showColorMode === true || showColorMode === false) {
       setColorModeVisible(showColorMode);
     }
-  }, [showColorMode]);
+  }, [showColorMode, store]);
 
   // 监听 store 数据变化
   useEffect(() => {
@@ -195,18 +195,24 @@ export interface ThemeBuilderProps extends Omit<BaseThemeBuilderProps, 'onSave' 
   onLoad?: (themeData: ThemeData | null) => void;
   onSave?: (themeData: ThemeData, defaultSave: DefaultSave) => Promise<void>;
 }
-export function ThemeBuilder({ themeData: outerThemeData, fetchTheme, onLoad, onSave, ...rest }: ThemeBuilderProps) {
+export function ThemeBuilder({
+  themeData: outerThemeData,
+  fetchTheme = undefined,
+  onLoad = undefined,
+  onSave = undefined,
+  ...rest
+}: ThemeBuilderProps) {
   const [themeData, setThemeData] = useState<ThemeData | null>(null);
   const [loading, setLoading] = useState(fetchTheme !== false);
 
   // 支持后端保存
-  const handleSave = useMemoizedFn(async (themeData: ThemeData) => {
+  const handleSave = useMemoizedFn(async (data: ThemeData) => {
     if (onSave) {
-      await onSave(themeData, saveTheme);
+      await onSave(data, saveTheme);
       return;
     }
 
-    await saveTheme({ data: themeData });
+    await saveTheme({ data });
   });
 
   // 后端获取 themeData
@@ -242,6 +248,5 @@ ThemeBuilder.Preview = Preview;
 
 export { useThemeBuilder, saveTheme, getTheme };
 export * from './constants';
-export * from './state/createStore';
 export * from './types/theme';
 export * from './types/fonts';
