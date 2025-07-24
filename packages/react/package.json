@@ -1,7 +1,7 @@
 {
   "name": "@blocklet/theme-builder-react",
   "description": "React component library for Blocklet Theme Builder",
-  "version": "0.4.3",
+  "version": "0.4.4",
   "license": "0BSD",
   "keywords": [
     "MUI",
@@ -68,6 +68,7 @@
     "@tanstack/react-virtual": "^3.13.12",
     "@types/recharts": "^1.8.29",
     "ahooks": "^3.9.0",
+    "axios": "^1.10.0",
     "date-fns": "^4.1.0",
     "dot-prop-immutable": "^2.1.1",
     "flat": "^5.0.2",

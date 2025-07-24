@@ -68,7 +68,13 @@ function Index() {
   return (
     <ErrorBoundary>
       <ThemeProvider theme={siteTheme} injectFirst>
-        <ThemeBuilder showPreview locale={locale} themeData={themeData} onSave={saveTheme} />
+        <ThemeBuilder
+          showPreview
+          locale={locale}
+          colorMode={parentTheme?.palette?.mode}
+          themeData={themeData}
+          onSave={saveTheme}
+        />
       </ThemeProvider>
     </ErrorBoundary>
   );

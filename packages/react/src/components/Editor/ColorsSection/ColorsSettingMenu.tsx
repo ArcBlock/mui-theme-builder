@@ -8,6 +8,7 @@ import type { ThemePrefer } from 'src/types/theme';
 
 export function ColorsSettingMenu() {
   const { t } = useLocaleContext();
+  const showColorMode = useThemeBuilder((s) => s.showColorMode);
   const prefer = useThemeBuilder((s) => s.getCurrentConcept().prefer);
   const setThemePrefer = useThemeBuilder((s) => s.setThemePrefer);
   const resetColors = useThemeBuilder((s) => s.resetColors);
@@ -64,16 +65,20 @@ export function ColorsSettingMenu() {
             sx: { minWidth: 120 },
           },
         }}>
-        <MenuItem onClick={() => handleOptionSelect('system')} selected={prefer === 'system'}>
-          <Typography variant="body2">{t('editor.colorSection.modeDisable.none')}</Typography>
-        </MenuItem>
-        <MenuItem onClick={() => handleOptionSelect('light')} selected={prefer === 'light'}>
-          <Typography variant="body2">{t('editor.colorSection.modeDisable.dark')}</Typography>
-        </MenuItem>
-        <MenuItem onClick={() => handleOptionSelect('dark')} selected={prefer === 'dark'}>
-          <Typography variant="body2">{t('editor.colorSection.modeDisable.light')}</Typography>
-        </MenuItem>
-        <Divider />
+        {showColorMode && (
+          <>
+            <MenuItem onClick={() => handleOptionSelect('system')} selected={prefer === 'system'}>
+              <Typography variant="body2">{t('editor.colorSection.modeDisable.none')}</Typography>
+            </MenuItem>
+            <MenuItem onClick={() => handleOptionSelect('light')} selected={prefer === 'light'}>
+              <Typography variant="body2">{t('editor.colorSection.modeDisable.dark')}</Typography>
+            </MenuItem>
+            <MenuItem onClick={() => handleOptionSelect('dark')} selected={prefer === 'dark'}>
+              <Typography variant="body2">{t('editor.colorSection.modeDisable.light')}</Typography>
+            </MenuItem>
+            <Divider />
+          </>
+        )}
         <MenuItem onClick={handleResetColors}>
           <Typography variant="body2">{t('editor.colorSection.reset')}</Typography>
         </MenuItem>

@@ -1,3 +1,9 @@
+## 0.4.4 (July 24, 2025)
+
+- feat(react): supports colorMode configuration
+- feat(react): supports saving query theme data to the backend
+- feat(react): add support for onChange event
+
 ## 0.4.3 (July 21, 2025)
 
 - fix(react): avoid overwriting window.blocklet

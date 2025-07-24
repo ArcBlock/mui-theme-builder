@@ -13,10 +13,9 @@ import {
   useMediaQuery,
 } from '@mui/material';
 import { useMemo, useState } from 'react';
-import { PREVIEW_TEXT } from 'src/constants';
+import { DEFAULT_FONT_STRING, PREVIEW_TEXT } from 'src/constants';
 import { useThemeBuilder } from 'src/context/themeBuilder';
 import useGoogleFonts from 'src/hooks/useGoogleFonts';
-import { DEFAULT_FONT_STRING } from 'src/state/createStore';
 import { GoogleFont } from 'src/types/fonts';
 import { TextVariant } from 'src/types/theme';
 
