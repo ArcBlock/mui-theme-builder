@@ -1,7 +1,7 @@
 {
   "name": "@blocklet/theme-builder-react",
   "description": "React component library for Blocklet Theme Builder",
-  "version": "0.4.4",
+  "version": "0.4.5",
   "license": "0BSD",
   "keywords": [
     "MUI",
@@ -53,12 +53,12 @@
   },
   "dependencies": {
     "@abtnode/constant": "^1.16.46",
-    "@arcblock/did-connect": "^3.0.27",
-    "@arcblock/icons": "^3.0.27",
-    "@arcblock/ux": "^3.0.27",
+    "@arcblock/did-connect": "^3.0.32",
+    "@arcblock/icons": "^3.0.32",
+    "@arcblock/ux": "^3.0.32",
     "@babel/eslint-parser": "^7.28.0",
-    "@blocklet/theme": "^3.0.27",
-    "@blocklet/ui-react": "^3.0.27",
+    "@blocklet/theme": "^3.0.32",
+    "@blocklet/ui-react": "^3.0.32",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.1",
     "@iconify/react": "^5.2.1",

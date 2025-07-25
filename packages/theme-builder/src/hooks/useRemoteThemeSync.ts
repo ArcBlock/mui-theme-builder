@@ -17,9 +17,13 @@ export default function useRemoteThemeSync() {
     getTheme({
       url: schemaKey,
       headers: getAuthHeaders(),
-    }).finally(() => {
-      setLoading(false);
-    });
+    })
+      .then((data) => {
+        setThemeData(data);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   }, [setThemeData, schemaKey]);
 
   return { loading, themeData };

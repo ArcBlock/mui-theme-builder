@@ -85,7 +85,6 @@ const getDefaultState = () => ({
   selectedComponentId: 'Website',
   themeObject: createPreviewMuiTheme(deepmerge({ palette: { mode: 'light' } }, getDefaultThemeConfig().light), false),
   saving: false,
-  showColorMode: true,
   // 历史记录相关
   history: [],
   currentHistoryIndex: -1,
@@ -124,15 +123,6 @@ export default function createStore() {
         saveToHistory();
       },
       setSaving: (saving) => set({ saving }),
-      getThemeData: () => {
-        const { concepts, currentConceptId } = get();
-
-        return {
-          concepts: cloneDeep(concepts),
-          currentConceptId,
-        };
-      },
-      setColorModeVisible: (visible) => set({ showColorMode: visible }),
 
       // # 历史记录管理
       saveToHistory: () => {
@@ -519,12 +509,12 @@ export default function createStore() {
 
       // # ThemeOptions 编辑
       setThemeOption: (path, value) => {
-        const { saveToHistory } = get();
+        const { saveToHistory, getThemeMode } = get();
 
         set((state) => {
           const current = state.concepts.find((c) => c.id === state.currentConceptId);
           if (!current || !path) return {};
-          const { mode } = current;
+          const mode = getThemeMode();
 
           const fieldName = getThemeFieldName(path, mode);
           const themeOptions = setByPath(current.themeConfig[fieldName], path, value);
@@ -541,12 +531,12 @@ export default function createStore() {
         saveToHistory();
       },
       setThemeOptions: (configs) => {
-        const { saveToHistory } = get();
+        const { saveToHistory, getThemeMode } = get();
 
         set((state) => {
           const current = state.concepts.find((c) => c.id === state.currentConceptId);
           if (!current) return {};
-          const { mode } = current;
+          const mode = getThemeMode();
 
           let newThemeOptions = { ...current.themeConfig };
 
@@ -566,12 +556,12 @@ export default function createStore() {
         saveToHistory();
       },
       removeThemeOption: (path) => {
-        const { saveToHistory } = get();
+        const { saveToHistory, getThemeMode } = get();
 
         set((state) => {
           const current = state.concepts.find((c) => c.id === state.currentConceptId);
           if (!current || !path) return {};
-          const { mode } = current;
+          const mode = getThemeMode();
 
           const fieldName = getThemeFieldName(path, mode);
           const themeOptions = removeByPath(current.themeConfig[fieldName], path);
@@ -588,12 +578,12 @@ export default function createStore() {
         saveToHistory();
       },
       removeThemeOptions: (paths) => {
-        const { saveToHistory } = get();
+        const { saveToHistory, getThemeMode } = get();
 
         set((state) => {
           const current = state.concepts.find((c) => c.id === state.currentConceptId);
           if (!current) return {};
-          const { mode } = current;
+          const mode = getThemeMode();
 
           let newThemeOptions = { ...current.themeConfig };
           paths.forEach((p) => {
@@ -639,10 +629,17 @@ export default function createStore() {
         // 保存到历史记录
         saveToHistory();
       },
-      setThemeMode: (mode) => {
+      setThemeMode: (mode, { root = false } = {}) => {
         const { saveToHistory } = get();
 
         set((state) => {
+          // 修改根状态
+          if (root === true) {
+            return {
+              themeMode: mode,
+            };
+          }
+
           const current = state.concepts.find((c) => c.id === state.currentConceptId);
           if (!current) return {};
           return { concepts: state.concepts.map((c) => (c.id === state.currentConceptId ? { ...c, mode } : c)) };
@@ -650,6 +647,25 @@ export default function createStore() {
 
         // 保存到历史记录
         saveToHistory();
+      },
+      getThemeMode: () => {
+        const { themeMode, getCurrentConcept } = get();
+
+        // 全局 themeMode 优先
+        if (themeMode) {
+          return themeMode;
+        }
+
+        const concept = getCurrentConcept();
+        if (concept) {
+          return concept.mode;
+        }
+        return 'light';
+      },
+      shouldShowThemeMode: () => {
+        const { themeMode } = get();
+
+        return themeMode === undefined;
       },
       updateThemeConfig: (themeConfig) => {
         const { saveToHistory } = get();
@@ -664,8 +680,19 @@ export default function createStore() {
         saveToHistory();
       },
       getCurrentThemeOptions: () => {
-        const concept = get().getCurrentConcept();
-        return concept.themeConfig[concept.mode];
+        const { getCurrentConcept, getThemeMode } = get();
+        const concept = getCurrentConcept();
+        const mode = getThemeMode();
+
+        return concept.themeConfig[mode];
+      },
+      getThemeData: () => {
+        const { concepts, currentConceptId } = get();
+
+        return {
+          concepts: cloneDeep(concepts),
+          currentConceptId,
+        };
       },
 
       // # Colors 编辑
@@ -787,7 +814,7 @@ export default function createStore() {
 
   // 实时更新 themeObject
   store.subscribe(
-    (state) => [state.concepts, state.currentConceptId, state.previewSize],
+    (state) => [state.concepts, state.currentConceptId, state.previewSize, state.themeMode],
     () => {
       const state = store.getState();
       const concept = state.getCurrentConcept();
@@ -795,12 +822,10 @@ export default function createStore() {
       let themeObject: Theme;
 
       if (concept) {
+        const mode = state.getThemeMode();
+
         themeObject = createPreviewMuiTheme(
-          deepmergeAll([
-            { palette: { mode: concept.mode } },
-            concept.themeConfig.common,
-            concept.themeConfig[concept.mode],
-          ]),
+          deepmergeAll([{ palette: { mode } }, concept.themeConfig.common, concept.themeConfig[mode]]),
           state.previewSize,
         );
       } else {

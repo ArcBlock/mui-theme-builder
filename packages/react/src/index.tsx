@@ -67,8 +67,7 @@ export interface BaseThemeBuilderProps extends Omit<BoxProps, 'onChange'> {
   showPreview?: boolean;
   showEditor?: boolean;
   showHeader?: boolean;
-  showColorMode?: boolean;
-  colorMode?: Mode;
+  themeMode?: Mode;
   locale?: Locale;
   themeOptions?: ThemeOptions;
   themeData?: ThemeData | null;
@@ -81,8 +80,7 @@ export function BaseThemeBuilder({
   showPreview = false,
   showEditor = true,
   showHeader = true,
-  showColorMode = true,
-  colorMode = undefined,
+  themeMode = undefined,
   locale = 'en',
   themeOptions = {},
   themeData = undefined,
@@ -142,19 +140,10 @@ export function BaseThemeBuilder({
   useEffect(() => {
     const { setThemeMode } = store.getState();
 
-    if (colorMode === 'light' || colorMode === 'dark') {
-      setThemeMode(colorMode);
+    if (themeMode === 'light' || themeMode === 'dark') {
+      setThemeMode(themeMode, { root: true });
     }
-  }, [colorMode, store]);
-
-  // 隐藏/显示颜色模式切换
-  useEffect(() => {
-    const { setColorModeVisible } = store.getState();
-
-    if (showColorMode === true || showColorMode === false) {
-      setColorModeVisible(showColorMode);
-    }
-  }, [showColorMode, store]);
+  }, [themeMode, store]);
 
   // 监听 store 数据变化
   useEffect(() => {
@@ -220,7 +209,7 @@ export function ThemeBuilder({
     let result: ThemeData | null = null;
 
     // 无需拉取
-    if (fetchTheme === false || themeData) {
+    if (fetchTheme === false || outerThemeData) {
       setLoading(false);
       onLoad?.(null);
       return;
@@ -238,7 +227,7 @@ export function ThemeBuilder({
     } finally {
       setLoading(false);
     }
-  }, [fetchTheme, setThemeData]);
+  }, [fetchTheme, setThemeData, outerThemeData]);
 
   return <BaseThemeBuilder themeData={outerThemeData || themeData} loading={loading} onSave={handleSave} {...rest} />;
 }

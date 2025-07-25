@@ -1,3 +1,7 @@
+## 0.4.5 (July 25, 2025)
+
+- fix(react): color mode control was not working
+
 ## 0.4.4 (July 24, 2025)
 
 - feat(react): supports colorMode configuration
