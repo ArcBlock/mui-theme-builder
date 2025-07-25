@@ -8,7 +8,7 @@ import type { ThemePrefer } from 'src/types/theme';
 
 export function ColorsSettingMenu() {
   const { t } = useLocaleContext();
-  const showColorMode = useThemeBuilder((s) => s.showColorMode);
+  const isShowThemeMode = useThemeBuilder((s) => s.shouldShowThemeMode());
   const prefer = useThemeBuilder((s) => s.getCurrentConcept().prefer);
   const setThemePrefer = useThemeBuilder((s) => s.setThemePrefer);
   const resetColors = useThemeBuilder((s) => s.resetColors);
@@ -65,7 +65,7 @@ export function ColorsSettingMenu() {
             sx: { minWidth: 120 },
           },
         }}>
-        {showColorMode && (
+        {isShowThemeMode && (
           <>
             <MenuItem onClick={() => handleOptionSelect('system')} selected={prefer === 'system'}>
               <Typography variant="body2">{t('editor.colorSection.modeDisable.none')}</Typography>

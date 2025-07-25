@@ -64,7 +64,7 @@ export interface ThemeStoreState {
   selectedComponentId: string;
   themeObject: Theme;
   saving: boolean;
-  showColorMode: boolean;
+  themeMode?: Mode;
   history: {
     concepts: Concept[];
     currentConceptId: string;
@@ -77,8 +77,6 @@ export interface ThemeStoreModel extends ThemeStoreState {
   // # 整体设置
   resetStore: () => void;
   setSaving: (saving: boolean) => void;
-  getThemeData: () => ThemeData;
-  setColorModeVisible: (visible: boolean) => void;
 
   // # 历史记录管理
   undo: () => void;
@@ -112,9 +110,12 @@ export interface ThemeStoreModel extends ThemeStoreState {
   removeThemeOption: (path: string) => void;
   removeThemeOptions: (paths: string[]) => void;
   setThemePrefer: (prefer: ThemePrefer) => void;
-  setThemeMode: (mode: Mode) => void;
-  updateThemeConfig: (themeConfig: Concept['themeConfig']) => void;
+  setThemeMode: (mode: Mode, options?: { root?: boolean }) => void;
+  getThemeMode: () => Mode;
+  shouldShowThemeMode: () => boolean;
   getCurrentThemeOptions: () => ThemeOptions;
+  updateThemeConfig: (themeConfig: Concept['themeConfig']) => void;
+  getThemeData: () => ThemeData;
 
   // # Colors 编辑
   setColorLock: (colorKey: string, isLocked: boolean) => void;

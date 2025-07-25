@@ -42,14 +42,18 @@ function ColorsSection() {
   const { t } = useLocaleContext();
   const theme = useTheme();
   const concept = useThemeBuilder((s) => s.getCurrentConcept());
-  const showColorMode = useThemeBuilder((s) => s.showColorMode);
-  const { mode, prefer } = concept;
+  const themeMode = useThemeBuilder((s) => s.themeMode);
+  const mode = useThemeBuilder((s) => s.getThemeMode());
+  const isShowThemeMode = useThemeBuilder((s) => s.shouldShowThemeMode());
+  const { prefer } = concept;
   const isMobile = useMobile();
   const containerRef = useRef<HTMLDivElement>(null);
   const { width: containerWidth } = useDomSize(containerRef);
   const setThemeMode = useThemeBuilder((s) => s.setThemeMode);
   const shuffleColors = useThemeBuilder((s) => s.shuffleColors);
   const [selectedColor, setSelectedColor] = useState<ColorType | null>(null);
+
+  console.log('themeMode', themeMode);
 
   // 布局模式判断
   const getLayoutMode = () => {
@@ -166,7 +170,7 @@ function ColorsSection() {
         {/* 工具栏 */}
         <Box sx={{ display: 'flex', gap: 1, justifyContent: 'flex-end', alignItems: 'center' }}>
           {/* 模式切换 */}
-          {showColorMode && (
+          {isShowThemeMode && (
             <Box
               sx={{
                 display: 'flex',
