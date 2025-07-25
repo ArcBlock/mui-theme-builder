@@ -53,8 +53,6 @@ function ColorsSection() {
   const shuffleColors = useThemeBuilder((s) => s.shuffleColors);
   const [selectedColor, setSelectedColor] = useState<ColorType | null>(null);
 
-  console.log('themeMode', themeMode);
-
   // 布局模式判断
   const getLayoutMode = () => {
     if (isMobile || containerWidth < 600) return 'small';
