@@ -104,9 +104,6 @@ importers:
       webfontloader:
         specifier: ^1.6.28
         version: 1.6.28
-      xhr-mock:
-        specifier: ^2.5.1
-        version: 2.5.1
       zustand:
         specifier: ^5.0.6
         version: 5.0.6(@types/react@19.1.8)(react@19.1.0)
@@ -300,6 +297,9 @@ importers:
       vitest:
         specifier: ^3.2.4
         version: 3.2.4(@types/node@24.0.14)(@vitest/ui@3.2.4)(jiti@2.4.2)(jsdom@22.1.0)(yaml@2.8.0)
+      xhr-mock:
+        specifier: ^2.5.1
+        version: 2.5.1
 
 packages:
 
@@ -7339,7 +7339,7 @@ snapshots:
 
   '@babel/generator@7.17.7':
     dependencies:
-      '@babel/types': 7.17.0
+      '@babel/types': 7.28.1
       jsesc: 2.5.2
       source-map: 0.5.7
 
@@ -10037,7 +10037,7 @@ snapshots:
   code-inspector-core@0.20.17:
     dependencies:
       '@vue/compiler-dom': 3.5.17
-      chalk: 4.1.1
+      chalk: 4.1.2
       dotenv: 16.6.1
       launch-ide: 1.0.8
       portfinder: 1.0.37
@@ -10180,7 +10180,7 @@ snapshots:
     dependencies:
       cipher-base: 1.0.6
       inherits: 2.0.4
-      ripemd160: 2.0.1
+      ripemd160: 2.0.2
       sha.js: 2.4.12
 
   create-hash@1.2.0:
@@ -12134,7 +12134,7 @@ snapshots:
 
   launch-ide@1.0.8:
     dependencies:
-      chalk: 4.1.1
+      chalk: 4.1.2
       dotenv: 16.6.1
 
   lazy@1.0.11: {}

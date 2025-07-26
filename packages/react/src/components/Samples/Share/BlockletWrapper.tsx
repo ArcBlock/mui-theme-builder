@@ -7,8 +7,6 @@ import noop from 'lodash/noop';
 import { useEffect, useState } from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 
-import './mock-backend';
-
 const mockSession = {
   login: noop,
   logout: noop,
@@ -60,9 +58,9 @@ const mockSession = {
   getUserSessions: () => [],
 };
 
-// @ts-ignore
+// @ts-ignore mock window.blocklet
 if (!window.blocklet) {
-  // @ts-ignore mock window.blocklet
+  // @ts-ignore
   window.blocklet = {
     did: 'zNKuiSAJ5Kx2rcaoxnNRWEQxupojK7Xni625',
     appId: 'zNKuiSAJ5Kx2rcaoxnNRWEQxupojK7Xni625',
