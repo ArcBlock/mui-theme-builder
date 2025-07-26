@@ -1,3 +1,7 @@
+## 0.4.6 (July 26, 2025)
+
+- fix(react): remove xhr-mock
+
 ## 0.4.5 (July 25, 2025)
 
 - fix(react): color mode control was not working
