@@ -49,7 +49,6 @@
       "last 1 safari version"
     ]
   },
-  "dependencies": {},
   "devDependencies": {
     "@arcblock/eslint-config-ts": "^0.3.3",
     "@babel/eslint-parser": "^7.28.0",
@@ -84,7 +83,8 @@
     "typescript": "~5.5.4",
     "vite": "^7.0.3",
     "vite-plugin-svgr": "^4.3.0",
-    "vitest": "^3.2.4"
+    "vitest": "^3.2.4",
+    "xhr-mock": "^2.5.1"
   },
   "license": "0BSD",
   "repository": {

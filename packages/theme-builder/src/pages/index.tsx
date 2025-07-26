@@ -9,6 +9,7 @@ import useParentTheme from '../hooks/useParentTheme';
 import useRemoteThemeSync from '../hooks/useRemoteThemeSync';
 import useSave from '../hooks/useSave';
 import useSchemaKey from '../hooks/useSchemaKey';
+import './mock-backend';
 
 export const isDev = process.env.NODE_ENV === 'development';
 

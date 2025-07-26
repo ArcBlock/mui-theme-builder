@@ -42,7 +42,6 @@ function ColorsSection() {
   const { t } = useLocaleContext();
   const theme = useTheme();
   const concept = useThemeBuilder((s) => s.getCurrentConcept());
-  const themeMode = useThemeBuilder((s) => s.themeMode);
   const mode = useThemeBuilder((s) => s.getThemeMode());
   const isShowThemeMode = useThemeBuilder((s) => s.shouldShowThemeMode());
   const { prefer } = concept;
