@@ -1,0 +1,236 @@
+[
+  {
+    "description": "Provides a comprehensive introduction to the Theme Builder React component, its purpose in simplifying Material-UI theme customization, and its core functionalities for developers.",
+    "parentId": null,
+    "path": "/overview",
+    "sourceIds": [
+      "packages/react/src/index.tsx",
+      "packages/react/src/types/theme.ts",
+      "packages/react/src/state/createStore.ts",
+      "packages/theme-builder/src/App.tsx",
+      "packages/theme-builder/src/pages/index.tsx",
+      "packages/react/src/components/Editor/Editor.tsx",
+      "packages/react/src/components/Preview/PreviewWindow.tsx"
+    ],
+    "title": "Overview"
+  },
+  {
+    "description": "Guides developers on how to quickly integrate and run the Theme Builder component in their React applications, including installation and a minimal usage example.",
+    "parentId": null,
+    "path": "/getting-started",
+    "sourceIds": [
+      "packages/react/src/index.tsx",
+      "packages/theme-builder/src/pages/index.tsx",
+      "packages/theme-builder/src/hooks/useParentTheme.ts",
+      "packages/theme-builder/src/hooks/useParentLocale.ts",
+      "packages/theme-builder/src/hooks/useRemoteThemeSync.ts",
+      "packages/theme-builder/src/hooks/useSave.ts",
+      "packages/theme-builder/src/utils.ts"
+    ],
+    "title": "Getting Started"
+  },
+  {
+    "description": "Explains the foundational data models and state management principles behind the Theme Builder, essential for understanding its architecture and advanced usage.",
+    "parentId": null,
+    "path": "/core-concepts",
+    "sourceIds": [
+      "packages/react/src/types/theme.ts",
+      "packages/react/src/state/createStore.ts",
+      "packages/react/src/utils.ts",
+      "packages/react/src/context/themeBuilder.ts",
+      "packages/react/src/constants/index.ts"
+    ],
+    "title": "Core Concepts"
+  },
+  {
+    "description": "Details the Concept and ThemeData models, and how theme concepts are managed (add, delete, duplicate, rename, switch).",
+    "parentId": "/core-concepts",
+    "path": "/core-concepts/theme-concepts",
+    "sourceIds": [
+      "packages/react/src/types/theme.ts",
+      "packages/react/src/state/createStore.ts",
+      "packages/react/src/components/Header/ConceptMenu.tsx",
+      "packages/react/src/constants/index.ts",
+      "packages/react/src/utils.ts"
+    ],
+    "title": "Theme Concepts"
+  },
+  {
+    "description": "Describes how Material-UI ThemeOptions are organized within the Theme Builder, distinguishing between light, dark, and common configurations.",
+    "parentId": "/core-concepts",
+    "path": "/core-concepts/theme-options-structure",
+    "sourceIds": [
+      "packages/react/src/types/theme.ts",
+      "packages/react/src/state/createStore.ts",
+      "packages/react/src/constants/index.ts",
+      "packages/react/src/utils.ts"
+    ],
+    "title": "Theme Options Structure"
+  },
+  {
+    "description": "Covers the Zustand store implementation, including history management (undo/redo) and the mechanisms for saving and loading theme data.",
+    "parentId": "/core-concepts",
+    "path": "/core-concepts/state-management",
+    "sourceIds": [
+      "packages/react/src/state/createStore.ts",
+      "packages/react/src/utils.ts",
+      "packages/react/src/context/themeBuilder.ts",
+      "packages/react/src/components/Header/HeaderActions.tsx",
+      "packages/react/src/hooks/useKeyboardShortcuts.ts"
+    ],
+    "title": "State Management"
+  },
+  {
+    "description": "Practical guides on how to use the Theme Builder's visual editor to customize various aspects of a Material-UI theme.",
+    "parentId": null,
+    "path": "/customization-guides",
+    "sourceIds": [
+      "packages/react/src/components/Editor/Editor.tsx",
+      "packages/react/src/components/Editor/ColorsSection/ColorsSection.tsx",
+      "packages/react/src/components/Editor/TypographySection/TypographySection.tsx",
+      "packages/react/src/components/Editor/StylesSection/StylesSection.tsx",
+      "packages/react/src/state/createStore.ts"
+    ],
+    "title": "Customization Guides"
+  },
+  {
+    "description": "Learn to manage main and neutral colors, apply predefined color palettes, and use locking features to preserve color settings.",
+    "parentId": "/customization-guides",
+    "path": "/customization-guides/colors",
+    "sourceIds": [
+      "packages/react/src/components/Editor/ColorsSection/ColorsSection.tsx",
+      "packages/react/src/components/Editor/ColorsSection/ColorBlock.tsx",
+      "packages/react/src/components/Editor/ColorsSection/NeutralColorBlock.tsx",
+      "packages/react/src/components/Editor/ColorsSection/ColorEditDrawer.tsx",
+      "packages/react/src/components/Editor/ColorsSection/HexColorField.tsx",
+      "packages/react/src/components/Editor/ColorsSection/ColorsSettingMenu.tsx",
+      "packages/react/src/state/createStore.ts",
+      "packages/react/src/types/theme.ts",
+      "packages/react/src/utils.ts",
+      "packages/react/src/components/Editor/Common/IconButtonLock.tsx",
+      "packages/react/src/components/Editor/Common/IconButtonShuffle.tsx",
+      "packages/react/src/components/Editor/Common/ButtonShuffle.tsx"
+    ],
+    "title": "Colors Customization"
+  },
+  {
+    "description": "Configure font families (including Google Fonts), adjust text variants (headings, body), set font sizes, and manage font locking for consistent design.",
+    "parentId": "/customization-guides",
+    "path": "/customization-guides/typography",
+    "sourceIds": [
+      "packages/react/src/components/Editor/TypographySection/TypographySection.tsx",
+      "packages/react/src/components/Editor/TypographySection/TypographyBlock.tsx",
+      "packages/react/src/components/Editor/TypographySection/FontFamilySelectorDrawer.tsx",
+      "packages/react/src/components/Editor/TypographySection/FontSizeDrawer.tsx",
+      "packages/react/src/components/Editor/TypographySection/VirtualFontList.tsx",
+      "packages/react/src/state/createStore.ts",
+      "packages/react/src/types/fonts.ts",
+      "packages/react/src/constants/index.ts",
+      "packages/react/src/hooks/useGoogleFonts.ts",
+      "packages/react/src/utils.ts",
+      "packages/react/src/components/Editor/Common/IconButtonLock.tsx",
+      "packages/react/src/components/Editor/Common/IconButtonShuffle.tsx",
+      "packages/react/src/components/Editor/Common/ButtonShuffle.tsx"
+    ],
+    "title": "Typography Customization"
+  },
+  {
+    "description": "Modify general theme styles such as border radius to fine-tune the visual appearance of components.",
+    "parentId": "/customization-guides",
+    "path": "/customization-guides/styles",
+    "sourceIds": [
+      "packages/react/src/components/Editor/StylesSection/StylesSection.tsx",
+      "packages/react/src/components/Editor/StylesSection/BorderRadiusSelector.tsx",
+      "packages/react/src/state/createStore.ts",
+      "packages/react/src/constants/index.ts"
+    ],
+    "title": "Styles Customization"
+  },
+  {
+    "description": "Understand how to switch between light and dark modes and configure the theme preference (system, light, or dark) for flexible user experiences.",
+    "parentId": "/customization-guides",
+    "path": "/customization-guides/theme-mode-preference",
+    "sourceIds": [
+      "packages/react/src/state/createStore.ts",
+      "packages/react/src/types/theme.ts",
+      "packages/react/src/components/Editor/ColorsSection/ColorsSection.tsx",
+      "packages/react/src/components/Editor/StylesSection/ThemeModeSelector.tsx",
+      "packages/react/src/components/Editor/ColorsSection/ColorsSettingMenu.tsx"
+    ],
+    "title": "Theme Mode and Preference"
+  },
+  {
+    "description": "Learn how to utilize the real-time preview window to visualize theme changes across different device sizes and explore pre-built UI samples.",
+    "parentId": null,
+    "path": "/previewing-samples",
+    "sourceIds": [
+      "packages/react/src/components/Preview/PreviewWindow.tsx",
+      "packages/react/src/components/Preview/PreviewBlocklet.tsx",
+      "packages/react/src/components/Preview/PreviewWrapper.tsx",
+      "packages/react/src/components/Samples/index.tsx",
+      "packages/react/src/components/Samples/Dashboard.tsx",
+      "packages/react/src/components/Samples/UserCenter.tsx",
+      "packages/react/src/components/Samples/Website.tsx",
+      "packages/react/src/constants/index.ts",
+      "packages/react/src/state/createStore.ts",
+      "packages/react/src/hooks/useBlockletAppUrl.ts",
+      "packages/react/src/components/Header/PreviewSizeControls.tsx",
+      "packages/react/src/utils.ts",
+      "packages/react/src/components/Samples/Share/BlockletWrapper.tsx"
+    ],
+    "title": "Previewing and Samples"
+  },
+  {
+    "description": "Comprehensive reference for the Theme Builder's components, hooks, and types, providing detailed insights for developers integrating and extending its functionalities.",
+    "parentId": null,
+    "path": "/api-reference",
+    "sourceIds": [
+      "packages/react/src/index.tsx",
+      "packages/react/src/types/theme.ts",
+      "packages/react/src/types/fonts.ts",
+      "packages/react/src/context/themeBuilder.ts",
+      "packages/react/src/state/createStore.ts",
+      "packages/react/src/utils.ts"
+    ],
+    "title": "API Reference"
+  },
+  {
+    "description": "Detailed documentation for the primary ThemeBuilder and BaseThemeBuilder React components, including their props and integration patterns.",
+    "parentId": "/api-reference",
+    "path": "/api-reference/components",
+    "sourceIds": [
+      "packages/react/src/index.tsx"
+    ],
+    "title": "Components"
+  },
+  {
+    "description": "Documentation for custom React hooks provided by the Theme Builder, particularly useThemeBuilder for accessing the theme store.",
+    "parentId": "/api-reference",
+    "path": "/api-reference/hooks",
+    "sourceIds": [
+      "packages/react/src/context/themeBuilder.ts",
+      "packages/react/src/index.tsx"
+    ],
+    "title": "Hooks"
+  },
+  {
+    "description": "Definitions for key data structures and interfaces such as Concept, ThemeData, ThemeStoreModel, Mode, ThemePrefer, FontFilter, and GoogleFont.",
+    "parentId": "/api-reference",
+    "path": "/api-reference/types",
+    "sourceIds": [
+      "packages/react/src/types/theme.ts",
+      "packages/react/src/types/fonts.ts",
+      "packages/react/src/index.tsx"
+    ],
+    "title": "Types"
+  },
+  {
+    "description": "Reference for various utility functions that support theme manipulation and data handling, such as saveTheme, getTheme, setByPath, and removeByPath.",
+    "parentId": "/api-reference",
+    "path": "/api-reference/utilities",
+    "sourceIds": [
+      "packages/react/src/utils.ts"
+    ],
+    "title": "Utilities"
+  }
+]
