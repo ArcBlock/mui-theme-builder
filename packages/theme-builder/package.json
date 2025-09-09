@@ -81,7 +81,7 @@
     "react-dom": "~19.1.0",
     "simple-git-hooks": "^2.13.0",
     "typescript": "~5.5.4",
-    "vite": "^7.0.3",
+    "vite": "^7.0.7",
     "vite-plugin-svgr": "^4.3.0",
     "vitest": "^3.2.4",
     "xhr-mock": "^2.5.1"

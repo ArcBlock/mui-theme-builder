@@ -107,7 +107,7 @@
     "prettier": "^3.6.2",
     "simple-git-hooks": "^2.13.0",
     "typescript": "~5.5.4",
-    "vite": "^7.0.3",
+    "vite": "^7.0.7",
     "vite-plugin-blocklet": "^0.10.1",
     "vite-plugin-dts": "^4.5.4",
     "vite-plugin-no-bundle": "^4.0.0",
