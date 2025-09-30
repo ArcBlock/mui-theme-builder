@@ -95,7 +95,7 @@ export function ColorEditDrawer({ open, colorType, onClose }: ColorEditDrawerPro
   }, [colorType, themeObject]);
 
   const handleMainColorChange = (newColor: string) => {
-    if (!colorType) return;
+    if (!colorType || isThemeLocked) return;
 
     const augmentedColor = themeObject.palette.augmentColor({ color: { main: newColor } } as any);
 

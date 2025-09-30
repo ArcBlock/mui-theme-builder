@@ -89,7 +89,7 @@ export function HexColorField({
           readOnly,
           endAdornment: (
             <>
-              {value !== defaultValue && (
+              {!readOnly && value !== defaultValue && (
                 <IconButton title={t('editor.reset')} onClick={() => onReset?.(path)}>
                   <RestartAltIcon sx={{ fontSize: 20 }} />
                 </IconButton>
