@@ -17,9 +17,12 @@ function TypographySection() {
   const [fontSizeDrawerOpen, setFontSizeDrawerOpen] = useState(false);
   const [selectedVariant, setSelectedVariant] = useState<TextVariant>('heading');
   const setFontOptions = useThemeBuilder((s) => s.setFontOptions);
+  const isThemeLocked = useThemeBuilder((s) => s.isThemeLocked());
   const { shuffleFonts } = useGoogleFonts({ category: 'All', searchQuery: '' });
 
   const handleVariantClick = (variant: TextVariant) => {
+    if (isThemeLocked) return;
+
     setSelectedVariant(variant);
     setDrawerOpen(true);
   };
@@ -57,15 +60,17 @@ function TypographySection() {
             <Button
               variant="outlined"
               size="small"
+              disabled={isThemeLocked}
               sx={{ color: 'inherit', borderColor: 'divider', minWidth: 'auto' }}
               onClick={() => setFontSizeDrawerOpen(true)}>
               <FormatSizeIcon sx={{ py: '2px' }} />
             </Button>
           </Tooltip>
           {/* Shuffle 按钮 */}
-          <ButtonShuffle onClick={handleShuffleFonts} />
+          <ButtonShuffle disabled={isThemeLocked} onClick={handleShuffleFonts} />
         </Box>
       </Stack>
+      {/* font 卡片 */}
       <Grid container spacing={2}>
         <Grid
           size={{

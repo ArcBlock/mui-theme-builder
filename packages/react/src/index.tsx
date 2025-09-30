@@ -17,7 +17,7 @@ import { ThemeBuilderContext, useThemeBuilder } from './context/themeBuilder';
 import useMobile from './hooks/useMobile';
 import { translations } from './locales';
 import createStore from './state/createStore';
-import { Mode, ThemeData } from './types/theme';
+import { Mode, ThemeMeta, ThemeSetting } from './types/theme';
 import { getTheme, saveTheme } from './utils';
 
 const Container = styled(Box)(({ theme }) => ({
@@ -70,10 +70,10 @@ export interface BaseThemeBuilderProps extends Omit<BoxProps, 'onChange'> {
   themeMode?: Mode;
   locale?: Locale;
   themeOptions?: ThemeOptions;
-  themeData?: ThemeData | null;
+  themeSetting?: ThemeSetting | null;
   children?: React.ReactNode;
-  onSave?: (themeData: ThemeData) => Promise<void>;
-  onChange?: (themeData: ThemeData) => void;
+  onSave?: (setting: Partial<ThemeSetting>) => Promise<void>;
+  onChange?: (setting: ThemeSetting) => void;
 }
 export function BaseThemeBuilder({
   loading = false,
@@ -83,7 +83,7 @@ export function BaseThemeBuilder({
   themeMode = undefined,
   locale = 'en',
   themeOptions = {},
-  themeData = undefined,
+  themeSetting = undefined,
   children = undefined,
   onSave = undefined,
   onChange = undefined,
@@ -91,11 +91,27 @@ export function BaseThemeBuilder({
 }: BaseThemeBuilderProps) {
   const isMobile = useMobile();
   const store = useMemo(() => createStore(), []);
+
+  const handleMetaChange = useMemoizedFn(async (meta: Partial<ThemeMeta>) => {
+    await onSave?.({
+      meta: {
+        ...store.getState().meta,
+        ...meta,
+      },
+    });
+  });
+
+  const handleLockChange = useMemoizedFn(async (nextLock: boolean) => {
+    await handleMetaChange({
+      locked: nextLock,
+    });
+  });
+
   const content = useMemo(
     () =>
       children || (
         <>
-          {showHeader && <Header onSave={onSave} />}
+          {showHeader && <Header onSave={onSave} onLockChange={handleLockChange} />}
           <Box
             sx={{
               display: 'flex',
@@ -122,7 +138,7 @@ export function BaseThemeBuilder({
           {isMobile && <Editor />}
         </>
       ),
-    [children, showEditor, showHeader, showPreview, isMobile, onSave],
+    [children, showEditor, showHeader, showPreview, isMobile, onSave, handleLockChange],
   );
   // 继承父主题
   const createBuilderTheme = useMemoizedFn((parentTheme: Theme) => {
@@ -131,10 +147,10 @@ export function BaseThemeBuilder({
 
   // 设置主题数据
   useEffect(() => {
-    if (themeData) {
-      store.getState().setConcepts(themeData);
+    if (themeSetting) {
+      store.getState().setThemeSetting(themeSetting);
     }
-  }, [themeData, store]);
+  }, [themeSetting, store]);
 
   // 设置当前使用的颜色模式
   useEffect(() => {
@@ -148,9 +164,9 @@ export function BaseThemeBuilder({
   // 监听 store 数据变化
   useEffect(() => {
     const unsubscribe = store.subscribe(
-      (state) => [state.concepts, state.currentConceptId],
+      (state) => [state.concepts, state.currentConceptId, state.meta],
       () => {
-        onChange?.(store.getState().getThemeData());
+        onChange?.(store.getState().getThemeSetting());
       },
       { equalityFn: shallow }, // shallow 支持数组比较
     );
@@ -180,22 +196,22 @@ export type DefaultSave = typeof saveTheme;
 export type DefaultFetch = typeof getTheme;
 export interface ThemeBuilderProps extends Omit<BaseThemeBuilderProps, 'onSave' | 'onLoad'> {
   /** 为 false 时，不会自动从 service 拉取 ThemeData */
-  fetchTheme?: false | ((defaultFetch: DefaultFetch) => Promise<ThemeData | null>);
-  onLoad?: (themeData: ThemeData | null) => void;
-  onSave?: (themeData: ThemeData, defaultSave: DefaultSave) => Promise<void>;
+  fetchTheme?: false | ((defaultFetch: DefaultFetch) => Promise<ThemeSetting | null>);
+  onLoad?: (setting: ThemeSetting | null) => void;
+  onSave?: (setting: Partial<ThemeSetting>, defaultSave: DefaultSave) => Promise<void>;
 }
 export function ThemeBuilder({
-  themeData: outerThemeData,
+  themeSetting: outerThemeSetting,
   fetchTheme = undefined,
   onLoad = undefined,
   onSave = undefined,
   ...rest
 }: ThemeBuilderProps) {
-  const [themeData, setThemeData] = useState<ThemeData | null>(null);
+  const [themeSetting, setThemeSetting] = useState<ThemeSetting | null>(null);
   const [loading, setLoading] = useState(fetchTheme !== false);
 
   // 支持后端保存
-  const handleSave = useMemoizedFn(async (data: ThemeData) => {
+  const handleSave = useMemoizedFn(async (data: Partial<ThemeSetting>) => {
     if (onSave) {
       await onSave(data, saveTheme);
       return;
@@ -204,12 +220,12 @@ export function ThemeBuilder({
     await saveTheme({ data });
   });
 
-  // 后端获取 themeData
+  // 后端获取 themeSetting
   useAsyncEffect(async () => {
-    let result: ThemeData | null = null;
+    let result: ThemeSetting | null = null;
 
     // 无需拉取
-    if (fetchTheme === false || outerThemeData) {
+    if (fetchTheme === false || outerThemeSetting) {
       setLoading(false);
       onLoad?.(null);
       return;
@@ -222,14 +238,21 @@ export function ThemeBuilder({
       } else {
         result = await getTheme();
       }
-      setThemeData(result);
+      setThemeSetting(result);
       onLoad?.(result);
     } finally {
       setLoading(false);
     }
-  }, [fetchTheme, setThemeData, outerThemeData]);
+  }, [fetchTheme, setThemeSetting, outerThemeSetting]);
 
-  return <BaseThemeBuilder themeData={outerThemeData || themeData} loading={loading} onSave={handleSave} {...rest} />;
+  return (
+    <BaseThemeBuilder
+      themeSetting={outerThemeSetting || themeSetting}
+      loading={loading}
+      onSave={handleSave}
+      {...rest}
+    />
+  );
 }
 ThemeBuilder.Toolbar = Header;
 ThemeBuilder.Editor = Editor;

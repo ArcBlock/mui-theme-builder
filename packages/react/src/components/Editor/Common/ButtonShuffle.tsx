@@ -6,8 +6,16 @@ const noop = () => {};
 
 export const DEFAULT_SHUFFLE_COLOR = '#6248ff';
 
-export function ShuffleIcon({ sx, ...rest }: SvgIconProps) {
-  return <ShuffleIconBase sx={{ color: DEFAULT_SHUFFLE_COLOR, fontSize: 20, ...sx }} {...rest} />;
+export interface ShuffleIconProps extends SvgIconProps {
+  disabled?: boolean;
+}
+export function ShuffleIcon({ sx, disabled = false, ...rest }: ShuffleIconProps) {
+  return (
+    <ShuffleIconBase
+      sx={{ color: disabled ? 'text.disabled' : DEFAULT_SHUFFLE_COLOR, fontSize: 20, ...sx }}
+      {...rest}
+    />
+  );
 }
 
 export function ButtonShuffle({
@@ -15,6 +23,7 @@ export function ButtonShuffle({
   size = 'small',
   variant = 'outlined',
   color = 'inherit',
+  disabled = false,
   sx,
   ...props
 }: { onClick?: () => void } & ButtonProps) {
@@ -26,7 +35,8 @@ export function ButtonShuffle({
       variant={variant}
       color={color}
       size={size}
-      startIcon={<ShuffleIcon />}
+      disabled={disabled}
+      startIcon={<ShuffleIcon disabled={disabled} />}
       sx={{ textTransform: 'none', borderColor: 'divider', ...sx }}
       onClick={onClick}>
       {t('editor.shuffle')}

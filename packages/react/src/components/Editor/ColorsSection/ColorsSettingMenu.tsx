@@ -1,12 +1,19 @@
 import { useLocaleContext } from '@arcblock/ux/lib/Locale/context';
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
-import { Button, Divider, Menu, MenuItem, Typography } from '@mui/material';
+import { Button, ButtonProps, Divider, Menu, MenuItem, Typography } from '@mui/material';
 import { useMemoizedFn } from 'ahooks';
 import { useState } from 'react';
 import { useThemeBuilder } from 'src/context/themeBuilder';
 import type { ThemePrefer } from 'src/types/theme';
 
-export function ColorsSettingMenu() {
+export interface ColorsSettingMenuProps extends Omit<ButtonProps, 'onClick'> {}
+export function ColorsSettingMenu({
+  variant = 'outlined',
+  size = 'small',
+  color = 'inherit',
+  sx,
+  ...props
+}: ColorsSettingMenuProps) {
   const { t } = useLocaleContext();
   const isShowThemeMode = useThemeBuilder((s) => s.shouldShowThemeMode());
   const prefer = useThemeBuilder((s) => s.getCurrentConcept().prefer);
@@ -36,16 +43,18 @@ export function ColorsSettingMenu() {
     <>
       <Button
         onClick={handleClick}
-        variant="outlined"
-        size="small"
-        color="inherit"
+        variant={variant}
+        size={size}
+        color={color}
         sx={{
           color: 'text.secondary',
           borderColor: 'divider',
           minWidth: 'auto',
           height: '30px',
           px: 1,
-        }}>
+          ...sx,
+        }}
+        {...props}>
         <SettingsOutlinedIcon style={{ fontSize: 18 }} />
       </Button>
       <Menu
@@ -65,20 +74,18 @@ export function ColorsSettingMenu() {
             sx: { minWidth: 120 },
           },
         }}>
-        {isShowThemeMode && (
-          <>
-            <MenuItem onClick={() => handleOptionSelect('system')} selected={prefer === 'system'}>
-              <Typography variant="body2">{t('editor.colorSection.modeDisable.none')}</Typography>
-            </MenuItem>
-            <MenuItem onClick={() => handleOptionSelect('light')} selected={prefer === 'light'}>
-              <Typography variant="body2">{t('editor.colorSection.modeDisable.dark')}</Typography>
-            </MenuItem>
-            <MenuItem onClick={() => handleOptionSelect('dark')} selected={prefer === 'dark'}>
-              <Typography variant="body2">{t('editor.colorSection.modeDisable.light')}</Typography>
-            </MenuItem>
-            <Divider />
-          </>
-        )}
+        {isShowThemeMode && [
+          <MenuItem onClick={() => handleOptionSelect('system')} selected={prefer === 'system'}>
+            <Typography variant="body2">{t('editor.colorSection.modeDisable.none')}</Typography>
+          </MenuItem>,
+          <MenuItem onClick={() => handleOptionSelect('light')} selected={prefer === 'light'}>
+            <Typography variant="body2">{t('editor.colorSection.modeDisable.dark')}</Typography>
+          </MenuItem>,
+          <MenuItem onClick={() => handleOptionSelect('dark')} selected={prefer === 'dark'}>
+            <Typography variant="body2">{t('editor.colorSection.modeDisable.light')}</Typography>
+          </MenuItem>,
+          <Divider />,
+        ]}
         <MenuItem onClick={handleResetColors}>
           <Typography variant="body2">{t('editor.colorSection.reset')}</Typography>
         </MenuItem>

@@ -10,6 +10,7 @@ import { getByPath, isValidHexColor } from 'src/utils';
 
 export interface HexColorInputProps extends Omit<OutlinedTextFieldProps, 'value' | 'variant' | 'onChange' | 'onReset'> {
   path: string;
+  readOnly?: boolean;
   onChange?: (value: string) => void;
   onReset?: (path: string) => void;
 }
@@ -18,6 +19,7 @@ export function HexColorField({
   path,
   label = 'Hex',
   size = 'small',
+  readOnly = false,
   onChange = undefined,
   onReset = undefined,
   ...rest
@@ -84,9 +86,10 @@ export function HexColorField({
       {...rest}
       slotProps={{
         input: {
+          readOnly,
           endAdornment: (
             <>
-              {value !== defaultValue && (
+              {!readOnly && value !== defaultValue && (
                 <IconButton title={t('editor.reset')} onClick={() => onReset?.(path)}>
                   <RestartAltIcon sx={{ fontSize: 20 }} />
                 </IconButton>

@@ -23,6 +23,7 @@ function TypographyBlock({ variant, onClick }: TypographyBlockProps) {
   const themeObject = useThemeBuilder((s) => s.themeObject);
   const isMobile = useMobile();
   const { shuffleFonts } = useGoogleFonts({ category: 'All', searchQuery: '' });
+  const isThemeLocked = useThemeBuilder((s) => s.isThemeLocked());
   const removeThemeOption = useThemeBuilder((s) => s.removeThemeOption);
   const removeThemeOptions = useThemeBuilder((s) => s.removeThemeOptions);
   const setFontLock = useThemeBuilder((s) => s.setFontLock);
@@ -102,24 +103,27 @@ function TypographyBlock({ variant, onClick }: TypographyBlockProps) {
           },
         },
       }}>
-      <Stack
-        direction="row"
-        sx={{
-          position: 'absolute',
-          top: 12,
-          right: 4,
-        }}>
-        {/* Reset Icon */}
-        {fontFamily !== defaultFontFamily && (
-          <IconButton className="action" title={t('editor.reset')} onClick={handleReset}>
-            <RestartAltIcon sx={{ fontSize: 20 }} />
-          </IconButton>
-        )}
-        {/* Shuffle Icon */}
-        <IconButtonShuffle color={DEFAULT_SHUFFLE_COLOR} onClick={handleShuffle} />
-        {/* Lock Icon */}
-        <IconButtonLock lock={isLocked} onClick={toggleLock} />
-      </Stack>
+      {/* 工具栏 */}
+      {!isThemeLocked && (
+        <Stack
+          direction="row"
+          sx={{
+            position: 'absolute',
+            top: 12,
+            right: 4,
+          }}>
+          {/* Reset Icon */}
+          {fontFamily !== defaultFontFamily && (
+            <IconButton className="action" title={t('editor.reset')} onClick={handleReset}>
+              <RestartAltIcon sx={{ fontSize: 20 }} />
+            </IconButton>
+          )}
+          {/* Shuffle Icon */}
+          <IconButtonShuffle color={DEFAULT_SHUFFLE_COLOR} onClick={handleShuffle} />
+          {/* Lock Icon */}
+          <IconButtonLock lock={isLocked} onClick={toggleLock} />
+        </Stack>
+      )}
       <Stack spacing={1}>
         <Typography
           variant="subtitle1"

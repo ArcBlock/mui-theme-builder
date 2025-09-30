@@ -20,6 +20,7 @@ export function ColorBlock({ colorType, onClick = undefined }: ColorBlockProps) 
   const { t } = useLocaleContext();
   const isMobile = useMobile();
   const themeObject = useThemeBuilder((s) => s.themeObject);
+  const isThemeLocked = useThemeBuilder((s) => s.isThemeLocked());
   const isLocked = useThemeBuilder((s) => s.getCurrentConcept().editor.colors[colorType]?.isLocked ?? false);
   const setColorLock = useThemeBuilder((s) => s.setColorLock);
   const removeThemeOption = useThemeBuilder((s) => s.removeThemeOption);
@@ -75,24 +76,27 @@ export function ColorBlock({ colorType, onClick = undefined }: ColorBlockProps) 
         },
       }}
       onClick={onClick}>
-      <Stack
-        direction="row"
-        sx={{
-          position: 'absolute',
-          top: 8,
-          right: 4,
-        }}>
-        {/* Reset Icon */}
-        {mainColor !== defaultColor && (
-          <IconButton className="action" title={t('editor.reset')} onClick={handleReset}>
-            <RestartAltIcon sx={{ fontSize: 20, color: actionColor }} />
-          </IconButton>
-        )}
-        {/* Shuffle Icon */}
-        <IconButtonShuffle color={actionColor} onClick={handleShuffle} />
-        {/* Lock Icon */}
-        <IconButtonLock lock={isLocked} color={actionColor} onClick={toggleLock} />
-      </Stack>
+      {/* 工具栏按钮 */}
+      {!isThemeLocked && (
+        <Stack
+          direction="row"
+          sx={{
+            position: 'absolute',
+            top: 8,
+            right: 4,
+          }}>
+          {/* Reset Icon */}
+          {mainColor !== defaultColor && (
+            <IconButton className="action" title={t('editor.reset')} onClick={handleReset}>
+              <RestartAltIcon sx={{ fontSize: 20, color: actionColor }} />
+            </IconButton>
+          )}
+          {/* Shuffle Icon */}
+          <IconButtonShuffle color={actionColor} onClick={handleShuffle} />
+          {/* Lock Icon */}
+          <IconButtonLock lock={isLocked} color={actionColor} onClick={toggleLock} />
+        </Stack>
+      )}
       <Box
         sx={{
           flexGrow: 1,

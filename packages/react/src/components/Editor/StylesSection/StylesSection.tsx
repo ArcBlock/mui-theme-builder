@@ -1,5 +1,6 @@
 import { useLocaleContext } from '@arcblock/ux/lib/Locale/context';
 import { Box, Stack, Typography } from '@mui/material';
+import { useMemoizedFn } from 'ahooks';
 import { useThemeBuilder } from 'src/context/themeBuilder';
 
 import BorderRadiusSelector from './BorderRadiusSelector';
@@ -8,10 +9,11 @@ function StylesSection() {
   const { t } = useLocaleContext();
   const borderRadius = useThemeBuilder((s) => s.themeObject.shape.borderRadius) as number;
   const setThemeOption = useThemeBuilder((s) => s.setThemeOption);
+  const isThemeLocked = useThemeBuilder((s) => s.isThemeLocked());
 
-  const handleBorderRadiusChange = (value: number) => {
+  const handleBorderRadiusChange = useMemoizedFn((value: number) => {
     setThemeOption('shape.borderRadius', value);
-  };
+  });
 
   return (
     <Box sx={{ mt: 3 }}>
@@ -33,7 +35,7 @@ function StylesSection() {
             }}>
             {t('editor.stylesSection.borderRadius')}
           </Typography>
-          <BorderRadiusSelector value={borderRadius} onChange={handleBorderRadiusChange} />
+          <BorderRadiusSelector value={borderRadius} disabled={isThemeLocked} onChange={handleBorderRadiusChange} />
         </Stack>
       </Stack>
     </Box>

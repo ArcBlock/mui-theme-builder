@@ -1,3 +1,7 @@
+## 0.4.7 (September 30, 2025)
+
+- feat(react): support edit lock in theme builder
+
 ## 0.4.6 (July 26, 2025)
 
 - fix(react): avoid polluting global XMLHttpRequest 

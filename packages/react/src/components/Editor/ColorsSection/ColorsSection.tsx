@@ -44,6 +44,7 @@ function ColorsSection() {
   const concept = useThemeBuilder((s) => s.getCurrentConcept());
   const mode = useThemeBuilder((s) => s.getThemeMode());
   const isShowThemeMode = useThemeBuilder((s) => s.shouldShowThemeMode());
+  const isThemeLocked = useThemeBuilder((s) => s.isThemeLocked());
   const { prefer } = concept;
   const isMobile = useMobile();
   const containerRef = useRef<HTMLDivElement>(null);
@@ -200,9 +201,9 @@ function ColorsSection() {
             </Box>
           )}
           {/* 其它设置 */}
-          <ColorsSettingMenu />
+          <ColorsSettingMenu disabled={isThemeLocked} />
           {/* Shuffle 按钮 */}
-          <ButtonShuffle onClick={handleShuffle} />
+          <ButtonShuffle disabled={isThemeLocked} onClick={handleShuffle} />
         </Box>
       </Stack>
       {/* 颜色块网格 */}

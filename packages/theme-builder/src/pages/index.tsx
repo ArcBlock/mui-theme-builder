@@ -30,7 +30,7 @@ function Center({ children }: { children: React.ReactNode }) {
 
 function Index() {
   const schemaKey = useSchemaKey();
-  const { loading: syncLoading, themeData } = useRemoteThemeSync();
+  const { loading: syncLoading, themeSetting } = useRemoteThemeSync();
   const { parentTheme, loading: parentThemeLoading } = useParentTheme();
   const { locale } = useParentLocale();
   const { saveTheme } = useSave();
@@ -69,7 +69,7 @@ function Index() {
   return (
     <ErrorBoundary>
       <ThemeProvider theme={siteTheme} injectFirst>
-        <ThemeBuilder showPreview locale={locale} themeData={themeData} fetchTheme={false} onSave={saveTheme} />
+        <ThemeBuilder showPreview locale={locale} themeSetting={themeSetting} fetchTheme={false} onSave={saveTheme} />
       </ThemeProvider>
     </ErrorBoundary>
   );

@@ -56,6 +56,7 @@ export function FontFamilySelectorDrawer({ open, variant, onClose }: TypographyE
   const { t } = useLocaleContext();
   const setFontOptions = useThemeBuilder((s) => s.setFontOptions);
   const themeObject = useThemeBuilder((s) => s.themeObject);
+  const isThemeLocked = useThemeBuilder((s) => s.isThemeLocked());
   const isMobile = useMediaQuery(themeObject.breakpoints.down('md'));
 
   // 状态管理
@@ -94,6 +95,7 @@ export function FontFamilySelectorDrawer({ open, variant, onClose }: TypographyE
 
   // 修改字体
   const handleFontSelect = (font: GoogleFont) => {
+    if (isThemeLocked) return;
     setFontOptions({ [variant]: { fontFamily: font.f } });
     // clear filter
     setSearchQuery('');
@@ -216,7 +218,7 @@ export function FontFamilySelectorDrawer({ open, variant, onClose }: TypographyE
       </Box>
 
       {/* 随机字体 */}
-      <ButtonShuffle sx={{ mt: 1 }} onClick={handleShuffleFonts} />
+      <ButtonShuffle disabled={isThemeLocked} sx={{ mt: 1 }} onClick={handleShuffleFonts} />
       {/* 当前使用的字体 */}
       <Box>
         <Typography

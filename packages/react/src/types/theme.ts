@@ -26,10 +26,16 @@ export interface Concept {
   editor: EditorState;
 }
 
-export interface ThemeData {
+export interface ThemeMeta {
+  locked: boolean;
+}
+export interface ThemeSetting {
   concepts: Concept[];
   currentConceptId: string;
+  meta: ThemeMeta;
 }
+
+export type ThemeData = Omit<ThemeSetting, 'meta'>;
 
 export interface PredefinedTheme {
   name: string;
@@ -59,6 +65,7 @@ export interface EditorState {
 export interface ThemeStoreState {
   concepts: Concept[];
   currentConceptId: string;
+  meta: ThemeMeta;
   loadedFonts: Set<string>;
   previewSize: PreviewSize;
   selectedComponentId: string;
@@ -77,6 +84,9 @@ export interface ThemeStoreModel extends ThemeStoreState {
   // # 整体设置
   resetStore: () => void;
   setSaving: (saving: boolean) => void;
+  setThemeSetting: (data: ThemeSetting) => void;
+  setThemeLocked: (locked: boolean) => void;
+  isThemeLocked: () => boolean;
 
   // # 历史记录管理
   undo: () => void;
@@ -86,14 +96,13 @@ export interface ThemeStoreModel extends ThemeStoreState {
   saveToHistory: () => void;
   clearHistory: () => void;
 
-  // # Concepts 管理
+  // # Theme 管理
   setCurrentConcept: (id: string) => void;
   getCurrentConcept: () => Concept;
   addConcept: (options?: { name?: string; themeConfig?: Concept['themeConfig'] }) => void;
   deleteConcept: (id: string) => void;
   duplicateConcept: (id: string) => void;
   renameConcept: (id: string, name: string) => void;
-  setConcepts: (data: ThemeData) => void;
   applyTheme: (concept: Concept, theme: PredefinedTheme, options?: ApplyThemeOptions) => Concept;
   applyColors: (
     concept: Concept,
@@ -115,7 +124,7 @@ export interface ThemeStoreModel extends ThemeStoreState {
   shouldShowThemeMode: () => boolean;
   getCurrentThemeOptions: () => ThemeOptions;
   updateThemeConfig: (themeConfig: Concept['themeConfig']) => void;
-  getThemeData: () => ThemeData;
+  getThemeSetting: () => ThemeSetting;
 
   // # Colors 编辑
   setColorLock: (colorKey: string, isLocked: boolean) => void;

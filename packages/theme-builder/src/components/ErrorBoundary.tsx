@@ -1,5 +1,6 @@
 import { Alert, Box, Button } from '@mui/material';
-import { Component, ErrorInfo, ReactNode, useCallback } from 'react';
+import { useMemoizedFn } from 'ahooks';
+import { Component, ErrorInfo, ReactNode } from 'react';
 
 interface Props {
   children: ReactNode;
@@ -61,9 +62,9 @@ class ErrorBoundary extends Component<Props, State> {
 export default ErrorBoundary;
 
 function ClearStorageButton() {
-  const handleClick = useCallback(() => {
+  const handleClick = useMemoizedFn(() => {
     window.location.reload();
-  }, []);
+  });
 
   return (
     <Button variant="contained" color="primary" size="large" onClick={handleClick}>

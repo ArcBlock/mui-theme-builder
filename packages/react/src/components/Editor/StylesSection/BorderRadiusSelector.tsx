@@ -16,7 +16,9 @@ function CornerIcon({ radius }: { radius: number }) {
   );
 }
 
-const OptionButton = styled(Paper)(({ theme }) => ({
+const OptionButton = styled(Paper, {
+  shouldForwardProp: (prop) => prop !== 'disabled',
+})<{ disabled?: boolean }>(({ theme, disabled = false }) => ({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
@@ -28,7 +30,7 @@ const OptionButton = styled(Paper)(({ theme }) => ({
   borderColor: 'transparent',
   backgroundColor: theme.palette.action.hover,
   '&.Mui-selected': {
-    borderColor: theme.palette.primary.main,
+    borderColor: disabled ? theme.palette.action.disabled : theme.palette.primary.main,
     backgroundColor: theme.palette.background.default,
     boxShadow: 'none',
   },
@@ -39,10 +41,11 @@ const OptionButton = styled(Paper)(({ theme }) => ({
 
 interface BorderRadiusSelectorProps {
   value: number;
-  onChange: (value: number) => void;
+  disabled?: boolean;
+  onChange?: (value: number) => void;
 }
 
-function BorderRadiusSelector({ value, onChange }: BorderRadiusSelectorProps) {
+function BorderRadiusSelector({ value, disabled = false, onChange = () => {} }: BorderRadiusSelectorProps) {
   return (
     <Stack
       direction="row"
@@ -54,10 +57,11 @@ function BorderRadiusSelector({ value, onChange }: BorderRadiusSelectorProps) {
       }}>
       {radiusOptions.map((radius) => (
         <OptionButton
+          disabled={disabled}
           key={radius}
           elevation={0}
           className={value === radius ? 'Mui-selected' : ''}
-          onClick={() => onChange(radius)}>
+          onClick={() => !disabled && onChange(radius)}>
           <CornerIcon radius={radius} />
         </OptionButton>
       ))}

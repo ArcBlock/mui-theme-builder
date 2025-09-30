@@ -31,6 +31,12 @@ export default {
       resetConfirm: 'Are you sure you want to reset the theme? This will discard all unsaved changes.',
       resetSuccess: 'Theme has been reset to default settings. Please refresh the page to apply changes.',
       resetFailed: 'Reset failed: {message}',
+      lock: 'Lock Theme',
+      unlock: 'Unlock Theme',
+      lockSuccess: 'Theme locked successfully',
+      lockFailed: 'Lock failed: {message}',
+      unlockSuccess: 'Theme unlocked successfully',
+      unlockFailed: 'Unlock failed: {message}',
     },
     colorSection: {
       title: 'Colors',
