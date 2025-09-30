@@ -1,4 +1,4 @@
-import { type ThemeData, getTheme } from '@blocklet/theme-builder-react';
+import { type ThemeSetting, getTheme } from '@blocklet/theme-builder-react';
 import { useEffect, useState } from 'react';
 
 import { getAuthHeaders, isDev } from '../utils';
@@ -7,7 +7,7 @@ import useSchemaKey from './useSchemaKey';
 export default function useRemoteThemeSync() {
   const schemaKey = useSchemaKey();
   const [loading, setLoading] = useState(!isDev);
-  const [themeData, setThemeData] = useState<ThemeData>();
+  const [themeSetting, setThemeSetting] = useState<ThemeSetting>();
 
   useEffect(() => {
     if (isDev) {
@@ -19,12 +19,12 @@ export default function useRemoteThemeSync() {
       headers: getAuthHeaders(),
     })
       .then((data) => {
-        setThemeData(data);
+        setThemeSetting(data);
       })
       .finally(() => {
         setLoading(false);
       });
-  }, [setThemeData, schemaKey]);
+  }, [setThemeSetting, schemaKey]);
 
-  return { loading, themeData };
+  return { loading, themeSetting };
 }

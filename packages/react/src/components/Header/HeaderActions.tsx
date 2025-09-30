@@ -2,16 +2,19 @@ import Confirm from '@arcblock/ux/lib/Dialog/confirm';
 import { useLocaleContext } from '@arcblock/ux/lib/Locale/context';
 import Toast from '@arcblock/ux/lib/Toast';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import LockIcon from '@mui/icons-material/Lock';
+import LockOpenIcon from '@mui/icons-material/LockOpen';
 import RedoIcon from '@mui/icons-material/Redo';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import SaveIcon from '@mui/icons-material/Save';
 import UndoIcon from '@mui/icons-material/Undo';
 import { Box, Button, ButtonGroup, Divider, ListItemIcon, ListItemText, Menu, MenuItem, Tooltip } from '@mui/material';
+import { useMemoizedFn } from 'ahooks';
 import { useRef, useState } from 'react';
 import { useThemeBuilder } from 'src/context/themeBuilder';
 import { useKeyboardShortcuts } from 'src/hooks/useKeyboardShortcuts';
 import useMobile from 'src/hooks/useMobile';
-import { ThemeData } from 'src/types/theme';
+import { ThemeSetting } from 'src/types/theme';
 
 import { ShuffleIcon } from '../Editor/Common/ButtonShuffle';
 
@@ -29,29 +32,34 @@ const btnGroupSx = {
 };
 
 // 公共样式
-const saveIconSx = { color: 'text.primary' };
 const commonButtonGroupProps = {
   variant: 'outlined',
   color: 'inherit',
   size: 'small',
 } as const;
 
-export interface HeaderActionsProps {
-  onSave?: (themeData: ThemeData) => Promise<void>;
+export function ThemeLockIcon({ locked }: { locked: boolean }) {
+  return locked ? <LockIcon style={{ fontSize: 18 }} /> : <LockOpenIcon style={{ fontSize: 18 }} />;
 }
 
-export function HeaderActions({ onSave = undefined }: HeaderActionsProps) {
+export interface HeaderActionsProps {
+  onSave?: (setting: Partial<ThemeSetting>) => Promise<void>;
+  onLockChange?: (nextLock: boolean) => Promise<void>;
+}
+export function HeaderActions({ onSave = undefined, onLockChange = undefined }: HeaderActionsProps) {
   const { t } = useLocaleContext?.() || { t: (x: string) => x };
   const isMobile = useMobile();
+  const isThemeLocked = useThemeBuilder((s) => s.isThemeLocked());
+  const setThemeLocked = useThemeBuilder((s) => s.setThemeLocked);
   const setSaving = useThemeBuilder((s) => s.setSaving);
   const saving = useThemeBuilder((s) => s.saving);
-  const getThemeData = useThemeBuilder((s) => s.getThemeData);
+  const getThemeSetting = useThemeBuilder((s) => s.getThemeSetting);
   const resetStore = useThemeBuilder((s) => s.resetStore);
   const shuffleTheme = useThemeBuilder((s) => s.shuffleTheme);
   const undo = useThemeBuilder((s) => s.undo);
   const redo = useThemeBuilder((s) => s.redo);
-  const canUndo = useThemeBuilder((s) => s.canUndo());
-  const canRedo = useThemeBuilder((s) => s.canRedo());
+  const canUndo = useThemeBuilder((s) => !s.isThemeLocked() && s.canUndo());
+  const canRedo = useThemeBuilder((s) => !s.isThemeLocked() && s.canRedo());
   const [resetOpen, setResetOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const splitButtonRef = useRef<HTMLDivElement>(null);
@@ -61,46 +69,62 @@ export function HeaderActions({ onSave = undefined }: HeaderActionsProps) {
   const modKey = isMac ? 'Cmd' : 'Ctrl';
 
   // 保存主题
-  const handleSave = async () => {
+  const handleSave = useMemoizedFn(async () => {
     try {
       setSaving(true);
-      await onSave?.(getThemeData());
+      await onSave?.(getThemeSetting());
       Toast.success(t('editor.concept.saveSuccess'));
     } catch (e) {
       Toast.error(t('editor.concept.saveFailed', { message: (e as Error).message }));
     } finally {
       setSaving(false);
     }
-  };
+  });
 
   // 重置主题
-  const handleReset = () => {
+  const handleReset = useMemoizedFn(() => {
     setResetOpen(true);
     setMenuOpen(false);
-  };
-  const handleConfirmReset = async () => {
+  });
+  const handleConfirmReset = useMemoizedFn(async () => {
     resetStore();
     setResetOpen(false);
     await handleSave();
-  };
+  });
 
   // 随机挑选主题
-  const handleShuffle = () => {
+  const handleShuffle = useMemoizedFn(() => {
     shuffleTheme();
     setMenuOpen(false);
-  };
+  });
 
   // 撤销操作
-  const handleUndo = () => {
+  const handleUndo = useMemoizedFn(() => {
     undo();
     setMenuOpen(false);
-  };
+  });
 
   // 重做操作
-  const handleRedo = () => {
+  const handleRedo = useMemoizedFn(() => {
     redo();
     setMenuOpen(false);
-  };
+  });
+
+  // 锁定/解锁
+  const handleLockChange = useMemoizedFn(async () => {
+    const nextLock = !isThemeLocked;
+    try {
+      setSaving(true);
+      await onLockChange?.(nextLock);
+      setThemeLocked(nextLock);
+      Toast.success(t(nextLock ? 'editor.concept.lockSuccess' : 'editor.concept.unlockSuccess'));
+    } catch (e) {
+      Toast.error(t(nextLock ? 'editor.concept.lock' : 'editor.concept.unlock', { message: (e as Error).message }));
+    } finally {
+      setSaving(false);
+      setMenuOpen(false);
+    }
+  });
 
   // 键盘快捷键
   useKeyboardShortcuts({
@@ -128,11 +152,20 @@ export function HeaderActions({ onSave = undefined }: HeaderActionsProps) {
     </Confirm>
   );
 
-  // 保存按钮组件
+  // 保存按钮
   const renderSaveButton = () => (
-    <Button startIcon={<SaveIcon sx={saveIconSx} />} loading={saving} sx={{ ...btnSx }} onClick={handleSave}>
+    <Button disabled={isThemeLocked} startIcon={<SaveIcon />} loading={saving} sx={{ ...btnSx }} onClick={handleSave}>
       {t('editor.save')}
     </Button>
+  );
+
+  // 锁定/解锁按钮
+  const renderLockButton = () => (
+    <Tooltip title={`${t(isThemeLocked ? 'editor.concept.unlock' : 'editor.concept.lock')}`}>
+      <Button disabled={saving} onClick={handleLockChange}>
+        <ThemeLockIcon locked={isThemeLocked} />
+      </Button>
+    </Tooltip>
   );
 
   // 移动端渲染 SplitButton
@@ -147,7 +180,6 @@ export function HeaderActions({ onSave = undefined }: HeaderActionsProps) {
             <ArrowDropDownIcon />
           </Button>
         </ButtonGroup>
-
         {/* 下拉菜单 */}
         <Menu
           anchorEl={splitButtonRef.current}
@@ -174,20 +206,26 @@ export function HeaderActions({ onSave = undefined }: HeaderActionsProps) {
             <ListItemText>{t('editor.redo')}</ListItemText>
           </MenuItem>
           <Divider />
-          <MenuItem onClick={handleShuffle}>
+          <MenuItem onClick={handleShuffle} disabled={isThemeLocked || saving}>
             <ListItemIcon>
               <ShuffleIcon sx={{ fontSize: 20 }} />
             </ListItemIcon>
             <ListItemText>{t('editor.concept.shuffle')}</ListItemText>
           </MenuItem>
-          <MenuItem onClick={handleReset} disabled={saving}>
+          <MenuItem onClick={handleReset} disabled={isThemeLocked || saving}>
             <ListItemIcon>
               <RestartAltIcon fontSize="small" sx={{ color: 'warning.main' }} />
             </ListItemIcon>
             <ListItemText>{t('editor.concept.resetTitle')}</ListItemText>
           </MenuItem>
+          <Divider />
+          <MenuItem onClick={handleLockChange} disabled={saving}>
+            <ListItemIcon>
+              <ThemeLockIcon locked={isThemeLocked} />
+            </ListItemIcon>
+            <ListItemText>{t(isThemeLocked ? 'editor.unlock' : 'editor.lock')}</ListItemText>
+          </MenuItem>
         </Menu>
-
         {renderConfirmDialog()}
       </Box>
     );
@@ -196,7 +234,7 @@ export function HeaderActions({ onSave = undefined }: HeaderActionsProps) {
   // 桌面端保持原有的 ButtonGroup 布局
   return (
     <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, ml: 1 }}>
-      {/* 保存按钮组 */}
+      {/* 保存 */}
       <ButtonGroup {...commonButtonGroupProps} sx={btnGroupSx}>
         {renderSaveButton()}
       </ButtonGroup>
@@ -218,13 +256,13 @@ export function HeaderActions({ onSave = undefined }: HeaderActionsProps) {
       {/* 主题操作按钮组 */}
       <ButtonGroup {...commonButtonGroupProps} sx={btnGroupSx}>
         <Tooltip title={t('editor.concept.shuffle')}>
-          <Button onClick={handleShuffle}>
-            <ShuffleIcon />
+          <Button disabled={isThemeLocked} onClick={handleShuffle}>
+            <ShuffleIcon disabled={isThemeLocked} />
           </Button>
         </Tooltip>
         <Tooltip title={t('editor.concept.resetTitle')}>
           <Button
-            disabled={saving}
+            disabled={isThemeLocked || saving}
             onClick={handleReset}
             sx={{
               '&:hover': {
@@ -236,6 +274,11 @@ export function HeaderActions({ onSave = undefined }: HeaderActionsProps) {
             <RestartAltIcon sx={{ fontSize: 20 }} />
           </Button>
         </Tooltip>
+      </ButtonGroup>
+
+      {/* 锁定/解锁 */}
+      <ButtonGroup {...commonButtonGroupProps} sx={btnGroupSx}>
+        {renderLockButton()}
       </ButtonGroup>
 
       {renderConfirmDialog()}

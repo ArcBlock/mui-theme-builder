@@ -30,6 +30,12 @@ export default {
       resetTitle: '重置主题',
       resetConfirm: '确定要重置主题设置吗？这将丢弃所有未保存的更改。',
       resetSuccess: '主题已重置为默认设置。请刷新页面以应用更改。',
+      lock: '锁定主题',
+      unlock: '解锁主题',
+      lockSuccess: '主题锁定成功',
+      lockFailed: '锁定失败：{message}',
+      unlockSuccess: '主题解锁成功',
+      unlockFailed: '解锁失败：{message}',
     },
     colorSection: {
       title: '颜色',

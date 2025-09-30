@@ -2,7 +2,8 @@ import LaptopMacIcon from '@mui/icons-material/LaptopMac';
 import SmartphoneIcon from '@mui/icons-material/Smartphone';
 import TabletMacIcon from '@mui/icons-material/TabletMac';
 import { BottomNavigation, BottomNavigationAction, useMediaQuery, useTheme } from '@mui/material';
-import { useCallback, useEffect } from 'react';
+import { useMemoizedFn } from 'ahooks';
+import { useEffect } from 'react';
 import { useThemeBuilder } from 'src/context/themeBuilder';
 import { PreviewSize } from 'src/types/theme';
 
@@ -11,7 +12,7 @@ export const previewSizeControlsId = 'preview-size-controls';
 function PreviewSizeControls() {
   const previewSize = useThemeBuilder((s) => s.previewSize);
   const setPreviewSize = useThemeBuilder((s) => s.setPreviewSize);
-  const handleOnChange = useCallback((_: unknown, value: PreviewSize) => setPreviewSize(value), [setPreviewSize]);
+  const handleOnChange = useMemoizedFn((_: unknown, value: PreviewSize) => setPreviewSize(value));
 
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));

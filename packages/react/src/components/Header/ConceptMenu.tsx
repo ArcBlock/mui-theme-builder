@@ -9,10 +9,11 @@ import { Box, Button, Divider, Menu, MenuItem, Typography, styled } from '@mui/m
 import Drawer from '@mui/material/Drawer';
 import IconButton from '@mui/material/IconButton';
 import TextField from '@mui/material/TextField';
-import { useCallback, useMemo, useState } from 'react';
+import { useMemoizedFn } from 'ahooks';
+import { useMemo, useState } from 'react';
 import { useThemeBuilder } from 'src/context/themeBuilder';
 import useMobile from 'src/hooks/useMobile';
-import { Concept, ThemeData } from 'src/types/theme';
+import { Concept, ThemeSetting } from 'src/types/theme';
 
 const ConceptItem = styled(MenuItem)(({ theme }) => ({
   minWidth: 254,
@@ -53,14 +54,14 @@ const ConceptButton = styled(Box)(() => ({
 }));
 
 export interface ConceptMenuProps {
-  onSave?: (themeData: ThemeData) => Promise<void>;
+  onSave?: (setting: Partial<ThemeSetting>) => Promise<void>;
 }
 export function ConceptMenu({ onSave = undefined }: ConceptMenuProps) {
   const { t } = useLocaleContext();
   const isMobile = useMobile();
   //
   const setSaving = useThemeBuilder((s) => s.setSaving);
-  const getThemeData = useThemeBuilder((s) => s.getThemeData);
+  const getThemeSetting = useThemeBuilder((s) => s.getThemeSetting);
   const concepts = useThemeBuilder((s) => s.concepts);
   const currentConceptId = useThemeBuilder((s) => s.currentConceptId);
   const setCurrentConcept = useThemeBuilder((s) => s.setCurrentConcept);
@@ -68,6 +69,7 @@ export function ConceptMenu({ onSave = undefined }: ConceptMenuProps) {
   const duplicateConcept = useThemeBuilder((s) => s.duplicateConcept);
   const deleteConcept = useThemeBuilder((s) => s.deleteConcept);
   const renameConcept = useThemeBuilder((s) => s.renameConcept);
+  const isThemeLocked = useThemeBuilder((s) => s.isThemeLocked());
   //
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -84,22 +86,26 @@ export function ConceptMenu({ onSave = undefined }: ConceptMenuProps) {
   }, [renameValue, concepts, renameTargetId]);
 
   // 切换主题
-  const handleSelectConcept = useCallback(
-    (concept: Concept) => async () => {
-      setSaving(true);
-      setCurrentConcept(concept.id);
-      // 直接保存主题
-      try {
-        setAnchorEl(null);
-        await onSave?.(getThemeData());
-      } catch (e) {
-        console.error(e);
-      } finally {
-        setSaving(false);
-      }
-    },
-    [setCurrentConcept, onSave, getThemeData, setSaving],
-  );
+  const handleSelectConcept = useMemoizedFn((concept: Concept) => async () => {
+    setCurrentConcept(concept.id);
+
+    // 锁定时，禁止自动保存
+    if (isThemeLocked) {
+      setAnchorEl(null);
+      return;
+    }
+
+    // 自动保存主题
+    setSaving(true);
+    try {
+      setAnchorEl(null);
+      await onSave?.(getThemeSetting());
+    } catch (e) {
+      console.error(e);
+    } finally {
+      setSaving(false);
+    }
+  });
 
   // 打开主题编辑框
   const openRenameDrawer = (concept: Concept) => {
@@ -169,7 +175,7 @@ export function ConceptMenu({ onSave = undefined }: ConceptMenuProps) {
                 {concept.name}
               </Typography>
               {/* 行操作按钮 */}
-              {!isMobile && (
+              {!isMobile && !isThemeLocked && (
                 <Box className="concept-actions">
                   <ConceptButton
                     title={t('editor.concept.rename')}
@@ -204,19 +210,23 @@ export function ConceptMenu({ onSave = undefined }: ConceptMenuProps) {
             </Box>
           </ConceptItem>
         ))}
-        <Divider />
-        <ConceptItem
-          disabled={concepts.length >= 8}
-          onClick={() => {
-            addConcept();
-            setAnchorEl(null);
-          }}>
-          <AddCircleOutlineOutlinedIcon sx={{ mr: 1, fontSize: 18 }} />
-          {t('editor.concept.add')}
-        </ConceptItem>
-        {isMobile && (
-          <>
+        {!isThemeLocked && [
+          <Divider key="d1" />,
+          <ConceptItem
+            key="add"
+            disabled={concepts.length >= 8}
+            onClick={() => {
+              addConcept();
+              setAnchorEl(null);
+            }}>
+            <AddCircleOutlineOutlinedIcon sx={{ mr: 1, fontSize: 18 }} />
+            {t('editor.concept.add')}
+          </ConceptItem>,
+        ]}
+        {isMobile &&
+          !isThemeLocked && [
             <ConceptItem
+              key="rename"
               onClick={() => {
                 const c = concepts.find((v) => v.id === currentConceptId);
                 if (c) openRenameDrawer(c);
@@ -224,8 +234,9 @@ export function ConceptMenu({ onSave = undefined }: ConceptMenuProps) {
               }}>
               <EditIcon sx={{ mr: 1, fontSize: 18 }} />
               {t('editor.concept.rename') || 'Rename'}
-            </ConceptItem>
+            </ConceptItem>,
             <ConceptItem
+              key="duplicate"
               disabled={concepts.length >= 8}
               onClick={() => {
                 duplicateConcept(currentConceptId);
@@ -233,8 +244,9 @@ export function ConceptMenu({ onSave = undefined }: ConceptMenuProps) {
               }}>
               <ContentCopyIcon sx={{ mr: 1, fontSize: 18 }} />
               {t('editor.concept.duplicate')}
-            </ConceptItem>
+            </ConceptItem>,
             <ConceptItem
+              key="delete"
               onClick={() => {
                 deleteConcept(currentConceptId);
                 setAnchorEl(null);
@@ -242,9 +254,8 @@ export function ConceptMenu({ onSave = undefined }: ConceptMenuProps) {
               disabled={concepts.length === 1}>
               <DeleteIcon sx={{ mr: 1, fontSize: 18, color: 'error.main' }} />
               {t('editor.concept.delete')}
-            </ConceptItem>
-          </>
-        )}
+            </ConceptItem>,
+          ]}
       </Menu>
       {/* Drawer for editing concept */}
       <Drawer anchor={isMobile ? 'bottom' : 'left'} open={renameDrawerOpen} onClose={closeRenameDrawer}>

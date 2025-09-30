@@ -4,10 +4,11 @@ import { BLOCKLET_THEME_DARK, BLOCKLET_THEME_LIGHT } from '@blocklet/theme';
 import { ThemeOptions, TypographyVariantsOptions, createTheme } from '@mui/material';
 import axios, { AxiosRequestConfig } from 'axios';
 import dotProp from 'dot-prop-immutable';
+import cloneDeep from 'lodash/cloneDeep';
 import { joinURL } from 'ufo';
 
-import { DEFAULT_CONCEPT_ID, DEFAULT_CONCEPT_NAME } from './constants';
-import { Concept, PreviewSize, ThemeData } from './types/theme';
+import { DEFAULT_CONCEPT_ID, DEFAULT_CONCEPT_NAME, DEFAULT_THEME_META } from './constants';
+import { Concept, PreviewSize, ThemeSetting } from './types/theme';
 
 export const isDev = process.env.NODE_ENV === 'development';
 
@@ -374,22 +375,8 @@ export function getThemeEndpoint() {
     `/api/theme?id=${encodeURIComponent(window.blocklet.did)}`,
   );
 }
-
-// 保存 service theme
-export function saveTheme({ url, data, ...config }: Omit<AxiosRequestConfig<ThemeData>, 'method'> = {}) {
-  const _url = url || getThemeEndpoint();
-
-  return axios.post(
-    _url,
-    {
-      theme: data,
-    },
-    config,
-  );
-}
-
-// 获取 service theme
-export function getTheme({ url, ...config }: Omit<AxiosRequestConfig<ThemeData>, 'method'> = {}) {
+// 获取 themeSetting
+export function getTheme({ url, ...config }: Omit<AxiosRequestConfig<ThemeSetting>, 'method'> = {}) {
   const _url = url || getThemeEndpoint();
 
   return axios.get(_url, config).then((res) => {
@@ -402,6 +389,7 @@ export function getTheme({ url, ...config }: Omit<AxiosRequestConfig<ThemeData>,
       // 新数据
       concepts,
       currentConceptId,
+      meta = cloneDeep(DEFAULT_THEME_META),
     } = res.data || {};
 
     let _concepts = concepts as Concept[];
@@ -434,6 +422,20 @@ export function getTheme({ url, ...config }: Omit<AxiosRequestConfig<ThemeData>,
     return {
       concepts: _concepts,
       currentConceptId: _currentConceptId,
+      meta,
     };
   });
+}
+
+// 保存 themeSetting 至 service
+export function saveTheme({ url, data, ...config }: Omit<AxiosRequestConfig<Partial<ThemeSetting>>, 'method'> = {}) {
+  const _url = url || getThemeEndpoint();
+
+  return axios.post(
+    _url,
+    {
+      theme: data,
+    },
+    config,
+  );
 }

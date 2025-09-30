@@ -30,6 +30,7 @@ import {
   DEFAULT_CONCEPT_ID,
   DEFAULT_CONCEPT_NAME,
   DEFAULT_FONT_STRING,
+  DEFAULT_THEME_META,
   HEADING_VARIANTS,
   MODE_SPECIFIC_FIELDS,
 } from '../constants';
@@ -79,6 +80,7 @@ const getDefaultState = () => ({
     },
   ],
   currentConceptId: DEFAULT_CONCEPT_ID,
+  meta: cloneDeep(DEFAULT_THEME_META),
   fonts: ['Roboto'],
   loadedFonts: new Set(['Roboto']),
   previewSize: false as PreviewSize,
@@ -123,7 +125,31 @@ export default function createStore() {
         saveToHistory();
       },
       setSaving: (saving) => set({ saving }),
+      // 只在第一次同步远程数据时使用，并作为 history 的起点
+      setThemeSetting: ({ concepts, currentConceptId, meta }) => {
+        const { fetchFonts, clearHistory, saveToHistory } = get();
 
+        set(() => {
+          const updates: Partial<ThemeStoreState> = {};
+
+          if (concepts && currentConceptId) {
+            updates.concepts = concepts;
+            updates.currentConceptId = currentConceptId;
+            updates.loadedFonts = fetchFonts(concepts);
+          }
+
+          if (meta) {
+            updates.meta = meta;
+          }
+
+          return updates;
+        });
+
+        clearHistory();
+        saveToHistory();
+      },
+      setThemeLocked: (locked) => set({ meta: { ...get().meta, locked } }),
+      isThemeLocked: () => get().meta.locked,
       // # 历史记录管理
       saveToHistory: () => {
         const { concepts, currentConceptId } = get();
@@ -316,25 +342,6 @@ export default function createStore() {
         }
 
         return result;
-      },
-      setConcepts: ({ concepts, currentConceptId }) => {
-        const { fetchFonts, clearHistory, saveToHistory } = get();
-
-        set(() => {
-          const updates: Partial<ThemeStoreState> = {};
-
-          if (concepts && currentConceptId) {
-            updates.concepts = concepts;
-            updates.currentConceptId = currentConceptId;
-            updates.loadedFonts = fetchFonts(concepts);
-          }
-
-          return updates;
-        });
-
-        // setConcepts 比较特殊，只在第一次同步远程数据时使用，并作为 history 的起点
-        clearHistory();
-        saveToHistory();
       },
       // 使用某个预定义主题
       applyTheme: (concept, theme, options = {}) => {
@@ -664,7 +671,7 @@ export default function createStore() {
       },
       shouldShowThemeMode: () => {
         const { themeMode } = get();
-
+        // 全局 themeMode 存在，则表示强制显示该 mode（通过 ThemeBuilder 组件的 mode 属性控制）
         return themeMode === undefined;
       },
       updateThemeConfig: (themeConfig) => {
@@ -686,12 +693,13 @@ export default function createStore() {
 
         return concept.themeConfig[mode];
       },
-      getThemeData: () => {
-        const { concepts, currentConceptId } = get();
+      getThemeSetting: () => {
+        const { concepts, currentConceptId, meta } = get();
 
         return {
           concepts: cloneDeep(concepts),
           currentConceptId,
+          meta: cloneDeep(meta),
         };
       },
 

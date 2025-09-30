@@ -46,7 +46,16 @@ function ShadeItem({ colorValue }: { colorValue: string }) {
         sx={{
           alignItems: 'center',
         }}>
-        <Box sx={{ width: 24, height: 24, borderRadius: 0.5, bgcolor: colorValue }} />
+        <Box
+          sx={{
+            width: 24,
+            height: 24,
+            borderRadius: 0.5,
+            border: '1px solid',
+            borderColor: 'divider',
+            bgcolor: colorValue,
+          }}
+        />
         <Box>{colorValue}</Box>
       </Stack>
     </Stack>
@@ -71,6 +80,7 @@ export function ColorEditDrawer({ open, colorType, onClose }: ColorEditDrawerPro
   const { t } = useLocaleContext();
   const themeObject = useThemeBuilder((s) => s.themeObject);
   const isMobile = useMediaQuery(themeObject.breakpoints.down('md'));
+  const isThemeLocked = useThemeBuilder((s) => s.isThemeLocked());
   const setThemeOptions = useThemeBuilder((s) => s.setThemeOptions);
   const removeThemeOption = useThemeBuilder((s) => s.removeThemeOption);
   const shuffleColors = useThemeBuilder((s) => s.shuffleColors);
@@ -141,6 +151,7 @@ export function ColorEditDrawer({ open, colorType, onClose }: ColorEditDrawerPro
           </ColorPickerWrapper>
           <HexColorField
             path={`palette.${colorType}.main`}
+            readOnly={isThemeLocked}
             onChange={(v) => handleMainColorChange(v)}
             onReset={(p) => removeThemeOption(p)}
           />
@@ -156,7 +167,7 @@ export function ColorEditDrawer({ open, colorType, onClose }: ColorEditDrawerPro
             <ShadeItem colorValue={mainColor.contrastText} />
           </Stack>
           {/* 随机颜色 */}
-          <ButtonShuffle sx={{ mt: 1 }} onClick={handleShuffleColor} />
+          <ButtonShuffle sx={{ mt: 1 }} disabled={isThemeLocked} onClick={handleShuffleColor} />
         </>
       )}
       {neutralColor && (
@@ -166,6 +177,7 @@ export function ColorEditDrawer({ open, colorType, onClose }: ColorEditDrawerPro
           </ColorPickerWrapper>
           <HexColorField
             path={`palette.${colorType}`}
+            readOnly={isThemeLocked}
             onChange={(v) => handleNeutralColorChange(v)}
             onReset={(p) => removeThemeOption(p)}
           />

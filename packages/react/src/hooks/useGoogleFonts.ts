@@ -1,5 +1,5 @@
-import { useAsyncEffect } from 'ahooks';
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useAsyncEffect, useMemoizedFn } from 'ahooks';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { PREVIEW_TEXT } from 'src/constants';
 import { FontFilter, GoogleFont, GoogleFontsData } from 'src/types/fonts';
 import { TextVariant } from 'src/types/theme';
@@ -134,34 +134,31 @@ const useGoogleFonts = (filter: FontFilter) => {
     ];
   }, [fontsByCategory, filter.category]);
 
-  const shuffleFonts = useCallback(
-    (textVariant?: TextVariant) => {
-      let heading: GoogleFont | null = null;
-      let body: GoogleFont | null = null;
+  const shuffleFonts = useMemoizedFn((textVariant?: TextVariant) => {
+    let heading: GoogleFont | null = null;
+    let body: GoogleFont | null = null;
 
-      if (!textVariant) {
-        heading = pickRandom(headingPool, lastRandomPick.current.heading);
-        body = pickRandom(bodyPool, lastRandomPick.current.body);
-      }
-      if (textVariant === 'heading') {
-        heading = pickRandom(headingPool, lastRandomPick.current.heading);
-      }
-      if (textVariant === 'body') {
-        body = pickRandom(bodyPool, lastRandomPick.current.body);
-      }
+    if (!textVariant) {
+      heading = pickRandom(headingPool, lastRandomPick.current.heading);
+      body = pickRandom(bodyPool, lastRandomPick.current.body);
+    }
+    if (textVariant === 'heading') {
+      heading = pickRandom(headingPool, lastRandomPick.current.heading);
+    }
+    if (textVariant === 'body') {
+      body = pickRandom(bodyPool, lastRandomPick.current.body);
+    }
 
-      lastRandomPick.current = {
-        heading,
-        body,
-      };
+    lastRandomPick.current = {
+      heading,
+      body,
+    };
 
-      return {
-        heading,
-        body,
-      };
-    },
-    [headingPool, bodyPool],
-  );
+    return {
+      heading,
+      body,
+    };
+  });
 
   // 当过滤条件改变时重置分页
   useEffect(() => {
