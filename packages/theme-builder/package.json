@@ -1,7 +1,7 @@
 {
   "name": "@blocklet/theme-builder",
   "description": "A comprehensive tool to customize themes for Material-UI",
-  "version": "0.4.6",
+  "version": "0.4.7",
   "keywords": [
     "MUI",
     "MUI v5",
