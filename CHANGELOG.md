@@ -1,3 +1,7 @@
+## 0.4.8 (October 29, 2025)
+
+- chore: update deps
+
 ## 0.4.7 (September 30, 2025)
 
 - feat(react): support edit lock in theme builder
