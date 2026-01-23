@@ -72,7 +72,7 @@
     "date-fns": "^4.1.0",
     "dot-prop-immutable": "^2.1.1",
     "flat": "^5.0.2",
-    "lodash": "^4.17.21",
+    "lodash": "^4.17.23",
     "mdi-material-ui": "^7.9.4",
     "nanoid": "^5.1.5",
     "react": "^19.1.1",

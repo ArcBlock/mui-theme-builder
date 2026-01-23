@@ -74,7 +74,7 @@
     "eslint": "^8.57.1",
     "jsdom": "^22.1.0",
     "lint-staged": "^15.5.2",
-    "lodash": "^4.17.21",
+    "lodash": "^4.17.23",
     "mdi-material-ui": "^7.9.4",
     "prettier": "^3.6.2",
     "react": "^19.1.1",
